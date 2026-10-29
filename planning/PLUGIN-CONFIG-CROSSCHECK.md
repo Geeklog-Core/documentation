@@ -10,13 +10,13 @@ Initial static comparison on 2026-10-29. Source: bundled plugin `install_default
 | Links | 19 | 28 | Permission-array split anchors |
 | Polls | 25 | 40 | Permission-array split anchors |
 | Spam-X | 12 | 12 | Exact name match |
-| Static Pages | 33 | 41 | Permission-array splits; review `langurl_staticpages` |
+| Static Pages | 33 | 41 | Permission-array splits; `langurl_staticpages` is a hidden Core option |
 | XMLSitemap | 14 | 18 | Additional `frequencies_*` subkey anchors |
 | reCAPTCHA | 23 | 23 | Exact name match |
 
 ## Next checks
 
-- [ ] Confirm the declaration type and runtime visibility of `langurl_staticpages` (it may be intentionally hidden).
+- [x] Confirmed `langurl_staticpages` is declared with type `@hidden` and group `Core` in Static Pages initial install and upgrade code. It is not an ordinary visible Static Pages setting; absence of a `desc_` anchor does not prove a documentation defect.
 - [ ] Explicitly normalize array permission anchors, then compare actual interactive options rather than raw keys.
 - [ ] Review defaults installed by upgrades and programmatic configuration changes.
 - [ ] Test UI-rendered help links for each active plugin and record actual URL/anchor results.
