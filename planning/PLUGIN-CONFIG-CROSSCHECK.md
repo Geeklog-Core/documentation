@@ -23,3 +23,12 @@ Initial static comparison on 2026-10-29. Source: bundled plugin `install_default
 - [ ] Preserve historical anchors even when currently unused; only retire them with a reviewed redirect or compatibility plan.
 
 Full raw comparison and file SHAs: [plugin-config-crosscheck.json](plugin-config-crosscheck.json). No source files in Geeklog Core changed.
+
+## Normalized regression check
+
+The new [check_plugin_config.py](../tools/check_plugin_config.py) expands a known permission array only when all four indexed anchors (`_0` to `_3`) exist in the legacy snapshot. This avoids flagging those legitimate UI subfields as missing. The remaining expected static differences are:
+
+- `staticpages.langurl_staticpages`: hidden Core option, not a visible plugin setting.
+- Four `xmlsitemap.frequencies_*` entries: documented subkeys that need separate behavioral review.
+
+This check compares **stored source snapshots**, not the current state of a running Geeklog installation. The expected exception list is explicit so future snapshot changes do not pass silently.
