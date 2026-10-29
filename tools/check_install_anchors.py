@@ -48,6 +48,8 @@ def main():
     for anchor in REQUIRED:
         literal = f'<a id="{anchor}" name="{anchor}"></a>'
         assert literal in raw, f"Source missing explicit anchor: {anchor}"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Installing Geeklog</title></head><body>\n' + html + '\n</body></html>\n', encoding="utf-8")
     # Link/asset checks are intentionally strict for locally generated files.
     # Remote links are listed for later human review, not tested for uptime.
     remote = []
@@ -67,8 +69,6 @@ def main():
         assert destination.is_relative_to((ROOT / "build").resolve()), f"Unsafe relative path: {url}"
         assert destination.exists(), f"Missing generated relative link/asset: {url}"
     print(f"PASS: local links/assets resolved; {len(remote)} remote references require separate review")
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Installing Geeklog</title></head><body>\n' + html + '\n</body></html>\n', encoding="utf-8")
     print(f"PASS: all {len(REQUIRED)} legacy installation anchors present in generated HTML")
 
 if __name__ == "__main__":
