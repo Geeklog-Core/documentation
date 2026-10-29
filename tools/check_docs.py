@@ -51,6 +51,14 @@ def main():
         else:
             assert entry["relative_path"] == f'docs/english/{entry["plugin"]}.html'
     print("Bundled plugin help-path inventory: 7 entries structurally validated (not runtime-tested)")
+    plugin_anchors = json.loads((ROOT / "planning" / "plugin-anchors.json").read_text(encoding="utf-8"))
+    assert {p["plugin"] for p in plugin_anchors["pages"]} == expected_plugins
+    for p in plugin_anchors["pages"]:
+        assert p["source_path"].endswith("/config.html") if p["plugin"] == "recaptcha" else p["source_path"].endswith("/" + p["plugin"] + ".html")
+        assert set(p["config_anchors"]).issubset(set(p["named_anchors"]))
+        assert all(a.startswith("desc_") for a in p["config_anchors"])
+        assert len(p["named_anchors"]) > 0
+    print("Plugin HTML anchor snapshot: 7 sources checked; migration coverage not yet tested")
     for filename, required in EXPECTED.items():
         missing = required - set(parsed[filename].anchors)
         assert not missing, f"Missing legacy anchors {filename}: {sorted(missing)}"
