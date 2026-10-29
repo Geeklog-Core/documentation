@@ -1,0 +1,9 @@
+/* Self-contained installation preview stylesheet: no network dependencies. */
+:root{color-scheme:light dark;font-family:system-ui,-apple-system,sans-serif;line-height:1.6}
+body{max-width:960px;margin:2rem auto;padding:0 1.25rem}
+a{color:LinkText}nav{padding:1rem 0;border-bottom:1px solid #999}nav a{margin-right:1rem}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}
+td,th{border:1px solid #999;padding:.5rem;text-align:left}
+blockquote{border-left:4px solid #777;padding:.5rem 1rem;margin-left:0}
+pre{overflow-x:auto;padding:1rem;background:Canvas;color:CanvasText;border:1px solid #999}
+:focus-visible{outline:3px solid Highlight}
