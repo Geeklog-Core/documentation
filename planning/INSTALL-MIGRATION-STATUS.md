@@ -12,7 +12,8 @@ This branch was created directly from the documentation repository's `main` so i
 - [ ] Verify all legacy troubleshooting examples and version-specific procedures before treating the draft as comprehensive.
 - [x] Add standalone Markdown-to-HTML preview and test of all nine legacy `id` / `name` anchors on this branch; [CI succeeded](https://github.com/hostellerie/documentation/actions/runs/40865064684).
 - [x] Inventory original HTML local assets/navigation and historical external references in `INSTALL-RESOURCE-AUDIT.md`.
-- [ ] Integrate with the eventual shared foundation build and validate all links, images, stylesheet paths, and release packaging.
+- [x] Add standalone checks for local relative paths and fragment links, with a real table of contents linking to preserved historical anchors; [CI successful](https://github.com/hostellerie/documentation/actions/runs/40866083596).
+- [ ] Integrate with the eventual shared foundation build and validate all actual bundled assets, stylesheets, external references and release packaging.
 - [ ] Verify documentation against a packaged installation and obtain maintainer review.
 
 **Non-goal:** replacing or deleting existing shipped installation HTML in this branch.
