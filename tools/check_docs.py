@@ -39,6 +39,18 @@ def main():
     assert manifest["anchor_count"] == sum(counts.values()) == 450
     assert sorted(manifest["duplicate_anchor_names"]) == sorted(k for k, v in counts.items() if v > 1)
     assert set(EXPECTED["config.html"]).issubset(counts)
+    plugins = json.loads((ROOT / "planning" / "bundled-plugin-doc-links.json").read_text(encoding="utf-8"))
+    expected_plugins = {"calendar", "links", "polls", "recaptcha", "spamx", "staticpages", "xmlsitemap"}
+    plugin_rows = plugins["entries"]
+    assert len(plugin_rows) == len(expected_plugins)
+    assert {entry["plugin"] for entry in plugin_rows} == expected_plugins
+    for entry in plugin_rows:
+        assert entry["relative_path"].endswith(".html")
+        if entry["plugin"] == "recaptcha":
+            assert entry["relative_path"] == "admin/plugins/recaptcha/docs/english/config.html"
+        else:
+            assert entry["relative_path"] == f'docs/english/{entry["plugin"]}.html'
+    print("Bundled plugin help-path inventory: 7 entries structurally validated (not runtime-tested)")
     for filename, required in EXPECTED.items():
         missing = required - set(parsed[filename].anchors)
         assert not missing, f"Missing legacy anchors {filename}: {sorted(missing)}"
