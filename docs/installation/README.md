@@ -4,6 +4,10 @@
 
 <a id="glossary" name="glossary"></a>
 
+## Sections
+
+[Requirements](#installation_requirements) · [New installation](#install) · [Upgrading](#upgrade) · [Moving a site](#migrate) · [Troubleshooting](#installprob)
+
 ## Glossary
 
 - **Directory:** a filesystem folder.
