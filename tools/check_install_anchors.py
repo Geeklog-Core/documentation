@@ -6,6 +6,7 @@ unmerged foundation PR.
 """
 from html.parser import HTMLParser
 from pathlib import Path
+import shutil
 from urllib.parse import urlsplit, unquote
 import markdown
 
@@ -49,7 +50,38 @@ def main():
         literal = f'<a id="{anchor}" name="{anchor}"></a>'
         assert literal in raw, f"Source missing explicit anchor: {anchor}"
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Installing Geeklog</title></head><body>\n' + html + '\n</body></html>\n', encoding="utf-8")
+    root_build = ROOT / "build"
+    (root_build / "images").mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / "assets/install.css", root_build / "docstyle.css")
+    shutil.copyfile(ROOT / "assets/preview-mark.svg", root_build / "images/logo.svg")
+    html_body = (
+        '<nav><a href="index.html">Documentation preview</a> '
+        '<a href="support.html">Support</a></nav>'
+        '<p><img src="../images/logo.svg" alt="Geeklog documentation preview" width="260" height="60"></p>'
+        + html
+    )
+    full_html = (
+        '<!doctype html>\\n<html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<title>Installing Geeklog — preview</title>'
+        '<link rel="stylesheet" href="../docstyle.css"></head><body>\\n'
+        + html_body + '\\n</body></html>\\n'
+    )
+    OUTPUT.write_text(full_html, encoding="utf-8")
+    (OUTPUT.parent / "index.html").write_text(
+        '<!doctype html><html lang="en"><meta charset="utf-8">'
+        '<title>Documentation preview</title><link rel="stylesheet" href="../docstyle.css">'
+        '<h1>Documentation preview</h1><a href="install.html">Installation draft</a>',
+        encoding="utf-8",
+    )
+    (OUTPUT.parent / "support.html").write_text(
+        '<!doctype html><html lang="en"><meta charset="utf-8">'
+        '<title>Support preview</title><link rel="stylesheet" href="../docstyle.css">'
+        '<h1>Support placeholder</h1><a href="install.html">Installation draft</a>',
+        encoding="utf-8",
+    )
+    found = Anchors()
+    found.feed(full_html)
     # Link/asset checks are intentionally strict for locally generated files.
     # Remote links are listed for later human review, not tested for uptime.
     remote = []
