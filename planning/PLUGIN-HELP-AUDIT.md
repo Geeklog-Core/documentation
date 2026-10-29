@@ -29,3 +29,19 @@ All seven bundled plugins implement `plugin_getdocumentationurl_<plugin>($file)`
 - Confirm any changed option/anchor behavior using integration tests; do not alter the Core in this planning branch.
 
 Machine-readable reference: [bundled-plugin-doc-links.json](bundled-plugin-doc-links.json).
+
+## Source HTML anchor snapshot (2026-10-29)
+
+Captured complete named-anchor arrays and ID attributes for all seven English plugin help documents in [plugin-anchors.json](plugin-anchors.json).
+
+| Plugin | Named anchors | Configuration (`desc_`) anchors |
+| --- | ---: | ---: |
+| Calendar | 36 | 31 |
+| Links | 37 | 28 |
+| Polls | 47 | 40 |
+| Spam-X | 30 | 12 |
+| Static Pages | 62 | 41 |
+| XMLSitemap | 24 | 18 |
+| reCAPTCHA | 26 | 23 |
+
+This is a snapshot of HTML source, **not** proof that the configuration options currently reference all anchors or that every runtime link works. We must still compare these `desc_` keys to each plugin's current configuration definitions, inventory non-English fallback behavior, and run package-level tests before replacing any HTML.
