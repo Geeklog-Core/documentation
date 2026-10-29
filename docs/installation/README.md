@@ -86,6 +86,29 @@ Start by checking the filesystem paths in `siteconfig.php` and reading the **fir
 
 This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/master/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
 
+
+### Historical errors and modern diagnostic approach
+
+The original installer guide includes examples from older PHP and MySQL versions. Their exact messages and recommended fixes are **historical**, and should not be copied into modern production instructions without review.
+
+| Symptom | What to investigate |
+| --- | --- |
+| PHP parse error in `siteconfig.php` | Look for malformed quotes, missing punctuation and an accidental edit near the indicated line; use PHP syntax checks in a safe environment |
+| Missing required PHP file | Check whether the installation archive was extracted completely and whether filesystem paths are correct |
+| Database table already exists | Determine whether this is a previously initialized or partially upgraded database; **do not drop a production database** to retry |
+| Parse errors in `lib-common.php` | Verify file integrity against the release archive, encoding and whether deployment tools unintentionally modified the PHP code |
+| Database access denied | Check connection details, host, user and permissions; use database-version-appropriate account management, not obsolete SQL commands |
+| Unable to write a log file | Check parent directories, ownership and the web server's effective user; avoid world-writable permissions such as `777` |
+| "Headers already sent" | Check for unexpected output, whitespace and encoding changes in PHP files; use logs to locate the first output |
+
+**Security corrections relative to the historical instructions:** Never publish database credentials in a support request. Do not grant unrestricted access or use `chmod 777` as a generic fix. Preserve backups before investigating partially completed database upgrades.
+
+### Support information to collect
+
+Record the exact Geeklog release, PHP/database version, web server, first error message, relevant log entries, and the stage where the failure occurred. Redact passwords, tokens, secrets and private user data before sharing diagnostic output.
+
+The legacy guide also links to mailing lists and a wiki that may no longer operate. These links must be checked and replaced during editorial review; the current [Geeklog project repository](https://github.com/Geeklog-Core/geeklog) and [Geeklog website](https://www.geeklog.net/) are suitable starting points.
+
 ## Migration compatibility
 
 The nine legacy anchors `glossary`, `public_html`, `installation_requirements`, `preinstall`, `things_you_should_know`, `install`, `upgrade`, `migrate` and `installprob` are explicitly retained above as HTML anchors in the Markdown source.
