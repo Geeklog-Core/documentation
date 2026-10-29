@@ -16,4 +16,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: installation-html-preview
-          path: build/english/install.html
+          path: build/
