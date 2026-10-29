@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Regression checks for the limited Markdown -> HTML documentation pilot."""
 from html.parser import HTMLParser
+import json
+from collections import Counter
 from pathlib import Path
 from urllib.parse import urldefrag
 import subprocess
@@ -32,6 +34,11 @@ def main():
         assert page.is_file(), f"Missing output: {page}"
         parsed[filename] = Inspect()
         parsed[filename].feed(page.read_text(encoding="utf-8"))
+    manifest = json.loads((ROOT / "planning" / "legacy-config-anchors.json").read_text(encoding="utf-8"))
+    counts = Counter(manifest["anchors"])
+    assert manifest["anchor_count"] == sum(counts.values()) == 450
+    assert sorted(manifest["duplicate_anchor_names"]) == sorted(k for k, v in counts.items() if v > 1)
+    assert set(EXPECTED["config.html"]).issubset(counts)
     for filename, required in EXPECTED.items():
         missing = required - set(parsed[filename].anchors)
         assert not missing, f"Missing legacy anchors {filename}: {sorted(missing)}"
@@ -46,7 +53,10 @@ def main():
             assert target in parsed, f"Broken local page {filename}: {href}"
             if fragment:
                 assert fragment in parsed[target].anchors, f"Broken fragment {filename}: {href}"
-    print("Pilot page links and two legacy configuration anchors: OK")
+    missing_legacy = set(counts) - set(parsed["config.html"].anchors)
+    print("Pilot page links and two sample legacy configuration anchors: OK")
+    print(f"Full source snapshot: {manifest['anchor_count']} occurrences, {len(counts)} unique; "
+          f"{len(missing_legacy)} unique legacy anchors not yet migrated (expected for pilot)")
 
 if __name__ == "__main__":
     main()
