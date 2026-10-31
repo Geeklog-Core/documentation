@@ -16,6 +16,7 @@ This branch was created directly from the documentation repository's `main` so i
 - [x] Inventory original HTML local assets/navigation and historical external references in `INSTALL-RESOURCE-AUDIT.md`.
 - [x] Add standalone checks for local relative paths and fragment links, with a real table of contents linking to preserved historical anchors; [CI successful](https://github.com/hostellerie/documentation/actions/runs/40866083596).
 - [x] Generate an independent **preview-only** offline bundle: `build/english/install.html`, `index.html`, `support.html`, `build/docstyle.css`, `build/images/logo.svg`; verify relative references in install page and upload complete bundle in CI ([successful run](https://github.com/hostellerie/documentation/actions/runs/40866357612)).
+- [x] Validate **all three generated HTML pages** and their local resources across the whole preview bundle; deliberate missing-file and missing-fragment negative tests pass ([CI](https://github.com/hostellerie/documentation/actions/runs/41184209438)).
 - [ ] Integrate with eventual shared build and validate original assets, all bundled docs, external references, release packaging and a real Geeklog installation. The SVG is a text-only preview mark, **not** the official logo.
 - [ ] Verify documentation against a packaged installation and obtain maintainer review.
 
