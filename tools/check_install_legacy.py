@@ -2,6 +2,7 @@
 """Compare generated installation HTML with frozen legacy source contract."""
 import json
 import os
+import os
 from pathlib import Path
 from html.parser import HTMLParser
 
@@ -38,6 +39,17 @@ def main():
     for relative in paths:
         assert (build/relative).resolve().is_file(), f"Missing original-path asset: {relative}"
     assert (ROOT/"build/images/logo.gif").read_bytes()[:6].startswith(b"GIF8")
+    pinned = os.environ.get("GEEKLOG_CORE_DOCS")
+    if pinned:
+        core = Path(pinned)
+        for source_rel, output_rel in (
+            ("docstyle.css", "docstyle.css"),
+            ("images/logo.gif", "images/logo.gif"),
+            ("english/index.html", "english/index.html"),
+            ("english/support.html", "english/support.html"),
+        ):
+            assert (core / source_rel).read_bytes() == (ROOT / "build" / output_rel).read_bytes(), source_rel
+        print("PASS: original Core CSS, logo, index and support are byte-identical")
     # Check against frozen source list, not a separately hard-coded generated list.
     print(f"PASS: all {len(expected)} original named anchors preserved as id and name")
     print("PASS: four legacy local paths resolve in offline preview")
