@@ -1,0 +1,24 @@
+{
+  "source_repository": "Geeklog-Core/geeklog",
+  "source_path": "public_html/docs/english/install.html",
+  "source_blob_sha": "eae47434247b4fc0e54706ee9b116618cc40f83e",
+  "captured": "2026-11-01",
+  "legacy_named_anchors": [
+    "glossary",
+    "public_html",
+    "installation_requirements",
+    "preinstall",
+    "things_you_should_know",
+    "install",
+    "upgrade",
+    "migrate",
+    "installprob"
+  ],
+  "legacy_local_references": [
+    "../docstyle.css",
+    "../images/logo.gif",
+    "index.html",
+    "support.html"
+  ],
+  "notes": "Legacy names and paths captured from 2.2.2-era source. New preview uses logo.svg instead of logo.gif; therefore asset-path compatibility is NOT complete."
+}
