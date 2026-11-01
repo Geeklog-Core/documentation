@@ -14,8 +14,7 @@ jobs:
           ref: dd44c01368afad32e16467fd5357af3299c11d3a
           path: core-source
           sparse-checkout: |
-            public_html/docs/docstyle.css
-            public_html/docs/images/logo.gif
+            public_html/docs
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
