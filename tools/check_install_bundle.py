@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check every generated HTML file and local resource, including broken-link cases."""
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -60,7 +61,13 @@ def main():
     problems = validate(pages)
     installation_errors = [error for error in problems if error.startswith(str((ENGLISH / "install.html").resolve()) + ":")]
     assert not installation_errors, "\n".join(installation_errors)
-    print(f"Legacy source link issues requiring separate audit: {len(problems) - len(installation_errors)}")
+    inherited = [error for error in problems if error not in installation_errors]
+    print(f"Legacy source link issues requiring separate audit: {len(inherited)}")
+    for issue in inherited:
+        print("LEGACY-LINK:", issue)
+    (ROOT / "build" / "legacy-link-audit.json").write_text(
+        json.dumps({"count": len(inherited), "issues": inherited}, indent=2) + "\n", encoding="utf-8"
+    )
     # Demonstrate the validator detects broken paths and broken fragments.
     original = list(installation.refs)
     installation.refs.append("does-not-exist.html")
