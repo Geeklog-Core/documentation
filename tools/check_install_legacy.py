@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compare generated installation HTML with frozen legacy source contract."""
 import json
+import os
 from pathlib import Path
 from html.parser import HTMLParser
 
