@@ -23,3 +23,9 @@ This branch was created directly from the documentation repository's `main` so i
 - [ ] Verify documentation against a packaged installation and obtain maintainer review.
 
 **Non-goal:** replacing or deleting existing shipped installation HTML in this branch.
+
+## Pinned Core assets integration (2026-11-01)
+
+- [x] CI checks out Geeklog Core at pinned commit `dd44c01368afad32e16467fd5357af3299c11d3a` and copies the **actual** `public_html/docs/docstyle.css` and `public_html/docs/images/logo.gif` into their original relative locations.
+- [x] Byte-for-byte equality of both copied assets is checked against the pinned checkout; [GitHub Actions successful](https://github.com/hostellerie/documentation/actions/runs/41260273461).
+- [ ] Original `index.html` and `support.html` remain preview placeholders; validate full published documentation and packaging before release.
