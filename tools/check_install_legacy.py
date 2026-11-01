@@ -13,10 +13,13 @@ class Scan(HTMLParser):
         super().__init__()
         self.ids=set()
         self.names=set()
+        self.references=set()
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if a.get("id"): self.ids.add(a["id"])
         if tag=="a" and a.get("name"): self.names.add(a["name"])
+        for field in ("href", "src"):
+            if a.get(field): self.references.add(a[field])
 
 def main():
     contract=json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -28,9 +31,16 @@ def main():
     scan.feed(OUTPUT.read_text(encoding="utf-8"))
     assert expected<=scan.ids, f"Missing id anchors: {sorted(expected-scan.ids)}"
     assert expected<=scan.names, f"Missing name anchors: {sorted(expected-scan.names)}"
+    paths=set(contract["legacy_local_references"])
+    assert paths<=scan.references, f"Missing historical references: {sorted(paths-scan.references)}"
+    build=ROOT/"build/english"
+    for relative in paths:
+        assert (build/relative).resolve().is_file(), f"Missing original-path asset: {relative}"
+    assert (ROOT/"build/images/logo.gif").read_bytes()[:6]==b"GIF89a"
     # Check against frozen source list, not a separately hard-coded generated list.
     print(f"PASS: all {len(expected)} original named anchors preserved as id and name")
-    print("WARNING: original ../images/logo.gif path is not preserved in preview; original distribution packaging remains unverified")
+    print("PASS: four legacy local paths resolve in offline preview")
+    print("WARNING: logo.gif is a 1x1 placeholder, NOT the original project logo; release packaging remains unverified")
 
 if __name__=="__main__":
     main()
