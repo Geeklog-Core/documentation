@@ -20,5 +20,5 @@
     "index.html",
     "support.html"
   ],
-  "notes": "Legacy names and paths captured from 2.2.2-era source. New preview uses logo.svg instead of logo.gif; therefore asset-path compatibility is NOT complete."
+  "notes": "The four historical paths now resolve in the preview. The logo.gif is a 1x1 transparent placeholder, not original artwork; original-release assets and full packaging have not been verified."
 }
