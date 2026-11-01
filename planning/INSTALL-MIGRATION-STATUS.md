@@ -47,3 +47,8 @@ This branch was created directly from the documentation repository's `main` so i
 - [ ] Replace contributor-branch audit link with stable documentation URL once Tom approves architecture.
 - [ ] Obtain technical validation of actual staging install/upgrade/migrate flows before any production guidance.
 - [ ] Wait for Tom's review of PR #1 before proposing a second PR, release packaging or official documentation replacement.
+
+## Complete documentation overlay integrity — 2026-11-01
+
+- [x] Add `tools/check_install_overlay.py` to compare SHA-256 of **every** pinned Core documentation file against output; only `english/install.html` may differ, and optional `legacy-link-audit.json` may be added. [CI passed](https://github.com/hostellerie/documentation/actions/runs/41294526352).
+- [ ] Run complete Geeklog install/upgrade/migrate in an approved isolated environment. This script does not execute the installer or validate runtime compatibility.
