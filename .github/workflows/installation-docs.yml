@@ -8,11 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: dd44c01368afad32e16467fd5357af3299c11d3a
+          path: core-source
+          sparse-checkout: |
+            public_html/docs/docstyle.css
+            public_html/docs/images/logo.gif
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: python -m pip install -r requirements-docs.txt
       - run: python tools/check_install_anchors.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_install_bundle.py
       - run: python tools/check_install_legacy.py
       - uses: actions/upload-artifact@v4
