@@ -63,8 +63,16 @@ def main():
     assert not installation_errors, "\n".join(installation_errors)
     inherited = [error for error in problems if error not in installation_errors]
     print(f"Legacy source link issues requiring separate audit: {len(inherited)}")
+    def normalize(issue):
+        filename, detail = issue.split(": ", 1)
+        return Path(filename).name + ":" + detail.replace("missing fragment ", "")
+    actual = sorted(normalize(issue) for issue in inherited)
+    baseline = json.loads((ROOT / "planning/install-legacy-link-baseline.json").read_text(encoding="utf-8"))
+    expected = sorted(baseline["issues"])
+    assert actual == expected, "Unexpected inherited link changes: " + repr({"actual":actual,"expected":expected})
     for issue in inherited:
         print("LEGACY-LINK:", issue)
+    print("PASS: inherited link defects match explicit pinned-source baseline; no new defects")
     (ROOT / "build" / "legacy-link-audit.json").write_text(
         json.dumps({"count": len(inherited), "issues": inherited}, indent=2) + "\n", encoding="utf-8"
     )
