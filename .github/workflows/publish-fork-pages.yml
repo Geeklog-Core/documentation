@@ -38,6 +38,8 @@ jobs:
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/online
