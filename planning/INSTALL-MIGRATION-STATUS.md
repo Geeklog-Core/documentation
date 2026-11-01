@@ -40,3 +40,10 @@ This branch was created directly from the documentation repository's `main` so i
 
 - [x] Triage inherited seven link defects (five unique targets) in unchanged `changes.html` and freeze an exact CI baseline; [passing run](https://github.com/hostellerie/documentation/actions/runs/41268192768). See `INSTALL-LEGACY-LINK-AUDIT.md`.
 - [ ] Editorially determine replacement destinations; no historic Core HTML modified.
+
+## External links and approvals — 2026-11-01
+
+- [x] Audit the four actual external links in Markdown draft; separate example URLs from actionable links. See `INSTALL-EXTERNAL-LINK-AUDIT.md`.
+- [ ] Replace contributor-branch audit link with stable documentation URL once Tom approves architecture.
+- [ ] Obtain technical validation of actual staging install/upgrade/migrate flows before any production guidance.
+- [ ] Wait for Tom's review of PR #1 before proposing a second PR, release packaging or official documentation replacement.
