@@ -37,3 +37,6 @@ This branch was created directly from the documentation repository's `main` so i
 - [x] Scan 14 English HTML pages; generated installation document and its local references pass strict validation; [CI passed](https://github.com/hostellerie/documentation/actions/runs/41260633640).
 - [ ] Investigate **7 pre-existing local reference/fragment issues** reported in the inherited legacy docs. They are not automatically repaired or hidden as a compatibility success.
 - [ ] Test assembled output in a real Geeklog release installation and review version-specific instructions.
+
+- [x] Triage inherited seven link defects (five unique targets) in unchanged `changes.html` and freeze an exact CI baseline; [passing run](https://github.com/hostellerie/documentation/actions/runs/41268192768). See `INSTALL-LEGACY-LINK-AUDIT.md`.
+- [ ] Editorially determine replacement destinations; no historic Core HTML modified.
