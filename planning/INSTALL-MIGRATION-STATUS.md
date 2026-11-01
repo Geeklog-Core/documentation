@@ -52,3 +52,8 @@ This branch was created directly from the documentation repository's `main` so i
 
 - [x] Add `tools/check_install_overlay.py` to compare SHA-256 of **every** pinned Core documentation file against output; only `english/install.html` may differ, and optional `legacy-link-audit.json` may be added. [CI passed](https://github.com/hostellerie/documentation/actions/runs/41294526352).
 - [ ] Run complete Geeklog install/upgrade/migrate in an approved isolated environment. This script does not execute the installer or validate runtime compatibility.
+
+## Staging readiness — 2026-11-01
+
+- [x] Prepare isolated new-install, upgrade, migration, offline-doc, rollback and security test matrix in `INSTALL-STAGING-VALIDATION.md`.
+- [ ] Obtain approval for disposable staging environment before performing runtime tests; never test on production.
