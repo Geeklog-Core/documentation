@@ -53,11 +53,15 @@ def main():
     root_build = ROOT / "build"
     (root_build / "images").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / "assets/install.css", root_build / "docstyle.css")
-    shutil.copyfile(ROOT / "assets/preview-mark.svg", root_build / "images/logo.svg")
+    # Stand-in GIF at the historical path only; NOT Geeklog branding artwork.
+    (root_build / "images/logo.gif").write_bytes(bytes.fromhex(
+        "47494638396101000100800000ffffff00000021f9040100000000"
+        "2c00000000010001000002024401003b"
+    ))
     html_body = (
         '<nav><a href="index.html">Documentation preview</a> '
         '<a href="support.html">Support</a></nav>'
-        '<p><img src="../images/logo.svg" alt="Geeklog documentation preview" width="260" height="60"></p>'
+        '<p><img src="../images/logo.gif" alt="" width="1" height="1"></p>'
         + html
     )
     full_html = (
