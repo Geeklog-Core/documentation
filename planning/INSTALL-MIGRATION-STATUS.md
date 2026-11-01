@@ -18,7 +18,7 @@ This branch was created directly from the documentation repository's `main` so i
 - [x] Generate an independent **preview-only** offline bundle: `build/english/install.html`, `index.html`, `support.html`, `build/docstyle.css`, `build/images/logo.svg`; verify relative references in install page and upload complete bundle in CI ([successful run](https://github.com/hostellerie/documentation/actions/runs/40866357612)).
 - [x] Validate **all three generated HTML pages** and their local resources across the whole preview bundle; deliberate missing-file and missing-fragment negative tests pass ([CI](https://github.com/hostellerie/documentation/actions/runs/41184209438)).
 - [x] Capture frozen legacy installation source anchor/resource contract in `install-legacy-contract.json` and add generated-vs-original anchor comparison in `check_install_legacy.py`.
-- [ ] Restore or explicitly map legacy `../images/logo.gif` asset URL; current SVG preview **does not preserve that path**.
+- [x] Preserve original `../images/logo.gif` file path using a transparent 1×1 **placeholder** (not official Geeklog imagery). All four local references in the source manifest now resolve; replace the placeholder with licensed original assets before shipping.
 - [ ] Integrate with eventual shared build and validate original assets, all bundled docs, external references, release packaging and a real Geeklog installation. The SVG is a text-only preview mark, **not** the official logo.
 - [ ] Verify documentation against a packaged installation and obtain maintainer review.
 
