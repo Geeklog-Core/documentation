@@ -29,3 +29,11 @@ This branch was created directly from the documentation repository's `main` so i
 - [x] CI checks out Geeklog Core at pinned commit `dd44c01368afad32e16467fd5357af3299c11d3a` and copies the **actual** `public_html/docs/docstyle.css` and `public_html/docs/images/logo.gif` into their original relative locations.
 - [x] Byte-for-byte equality of both copied assets is checked against the pinned checkout; [GitHub Actions successful](https://github.com/hostellerie/documentation/actions/runs/41260273461).
 - [ ] Original `index.html` and `support.html` remain preview placeholders; validate full published documentation and packaging before release.
+
+## End-to-end legacy tree overlay — 2026-11-01
+
+- [x] GitHub Actions copies the complete documentation tree from pinned Geeklog Core commit `dd44c01368afad32e16467fd5357af3299c11d3a` and overlays ONLY the generated `english/install.html`.
+- [x] Confirm original `english/index.html`, `english/support.html`, `docstyle.css`, and `images/logo.gif` remain byte-for-byte identical to the pinned Core checkout.
+- [x] Scan 14 English HTML pages; generated installation document and its local references pass strict validation; [CI passed](https://github.com/hostellerie/documentation/actions/runs/41260633640).
+- [ ] Investigate **7 pre-existing local reference/fragment issues** reported in the inherited legacy docs. They are not automatically repaired or hidden as a compatibility success.
+- [ ] Test assembled output in a real Geeklog release installation and review version-specific instructions.
