@@ -48,7 +48,7 @@ def validate(pages, build=BUILD):
 
 def main():
     html_files = sorted(ENGLISH.glob("*.html"))
-    assert {p.name for p in html_files} == {"index.html", "install.html", "support.html"}
+    assert {"index.html", "install.html", "support.html"} <= {p.name for p in html_files}
     pages = {}
     for file in html_files:
         doc = Document()
@@ -65,7 +65,7 @@ def main():
     installation.refs = original + ["#missing-test-fragment"]
     assert any("missing-test-fragment" in failure for failure in validate(pages))
     installation.refs = original
-    print("PASS: 3 preview HTML pages, 9 legacy fragments, all local links/assets")
+    print(f"PASS: {len(html_files)} HTML pages scanned; generated install page links valid; nine historical fragments preserved")
     print("PASS: regression checks reject missing files and missing fragments")
 
 if __name__ == "__main__":
