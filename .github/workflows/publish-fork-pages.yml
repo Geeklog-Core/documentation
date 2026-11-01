@@ -1,5 +1,7 @@
 name: Publish fork documentation preview
 on:
+  push:
+    branches: [prototype/dual-output-222]
   workflow_dispatch:
 permissions:
   contents: read
