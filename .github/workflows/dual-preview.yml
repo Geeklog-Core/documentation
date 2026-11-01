@@ -17,10 +17,21 @@ jobs:
           path: core-source
           sparse-checkout: |
             public_html/docs
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: v2.2.2
+          path: release-source
+          sparse-checkout: |
+            public_html/docs
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m pip install -r requirements-docs.txt
+      - run: python tools/check_release_provenance.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+          GEEKLOG_RELEASE_DOCS: release-source/public_html/docs
       - run: python tools/check_install_anchors.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
