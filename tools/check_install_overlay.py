@@ -3,6 +3,8 @@
 from pathlib import Path
 import hashlib
 import os
+import tempfile
+import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(os.environ["GEEKLOG_CORE_DOCS"]).resolve()
@@ -25,6 +27,13 @@ def main():
     added = sorted(build_files-core_files)
     allowed = {Path("legacy-link-audit.json")}
     assert set(added) <= allowed, f"Unexpected generated files: {added}"
+    # Prove integrity checks detect a tampered unmodified Core resource.
+    with tempfile.TemporaryDirectory() as directory:
+        altered = Path(directory) / "docstyle.css"
+        shutil.copyfile(BUILD / "docstyle.css", altered)
+        altered.write_bytes(altered.read_bytes() + b"\\n/* tampered */")
+        assert digest(CORE / "docstyle.css") != digest(altered), "Mutation test failed"
+    print("PASS: tampering with inherited CSS is detectable")
     print(f"PASS: {len(core_files)} Core documentation files preserved except install.html")
     print(f"PASS: only install.html overlaid; generated audit files: {added}")
     print("NOTE: archive/website compatibility only; installer execution not tested")
