@@ -56,14 +56,10 @@ def main():
     core_docs = os.environ.get("GEEKLOG_CORE_DOCS")
     if core_docs:
         original = Path(core_docs).resolve()
-        for rel, dest in (
-            ("docstyle.css", root_build / "docstyle.css"),
-            ("images/logo.gif", root_build / "images/logo.gif"),
-        ):
-            source = original / rel
-            assert source.is_file(), f"Missing Geeklog Core asset: {source}"
-            shutil.copyfile(source, dest)
-        print("Using real Core CSS and GIF assets from pinned source checkout")
+        # Copy the actual legacy documentation tree before replacing install.html.
+        # Preserves full legacy navigation, resources and the exact expected layout.
+        shutil.copytree(original, root_build, dirs_exist_ok=True)
+        print("Using complete pinned Core documentation tree (install.html replaced)")
     else:
         shutil.copyfile(ROOT / "assets/install.css", root_build / "docstyle.css")
         # Standalone developer preview: intentionally unbranded placeholder.
@@ -86,18 +82,19 @@ def main():
         + html_body + '\\n</body></html>\\n'
     )
     OUTPUT.write_text(full_html, encoding="utf-8")
-    (OUTPUT.parent / "index.html").write_text(
-        '<!doctype html><html lang="en"><meta charset="utf-8">'
-        '<title>Documentation preview</title><link rel="stylesheet" href="../docstyle.css">'
-        '<h1>Documentation preview</h1><a href="install.html">Installation draft</a>',
-        encoding="utf-8",
-    )
-    (OUTPUT.parent / "support.html").write_text(
-        '<!doctype html><html lang="en"><meta charset="utf-8">'
-        '<title>Support preview</title><link rel="stylesheet" href="../docstyle.css">'
-        '<h1>Support placeholder</h1><a href="install.html">Installation draft</a>',
-        encoding="utf-8",
-    )
+    if not core_docs:
+        (OUTPUT.parent / "index.html").write_text(
+            '<!doctype html><html lang="en"><meta charset="utf-8">'
+            '<title>Documentation preview</title><link rel="stylesheet" href="../docstyle.css">'
+            '<h1>Documentation preview</h1><a href="install.html">Installation draft</a>',
+            encoding="utf-8",
+        )
+        (OUTPUT.parent / "support.html").write_text(
+            '<!doctype html><html lang="en"><meta charset="utf-8">'
+            '<title>Support preview</title><link rel="stylesheet" href="../docstyle.css">'
+            '<h1>Support placeholder</h1><a href="install.html">Installation draft</a>',
+            encoding="utf-8",
+        )
     found = Anchors()
     found.feed(full_html)
     # Link/asset checks are intentionally strict for locally generated files.
