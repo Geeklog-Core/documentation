@@ -29,6 +29,8 @@ def main():
         assert all(n.startswith("public_html/") and ".." not in Path(n).parts for n in names), "Unsafe path"
         zipped={n.removeprefix(EXPECTED_PREFIX) for n in names if n.startswith(EXPECTED_PREFIX)}
         recaptcha={p.relative_to(RECAPTCHA).as_posix():p for p in RECAPTCHA.rglob("*") if p.is_file()}
+        expected=set(EXPECTED_PREFIX+name for name in core) | set("public_html/admin/plugins/recaptcha/docs/"+name for name in recaptcha)
+        assert set(names)==expected, f"Unexpected or missing ZIP entries: {sorted(set(names)^expected)}"
         for name,path in recaptcha.items():
             key="public_html/admin/plugins/recaptcha/docs/"+name
             assert key in names, f"Missing plugin-local documentation: {key}"
@@ -49,6 +51,7 @@ def main():
         for plugin in ("calendar","links","polls","spamx","staticpages","xmlsitemap"):
             assert ("english/"+plugin+".html") in core, f"Missing Core plugin help: {plugin}"
             assert z.read(EXPECTED_PREFIX+"english/"+plugin+".html")==core["english/"+plugin+".html"].read_bytes()
+            assert anchors(z.read(EXPECTED_PREFIX+"english/"+plugin+".html"))==anchors(core["english/"+plugin+".html"].read_bytes())
         assert "english/config.html" in recaptcha, "Missing reCAPTCHA config help"
         assert b"../docstyle.css" in z.read(EXPECTED_PREFIX+"english/install.html")
         assert b"../images/logo.gif" in z.read(EXPECTED_PREFIX+"english/install.html")
