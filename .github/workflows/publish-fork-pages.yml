@@ -25,6 +25,13 @@ jobs:
           path: core-source
           sparse-checkout: |
             public_html/docs
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: v2.2.2
+          path: release-plugin-source
+          sparse-checkout: |
+            public_html/admin/plugins/recaptcha/docs
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -35,6 +42,7 @@ jobs:
       - run: python tools/build_dual_preview.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+          GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
