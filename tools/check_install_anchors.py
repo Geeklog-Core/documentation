@@ -75,11 +75,11 @@ def main():
         + html
     )
     full_html = (
-        '<!doctype html>\\n<html lang="en"><head><meta charset="utf-8">'
+        '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<title>Installing Geeklog — preview</title>'
-        '<link rel="stylesheet" href="../docstyle.css"></head><body>\\n'
-        + html_body + '\\n</body></html>\\n'
+        '<link rel="stylesheet" href="../docstyle.css"></head><body>\n'
+        + html_body + '\n</body></html>\n'
     )
     OUTPUT.write_text(full_html, encoding="utf-8")
     if not core_docs:
