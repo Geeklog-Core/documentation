@@ -1,7 +1,8 @@
 name: Dual documentation prototype (unofficial)
 on:
   push:
-    branches: [prototype/dual-output-222]
+    branches: [release/unified-docs-preview, main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
