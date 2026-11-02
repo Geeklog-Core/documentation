@@ -81,6 +81,7 @@ def main():
         '<link rel="stylesheet" href="../docstyle.css"></head><body>\n'
         + html_body + '\n</body></html>\n'
     )
+    assert r"\n" not in full_html, "Literal newline escape leaked into generated HTML"
     OUTPUT.write_text(full_html, encoding="utf-8")
     if not core_docs:
         (OUTPUT.parent / "index.html").write_text(
