@@ -1,4 +1,4 @@
-name: Publish fork documentation preview
+name: Publish Geeklog documentation (maintainer opt-in)
 on:
   workflow_dispatch:
 permissions:
@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: prototype/dual-output-222
       - uses: actions/checkout@v4
         with:
           repository: Geeklog-Core/geeklog
