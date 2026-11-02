@@ -1,0 +1,14 @@
+{
+  "source": "Geeklog-Core/geeklog",
+  "core_commit": "dd44c01368afad32e16467fd5357af3299c11d3a",
+  "note": "Baseline of inherited references from unmodified changes.html, not permissions to add new broken links.",
+  "issues": [
+    "changes.html:#changes1.7.2",
+    "changes.html:config.html#submission",
+    "changes.html:config.html#image",
+    "changes.html:config.html#submission",
+    "changes.html:config.html#submission",
+    "changes.html:config.html#links",
+    "changes.html:config.html#login"
+  ]
+}

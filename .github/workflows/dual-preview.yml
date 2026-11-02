@@ -1,0 +1,70 @@
+name: Dual documentation prototype (unofficial)
+on:
+  push:
+    branches: [release/unified-docs-preview, main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: dd44c01368afad32e16467fd5357af3299c11d3a
+          path: core-source
+          sparse-checkout: |
+            public_html/docs
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: v2.2.2
+          path: release-source
+          sparse-checkout: |
+            public_html/docs
+      - uses: actions/checkout@v4
+        with:
+          repository: Geeklog-Core/geeklog
+          ref: v2.2.2
+          path: release-plugin-source
+          sparse-checkout: |
+            public_html/admin/plugins/recaptcha/docs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-docs.txt
+      - run: python tools/check_release_provenance.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+          GEEKLOG_RELEASE_DOCS: release-source/public_html/docs
+      - run: python tools/check_install_anchors.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_install_bundle.py
+      - run: python tools/check_install_legacy.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_install_overlay.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/build_dual_preview.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+          GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
+      - run: python tools/check_dual_archive.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+          GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-2.2.2-embedded-docs-preview
+          path: dist/geeklog-2.2.2-docs-preview.zip
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-online-preview
+          path: dist/online/
+          if-no-files-found: error
