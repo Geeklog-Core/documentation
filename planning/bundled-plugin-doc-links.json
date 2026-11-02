@@ -1,0 +1,49 @@
+{
+  "source": "Geeklog-Core/geeklog:master",
+  "reviewed": "2026-10-29",
+  "description": "Observed return destinations of plugin_getdocumentationurl_<plugin>('config') in bundled functions.inc. Recaptcha uses per-language fallback. These are source-derived expected paths, not runtime-tested URLs.",
+  "entries": [
+    {
+      "plugin": "calendar",
+      "relative_path": "docs/english/calendar.html",
+      "source": "plugins/calendar/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    },
+    {
+      "plugin": "links",
+      "relative_path": "docs/english/links.html",
+      "source": "plugins/links/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    },
+    {
+      "plugin": "polls",
+      "relative_path": "docs/english/polls.html",
+      "source": "plugins/polls/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    },
+    {
+      "plugin": "recaptcha",
+      "relative_path": "admin/plugins/recaptcha/docs/english/config.html",
+      "source": "plugins/recaptcha/functions.inc",
+      "method": "plugin-local docs with English language fallback"
+    },
+    {
+      "plugin": "spamx",
+      "relative_path": "docs/english/spamx.html",
+      "source": "plugins/spamx/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    },
+    {
+      "plugin": "staticpages",
+      "relative_path": "docs/english/staticpages.html",
+      "source": "plugins/staticpages/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    },
+    {
+      "plugin": "xmlsitemap",
+      "relative_path": "docs/english/xmlsitemap.html",
+      "source": "plugins/xmlsitemap/functions.inc",
+      "method": "COM_getDocumentUrl('docs', '<plugin>.html')"
+    }
+  ]
+}
