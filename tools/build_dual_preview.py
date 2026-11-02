@@ -51,6 +51,10 @@ def main():
     assert (DIST/"english/index.html").is_file()
     assert (DIST/"english/config.html").read_bytes()==(source/"english/config.html").read_bytes()
     assert (DIST/"english/install.html").read_bytes()!=(source/"english/install.html").read_bytes()
+    plugin_source=Path(os.environ["GEEKLOG_RELEASE_RECAPTCHA_DOCS"])
+    assert (plugin_source/"english/config.html").is_file(), "Missing tagged reCAPTCHA docs"
+    plugin_dest=ROOT/"dist/geeklog-2.2.2/public_html/admin/plugins/recaptcha/docs"
+    shutil.copytree(plugin_source,plugin_dest)
     WEB.mkdir(parents=True)
     (WEB/"style.css").write_text(CSS,encoding="utf-8")
     for file,(title,md) in PAGES.items():
@@ -76,11 +80,12 @@ def main():
     for name in required: assert (DIST/"english"/name).is_file()
     archive=ROOT/"dist/geeklog-2.2.2-docs-preview.zip"
     with zipfile.ZipFile(archive,"w",compression=zipfile.ZIP_DEFLATED) as z:
-        for p in sorted(DIST.rglob("*")):
+        for p in sorted((ROOT/"dist/geeklog-2.2.2/public_html").rglob("*")):
             if p.is_file(): z.write(p, p.relative_to(ROOT/"dist/geeklog-2.2.2"))
     with zipfile.ZipFile(archive) as z:
         names=set(z.namelist())
         for name in required: assert "public_html/docs/english/"+name in names
-        assert len(names)==sum(p.is_file() for p in DIST.rglob("*"))
+        assert "public_html/admin/plugins/recaptcha/docs/english/config.html" in names
+        assert len(names)==sum(p.is_file() for p in (ROOT/"dist/geeklog-2.2.2/public_html").rglob("*"))
     print(f"PASS: {len(PAGES)} online pages and {len(names)} embedded files; ZIP {archive.name}")
 if __name__=="__main__": main()
