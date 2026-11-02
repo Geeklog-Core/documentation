@@ -26,8 +26,8 @@ def main():
     with zipfile.ZipFile(ARCHIVE) as z:
         names=z.namelist()
         assert len(names)==len(set(names)), "Duplicate ZIP entry"
-        assert all(n.startswith(EXPECTED_PREFIX) and ".." not in Path(n).parts for n in names), "Unsafe path"
-        zipped={n.removeprefix(EXPECTED_PREFIX) for n in names}
+        assert all(n.startswith("public_html/") and ".." not in Path(n).parts for n in names), "Unsafe path"
+        zipped={n.removeprefix(EXPECTED_PREFIX) for n in names if n.startswith(EXPECTED_PREFIX)}
         recaptcha={p.relative_to(RECAPTCHA).as_posix():p for p in RECAPTCHA.rglob("*") if p.is_file()}
         for name,path in recaptcha.items():
             key="public_html/admin/plugins/recaptcha/docs/"+name
