@@ -9,6 +9,7 @@ import zipfile
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=Path(os.environ["GEEKLOG_CORE_DOCS"]).resolve()
 ARCHIVE=ROOT/"dist/geeklog-2.2.2-docs-preview.zip"
+RECAPTCHA=Path(os.environ["GEEKLOG_RELEASE_RECAPTCHA_DOCS"])
 EXPECTED_PREFIX="public_html/docs/"
 class Anchors(HTMLParser):
     def __init__(self):
@@ -27,7 +28,12 @@ def main():
         assert len(names)==len(set(names)), "Duplicate ZIP entry"
         assert all(n.startswith(EXPECTED_PREFIX) and ".." not in Path(n).parts for n in names), "Unsafe path"
         zipped={n.removeprefix(EXPECTED_PREFIX) for n in names}
-        assert zipped==set(core),f"Missing or added files: {sorted(zipped ^ set(core))}"
+        recaptcha={p.relative_to(RECAPTCHA).as_posix():p for p in RECAPTCHA.rglob("*") if p.is_file()}
+        for name,path in recaptcha.items():
+            key="public_html/admin/plugins/recaptcha/docs/"+name
+            assert key in names, f"Missing plugin-local documentation: {key}"
+            assert hashlib.sha256(z.read(key)).digest()==hashlib.sha256(path.read_bytes()).digest(),f"Changed plugin document: {key}"
+        assert zipped==set(core),f"Missing or added Core docs: {sorted(zipped ^ set(core))}"
         for name,path in core.items():
             actual=z.read(EXPECTED_PREFIX+name)
             if name!="english/install.html":
@@ -40,8 +46,12 @@ def main():
         packaged_config=anchors(z.read(EXPECTED_PREFIX+"english/config.html"))
         assert original_config==packaged_config
         assert "desc_site_url" in packaged_config,"Missing config help anchor"
+        for plugin in ("calendar","links","polls","spamx","staticpages","xmlsitemap"):
+            assert ("english/"+plugin+".html") in core, f"Missing Core plugin help: {plugin}"
+            assert z.read(EXPECTED_PREFIX+"english/"+plugin+".html")==core["english/"+plugin+".html"].read_bytes()
+        assert "english/config.html" in recaptcha, "Missing reCAPTCHA config help"
         assert b"../docstyle.css" in z.read(EXPECTED_PREFIX+"english/install.html")
         assert b"../images/logo.gif" in z.read(EXPECTED_PREFIX+"english/install.html")
-        print(f"PASS: ZIP has {len(names)} original files, exactly one intentional overlay, all historical installation and configuration anchors")
+        print(f"PASS: ZIP has {len(names)} files including {len(recaptcha)} reCAPTCHA docs, exactly one intentional Core overlay, historical install/config anchors and six other plugin help pages")
         print("NOTE: artifact is checked against pinned Core commit, not verified release ZIP")
 if __name__=="__main__": main()
