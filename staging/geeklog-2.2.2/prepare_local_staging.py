@@ -18,14 +18,14 @@ EXPECTED_SHA256 = "d12991f78225289d2bac297bff1a7e9be55f04a9e0aa097bb379e41d7fb13
 
 def main():
     root = Path(__file__).resolve().parent
-    archive = root.parent.parent / "geeklog-2.2.2.tar.gz"
+    archive = root.parent / "geeklog-2.2.2.tar.gz"
     site = root / "site"
     env = root / ".env"
 
     if site.exists() or env.exists():
         raise RuntimeError("Staging directory already initialized. Refusing to overwrite site/.env")
     if not archive.is_file():
-        raise RuntimeError("Missing ../.. /geeklog-2.2.2.tar.gz (place it in geeklog-docs-validation)")
+        raise RuntimeError("Missing ../geeklog-2.2.2.tar.gz (place it in geeklog-docs-validation)")
     if archive.stat().st_size != EXPECTED_SIZE:
         raise RuntimeError("Archive size mismatch: not the verified Geeklog 2.2.2 tarball")
     raw = archive.read_bytes()
