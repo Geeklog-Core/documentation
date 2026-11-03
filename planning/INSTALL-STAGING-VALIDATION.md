@@ -1,6 +1,6 @@
 # Isolated Geeklog installation validation protocol
 
-Status: **prepared, not executed**. This is a manual/staging test plan only and does not authorize access to any production website.
+Status: **documentation browser checks completed; installer workflows not executed**. This is a manual/staging test plan only and does not authorize access to any production website.
 
 ## Preconditions
 
@@ -32,4 +32,8 @@ User approves a specific disposable environment, selected release and database e
 
 ## Current evidence
 
-Current GitHub Actions covers Markdown rendering, nine anchors, historical resource paths, inherited link defect baseline and byte-identical preservation of non-install Core documentation. **It does not install, upgrade, or migrate Geeklog.**
+- The user tested the generated `docs/english/install.html` page in a local **Geeklog 2.2.2 Docker** instance on PHP 8.1. The installation page rendered correctly after correcting escaped newlines; representative `#installation_requirements` and `#upgrade` fragments worked.
+- The original Core `config.html#desc_site_url` help example, **all seven plugin documentation pages**, and representative context-sensitive help from the administration panel were manually reported working.
+- Core and reCAPTCHA documents were backed up before the install-page overlay. Normalized line ending comparisons confirmed identical contents for three sampled unchanged HTML documents; automated CI additionally compares full pinned source inventories.
+- **Not yet tested:** fresh install, upgrade, migration, rollback, security post-install checks or exact downloadable release-package equivalence. Browser access to documentation is not a substitute for testing those installer workflows.
+- Current GitHub Actions covers Markdown rendering, nine installation anchors, historical resource paths, inherited link defect baseline and byte-identical preservation of non-install Core documentation. **It does not install, upgrade, or migrate Geeklog.**
