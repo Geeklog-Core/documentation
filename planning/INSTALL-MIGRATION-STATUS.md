@@ -2,7 +2,7 @@
 
 Source: `Geeklog-Core/geeklog` master `public_html/docs/english/install.html`, blob `eae47434247b4fc0e54706ee9b116618cc40f83e` (checked 2026-10-29).
 
-This branch was created directly from the documentation repository's `main` so it can be reviewed independently from the foundation PR #1.
+Historical checklist migrated to the official documentation repository. PR #1 has been superseded and closed; the documentation architecture has been merged via PR #2 and GitHub Pages is live. This checklist retains earlier milestones for traceability.
 
 - [x] Identify nine legacy named HTML anchors and record them in `docs/installation/README.md`.
 - [x] Write a limited installation/upgrade/migration introduction with explicit release-specific caveats.
@@ -57,3 +57,12 @@ This branch was created directly from the documentation repository's `main` so i
 
 - [x] Prepare isolated new-install, upgrade, migration, offline-doc, rollback and security test matrix in `INSTALL-STAGING-VALIDATION.md`.
 - [ ] Obtain approval for disposable staging environment before performing runtime tests; never test on production.
+
+## Post-publication installation review — 2026-11-03
+
+- [x] User validated the generated installation page and representative historical links in Geeklog 2.2.2 Docker, along with all seven plugin documentation pages and representative administration help links. See `INSTALL-STAGING-VALIDATION.md` for the **limited scope**.
+- [x] Confirm tagged installer constants and official v2.2.2 release notes. **Discrepancy:** release notes say MySQL 4.1.2, tagged installer's `Common.php` says MySQL 4.1.3. Both are historical minimums; see `INSTALL-REQUIREMENTS-SOURCE-AUDIT.md`.
+- [x] Publish initial official Markdown website at https://geeklog-core.github.io/documentation/; note that online installation text and embedded ZIP still have different release-readiness states.
+- [ ] Execute clean install, upgrade, migrate, rollback, and security checks in approved disposable environments; merely opening HTML in Docker does not exercise the installer.
+- [ ] Compare generated output with the exact downloadable Geeklog 2.2.2 release archive; tag-source identity is already checked but cannot establish package identity.
+- [ ] Technical/editorial release review of the installation draft before treating it as authoritative.
