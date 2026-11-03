@@ -66,3 +66,10 @@ Historical checklist migrated to the official documentation repository. PR #1 ha
 - [ ] Execute clean install, upgrade, migrate, rollback, and security checks in approved disposable environments; merely opening HTML in Docker does not exercise the installer.
 - [ ] Compare generated output with the exact downloadable Geeklog 2.2.2 release archive; tag-source identity is already checked but cannot establish package identity.
 - [ ] Technical/editorial release review of the installation draft before treating it as authoritative.
+
+## Exact 2.2.2 release tarball verification — 2026-11-03
+
+- [x] Add `tools/check_official_release_docs.py` to compare posted official archive size/MD5 and SHA-256 of all packaged Core and reCAPTCHA documentation against pinned `v2.2.2` source.
+- [x] Add four synthetic tarball regression cases (`tools/test_official_release_docs.py`) and run them in dual-output CI; documented in `OFFICIAL-ARCHIVE-VALIDATION.md`.
+- [ ] Obtain original downloadable `geeklog-2.2.2.tar.gz` and run the tool. Official website advertises 16,978,448 bytes and MD5 `962cc6e6ed1ce13f65066e47859511d8`; download could not be completed in assistant environment.
+- [ ] Investigate any packaged-versus-tag discrepancies and preserve evidence before integrating into the release workflow.
