@@ -164,3 +164,9 @@ User ran an **actual** `SELECT pi_name, pi_version, pi_enabled FROM gl_plugins O
 The working Markdown install guide `docs/installation/README.md` now documents the observed distinction between HTTP `site_admin_url` and the filesystem admin directory, limited file ownership vs unsafe `chmod -R 777`, optional XMLSitemap sitemap path, and safe diagnosis of partial installs.
 
 **Next acceptance gate:** disable public installer reachability, verify configuration secrets and ownership after install, and test public/admin and representative plugin pages. Avoid broad world-writable permissions. New-install staging is functional with XMLSitemap disabled; do not call it full all-plugins acceptance.
+
+### M. Installer disabled (HTTP 404) — 2026-11-03
+
+After the recommended **staging-only** move of `public_html/admin/install` outside the Web root, the user reports **HTTP 404** from `http://localhost:8083/admin/install/index.php`. This confirms the installer entrypoint is no longer served at that URL. The relocated copy remains under `/var/www/html/install-disabled-staging`, outside Apache's `/var/www/html/public_html` document root.
+
+**Still to check before full security acceptance:** site and authenticated administrator page remain functional *after* the move; administrator default credentials have been replaced; `db-config.php` and `siteconfig.php` are no longer unnecessarily writable by the Web worker; confirm any other installer entrypoints are not publicly accessible. The XMLSitemap plugin remains disabled, not repaired. This validation is staging-only, not production deployment approval.
