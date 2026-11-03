@@ -9,7 +9,7 @@ The **embedded Geeklog 2.2.2 HTML ZIP remains a compatibility prototype**, not a
 - `dist/geeklog-2.2.2/public_html/docs/`: pinned Core HTML documentation tree with **only** `english/install.html` replaced by the generated installation guide.
 - `dist/geeklog-2.2.2-docs-preview.zip`: archive with paths relative to the Geeklog installation root.
 
-**Note:** The pinned Core commit is `dd44c01368afad32e16467fd5357af3299c11d3a`. Validate this against the exact 2.2.2 release archive before claiming packaged-release equivalence. The original configuration and plugin HTML remain unchanged.
+**Package provenance:** The pinned Core commit is `dd44c01368afad32e16467fd5357af3299c11d3a`. The project's separate official v2.2.2 archive audit (see `planning/OFFICIAL-ARCHIVE-VALIDATION.md`) verified the downloaded archive and all 46 document files: 8 byte-identical, 37 line-ending-only differences and exactly one intended changed HTML page. This **does not make the prototype an official release package**. The original configuration and plugin HTML remain unchanged.
 
 ## Generating locally
 
@@ -33,4 +33,4 @@ Edit the Markdown under `docs/installation/`, `docs/configuration/`, or `docs/ad
 
 The official GitHub Pages website is published. Deployment is an explicit, manually triggered GitHub Actions workflow after a reviewed change is merged to `main`. This workflow does not automatically modify any Geeklog Core release package.
 
-Historical `config.html`, other Core HTML pages and plugin documentation are retained, not migrated. Existing `changes.html` link defects are tracked as a frozen baseline. Runtime staging installation and release-package comparison remain pending.
+Historical `config.html`, other Core HTML pages and plugin documentation are retained, not migrated. Existing `changes.html` link defects are tracked as a frozen baseline. **On 2026-11-03, a new installation from the official 2.2.2 tarball and a real embedded-doc overlay were validated** in an isolated Docker environment; the user confirmed site and authenticated admin access plus sampled Core and reCAPTCHA documentation pages and historical configuration anchor. XMLSitemap was deliberately disabled after a sitemap-file permission warning. Post-install default-password/config-permission review, actual restore/rollback, broader link checks, upgrade and migration flows remain pending. See `planning/INSTALL-STAGING-VALIDATION.md`.
