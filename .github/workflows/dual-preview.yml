@@ -1,7 +1,7 @@
 name: Dual documentation prototype (unofficial)
 on:
   push:
-    branches: [release/unified-docs-preview, main]
+    branches: [release/unified-docs-preview, main, docs/installation-release-audit-222]
   pull_request:
   workflow_dispatch:
 permissions:
