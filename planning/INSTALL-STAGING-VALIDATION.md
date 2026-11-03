@@ -76,3 +76,15 @@ Confirm distinct local-only ports and no shared Docker volume IDs. Do not connec
 - A test attempts to alter an active site, its credentials or its data.
 
 **Current status:** the official 2.2.2 archive's installer entrypoint and `Common.php` requirement constants were inspected read-only, and the validation helper was added, but **no fresh install, upgrade, migrate or rollback was executed**. These steps require the user's local Docker environment and an independent staging configuration, not just a source audit.
+
+### E. Ready-to-run dedicated 2.2.2 installation laboratory — 2026-11-03
+
+The user confirmed for the existing `222-web` image: `WorkDir=/var/www/html`, `Cmd=["apache2-foreground"]`, Apache `DocumentRoot=/var/www/html/public_html`, PHP 8.1.33 and `mysqli`, `mbstring`, `gd`, `curl`, `zip`, `openssl`, `fileinfo` present; `pdo_mysql` absent. No running Docker container publishes 8083. The image and its PHP configuration still need to be verified in the isolated runtime.
+
+Dedicated project scaffolding is stored in `staging/geeklog-2.2.2/`:
+
+- `compose.yaml`: distinct named MariaDB 10.11 volume/network, application name `geeklog-docs-stage` supplied via CLI, no host DB port, Web exposed on **127.0.0.1:8083**, separate `./site` bind.
+- `prepare_local_staging.py`: **does not start Docker**; checks user-supplied official tarball against published size/MD5 and the independently computed SHA-256, rejects unsafe tar entries, extracts only into a fresh `site` folder and creates random throwaway DB secrets in local `.env` (0600). Refuses to overwrite either site or secrets.
+- `README.md`: Chromebook preparation, safe Compose validation, optional start, and stop guidance.
+
+The user-uploaded verified tarball is available to ChatGPT but **not** automatically on the user's Chromebook. The user must save it to `~/geeklog-docs-validation/geeklog-2.2.2.tar.gz` using the file link in chat, before preparation. Stage `site`, `.env` and Compose services have **not** yet been created or run on the user's host. Obtain the sanitized Compose preflight results before opening installer wizard.
