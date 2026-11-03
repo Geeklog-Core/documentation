@@ -84,3 +84,16 @@ Historical checklist migrated to the official documentation repository. PR #1 ha
 - [x] Added detailed `planning/INSTALL-STAGING-VALIDATION.md` preflight instructions, independent volumes/networks/databases, five disposable workflows and safety stop conditions.
 - [ ] Execute read-only preflight on user's local Docker host and inspect sanitised output.
 - [ ] Create and verify *independent disposable* Docker staging environment before exercising installer/upgrade/migrate; existing Geeklog 2.1.1 and 2.2.2 containers must stay untouched.
+
+
+## Observed isolated installation and embedded-doc deployment — 2026-11-03
+
+- [x] User ran the actual **official Geeklog 2.2.2 archive** installer in a separate Docker Compose project `geeklog-docs-stage` (PHP 8.1.33, MariaDB 10.11, localhost port 8083), without modifying pre-existing 2.1.1/2.2.2 installations. The newly created database contains 43 tables and `gl_vars.database_version=2.2.2`.
+- [x] Diagnosed the misleading wizard “Admin Directory Path” input. Its `site_admin_url` is an **HTTP URL** (e.g. `http://localhost:8083/admin`), not `/var/www/html/public_html/admin`. Correcting this stored setting restored authenticated administration without reinstalling.
+- [x] Confirmed seven registered core plugins: Calendar, Links, Polls, reCAPTCHA, SpamX, Static Pages **active**, XMLSitemap **disabled**. XMLSitemap attempted to write `public_html/sitemap.xml` without permission during post-install; the underlying plugin write failure is **not fixed**, and the generic installer error's exact causal chain is not conclusively established.
+- [x] Removed the installer from the staging Web root and user confirmed HTTP **404** at `/admin/install/index.php`.
+- [x] User obtained the latest successful branch-produced embedded docs ZIP and installed an overlay **after backing up** the original staged Core and reCAPTCHA docs. Browser checks of `docs/english/install.html`, `docs/english/config.html#desc_site_url`, `docs/english/index.html` and reCAPTCHA help were confirmed working. Only `english/install.html` has been migrated to Markdown in the embedded output; all other legacy docs remain as published in the compatibility prototype.
+- [x] Exact archive documentation inventory already validated: 46 files, 8 byte-identical, 37 CRLF/LF-only and one intended installation HTML content change (see `OFFICIAL-ARCHIVE-VALIDATION.md`).
+- [ ] **Open before production/release approval:** validate rollback from the staging docs backup, check admin default password replacement, inspect post-install config ownership/access and broader contextual help. Upgrade and migrate test scenarios remain distinct and unperformed; maintainer editorial review is required.
+
+The earlier unchecked boxes in this chronological checklist reflect **previous milestones**, not the status as of November 3. See `INSTALL-STAGING-VALIDATION.md` sections K–N for the later observed evidence. The generated ZIP remains a **prototype**, not an official Geeklog release.
