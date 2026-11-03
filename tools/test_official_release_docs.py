@@ -49,12 +49,12 @@ class ReleaseArchiveComparisonTests(unittest.TestCase):
         self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
 
     def test_crlf_only_requires_explicit_opt_in(self):
-        (self.core / "install.html").write_bytes(b"first\\nsecond\\n")
+        (self.core / "install.html").write_bytes(b"first\nsecond\n")
         self.build_archive()
         # Repack synthetic sample with CRLF only in its Core doc.
         with tarfile.open(self.archive, "w:gz") as tf:
             for name, data in [
-                ("geeklog/public_html/docs/install.html", b"first\\r\\nsecond\\r\\n"),
+                ("geeklog/public_html/docs/install.html", b"first\r\nsecond\r\n"),
                 ("geeklog/public_html/admin/plugins/recaptcha/docs/config.html", b"legacy plugin"),
             ]:
                 entry = tarfile.TarInfo(name)
