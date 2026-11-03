@@ -75,3 +75,12 @@ Historical checklist migrated to the official documentation repository. PR #1 ha
 - [x] Compared all 46 packaged documentation files to GitHub's official `v2.2.2` tree blob IDs: 8 identical, 38 differ only by CRLF vs LF, 0 missing, 0 extra, 0 substantive differences. Updated checker to report CRLF-only differences separately and require explicit opt-in to accept them. See `OFFICIAL-ARCHIVE-VALIDATION.md`.
 - [x] Updated checker unit tests passed in [CI run 41564854616](https://github.com/hostellerie/documentation/actions/runs/41564854616) (5 synthetic cases), and the **actual generated artifact ZIP** was compared to the **actual user-supplied 2.2.2 tar.gz**: 46/46 files, 0 missing or extra, 8 byte-identical, 37 line-ending-only changes, and exactly **one intended content replacement**: `docs/english/install.html`. Full evidence in `OFFICIAL-ARCHIVE-VALIDATION.md`.
 - [ ] Still required: execute installer, upgrade, migration, rollback and post-install security scenarios in disposable staging and obtain editorial/release maintainer approval before distributing the generated HTML as an official release.
+
+## Safe Docker installer preflight — 2026-11-03
+
+- [x] Inspected real official 2.2.2 tarball installer entrypoint `public_html/admin/install/index.php`: sets `GL_INSTALL_ACTIVE`, loads `Common.php`, `Install.php`, `Upgrade.php`, `Migrate.php` and `installer.class.php`, then runs `Installer::run()`.
+- [x] Reconfirmed in packaged `Common.php` historic requirements PHP 5.6.4, MySQL 4.1.3 and PostgreSQL 9.1.7 (source values only, not secure recommendations).
+- [x] Added `tools/inspect_docker_staging.py` with **read-only Docker inspect only**; emits state, image name, published ports and mount types/destination paths but not environment/credentials/source paths.
+- [x] Added detailed `planning/INSTALL-STAGING-VALIDATION.md` preflight instructions, independent volumes/networks/databases, five disposable workflows and safety stop conditions.
+- [ ] Execute read-only preflight on user's local Docker host and inspect sanitised output.
+- [ ] Create and verify *independent disposable* Docker staging environment before exercising installer/upgrade/migrate; existing Geeklog 2.1.1 and 2.2.2 containers must stay untouched.
