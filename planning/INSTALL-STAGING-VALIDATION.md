@@ -170,3 +170,19 @@ The working Markdown install guide `docs/installation/README.md` now documents t
 After the recommended **staging-only** move of `public_html/admin/install` outside the Web root, the user reports **HTTP 404** from `http://localhost:8083/admin/install/index.php`. This confirms the installer entrypoint is no longer served at that URL. The relocated copy remains under `/var/www/html/install-disabled-staging`, outside Apache's `/var/www/html/public_html` document root.
 
 **Still to check before full security acceptance:** site and authenticated administrator page remain functional *after* the move; administrator default credentials have been replaced; `db-config.php` and `siteconfig.php` are no longer unnecessarily writable by the Web worker; confirm any other installer entrypoints are not publicly accessible. The XMLSitemap plugin remains disabled, not repaired. This validation is staging-only, not production deployment approval.
+
+### N. Embedded 2.2.2 documentation overlay installed and browser-tested — 2026-11-03
+
+**User-reported success:** downloaded latest successful `dual-preview.yml` artifact from `hostellerie/documentation` branch `docs/installation-release-audit-222` via authenticated `gh` CLI on Chromebook and verified ZIP entries:
+
+- `public_html/docs/english/install.html` (15,405 bytes)
+- `public_html/docs/english/config.html` (174,651 bytes)
+- `public_html/docs/english/index.html` (6,620 bytes)
+- `public_html/admin/plugins/recaptcha/docs/english/config.html` (11,441 bytes)
+- `public_html/admin/plugins/recaptcha/docs/english/install.html` (6,532 bytes)
+
+The user then followed staging-only backup/overlay instructions on `~/geeklog-docs-validation/staging-222/site/public_html` (port 8083) and confirms **all documentation checks work**, including installation HTML, `config.html#desc_site_url` contextual anchor, index and reCAPTCHA plugin help. These are user-confirmed manual results, not independently observed browser responses. The entire published ZIP preserves legacy compatibility files; **only the embedded installation page is regenerated from Markdown** at present. Original docs and reCAPTCHA help were backed up under timestamped `~/geeklog-docs-validation/docs-backup-*` before overlay; backup path and rollback functionality not separately tested.
+
+**Validated scope:** a real fresh Geeklog 2.2.2 staging site under PHP 8.1.33 / MariaDB 10.11 (site and authenticated admin accessible), six active bundled plugins with XMLSitemap disabled, installer entrypoint HTTP 404, generated documentation overlay and sampled contextual help. **Not yet validated:** every historic help link, actual restore/rollback, all-plugin success (XMLSitemap issue remains), administrator password change, config permissions after install, upgrade/migrate scenarios.
+
+**Next:** review remaining gates, update contradictory old status claims in this document and the README/PROTOTYPE, run branch workflow after latest edits, then prepare **one grouped PR** for the installation-documentation workstream. Do not present the generated ZIP as an official release package.
