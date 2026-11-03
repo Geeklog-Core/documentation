@@ -88,3 +88,15 @@ Dedicated project scaffolding is stored in `staging/geeklog-2.2.2/`:
 - `README.md`: Chromebook preparation, safe Compose validation, optional start, and stop guidance.
 
 The user-uploaded verified tarball is available to ChatGPT but **not** automatically on the user's Chromebook. The user must save it to `~/geeklog-docs-validation/geeklog-2.2.2.tar.gz` using the file link in chat, before preparation. Stage `site`, `.env` and Compose services have **not** yet been created or run on the user's host. Obtain the sanitized Compose preflight results before opening installer wizard.
+
+### F. Actual installer page observed — permissions and install method (2026-11-03)
+
+The user reached `http://localhost:8083/admin/install/index.php` inside the **isolated** `geeklog-docs-stage` project.
+
+The wizard displayed **Step 1 — Set File Permissions**, followed by **Step 2 — Choose an Installation Method** offering New Install, Upgrade, and Migrate. It reported 25 paths needing Web-server write access (e.g. `db-config.php`, `backups/`, `data/` caches, 404/access/error/spamx logs, `public_html/siteconfig.php`, RSS, File Manager config and image storage). The paths were mode 0644 (files) or 0755 (directories), reflecting the extraction helper's safe defaults and UID 1000 ownership, not an archive defect.
+
+**Source-audited behavior:** `public_html/admin/install/classes/installer.class.php`, method `checkPermissions()`, calls `is_writable($file)`. When it fails, the UI reports “Change to 666/777” and renders a blanket `chmod -R 777` shell command. These advertised octal modes are **not programmatic requirements**. The documented staging remediation is to change ownership of **only identified writable files/directories** to the Apache/PHP worker (`www-data`) while retaining their 0644/0755 baseline modes. Avoid broad recursive world-writable permissions. The local-only fix includes `backups`, `data`, log files, `siteconfig.php`, `db-config.php`, RSS and File Manager config, and the listed image storage directories; ownership changes recurse only under these intentionally writable staging directories.
+
+**Security implication for documentation:** add a prominent warning in the final installation guide: do **not** copy the installer's `chmod -R 777` example to production. Use controlled ownership/group ACLs and minimal writable paths. After install, protect configuration, ensure installer cannot be accessed, and review Web-server-writable directories.
+
+Status: user has **not yet confirmed** the remediation command succeeded or `New Install` completed. No runtime installation success claim should be made.
