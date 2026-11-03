@@ -58,7 +58,7 @@ def inspect_archive(archive):
             stream = tf.extractfile(member)
             if stream is None:
                 raise ValueError(f"Unreadable documentation file: {member.name}")
-            result[group][relative] = hashlib.sha256(stream.read()).hexdigest()
+            result[group][relative] = stream.read()
     return result
 
 
@@ -67,6 +67,8 @@ def main(argv=None):
     parser.add_argument("archive", type=Path)
     parser.add_argument("--core-docs", required=True, type=Path)
     parser.add_argument("--recaptcha-docs", required=True, type=Path)
+    parser.add_argument("--allow-crlf-normalization", action="store_true",
+                        help="Accept only CRLF vs LF differences, with per-file reporting")
     parser.add_argument("--ignore-published-size-md5", action="store_true",
                         help="Only for custom/repacked archive investigation")
     a = parser.parse_args(argv)
@@ -87,18 +89,31 @@ def main(argv=None):
     archive_files = inspect_archive(a.archive)
     failed = False
     for group, root in (("core", a.core_docs), ("recaptcha", a.recaptcha_docs)):
-        expected = {key: hashlib.sha256(path.read_bytes()).hexdigest()
-                    for key, path in local_files(root).items()}
+        expected = {key: path.read_bytes() for key, path in local_files(root).items()}
         actual = archive_files[group]
         missing = sorted(expected.keys() - actual.keys())
         extra = sorted(actual.keys() - expected.keys())
-        different = sorted(key for key in expected.keys() & actual.keys()
-                           if expected[key] != actual[key])
-        print(f"{group}: pinned={len(expected)} packaged={len(actual)} missing={len(missing)} extra={len(extra)} changed={len(different)}")
-        for label, entries in (("MISSING", missing), ("EXTRA", extra), ("DIFFERENT", different)):
+        different = []
+        line_endings_only = []
+        identical = []
+        for key in sorted(expected.keys() & actual.keys()):
+            packaged = actual[key]
+            source = expected[key]
+            if packaged == source:
+                identical.append(key)
+            elif packaged.replace(b"\\r\\n", b"\\n") == source.replace(b"\\r\\n", b"\\n"):
+                line_endings_only.append(key)
+            else:
+                different.append(key)
+        print(f"{group}: pinned={len(expected)} packaged={len(actual)} identical={len(identical)} "
+              f"line-endings-only={len(line_endings_only)} missing={len(missing)} "
+              f"extra={len(extra)} content-differences={len(different)}")
+        for label, entries in (("MISSING", missing), ("EXTRA", extra),
+                               ("DIFFERENT", different), ("LINE_ENDINGS_ONLY", line_endings_only)):
             for path in entries:
                 print(f"  {label}: {path}")
-        failed |= bool(missing or extra or different)
+        failed |= bool(missing or extra or different or
+                       (line_endings_only and not a.allow_crlf_normalization))
     print("FAIL: packaged documentation differs from pinned source" if failed
           else "PASS: packaged docs and reCAPTCHA docs exactly match pinned source")
     return int(failed)
