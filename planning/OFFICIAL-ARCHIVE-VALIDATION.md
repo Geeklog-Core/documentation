@@ -55,5 +55,24 @@ These unit tests create **synthetic tarballs**, confirming that matching files p
 - [x] Receive original 2.2.2 distribution tarball from user (published size and MD5 verified).
 - [x] Record posted size/MD5 verification and local computed SHA-256.
 - [x] Compare complete Core and reCAPTCHA documentation against Git tag's blob hashes: 8 identical + 38 CRLF-only, no missing or substantive differences.
-- [ ] Explicitly compare final generated ZIP overlay to **actual packaged** documentation tree (expected difference: one generated install page plus line-ending conversion; preserve all historic files).
+- [x] Compared final generated ZIP overlay from GitHub Actions run 41564854616 to the **real official packaged** documentation tree; exactly one content-different file (generated install.html), 37 CRLF/LF-only changes, eight byte-identical files, no missing or extra files.
 - [ ] Keep installer/upgrade/migration runtime validation and editorial approval as separate work.
+
+## Real generated ZIP versus real official release tarball — 2026-11-03
+
+The user-supplied original archive `geeklog-2.2.2.tar.gz` was directly compared, in a separate local analysis, with the **actual GitHub Actions artifact ZIP** produced by the installation-audit branch's successful [run 41564854616](https://github.com/hostellerie/documentation/actions/runs/41564854616). The artifact contained a nested `geeklog-2.2.2-docs-preview.zip`, which was opened without extracting or executing Geeklog.
+
+| Comparison against the real official tarball | Number of files |
+| --- | ---: |
+| Documentation paths in original tarball | 46 |
+| Documentation paths in generated ZIP | 46 |
+| Missing or extra paths | 0 |
+| Exact byte matches | 8 |
+| Only CRLF/LF differences | 37 |
+| Actual content differences | **1** |
+
+The **only content-different file** is `public_html/docs/english/install.html`, which is intentionally generated from `docs/installation/README.md`. All **45 other** Core and reCAPTCHA documentation files are preserved byte-for-byte after CRLF→LF normalization; this includes all plugin documentation and original HTML help paths. The generated install page was also checked not to contain literal `\\n` escape text.
+
+This **closes the packaged-documentation versus generated-ZIP overlay comparison gate**. It does **not** validate that installation/upgrade/migration procedures succeed, that the generated documentation is an editorially approved release artifact, or that all obsolete language in the historical sources has been replaced.
+
+The comparison artifact was generated in [CI run 41564854616](https://github.com/hostellerie/documentation/actions/runs/41564854616), which passed all existing dual-output tests and the updated **five** synthetic archive-checker unit tests. An earlier run 41564762417 failed because a new synthetic test used literal backslash escapes in its own fixture; it was corrected before the passing run.
