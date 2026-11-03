@@ -101,7 +101,7 @@ def main(argv=None):
             source = expected[key]
             if packaged == source:
                 identical.append(key)
-            elif packaged.replace(b"\\r\\n", b"\\n") == source.replace(b"\\r\\n", b"\\n"):
+            elif packaged.replace(b"\r\n", b"\n") == source.replace(b"\r\n", b"\n"):
                 line_endings_only.append(key)
             else:
                 different.append(key)
