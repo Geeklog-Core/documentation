@@ -1,6 +1,6 @@
 # Geeklog 2.2.2 official release archive comparison
 
-Status: **comparison procedure implemented; original downloadable release archive not yet obtained and compared** (2026-11-03).
+Status: **the user supplied the official release archive and the full documentation tree was compared against the official `v2.2.2` Git tree** (2026-11-03).
 
 ## Evidence and boundaries
 
@@ -12,7 +12,11 @@ The official [Geeklog 2.2.2 download listing](https://www.geeklog.net/downloads/
 
 This older MD5 value is provided by the project as an **archive identity check**, not a cryptographic signature or guarantee of authenticity. Source/tag identity checks in GitHub Actions are separate from archive identity. A complete original packaged release comparison must be performed before declaring that the original release files match pinned source.
 
-A direct archive download from this execution environment was unsuccessful. No claim of real-archive byte comparison is made.
+The user uploaded `geeklog-2.2.2.tar.gz` on 2026-11-03. The archive size and published MD5 **match**, and its computed SHA-256 is `d12991f78225289d2bac297bff1a7e9be55f04a9e0aa097bb379e41d7fb138a8`.
+
+Using the official GitHub `v2.2.2` **recursive tree's Git blob object IDs**, every documentation member in the archive was compared as a raw Git blob and again after `CRLF → LF` normalization. The comparison covers **41 Core documentation files and 5 reCAPTCHA documentation files** (46 files). Result: **8 byte-identical, 38 CRLF-only differences, 0 substantive content differences, 0 missing and 0 extra files.** No other normalization was performed. This establishes exact documentation-content equivalence modulo the distribution's CRLF line endings; it does **not** establish byte-for-byte archive/source equality, complete archive code equivalence, or a valid official cryptographic signature.
+
+The comparison was independently executed against the provided tarball, not merely inferred from successful historical CI. A reproducible checkout-based verification script is included below.
 
 ## Run the comparison on a workstation
 
@@ -29,10 +33,11 @@ git checkout -b archive-verification FETCH_HEAD
 
 python tools/check_official_release_docs.py ~/Downloads/geeklog-2.2.2.tar.gz \
   --core-docs ../geeklog-2.2.2-source/public_html/docs \
-  --recaptcha-docs ../geeklog-2.2.2-source/public_html/admin/plugins/recaptcha/docs
+  --recaptcha-docs ../geeklog-2.2.2-source/public_html/admin/plugins/recaptcha/docs \\
+  --allow-crlf-normalization
 ```
 
-The script does **not extract** the tarball. It checks the posted size and MD5, prints the calculated SHA-256, then compares SHA-256 of every packaged Core documentation and plugin-local reCAPTCHA documentation file against `v2.2.2` source. It reports **missing, extra, and changed files separately** and exits non-zero on any difference.
+The script does **not extract** the tarball. It checks the posted size and MD5, prints the calculated SHA-256, then compares SHA-256 of every packaged Core documentation and plugin-local reCAPTCHA documentation file against `v2.2.2` source. It reports **missing, extra, content-different, and CRLF-only files separately**. By default, even line-ending-only changes fail the strict comparison; `--allow-crlf-normalization` permits only CRLF/LF differences, never substantive mismatches.
 
 If the official archive genuinely differs from source, preserve and investigate those differences before updating the generator's provenance policy. Do **not** update pinned hashes or add exceptions merely to make the test green.
 
@@ -42,13 +47,13 @@ If the official archive genuinely differs from source, preserve and investigate 
 python -m unittest discover -s tools -p 'test_official_release_docs.py'
 ```
 
-These unit tests create **synthetic tarballs**, confirming that matching files pass, modified/missing files fail, and an arbitrary archive fails the official size/MD5 gate. **They are not evidence that the real 2.2.2 release archive passes.**
+These unit tests create **synthetic tarballs**, confirming that matching files pass, modified/missing files fail, CRLF-only differences require explicit opt-in, and an arbitrary archive fails the official size/MD5 gate. The **real archive comparison reported above is separate evidence**. The updated checker/CI tests must still run in GitHub Actions on the current branch.
 
 ## Follow-up and release gates
 
 - [x] Prepare a read-only archive comparison tool and isolated regression tests.
-- [ ] Obtain original 2.2.2 distribution tarball from the official download source.
-- [ ] Record posted size/MD5 verification and local computed SHA-256.
-- [ ] Report every difference in Core and reCAPTCHA documents against the pinned source.
-- [ ] Cross-check the generated ZIP overlay against the **actual packaged** documentation tree.
+- [x] Receive original 2.2.2 distribution tarball from user (published size and MD5 verified).
+- [x] Record posted size/MD5 verification and local computed SHA-256.
+- [x] Compare complete Core and reCAPTCHA documentation against Git tag's blob hashes: 8 identical + 38 CRLF-only, no missing or substantive differences.
+- [ ] Explicitly compare final generated ZIP overlay to **actual packaged** documentation tree (expected difference: one generated install page plus line-ending conversion; preserve all historic files).
 - [ ] Keep installer/upgrade/migration runtime validation and editorial approval as separate work.
