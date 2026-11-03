@@ -1,0 +1,59 @@
+# Installation migration checklist
+
+Source: `Geeklog-Core/geeklog` master `public_html/docs/english/install.html`, blob `eae47434247b4fc0e54706ee9b116618cc40f83e` (checked 2026-10-29).
+
+This branch was created directly from the documentation repository's `main` so it can be reviewed independently from the foundation PR #1.
+
+- [x] Identify nine legacy named HTML anchors and record them in `docs/installation/README.md`.
+- [x] Write a limited installation/upgrade/migration introduction with explicit release-specific caveats.
+- [x] Inspect the 2.2.2 installer class entrypoint and requirement constants; see `INSTALL-REQUIREMENTS-SOURCE-AUDIT.md`.
+- [ ] Exercise installer installation/upgrade/migrate flows in staging and test the actual packaged release.
+- [x] Record the historical 2.2.2 minimum constants (PHP 5.6.4, MySQL 4.1.3, PostgreSQL 9.1.7) **as source facts only**, not safe deployment baselines.
+- [ ] Verify currently supported runtime/database requirements and the future 2.2.3 release separately.
+- [x] Extend the source-derived installation, upgrade, migration and troubleshooting draft with safer diagnostic recommendations.
+- [ ] Verify all legacy troubleshooting examples and version-specific procedures before treating the draft as comprehensive.
+- [x] Add standalone Markdown-to-HTML preview and test of all nine legacy `id` / `name` anchors on this branch; [CI succeeded](https://github.com/hostellerie/documentation/actions/runs/40865064684).
+- [x] Inventory original HTML local assets/navigation and historical external references in `INSTALL-RESOURCE-AUDIT.md`.
+- [x] Add standalone checks for local relative paths and fragment links, with a real table of contents linking to preserved historical anchors; [CI successful](https://github.com/hostellerie/documentation/actions/runs/40866083596).
+- [x] Generate an independent **preview-only** offline bundle: `build/english/install.html`, `index.html`, `support.html`, `build/docstyle.css`, `build/images/logo.svg`; verify relative references in install page and upload complete bundle in CI ([successful run](https://github.com/hostellerie/documentation/actions/runs/40866357612)).
+- [x] Validate **all three generated HTML pages** and their local resources across the whole preview bundle; deliberate missing-file and missing-fragment negative tests pass ([CI](https://github.com/hostellerie/documentation/actions/runs/41184209438)).
+- [x] Capture frozen legacy installation source anchor/resource contract in `install-legacy-contract.json` and add generated-vs-original anchor comparison in `check_install_legacy.py`.
+- [x] Preserve original `../images/logo.gif` file path using a transparent 1×1 **placeholder** (not official Geeklog imagery). All four local references in the source manifest now resolve; replace the placeholder with licensed original assets before shipping.
+- [ ] Integrate with eventual shared build and validate original assets, all bundled docs, external references, release packaging and a real Geeklog installation. The SVG is a text-only preview mark, **not** the official logo.
+- [ ] Verify documentation against a packaged installation and obtain maintainer review.
+
+**Non-goal:** replacing or deleting existing shipped installation HTML in this branch.
+
+## Pinned Core assets integration (2026-11-01)
+
+- [x] CI checks out Geeklog Core at pinned commit `dd44c01368afad32e16467fd5357af3299c11d3a` and copies the **actual** `public_html/docs/docstyle.css` and `public_html/docs/images/logo.gif` into their original relative locations.
+- [x] Byte-for-byte equality of both copied assets is checked against the pinned checkout; [GitHub Actions successful](https://github.com/hostellerie/documentation/actions/runs/41260273461).
+- [ ] Original `index.html` and `support.html` remain preview placeholders; validate full published documentation and packaging before release.
+
+## End-to-end legacy tree overlay — 2026-11-01
+
+- [x] GitHub Actions copies the complete documentation tree from pinned Geeklog Core commit `dd44c01368afad32e16467fd5357af3299c11d3a` and overlays ONLY the generated `english/install.html`.
+- [x] Confirm original `english/index.html`, `english/support.html`, `docstyle.css`, and `images/logo.gif` remain byte-for-byte identical to the pinned Core checkout.
+- [x] Scan 14 English HTML pages; generated installation document and its local references pass strict validation; [CI passed](https://github.com/hostellerie/documentation/actions/runs/41260633640).
+- [ ] Investigate **7 pre-existing local reference/fragment issues** reported in the inherited legacy docs. They are not automatically repaired or hidden as a compatibility success.
+- [ ] Test assembled output in a real Geeklog release installation and review version-specific instructions.
+
+- [x] Triage inherited seven link defects (five unique targets) in unchanged `changes.html` and freeze an exact CI baseline; [passing run](https://github.com/hostellerie/documentation/actions/runs/41268192768). See `INSTALL-LEGACY-LINK-AUDIT.md`.
+- [ ] Editorially determine replacement destinations; no historic Core HTML modified.
+
+## External links and approvals — 2026-11-01
+
+- [x] Audit the four actual external links in Markdown draft; separate example URLs from actionable links. See `INSTALL-EXTERNAL-LINK-AUDIT.md`.
+- [ ] Replace contributor-branch audit link with stable documentation URL once Tom approves architecture.
+- [ ] Obtain technical validation of actual staging install/upgrade/migrate flows before any production guidance.
+- [ ] Wait for Tom's review of PR #1 before proposing a second PR, release packaging or official documentation replacement.
+
+## Complete documentation overlay integrity — 2026-11-01
+
+- [x] Add `tools/check_install_overlay.py` to compare SHA-256 of **every** pinned Core documentation file against output; only `english/install.html` may differ, and optional `legacy-link-audit.json` may be added. [CI passed](https://github.com/hostellerie/documentation/actions/runs/41294526352).
+- [ ] Run complete Geeklog install/upgrade/migrate in an approved isolated environment. This script does not execute the installer or validate runtime compatibility.
+
+## Staging readiness — 2026-11-01
+
+- [x] Prepare isolated new-install, upgrade, migration, offline-doc, rollback and security test matrix in `INSTALL-STAGING-VALIDATION.md`.
+- [ ] Obtain approval for disposable staging environment before performing runtime tests; never test on production.
