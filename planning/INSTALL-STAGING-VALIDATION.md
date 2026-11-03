@@ -144,3 +144,23 @@ User confirms the disposable Geeklog 2.2.2 site is online and **the admin dashbo
 **Status:** **functional** new Geeklog 2.2.2 installation under PHP 8.1.33, MariaDB 10.11, isolated Docker Compose `geeklog-docs-stage`, Web bound to `127.0.0.1:8083`. Site and authenticated administration confirmed by user. **Remaining checks:** actual `gl_plugins` registration/enabled status (especially `xmlsitemap`), exact user-facing warnings, plugin admin/help pages, site HTTP responses, correct locked-down installer access and post-install configuration permissions. Do not claim all core plugins or hardened deployment fully validated yet.
 
 **Editorial correction required:** clarify Geeklog installer “Admin Directory Path” form widget behavior. Though label suggests a filesystem path, it stores `site_admin_url` as an HTTP URL. Document explicit examples side by side, avoid installer `chmod -R 777` advice, and separately cover optional plugin sitemap file writability when XMLSitemap is installed. Do not encourage blanket 0777 or root-dir write access.
+
+### L. Core plugin registration and XMLSitemap disabled — 2026-11-03
+
+User ran an **actual** `SELECT pi_name, pi_version, pi_enabled FROM gl_plugins ORDER BY pi_name` against disposable `geeklog_stage`. Exact results:
+
+| Plugin | Version | Enabled |
+| --- | --- | --- |
+| calendar | 1.1.9 | 1 |
+| links | 2.1.8 | 1 |
+| polls | 2.2.1 | 1 |
+| recaptcha | 1.2.4 | 1 |
+| spamx | 1.3.6 | 1 |
+| staticpages | 1.7.3 | 1 |
+| xmlsitemap | 2.0.3 | **0** |
+
+**Seven registered, six enabled, XMLSitemap explicitly disabled.** Its write failure has not been fixed; installing the plugin afresh or re-enabling it requires a separate writable-sitemap-file test. The site and authenticated admin were already confirmed accessible.
+
+The working Markdown install guide `docs/installation/README.md` now documents the observed distinction between HTTP `site_admin_url` and the filesystem admin directory, limited file ownership vs unsafe `chmod -R 777`, optional XMLSitemap sitemap path, and safe diagnosis of partial installs.
+
+**Next acceptance gate:** disable public installer reachability, verify configuration secrets and ownership after install, and test public/admin and representative plugin pages. Avoid broad world-writable permissions. New-install staging is functional with XMLSitemap disabled; do not call it full all-plugins acceptance.
