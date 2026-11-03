@@ -26,7 +26,7 @@
 
 ### Required software
 
-You need a web server, a compatible PHP version with the necessary extensions, and a supported database engine (MySQL/MariaDB or PostgreSQL). The checked Geeklog 2.2.2 installer source declares PHP 5.6.4, MySQL 4.1.3 and PostgreSQL 9.1.7 as historical minimums, while the original documentation also mentions PHP 8.1 support. **These values are not secure deployment recommendations, nor proof of compatibility with later PHP versions.** See the [source audit](https://github.com/Geeklog-Core/documentation/blob/main/planning/INSTALL-REQUIREMENTS-SOURCE-AUDIT.md). Verify requirements for the particular Geeklog version you are installing.
+You need a web server, a compatible PHP version with the necessary extensions, and a supported database engine (MySQL/MariaDB or PostgreSQL). The [Geeklog 2.2.2 release notes](https://github.com/Geeklog-Core/geeklog/releases/tag/v2.2.2) state historical minimums of PHP 5.6.4, MySQL 4.1.2 and PostgreSQL 9.1.7, and explicitly mention PHP 8.1 support. **The tagged installer source instead declares MySQL 4.1.3**; this discrepancy has not been resolved. These old versions are **not secure deployment recommendations**. Use a supported runtime and database combination validated for your particular Geeklog release; do not infer compatibility with newer versions from a minimum-version check. See the [requirements source audit](https://github.com/Geeklog-Core/documentation/blob/main/planning/INSTALL-REQUIREMENTS-SOURCE-AUDIT.md) for the differing sources.
 
 The legacy instructions mention PHP extensions including `mbstring`, `bzip2`, MySQL or PostgreSQL drivers, OpenSSL, JSON and `fileinfo`. Confirm the precise list against the selected release and its packaging.
 
