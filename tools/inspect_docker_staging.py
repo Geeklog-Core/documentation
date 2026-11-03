@@ -25,6 +25,21 @@ def main():
         if not name or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-" for c in name):
             raise ValueError("Invalid container name")
     found = json.loads(docker("inspect", "--type", "container", *names))
+    by_mount = {}
+    for c in found:
+        for m in c.get('Mounts') or []:
+            token = (m.get('Type'), m.get('Source') or m.get('Name'))
+            if token[1]:
+                by_mount.setdefault(token, []).append(c['Name'].lstrip('/'))
+    print('cross-container shared mounts:')
+    shared = [(kind, sorted(set(names))) for (kind, _), names in by_mount.items()
+              if len(set(names)) > 1]
+    if shared:
+        for kind, names in shared:
+            print('  SHARED {}: {}'.format(kind, ', '.join(names)))
+    else:
+        print('  none among inspected containers')
+    print('')
     for c in found:
         name = c["Name"].lstrip("/")
         config = c.get("Config") or {}
@@ -33,6 +48,9 @@ def main():
         print(f"== {name} ==")
         print(f"status: {state.get('Status', 'unknown')}")
         print(f"image: {config.get('Image', 'unknown')}")
+        labels = config.get('Labels') or {}
+        print('compose project: {}'.format(labels.get('com.docker.compose.project', '(not labelled)')))
+        print('compose service: {}'.format(labels.get('com.docker.compose.service', '(not labelled)')))
         print(f"ports: {json.dumps(network.get('Ports') or {}, sort_keys=True)}")
         mounts = c.get("Mounts") or []
         print("mounts (type and target only; no source host paths):")
@@ -41,6 +59,7 @@ def main():
         print("")
 
     print("READ-ONLY INSPECTION COMPLETE.")
+    print("Shared-mount check covers inspected containers only.")
     print("Do not reuse live databases for installation/upgrade/migration tests.")
     print("Do not share docker inspect JSON: it can contain credentials and secrets.")
 
