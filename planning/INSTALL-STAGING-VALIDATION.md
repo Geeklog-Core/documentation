@@ -1,6 +1,6 @@
 # Isolated Geeklog installation validation protocol
 
-Status: **documentation browser checks completed; installer workflows not executed**. This is a manual/staging test plan only and does not authorize access to any production website.
+Status as of **2026-11-03**: **isolated Geeklog 2.2.2 fresh-install and embedded-documentation overlay tested successfully**, with the limitations below. Earlier sections are chronological records of plans and preliminary results; statements such as “not yet executed” below describe the state **at that earlier checkpoint**. Upgrade, migration and rollback remain untested. No production website is in scope.
 
 ## Preconditions
 
@@ -54,7 +54,7 @@ The tool reports each container's image name, running state, port mappings and m
 
 If the helper is not yet in the official repository, use the corresponding file from the working branch. The tool requires only Python and Docker CLI.
 
-### B. Stage clones with unique resources (not yet executed)
+### B. Staging preparation protocol (subsequently executed in isolated project)
 
 Before running any installer wizard, prepare a **new project name** (e.g. `geeklog-docs-staging`), containers, networks, volumes and disposable MariaDB databases. All must be physically separate from `geeklog211-*` and `geeklog222-*`; do **not** bind-mount their live config, databases, backup directories or data volumes into the staging environment.
 
@@ -75,7 +75,7 @@ Confirm distinct local-only ports and no shared Docker volume IDs. Do not connec
 - No tested restoration path exists before upgrade/migration.
 - A test attempts to alter an active site, its credentials or its data.
 
-**Current status:** the official 2.2.2 archive's installer entrypoint and `Common.php` requirement constants were inspected read-only, and the validation helper was added, but **no fresh install, upgrade, migrate or rollback was executed**. These steps require the user's local Docker environment and an independent staging configuration, not just a source audit.
+**Status at this earlier preflight checkpoint:** the official 2.2.2 archive's installer entrypoint and `Common.php` requirement constants were inspected read-only and the validation helper was added. **Later on November 3, the clean installation was executed and the site/admin/documentation overlay validated; see sections K–N below.** Upgrade, migrate and rollback remain pending. These steps require the user's local Docker environment and an independent staging configuration, not just a source audit.
 
 ### E. Ready-to-run dedicated 2.2.2 installation laboratory — 2026-11-03
 
@@ -99,7 +99,7 @@ The wizard displayed **Step 1 — Set File Permissions**, followed by **Step 2 �
 
 **Security implication for documentation:** add a prominent warning in the final installation guide: do **not** copy the installer's `chmod -R 777` example to production. Use controlled ownership/group ACLs and minimal writable paths. After install, protect configuration, ensure installer cannot be accessed, and review Web-server-writable directories.
 
-Status: user has **not yet confirmed** the remediation command succeeded or `New Install` completed. No runtime installation success claim should be made.
+**Status at this earlier intermediate checkpoint:** the user had not yet confirmed completion. **Subsequent results in sections K–N supersede this status.** No runtime installation success claim should be made.
 
 ### G. Step 3 rendering failure after actual form submission — 2026-11-03
 
@@ -109,7 +109,7 @@ The user submitted the isolated fresh-install form and was redirected to `/admin
 
 **Causality not yet proven:** this incorrect value is a real installer configuration defect, but the generic rendering failure might have an additional cause. Because the user reached step 3, the installer may already have modified `db-config.php`, `siteconfig.php`, created one or more database tables, or stored partial configuration. **Do not resubmit/reinitialize yet.** First perform nonmutating checks of current DB host/name/user (never print password), count table names via `information_schema` using the Compose database application account, and inspect narrowly scoped error logs with credentials/query strings redacted. If the stage DB contains partial installer data, any reset must be strictly scoped to the **disposable stage** and preceded by explicit confirmation of its Docker Compose project/volume identity.
 
-**Documentation finding:** “Admin Directory Path” is potentially misleading in English UI. The replacement installation guide should clearly distinguish *admin URL* (`http://localhost:8083/admin`) from *admin filesystem path* (`/var/www/html/public_html/admin`), and never suggest the latter as the form value. No evidence of a successfully completed fresh install yet.
+**Documentation finding:** “Admin Directory Path” is potentially misleading in English UI. The replacement installation guide should clearly distinguish *admin URL* (`http://localhost:8083/admin`) from *admin filesystem path* (`/var/www/html/public_html/admin`), and never suggest the latter as the form value. At this earlier checkpoint, successful completion had not yet been established; later evidence confirms functional site and authenticated admin access.
 
 ### H. Partial installation evidenced by 43 database tables — 2026-11-03
 
@@ -135,7 +135,7 @@ The user explicitly recalled that the problematic plugin should be disabled for 
 
 Recommended a **staging-only** check of `gl_plugins(pi_name, pi_version, pi_enabled)` followed by a narrowly scoped `UPDATE gl_plugins SET pi_enabled=0 WHERE pi_name='xmlsitemap'` and read-only verification. This is non-destructive to plugin tables and files but may not repair a partially completed installer. If XMLSitemap is absent from `gl_plugins`, the UPDATE changes nothing; do not claim a disabled plugin. Do not automatically resubmit the installer or assume the generic render failure is completely solved. The existing 43-table schema and `database_version=2.2.2` must be preserved for subsequent forensic review.
 
-**Status:** instructions provided but **not yet executed or validated** by user.
+**Status at this earlier checkpoint:** the instructions were unverified; later `gl_plugins` query (section L) confirms XMLSitemap disabled.
 
 ### K. Staging fresh-install site and administration accessible — 2026-11-03
 
