@@ -128,3 +128,11 @@ Fresh-install stage evidence from user-supplied diagnostics:
 - The earlier install-stage writable-path preflight did **not** cover `public_html/sitemap.xml` or allow the Web process to create it. Therefore this is a **reproducible post-install filesystem permission gap**, not the previously described Polls/SpamX *upgrade* SQL failure.
 - The generic `Unfortunately, an error has occurred rendering this page` message is **not yet conclusively attributed** to the sitemap warning; a separate invalid `site_admin_url` was previously observed and may still be stored. Do not assert that every installation stage finished correctly or restart the installer blindly.
 - Next: read-only test whether `public_html/sitemap.xml` exists and whether `www-data` can write it; inspect only the last redacted Geeklog log lines and public HTTP status; check the actual persisted admin URL and *exact* plugin count. If remediation is needed in this disposable stack, create only the sitemap file owned by `www-data` with mode 0644, rather than making the whole public Web directory writable or applying `chmod 777`. Then assess site/plugin health without replaying the full new-install process.
+
+### J. User-selected XMLSitemap disablement for disposable installation — 2026-11-03
+
+The user explicitly recalled that the problematic plugin should be disabled for the staged installer test. The current **fresh install** error pertains to XMLSitemap post-install's inability to create `public_html/sitemap.xml`; it is distinct from the Memorandum's historical **SpamX upgrade** SQL 1091 failure.
+
+Recommended a **staging-only** check of `gl_plugins(pi_name, pi_version, pi_enabled)` followed by a narrowly scoped `UPDATE gl_plugins SET pi_enabled=0 WHERE pi_name='xmlsitemap'` and read-only verification. This is non-destructive to plugin tables and files but may not repair a partially completed installer. If XMLSitemap is absent from `gl_plugins`, the UPDATE changes nothing; do not claim a disabled plugin. Do not automatically resubmit the installer or assume the generic render failure is completely solved. The existing 43-table schema and `database_version=2.2.2` must be preserved for subsequent forensic review.
+
+**Status:** instructions provided but **not yet executed or validated** by user.
