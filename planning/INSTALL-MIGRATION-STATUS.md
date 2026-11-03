@@ -71,5 +71,6 @@ Historical checklist migrated to the official documentation repository. PR #1 ha
 
 - [x] Add `tools/check_official_release_docs.py` to compare posted official archive size/MD5 and SHA-256 of all packaged Core and reCAPTCHA documentation against pinned `v2.2.2` source.
 - [x] Add four synthetic tarball regression cases (`tools/test_official_release_docs.py`) and run them in dual-output CI; documented in `OFFICIAL-ARCHIVE-VALIDATION.md`.
-- [ ] Obtain original downloadable `geeklog-2.2.2.tar.gz` and run the tool. Official website advertises 16,978,448 bytes and MD5 `962cc6e6ed1ce13f65066e47859511d8`; download could not be completed in assistant environment.
-- [ ] Investigate any packaged-versus-tag discrepancies and preserve evidence before integrating into the release workflow.
+- [x] Received `geeklog-2.2.2.tar.gz` from the user; actual file size 16,978,448 bytes and MD5 `962cc6e6ed1ce13f65066e47859511d8` exactly match official metadata; SHA-256 `d12991f78225289d2bac297bff1a7e9be55f04a9e0aa097bb379e41d7fb138a8`.
+- [x] Compared all 46 packaged documentation files to GitHub's official `v2.2.2` tree blob IDs: 8 identical, 38 differ only by CRLF vs LF, 0 missing, 0 extra, 0 substantive differences. Updated checker to report CRLF-only differences separately and require explicit opt-in to accept them. See `OFFICIAL-ARCHIVE-VALIDATION.md`.
+- [ ] Run the updated checker unit tests through CI and compare generated output against packaged release's documentation tree; do not assume byte-for-byte equivalence across line-ending conventions.
