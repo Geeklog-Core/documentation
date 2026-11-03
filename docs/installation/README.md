@@ -1,6 +1,6 @@
 # Installing, upgrading and migrating Geeklog
 
-> **Migration draft — not yet authoritative.** Adapted from the Geeklog Core `install.html` bundled with the source tree (which describes Geeklog 2.2.2). Check your own release package, current installation wizard and release notes before following these instructions in production. This document has not yet been validated in a running installation.
+> **Migration draft — not yet authoritative.** Adapted from the Geeklog Core `install.html` bundled with the source tree (which describes Geeklog 2.2.2). Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
 
 <a id="glossary" name="glossary"></a>
 
@@ -54,6 +54,25 @@ The following summarizes the process described in the source HTML; version-speci
 5. Copy the **remaining Geeklog files** outside the public web root, ideally to its parent directory or another non-public directory. If the installer cannot find these files, it may ask for their location.
 6. Open `https://YOUR-SITE/admin/install/index.php` (adjust the URL to your installation) and follow the installer.
 7. When installation is complete, follow the release's post-install security instructions. The source document explicitly instructs administrators to **delete the `admin/install` directory** and change the administrator's default password.
+
+### Configuration fields that are easy to confuse
+
+- **Site URL** is a web address, for example `http://localhost:8083` in a private staging environment.
+- **Admin Directory Path** is a misleading label in the Geeklog 2.2.2 wizard: the submitted field is `site_admin_url`, which must be a **web URL**, such as `http://localhost:8083/admin` (no trailing slash). **Do not enter** a filesystem path such as `/var/www/html/public_html/admin`.
+- The actual filesystem admin directory in this example is `/var/www/html/public_html/admin/` and is distinct from the administrator URL.
+- **Database Hostname** must resolve from the Web server. In Docker Compose a service named `db` uses `db` rather than `localhost` (which could make MySQLi attempt a nonexistent local socket).
+- For MySQL/MariaDB with InnoDB, select the supported MySQL/InnoDB choice and use fresh database credentials. Never paste credentials into support logs.
+
+### Writable paths and plugin post-installation
+
+Geeklog 2.2.2's installer may recommend `chmod -R 777` for its preflight list. **Do not run it.** The actual PHP check is whether the Web-server account can write the selected paths (`is_writable()`). Give that account narrowly scoped ownership or group/ACL access, with standard restrictive modes (for example 0644 for writable files owned by the PHP worker, 0755 for writable directories owned by it) where appropriate to the deployment. Verify permissions as the **actual PHP worker**, not only as root. A Docker `exec` script receiving input from a heredoc needs `docker exec -i` if piping commands into the container.
+
+The **XMLSitemap** plugin can attempt to create `public_html/sitemap.xml` in its post-install hook. This file may lie outside the installer's initial writable-path list; insufficient permission can cause a separate post-install warning even when Core tables and other plugins were successfully created. A secure deployment should arrange appropriate **file-specific** sitemap writing permissions (or deliberately omit/disable the optional plugin when appropriate), rather than make the entire public directory world-writable. Disabling a plugin after a partial installation does not mean its failed post-installation has been repaired.
+
+### Interrupted installs: preserve state before retrying
+
+An installation can populate tables and install plugins before a subsequent warning or rendering error appears. Do **not** blindly repeat the installer, remove tables, or edit the stored `database_version`. First check the real DB schema/version, plugin statuses, the Geeklog application log and the saved `site_url` / `site_admin_url` configuration. The 2.2.2 stage test yielded 43 tables and `database_version=2.2.2`, while administrative access failed because `site_admin_url` contained a filesystem path. Correcting that specific serialized configuration value restored the admin page without reinstalling. This is a **staging observation**, not a universally safe manual recovery procedure.
+
 
 **Security note:** the source mentions a legacy fallback involving a protected subdirectory inside the web root. This draft does *not* recommend that approach without a separate security review of web-server access controls.
 
