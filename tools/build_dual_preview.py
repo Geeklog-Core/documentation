@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a non-official online preview and a 2.2.2-layout offline ZIP.
+"""Build a Markdown documentation website and a 2.2.2-layout offline preview ZIP.
 
 Requires tools/check_install_anchors.py to have built build/ using a pinned
 Geeklog Core documentation tree (GEEKLOG_CORE_DOCS).
@@ -18,7 +18,7 @@ BUILD = ROOT / "build"
 DIST = ROOT / "dist/geeklog-2.2.2/public_html/docs"
 WEB = ROOT / "dist/online"
 PAGES = {
-    "index.html": ("Geeklog documentation — prototype", None),
+    "index.html": ("Geeklog documentation", None),
     "installation.html": ("Installation", ROOT / "docs/installation/README.md"),
     "configuration.html": ("Configuration", ROOT / "docs/configuration/README.md"),
     "administration.html": ("Administration", ROOT / "docs/administration/README.md"),
@@ -61,8 +61,8 @@ def main():
         if md:
             body=markdown.markdown(md.read_text(encoding="utf-8"),extensions=["tables","fenced_code","toc"])
         else:
-            body='<h1>Geeklog documentation</h1><p>Independent Markdown migration prototype, not an official release.</p><p>Explore <a href="installation.html">installation</a>, <a href="configuration.html">configuration</a>, and <a href="administration.html">administration</a>.</p>'
-        page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head><body><nav>{NAV}</nav><main>{body}</main><footer><hr>Preview only · Geeklog 2.2.2 documentation migration</footer></body></html>'
+            body='<h1>Geeklog documentation</h1><p>Official Geeklog documentation project. These migration guides are still being reviewed; consult the documentation bundled with your Geeklog release for complete version-specific instructions.</p><p>Explore <a href="installation.html">installation</a>, <a href="configuration.html">configuration</a>, and <a href="administration.html">administration</a>.</p>'
+        page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head><body><nav>{NAV}</nav><main>{body}</main><footer><hr>Geeklog documentation · Content migration in progress · Embedded ZIP is a Geeklog 2.2.2 compatibility preview</footer></body></html>'
         (WEB/file).write_text(page,encoding="utf-8")
     for file in PAGES:
         p=WEB/file

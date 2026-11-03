@@ -24,4 +24,8 @@ Contributions will be welcome through GitHub pull requests once the initial docu
 
 ## Project Status
 
-Initial setup. Documentation migration and publishing workflows are under development.
+The Markdown documentation website is published at https://geeklog-core.github.io/documentation/ and maintained in this official repository.
+
+**Content migration remains incomplete.** Online installation, configuration and administration pages are drafts under review, not replacements for the documentation distributed with each Geeklog release. The generated Geeklog 2.2.2 embedded HTML ZIP is a tested **prototype**, not an official release package. Unmigrated Core and plugin HTML is retained for backward compatibility.
+
+See [the prototype and compatibility limitations](PROTOTYPE.md) and [content inventory](planning/CONTENT-INVENTORY.md) before changing or distributing release documentation.

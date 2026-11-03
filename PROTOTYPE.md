@@ -1,7 +1,7 @@
-# Independent dual-output documentation prototype
+# Documentation generation and embedded HTML compatibility prototype
 
-This branch is a **demonstration**, not an official Geeklog documentation release.
-It does not modify the foundation pull request #1.
+This repository hosts the official Geeklog documentation website at https://geeklog-core.github.io/documentation/.
+The **embedded Geeklog 2.2.2 HTML ZIP remains a compatibility prototype**, not an official Geeklog software/documentation release. The existing legacy HTML is still retained until each page has been migrated and verified.
 
 ## Outputs
 
@@ -31,6 +31,6 @@ Edit the Markdown under `docs/installation/`, `docs/configuration/`, or `docs/ad
 
 ## Limitations and launch gates
 
-This site does not yet have a public GitHub Pages deployment. Publishing via GitHub Pages from the fork requires configuration and a deployment workflow. Do not enable official Pages without owner approval.
+The official GitHub Pages website is published. Deployment is an explicit, manually triggered GitHub Actions workflow after a reviewed change is merged to `main`. This workflow does not automatically modify any Geeklog Core release package.
 
 Historical `config.html`, other Core HTML pages and plugin documentation are retained, not migrated. Existing `changes.html` link defects are tracked as a frozen baseline. Runtime staging installation and release-package comparison remain pending.
