@@ -1482,3 +1482,256 @@ When the digest is enabled, `0` sends titles and links, `1` sends full article i
 
 When enabled, newly registered accounts are automatically subscribed to the daily digest. Verify consent requirements before enabling.
 
+
+
+## HTML filtering and safe content — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_user_html" name="desc_user_html"></a>
+
+### `user_html`
+
+Allowed HTML tags and attributes for ordinary users in articles and comments. The 2.2.2 reference lists basic formatting tags; only add tags or attributes after considering script injection and unsafe URLs.
+
+<a id="desc_admin_html" name="desc_admin_html"></a>
+
+### `admin_html`
+
+Extra tags and attributes allowed for administrators, in addition to `user_html`. Defining a tag again here can replace the ordinary-user attribute definition.
+
+<a id="desc_advanced_html" name="desc_advanced_html"></a>
+
+### `advanced_html`
+
+Additional HTML tags and attributes permitted when the advanced rich-text editor is used. Review these allowances for unsafe markup.
+
+<a id="desc_skip_html_filter_for_root" name="desc_skip_html_filter_for_root"></a>
+
+### `skip_html_filter_for_root`
+
+When enabled, `Root` members may bypass HTML filtering for their content. This is a security-sensitive option; keep filtering unless the risks have been evaluated.
+
+<a id="desc_allowed_protocols" name="desc_allowed_protocols"></a>
+
+### `allowed_protocols`
+
+List of URL schemes allowed in HTML links. The 2.2.2 reference includes `http`, `https` and `ftp`; avoid untrusted executable schemes.
+
+
+## Content censoring and IP lookup — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_censormode" name="desc_censormode"></a>
+
+### `censormode`
+
+Controls word filtering: `0` disabled, `1` exact match, `2` word-start match and `3` substring match in the 2.2.2 reference.
+
+<a id="desc_censorreplace" name="desc_censorreplace"></a>
+
+### `censorreplace`
+
+Text substituted for censored words; historically `*censored*`. The legacy filter may fail to detect words interrupted by HTML or BBCode markup.
+
+<a id="desc_censorlist" name="desc_censorlist"></a>
+
+### `censorlist`
+
+List of terms checked by the censoring facility. Test false positives and the actual filter implementation before deployment.
+
+<a id="desc_ip_lookup" name="desc_ip_lookup"></a>
+
+### `ip_lookup`
+
+Optional external IP lookup URL for administrative review of comment poster IPs. The historical setting uses `*` as the substitution marker; consider visitor privacy before sending an address to a third-party service.
+
+
+## Webservices API controls — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_disable_webservices" name="desc_disable_webservices"></a>
+
+### `disable_webservices`
+
+Setting `true` disables the Geeklog webservices facility in the 2.2.2 reference.
+
+<a id="desc_restrict_webservices" name="desc_restrict_webservices"></a>
+
+### `restrict_webservices`
+
+When enabled, limits webservices access to users with the `webservices.atompub` permission, such as a properly configured Webservices Users group.
+
+<a id="desc_atom_max_stories" name="desc_atom_max_stories"></a>
+
+### `atom_max_stories`
+
+Maximum number of articles returned by an Atom webservices feed request; documented default `10`.
+
+
+## Topic breadcrumb controls — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_multiple_breadcrumbs" name="desc_multiple_breadcrumbs"></a>
+
+### `multiple_breadcrumbs`
+
+Show more than one breadcrumb trail when available.
+
+<a id="desc_disable_breadcrumbs_topics" name="desc_disable_breadcrumbs_topics"></a>
+
+### `disable_breadcrumbs_topics`
+
+Suppress breadcrumbs associated with topic pages when enabled.
+
+<a id="desc_disable_breadcrumbs_articles" name="desc_disable_breadcrumbs_articles"></a>
+
+### `disable_breadcrumbs_articles`
+
+Suppress breadcrumbs associated with article pages when enabled.
+
+<a id="desc_disable_breadcrumbs_plugins" name="desc_disable_breadcrumbs_plugins"></a>
+
+### `disable_breadcrumbs_plugins`
+
+Suppress breadcrumbs generated by plugins when enabled.
+
+<a id="desc_breadcrumb_root_site_name" name="desc_breadcrumb_root_site_name"></a>
+
+### `breadcrumb_root_site_name`
+
+Display the site name as the root entry of breadcrumb navigation when enabled.
+
+
+## File manager — display and server behavior — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_filemanager_disabled" name="desc_filemanager_disabled"></a>
+
+### `filemanager_disabled`
+
+Disable the file manager for ordinary users when enabled; the 2.2.2 reference specifies that `Root` members retain access.
+
+<a id="desc_filemanager_browse_only" name="desc_filemanager_browse_only"></a>
+
+### `filemanager_browse_only`
+
+Enable read-only browsing in the file manager.
+
+<a id="desc_filemanager_default_view_mode" name="desc_filemanager_default_view_mode"></a>
+
+### `filemanager_default_view_mode`
+
+Default file manager layout: `grid` or `list`.
+
+<a id="desc_filemanager_show_confirmation" name="desc_filemanager_show_confirmation"></a>
+
+### `filemanager_show_confirmation`
+
+Show a confirmation message for file manager operations when enabled.
+
+<a id="desc_filemanager_search_box" name="desc_filemanager_search_box"></a>
+
+### `filemanager_search_box`
+
+Show the file manager search field when enabled.
+
+<a id="desc_filemanager_file_sorting" name="desc_filemanager_file_sorting"></a>
+
+### `filemanager_file_sorting`
+
+File/folder sorting by name, type or modification date, each ascending or descending.
+
+<a id="desc_filemanager_chars_only_latin" name="desc_filemanager_chars_only_latin"></a>
+
+### `filemanager_chars_only_latin`
+
+Control whether non-Latin characters are allowed in folder names. Verify the exact boolean interpretation before changing this historic option.
+
+<a id="desc_filemanager_date_format" name="desc_filemanager_date_format"></a>
+
+### `filemanager_date_format`
+
+Format of dates shown in the file manager; the bundled default uses `yMMMdHm`.
+
+<a id="desc_filemanager_logger" name="desc_filemanager_logger"></a>
+
+### `filemanager_logger`
+
+Log file manager server-side actions in Geeklog's error log when enabled. Avoid exposing sensitive file paths in public logs.
+
+<a id="desc_filemanager_show_thumbs" name="desc_filemanager_show_thumbs"></a>
+
+### `filemanager_show_thumbs`
+
+Show thumbnails of supported files when enabled.
+
+<a id="desc_filemanager_generate_thumbnails" name="desc_filemanager_generate_thumbnails"></a>
+
+### `filemanager_generate_thumbnails`
+
+Generate thumbnail images using PHP for faster directory browsing. The reference places them in an internal `_thumbs` directory.
+
+
+## File manager — uploads and media — Geeklog 2.2.2
+
+Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="desc_filemanager_upload_overwrite" name="desc_filemanager_upload_overwrite"></a>
+
+### `filemanager_upload_overwrite`
+
+Overwrite an existing file with the same name when enabled; otherwise append an index to the uploaded filename. Review permissions before enabling overwrites.
+
+<a id="desc_filemanager_upload_file_size_limit" name="desc_filemanager_upload_file_size_limit"></a>
+
+### `filemanager_upload_file_size_limit`
+
+Maximum upload size checked by the HTML5 client and PHP connector, in MiB; bundled default `16`. Server-side PHP limits may further restrict uploads.
+
+<a id="desc_filemanager_images_ext" name="desc_filemanager_images_ext"></a>
+
+### `filemanager_images_ext`
+
+Allowed image filename extensions in the file manager; the 2.2.2 reference lists `jpg`, `jpeg`, `gif`, `png` and `svg`. Extension checks alone are not sufficient file-content validation.
+
+<a id="desc_filemanager_show_video_player" name="desc_filemanager_show_video_player"></a>
+
+### `filemanager_show_video_player`
+
+Show the browser-based video player for supported video files.
+
+<a id="desc_filemanager_videos_ext" name="desc_filemanager_videos_ext"></a>
+
+### `filemanager_videos_ext`
+
+Video filename extensions supported by the built-in player; the 2.2.2 reference lists `ogv`, `mp4`, `webm`.
+
+<a id="desc_filemanager_videos_player_width" name="desc_filemanager_videos_player_width"></a>
+
+### `filemanager_videos_player_width`
+
+Width in pixels for the embedded video player; historical default `400`.
+
+<a id="desc_filemanager_videos_player_height" name="desc_filemanager_videos_player_height"></a>
+
+### `filemanager_videos_player_height`
+
+Height in pixels for the embedded video player; historical default `222`.
+
+<a id="desc_filemanager_show_audio_player" name="desc_filemanager_show_audio_player"></a>
+
+### `filemanager_show_audio_player`
+
+Show the browser-based audio player for supported audio files.
+
+<a id="desc_filemanager_audios_ext" name="desc_filemanager_audios_ext"></a>
+
+### `filemanager_audios_ext`
+
+Audio filename extensions recognized by the player; the 2.2.2 reference lists `ogg`, `mp3` and `wav`.
+
