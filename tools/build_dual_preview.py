@@ -70,8 +70,8 @@ def main():
     modern_web = WEB / "modern"
     modern_embed = DIST / "english" / "modern"
     for target in (modern_web, modern_embed):
-        assert write_site(target) == 3
-        assert check_links(target) == 4
+        assert write_site(target) == 5
+        assert check_links(target) == 6
     for p in modern_web.rglob("*"):
         if p.is_file():
             assert p.read_bytes() == (modern_embed / p.relative_to(modern_web)).read_bytes()
@@ -106,7 +106,7 @@ def main():
     online_html = list(WEB.rglob("*.html"))
     modern_html = list(modern_web.rglob("*.html"))
     assert len(online_html) == len(PAGES) + len(modern_html)
-    assert len(modern_html) == 4, "Expected modern index and three guides"
+    assert len(modern_html) == 6, "Expected modern index and five guides"
     assert (WEB / "modern/search-index.json").is_file()
     assert (WEB / "modern/search.js").is_file()
     for page in modern_html:
