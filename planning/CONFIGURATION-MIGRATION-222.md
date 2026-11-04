@@ -106,3 +106,15 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - `tools/check_configuration_coverage.py` now requires **exact equality** of source vs generated online help-ID sets, rather than only reporting partially migrated IDs. The 387 identifier regression baseline is pinned.
 - **100% structural coverage is not 100% text or link compatibility.** The Markdown descriptions are often condensed; not all historical subtopics, tables, examples and cross-references have been migrated. The original embedded `config.html` has **not** been replaced.
 - Next acceptance gates before making the Markdown the single source for the *embedded* config help: (a) extract ALL historical HTML ids/named anchors, not only `desc_*`, (b) audit local links/embedded assets and external references, (c) compare substantive sections and defaults for information loss, (d) review licensing/source attribution, (e) test in real Geeklog 2.2.2 configuration administration and install/staging flows, (f) only then generate `english/config.html` from a single Markdown source with compatible HTML paths and anchors.
+
+## Historical navigation audit after 387/387 help anchors
+
+An independent inventory of the original Geeklog 2.2.2 HTML config reference found:
+- **449 unique** original named/ID anchors (450 occurrences; `users_comments` is repeated).
+- **387 `desc_*`** context-help anchors: all represented in Markdown.
+- **62 non-`desc_*`** anchors for historical headings, section navigation and auxiliary documentation: not yet present in the generated online Markdown configuration page.
+- **34 unique** same-page fragment destinations in source links, all of which resolve against the original HTML source.
+
+The configuration coverage script now reports the missing 62 non-help anchors and checks that the original source's same-page references still resolve. Missing headings are **reported rather than failed** in the transitional online preview; the legacy embedded HTML remains unchanged. Before replacing `english/config.html`, migrate these 62 section anchors or provide verified compatibility aliases, and test all help navigation and substantive paragraphs.
+
+**Caution:** source uses a duplicate named anchor `users_comments`; preserve all source *unique identifiers* but resolve ambiguous duplicate heading naming during the final editorial pass without breaking historic references.
