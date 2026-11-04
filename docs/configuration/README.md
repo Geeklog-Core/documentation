@@ -1735,3 +1735,274 @@ Show the browser-based audio player for supported audio files.
 
 Audio filename extensions recognized by the player; the 2.2.2 reference lists `ogg`, `mp3` and `wav`.
 
+
+## Default content permissions and autotag access — Geeklog 2.2.2
+
+The following 44 help identifiers describe the **defaults** for content permissions and autotag usage in the [bundled Geeklog 2.2.2 reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#misc_permissions). They are not recommendations to grant public users broader rights. Review effective group permissions and test with least-privileged accounts before changing production.
+
+The suffixes `_0`, `_1`, `_2` and `_3` refer to distinct audience/role positions recorded by the original configuration page. Do not infer access solely from a setting name; the actual group and operation are important.
+
+<a id="desc_default_permissions_story_0" name="desc_default_permissions_story_0"></a>
+
+### `default_permissions_story_0`
+
+**Bundled default:** Read-Write. Default permission for Owner of new articles. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_story_1" name="desc_default_permissions_story_1"></a>
+
+### `default_permissions_story_1`
+
+**Bundled default:** Read-Only. Default permission for Group of new articles. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_story_2" name="desc_default_permissions_story_2"></a>
+
+### `default_permissions_story_2`
+
+**Bundled default:** Read-Only. Default permission for all logged in users of new articles. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_story_3" name="desc_default_permissions_story_3"></a>
+
+### `default_permissions_story_3`
+
+**Bundled default:** Read-Only. Default permission for all anonymous visitors of new articles. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_topic_0" name="desc_default_permissions_topic_0"></a>
+
+### `default_permissions_topic_0`
+
+**Bundled default:** Read-Write. Default permission for Owner of new topics. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_topic_1" name="desc_default_permissions_topic_1"></a>
+
+### `default_permissions_topic_1`
+
+**Bundled default:** Read-Only. Default permission for Group of new topics. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_topic_2" name="desc_default_permissions_topic_2"></a>
+
+### `default_permissions_topic_2`
+
+**Bundled default:** Read-Only. Default permission for all logged in users of new topics. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_topic_3" name="desc_default_permissions_topic_3"></a>
+
+### `default_permissions_topic_3`
+
+**Bundled default:** Read-Only. Default permission for all anonymous visitors of new topics. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_block_0" name="desc_default_permissions_block_0"></a>
+
+### `default_permissions_block_0`
+
+**Bundled default:** Read-Write. Default permission for Owner of new blocks. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_block_1" name="desc_default_permissions_block_1"></a>
+
+### `default_permissions_block_1`
+
+**Bundled default:** Read-Only. Default permission for Group of new blocks. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_block_2" name="desc_default_permissions_block_2"></a>
+
+### `default_permissions_block_2`
+
+**Bundled default:** Read-Only. Default permission for all logged in users of new blocks. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_default_permissions_block_3" name="desc_default_permissions_block_3"></a>
+
+### `default_permissions_block_3`
+
+**Bundled default:** Read-Only. Default permission for all anonymous users of new blocks. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_story_0" name="desc_autotag_permissions_story_0"></a>
+
+### `autotag_permissions_story_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_story_1" name="desc_autotag_permissions_story_1"></a>
+
+### `autotag_permissions_story_1`
+
+**Bundled default:** Use. Usage permission for autotag by Article Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_story_2" name="desc_autotag_permissions_story_2"></a>
+
+### `autotag_permissions_story_2`
+
+**Bundled default:** Use. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_story_3" name="desc_autotag_permissions_story_3"></a>
+
+### `autotag_permissions_story_3`
+
+**Bundled default:** Use. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_user_0" name="desc_autotag_permissions_user_0"></a>
+
+### `autotag_permissions_user_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_user_1" name="desc_autotag_permissions_user_1"></a>
+
+### `autotag_permissions_user_1`
+
+**Bundled default:** Use. Usage permission for autotag by User Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_user_2" name="desc_autotag_permissions_user_2"></a>
+
+### `autotag_permissions_user_2`
+
+**Bundled default:** Use. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_user_3" name="desc_autotag_permissions_user_3"></a>
+
+### `autotag_permissions_user_3`
+
+**Bundled default:** Use. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_topic_0" name="desc_autotag_permissions_topic_0"></a>
+
+### `autotag_permissions_topic_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_topic_1" name="desc_autotag_permissions_topic_1"></a>
+
+### `autotag_permissions_topic_1`
+
+**Bundled default:** Use. Usage permission for autotag by Topic Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_topic_2" name="desc_autotag_permissions_topic_2"></a>
+
+### `autotag_permissions_topic_2`
+
+**Bundled default:** Use. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_topic_3" name="desc_autotag_permissions_topic_3"></a>
+
+### `autotag_permissions_topic_3`
+
+**Bundled default:** Use. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_topics_0" name="desc_autotag_permissions_related_topics_0"></a>
+
+### `autotag_permissions_related_topics_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_topics_1" name="desc_autotag_permissions_related_topics_1"></a>
+
+### `autotag_permissions_related_topics_1`
+
+**Bundled default:** Use. Usage permission for autotag by Topic Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_topics_2" name="desc_autotag_permissions_related_topics_2"></a>
+
+### `autotag_permissions_related_topics_2`
+
+**Bundled default:** No Access. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_topics_3" name="desc_autotag_permissions_related_topics_3"></a>
+
+### `autotag_permissions_related_topics_3`
+
+**Bundled default:** No Access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_items_0" name="desc_autotag_permissions_related_items_0"></a>
+
+### `autotag_permissions_related_items_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_items_1" name="desc_autotag_permissions_related_items_1"></a>
+
+### `autotag_permissions_related_items_1`
+
+**Bundled default:** Use. Usage permission for autotag by Topic Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_items_2" name="desc_autotag_permissions_related_items_2"></a>
+
+### `autotag_permissions_related_items_2`
+
+**Bundled default:** No Access. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_related_items_3" name="desc_autotag_permissions_related_items_3"></a>
+
+### `autotag_permissions_related_items_3`
+
+**Bundled default:** No Access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_block_0" name="desc_autotag_permissions_block_0"></a>
+
+### `autotag_permissions_block_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_block_1" name="desc_autotag_permissions_block_1"></a>
+
+### `autotag_permissions_block_1`
+
+**Bundled default:** Use. Usage permission for autotag by Block Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_block_2" name="desc_autotag_permissions_block_2"></a>
+
+### `autotag_permissions_block_2`
+
+**Bundled default:** No Access. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_block_3" name="desc_autotag_permissions_block_3"></a>
+
+### `autotag_permissions_block_3`
+
+**Bundled default:** No access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_structureddata_0" name="desc_autotag_permissions_structureddata_0"></a>
+
+### `autotag_permissions_structureddata_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_structureddata_1" name="desc_autotag_permissions_structureddata_1"></a>
+
+### `autotag_permissions_structureddata_1`
+
+**Bundled default:** Use. Usage permission for autotag by Root Group. Please note, changing this will not affect permissions since the Root Group automatically has access to everything. To give usage permissions for this autotag to other Security Groups, assign them the feature structureddata.autotag . This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_structureddata_2" name="desc_autotag_permissions_structureddata_2"></a>
+
+### `autotag_permissions_structureddata_2`
+
+**Bundled default:** No Access. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_structureddata_3" name="desc_autotag_permissions_structureddata_3"></a>
+
+### `autotag_permissions_structureddata_3`
+
+**Bundled default:** No access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_likes_block_0" name="desc_autotag_permissions_likes_block_0"></a>
+
+### `autotag_permissions_likes_block_0`
+
+**Bundled default:** Use. Usage permission for autotag by autotag Owner (Default Root User). This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_likes_block_1" name="desc_autotag_permissions_likes_block_1"></a>
+
+### `autotag_permissions_likes_block_1`
+
+**Bundled default:** Use. Usage permission for autotag by Blocks Admin Group. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_likes_block_2" name="desc_autotag_permissions_likes_block_2"></a>
+
+### `autotag_permissions_likes_block_2`
+
+**Bundled default:** No Access. Usage permission for autotag by all logged in users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
+<a id="desc_autotag_permissions_likes_block_3" name="desc_autotag_permissions_likes_block_3"></a>
+
+### `autotag_permissions_likes_block_3`
+
+**Bundled default:** No Access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
+
