@@ -959,3 +959,166 @@ Number of decimal places displayed; historical default `2`.
 
 Site's intended time zone when it differs from that of the hosting server. Confirm behavior on the installed release.
 
+
+
+## Image processing libraries — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_image_lib" name="desc_image_lib"></a>
+
+### `image_lib`
+
+Selects the image resize engine used for uploads: ImageMagick (`imagemagick`), Netpbm (`netpbm`) or PHP GD (`gdlib`) in Geeklog 2.2.2. Leave as `None` if no supported resizing backend is available. Verify installed extensions/binaries before enabling.
+
+<a id="desc_path_to_mogrify" name="desc_path_to_mogrify"></a>
+
+### `path_to_mogrify`
+
+Absolute filesystem path to the ImageMagick `mogrify` executable when `image_lib` is `imagemagick`. The historical reference uses `/usr/bin/mogrify` as an example; check your server.
+
+<a id="desc_path_to_netpbm" name="desc_path_to_netpbm"></a>
+
+### `path_to_netpbm`
+
+Absolute directory containing Netpbm executables when `image_lib` is `netpbm`. The 2.2.2 reference specifies a trailing slash.
+
+
+## Image uploads and scaling — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_keep_unscaled_image" name="desc_keep_unscaled_image"></a>
+
+### `keep_unscaled_image`
+
+When enabled, retains the original uploaded image as well as a resized version, allowing thumbnails to link to the original. Consider additional disk usage.
+
+<a id="desc_allow_user_scaling" name="desc_allow_user_scaling"></a>
+
+### `allow_user_scaling`
+
+When original images are retained, lets article authors select scaled or original images using the supported image tags (`[image X]` and `[unscaled X]`).
+
+<a id="desc_jpeg_quality" name="desc_jpeg_quality"></a>
+
+### `jpeg_quality`
+
+Controls JPEG encoding quality when images are resized. The referenced range is 0–100, but it is not a percentage; its documented fallback is 75 when unset. High values increase file size.
+
+<a id="desc_debug_image_upload" name="desc_debug_image_upload"></a>
+
+### `debug_image_upload`
+
+Adds diagnostic output for image upload and resize operations to Geeklog's error log when enabled. Avoid leaving verbose logging enabled in production.
+
+
+## Images attached to articles — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_max_image_width" name="desc_max_image_width"></a>
+
+### `max_image_width`
+
+Maximum article image width in pixels. The historical 2.2.2 reference documents `160`; larger images may be resized or rejected depending on the selected image library.
+
+<a id="desc_max_image_height" name="desc_max_image_height"></a>
+
+### `max_image_height`
+
+Maximum article image height in pixels; the reference documents `160`. Oversized images may be resized or rejected according to the image backend.
+
+<a id="desc_max_image_size" name="desc_max_image_size"></a>
+
+### `max_image_size`
+
+Maximum uploaded article image size in bytes; documented as `1048576` (1 MiB). Files larger than the limit are rejected even when an image-resizing library is configured.
+
+
+## Topic icon image limits — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_max_topicicon_width" name="desc_max_topicicon_width"></a>
+
+### `max_topicicon_width`
+
+Maximum topic icon width in pixels; the bundled reference documents `48`. Oversized icons may be resized or rejected.
+
+<a id="desc_max_topicicon_height" name="desc_max_topicicon_height"></a>
+
+### `max_topicicon_height`
+
+Maximum topic icon height in pixels; documented as `48`.
+
+<a id="desc_max_topicicon_size" name="desc_max_topicicon_size"></a>
+
+### `max_topicicon_size`
+
+Maximum uploaded topic icon size in bytes; documented as `65536` (64 KiB). Oversized files are rejected regardless of whether a resizing library exists.
+
+
+## User photos and generated avatars — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_max_photo_width" name="desc_max_photo_width"></a>
+
+### `max_photo_width`
+
+Maximum stored user-photo width in pixels; historical default `128`. Images exceeding this may be resized or rejected.
+
+<a id="desc_max_photo_height" name="desc_max_photo_height"></a>
+
+### `max_photo_height`
+
+Maximum stored user-photo height in pixels; historical default `128`.
+
+<a id="desc_max_photo_size" name="desc_max_photo_size"></a>
+
+### `max_photo_size`
+
+Maximum uploaded user-photo size in bytes; historical default `65536` (64 KiB). Files above the limit are rejected.
+
+<a id="desc_force_photo_width" name="desc_force_photo_width"></a>
+
+### `force_photo_width`
+
+Optional maximum display width for user photos in emitted HTML. This changes their displayed dimensions, not the dimensions of the stored image.
+
+<a id="desc_default_photo" name="desc_default_photo"></a>
+
+### `default_photo`
+
+Full URL of a fallback photo for accounts without their own photo, when configured. The original 2.2.2 reference describes this as disabled by default.
+
+<a id="desc_generate_user_icon" name="desc_generate_user_icon"></a>
+
+### `generate_user_icon`
+
+When enabled and `default_photo` is unavailable, generates a basic avatar from the username. Appearance depends on the theme's CSS and browser support for CSS variables.
+
+
+## Gravatar integration — Geeklog 2.2.2
+
+Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="desc_use_gravatar" name="desc_use_gravatar"></a>
+
+### `use_gravatar`
+
+When enabled, requests an avatar from Gravatar for users who did not upload a photo. Uploaded photos take precedence. Consider external-service privacy and page-load performance.
+
+<a id="desc_gravatar_rating" name="desc_gravatar_rating"></a>
+
+### `gravatar_rating`
+
+Maximum Gravatar rating permitted for displayed remote avatars; the 2.2.2 reference mentions `G`, `PG`, `R` and `X`.
+
+<a id="desc_gravatar_identicon" name="desc_gravatar_identicon"></a>
+
+### `gravatar_identicon`
+
+Fallback Gravatar style when a remote avatar is absent. The historical reference lists Mystery Man, Identicon, MonsterId, WAvatar and Retro; availability may change with the external provider.
+
