@@ -2232,3 +2232,313 @@ Administrator destination after saving a user record: `item`, `list`, `home`, or
 
 Bitmask selecting actions that the Spam-X plugin runs when spam is detected. The 2.2.2 reference documents `128` for its delete action; inspect installed plugin modules before combining bit flags.
 
+
+
+## Historic OAuth provider settings — Geeklog 2.2.2
+
+These descriptions are scoped to the [versioned source reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Provider integrations and bootstrap settings need separate operational checks before a live change.
+
+<a id="desc_google_login" name="desc_google_login"></a>
+
+### `google_login`
+
+Enables the historical Google OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_google_consumer_key" name="desc_google_consumer_key"></a>
+
+### `google_consumer_key`
+
+Application/client identifier for the historical Google login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_google_consumer_secret" name="desc_google_consumer_secret"></a>
+
+### `google_consumer_secret`
+
+Application/client secret for the historical Google login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_facebook_login" name="desc_facebook_login"></a>
+
+### `facebook_login`
+
+Enables the historical Facebook OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_facebook_consumer_key" name="desc_facebook_consumer_key"></a>
+
+### `facebook_consumer_key`
+
+Application/client identifier for the historical Facebook login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_facebook_consumer_secret" name="desc_facebook_consumer_secret"></a>
+
+### `facebook_consumer_secret`
+
+Application/client secret for the historical Facebook login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_linkedin_login" name="desc_linkedin_login"></a>
+
+### `linkedin_login`
+
+Enables the historical Linkedin OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_linkedin_consumer_key" name="desc_linkedin_consumer_key"></a>
+
+### `linkedin_consumer_key`
+
+Application/client identifier for the historical Linkedin login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_linkedin_consumer_secret" name="desc_linkedin_consumer_secret"></a>
+
+### `linkedin_consumer_secret`
+
+Application/client secret for the historical Linkedin login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_twitter_login" name="desc_twitter_login"></a>
+
+### `twitter_login`
+
+Enables the historical Twitter OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_twitter_consumer_key" name="desc_twitter_consumer_key"></a>
+
+### `twitter_consumer_key`
+
+Application/client identifier for the historical Twitter login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_twitter_consumer_secret" name="desc_twitter_consumer_secret"></a>
+
+### `twitter_consumer_secret`
+
+Application/client secret for the historical Twitter login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_microsoft_login" name="desc_microsoft_login"></a>
+
+### `microsoft_login`
+
+Enables the historical Microsoft OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_microsoft_consumer_key" name="desc_microsoft_consumer_key"></a>
+
+### `microsoft_consumer_key`
+
+Application/client identifier for the historical Microsoft login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_microsoft_consumer_secret" name="desc_microsoft_consumer_secret"></a>
+
+### `microsoft_consumer_secret`
+
+Application/client secret for the historical Microsoft login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_yahoo_login" name="desc_yahoo_login"></a>
+
+### `yahoo_login`
+
+Enables the historical Yahoo OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_yahoo_consumer_key" name="desc_yahoo_consumer_key"></a>
+
+### `yahoo_consumer_key`
+
+Application/client identifier for the historical Yahoo login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_yahoo_consumer_secret" name="desc_yahoo_consumer_secret"></a>
+
+### `yahoo_consumer_secret`
+
+Application/client secret for the historical Yahoo login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+<a id="desc_github_login" name="desc_github_login"></a>
+
+### `github_login`
+
+Enables the historical Github OAuth login integration when supported by the specific Geeklog 2.2.2 configuration and an authorized provider application. **Do not assume compatibility with the provider's present-day OAuth APIs**; verify endpoints, callback URL, scopes and the installed login implementation.
+
+<a id="desc_github_consumer_key" name="desc_github_consumer_key"></a>
+
+### `github_consumer_key`
+
+Application/client identifier for the historical Github login integration. Configure it through the administrator's secure settings, not in published documentation or debug logs.
+
+<a id="desc_github_consumer_secret" name="desc_github_consumer_secret"></a>
+
+### `github_consumer_secret`
+
+Application/client secret for the historical Github login integration. Keep it private and rotate if exposed; do not include actual secrets in examples or commits.
+
+
+## Likes and dynamic likes block — Geeklog 2.2.2
+
+These descriptions are scoped to the [versioned source reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Provider integrations and bootstrap settings need separate operational checks before a live change.
+
+<a id="desc_likes_enabled" name="desc_likes_enabled"></a>
+
+### `likes_enabled`
+
+Likes facility scope: `0` disabled, `1` registered and anonymous visitors, `2` registered users only. The historical reference identifies anonymous users using IP address, which warrants privacy consideration.
+
+<a id="desc_likes_articles" name="desc_likes_articles"></a>
+
+### `likes_articles`
+
+Controls ratings on articles: `0` disabled, `1` likes and dislikes, or `2` likes only. The master `likes_enabled` option must also permit the feature.
+
+<a id="desc_likes_comments" name="desc_likes_comments"></a>
+
+### `likes_comments`
+
+Controls ratings on comments: `0` disabled, `1` likes and dislikes, or `2` likes only; requires the master likes setting.
+
+<a id="desc_likes_speedlimit" name="desc_likes_speedlimit"></a>
+
+### `likes_speedlimit`
+
+Minimum time between rating actions by a visitor, in seconds; historical default `45`.
+
+<a id="desc_likes_users_listed" name="desc_likes_users_listed"></a>
+
+### `likes_users_listed`
+
+Maximum number of recent users shown in a tooltip for an item's likes/dislikes. `0` disables user listing.
+
+<a id="desc_likes_block_enable" name="desc_likes_block_enable"></a>
+
+### `likes_block_enable`
+
+Enables the dynamic block highlighting recently liked or disliked content based on the options below.
+
+<a id="desc_likes_block_isleft" name="desc_likes_block_isleft"></a>
+
+### `likes_block_isleft`
+
+Displays the dynamic likes block on the left when `1`, or on the right when `0`.
+
+<a id="desc_likes_block_order" name="desc_likes_block_order"></a>
+
+### `likes_block_order`
+
+Position of the dynamic likes block within its column; historical default `10`.
+
+<a id="desc_likes_block_topic_option" name="desc_likes_block_topic_option"></a>
+
+### `likes_block_topic_option`
+
+Where the likes block appears: all pages, homepage only or selected topics. This controls placement, not which rated items qualify.
+
+<a id="desc_likes_block_topic" name="desc_likes_block_topic"></a>
+
+### `likes_block_topic`
+
+Topic selection used when the likes block's placement mode is set to selected topics.
+
+<a id="desc_likes_block_cache_time" name="desc_likes_block_cache_time"></a>
+
+### `likes_block_cache_time`
+
+Maximum lifetime of the dynamic likes block's cache, in seconds; `0` disables caching.
+
+<a id="desc_likes_block_displayed_actions" name="desc_likes_block_displayed_actions"></a>
+
+### `likes_block_displayed_actions`
+
+Include likes and dislikes (`3`), likes only (`1`) or dislikes only (`2`) in the dynamic block's ranking.
+
+<a id="desc_likes_block_include_time" name="desc_likes_block_include_time"></a>
+
+### `likes_block_include_time`
+
+Age window for rating activity considered by the block, in seconds; historical default `604800` (one week), `0` includes all time.
+
+<a id="desc_likes_block_max_items" name="desc_likes_block_max_items"></a>
+
+### `likes_block_max_items`
+
+Maximum number of content items displayed in the dynamic likes block; historical default `10`.
+
+<a id="desc_likes_block_title_trim_length" name="desc_likes_block_title_trim_length"></a>
+
+### `likes_block_title_trim_length`
+
+Maximum displayed item title length in the dynamic likes block; historical default `20`.
+
+<a id="desc_likes_block_likes_new_line" name="desc_likes_block_likes_new_line"></a>
+
+### `likes_block_likes_new_line`
+
+Displays the likes/dislikes count on a separate line below the item title when enabled.
+
+<a id="desc_likes_block_type" name="desc_likes_block_type"></a>
+
+### `likes_block_type`
+
+Optional filter by a single liked-item type such as article, comment, poll or plugin-defined type. Empty includes all supported types.
+
+<a id="desc_likes_block_subtype" name="desc_likes_block_subtype"></a>
+
+### `likes_block_subtype`
+
+Optional subtype filter when the selected item type supports multiple subtypes, for example forum posts.
+
+<a id="desc_likes_block_group_id" name="desc_likes_block_group_id"></a>
+
+### `likes_block_group_id`
+
+Security group associated with the dynamic likes block's permissions; the 2.2.2 reference uses Block Admin.
+
+<a id="desc_likes_block_permissions_0" name="desc_likes_block_permissions_0"></a>
+
+### `likes_block_permissions_0`
+
+View permission for the owner of the dynamic likes block. Original reference default: Read-Only.
+
+<a id="desc_likes_block_permissions_1" name="desc_likes_block_permissions_1"></a>
+
+### `likes_block_permissions_1`
+
+View permission for the configured administrator group of the dynamic likes block. Original reference default: Read-Only.
+
+<a id="desc_likes_block_permissions_2" name="desc_likes_block_permissions_2"></a>
+
+### `likes_block_permissions_2`
+
+View permission for authenticated users of the dynamic likes block. Original reference default: Read-Only.
+
+<a id="desc_likes_block_permissions_3" name="desc_likes_block_permissions_3"></a>
+
+### `likes_block_permissions_3`
+
+View permission for anonymous visitors of the dynamic likes block. Original reference default: Read-Only.
+
+
+## Bootstrap settings in siteconfig.php — Geeklog 2.2.2
+
+These descriptions are scoped to the [versioned source reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Provider integrations and bootstrap settings need separate operational checks before a live change.
+
+<a id="desc_path" name="desc_path"></a>
+
+### `path`
+
+Installation root filesystem path in `siteconfig.php` (trailing slash required), outside the assumption that the web document root is the full Geeklog installation.
+
+<a id="desc_path_system" name="desc_path_system"></a>
+
+### `path_system`
+
+Absolute filesystem path to Geeklog's `system/` code libraries in `siteconfig.php` (trailing slash required).
+
+<a id="desc_site_enabled" name="desc_site_enabled"></a>
+
+### `site_enabled`
+
+Fast maintenance switch in `siteconfig.php`: set to `false` to disable access; the user-facing message is configured by `site_disabled_msg`.
+
+<a id="desc_default_charset" name="desc_default_charset"></a>
+
+### `default_charset`
+
+Fallback character encoding when the selected language file does not specify one. The 2.2.2 reference mentions a historical ISO-8859-1 default but recommends UTF-8 for multilingual installations; verify actual database and language encodings.
+
+<a id="desc_rootdebug_siteconfig" name="desc_rootdebug_siteconfig"></a>
+
+### `rootdebug_siteconfig`
+
+Emergency diagnostic override in `siteconfig.php`. The special `force` mode may expose extremely sensitive information, including credentials or cookies. **Never leave this enabled on a public site.**
+
