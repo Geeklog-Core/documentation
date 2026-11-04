@@ -90,3 +90,11 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - **222 / 387** distinct original `desc_*` help anchors now structurally present (**57.36%**, with **165 outstanding**). All 222 are source-backed and unique and locked by the required anchor regression list.
 - Security-sensitive historic defaults (such as session cookies, `rootdebug`, `frame_options`) are discussed as version-scoped behavior, not modern production recommendations.
 - Embedded `english/config.html` remains byte-for-byte the original; full editorial review, runtime testing and legal attribution must precede any replacement.
+
+## Ninth batch — filtering, webservices, Filemanager and permissions
+
+- Added **81** release-scoped configuration descriptions: 5 HTML filtering, 3 content censoring, 1 IP lookup, 3 webservices, 5 topic breadcrumbs, 20 Filemanager and **44 default content/autotag permissions**.
+- The Markdown online reference now includes **303/387** original `desc_*` configuration help anchors (**78.29% structural coverage, 84 remaining**).
+- All 303 identifiers were directly compared against tagged Geeklog 2.2.2 bundled config HTML: unique, all present; explicit `tools/check_configuration_coverage.py` regression set requires all 303.
+- Permissions and file-management descriptions are version-scoped, not endorsements of the historical security defaults. Review effective access on a staged site.
+- The embedded legacy `english/config.html` remains byte-for-byte unchanged until all source anchors and page contents are verified, with a separate full-link/compatibility test and provenance/licensing check.
