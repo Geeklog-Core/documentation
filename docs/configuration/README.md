@@ -283,3 +283,217 @@ Optional format string for a link to the article author's profile and name. It c
 Optional format string for a link to the comment author's profile and name. It contributes to `comment_feeds_article_tag`; setting it to an empty string omits that tag.
 
 **Compatibility note:** These are version-specific descriptions, not tested configuration changes. Confirm effects on a staging installation. The embedded `config.html` remains unchanged during migration.
+
+
+## Articles and presentation — Geeklog 2.2.2
+
+Source: [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Descriptions reflect this specific release; do not apply old security defaults to newer deployments.
+
+<a id="desc_maximagesperarticle" name="desc_maximagesperarticle"></a>
+
+### `maximagesperarticle`
+
+Maximum number of images allowed in an article; bundled default: `5`.
+
+<a id="desc_limitnews" name="desc_limitnews"></a>
+
+### `limitnews`
+
+Number of articles displayed on the index page and in the older-articles block; bundled default: `10`.
+
+<a id="desc_minnews" name="desc_minnews"></a>
+
+### `minnews`
+
+Minimum number of articles that may appear on a topic page; bundled default: `1`.
+
+<a id="desc_contributedbyline" name="desc_contributedbyline"></a>
+
+### `contributedbyline`
+
+When set to `1`, displays an article author's username publicly and permits username-based search; `0` disables it.
+
+<a id="desc_hideviewscount" name="desc_hideviewscount"></a>
+
+### `hideviewscount`
+
+`0` shows an article's view count, while `1` hides it.
+
+<a id="desc_hideemailicon" name="desc_hideemailicon"></a>
+
+### `hideemailicon`
+
+`1` disables the email-article feature and hides its article options; default `0`.
+
+<a id="desc_hideprintericon" name="desc_hideprintericon"></a>
+
+### `hideprintericon`
+
+`1` disables the printer-friendly article view and hides its links; default `0`.
+
+<a id="desc_allow_page_breaks" name="desc_allow_page_breaks"></a>
+
+### `allow_page_breaks`
+
+Controls use of the `[page_break]` tag to split an article into multiple pages; default `1`.
+
+<a id="desc_page_break_comments" name="desc_page_break_comments"></a>
+
+### `page_break_comments`
+
+For multipage articles, places comments on `first`, `last` or `all` pages; documented default `last`. Comments on all pages may return a user to the first page after posting under some settings.
+
+<a id="desc_article_image_align" name="desc_article_image_align"></a>
+
+### `article_image_align`
+
+Displays the article's topic image on the `right` or `left`; bundled default `right`.
+
+<a id="desc_show_topic_icon" name="desc_show_topic_icon"></a>
+
+### `show_topic_icon`
+
+Default for new articles and submissions: `1` shows the topic icon, `0` hides it.
+
+<a id="desc_draft_flag" name="desc_draft_flag"></a>
+
+### `draft_flag`
+
+Default draft status of newly created articles by story administrators; `1` drafts, `0` otherwise.
+
+<a id="desc_frontpage" name="desc_frontpage"></a>
+
+### `frontpage`
+
+Default article and submission placement: `1` front page, `0` topic-only. The archived topic is an exception.
+
+<a id="desc_hide_no_news_msg" name="desc_hide_no_news_msg"></a>
+
+### `hide_no_news_msg`
+
+Set to `1` to suppress the no-news notice on pages with no articles.
+
+<a id="desc_hide_main_page_navigation" name="desc_hide_main_page_navigation"></a>
+
+### `hide_main_page_navigation`
+
+Controls hiding index pagination on the front page or on front page plus topic pages; doing so can make older articles harder to reach.
+
+<a id="desc_onlyrootfeatures" name="desc_onlyrootfeatures"></a>
+
+### `onlyrootfeatures`
+
+If enabled, restricts selection of featured articles to `Root` users to avoid conflicts between administrators with different article visibility.
+
+## Login, access and account protection — Geeklog 2.2.2
+
+Source: [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Descriptions reflect this specific release; do not apply old security defaults to newer deployments.
+
+<a id="desc_lastlogin" name="desc_lastlogin"></a>
+
+### `lastlogin`
+
+Controls whether Geeklog records users' most recent login time.
+
+<a id="desc_loginrequired" name="desc_loginrequired"></a>
+
+### `loginrequired`
+
+Require an account to access the site (`1`). This setting overrides the more specific login requirements below when enabled.
+
+<a id="desc_submitloginrequired" name="desc_submitloginrequired"></a>
+
+### `submitloginrequired`
+
+Require a logged-in user for article and plugin-item submissions when `1`.
+
+<a id="desc_commentsloginrequired" name="desc_commentsloginrequired"></a>
+
+### `commentsloginrequired`
+
+Require login to submit comments when `1`.
+
+<a id="desc_statsloginrequired" name="desc_statsloginrequired"></a>
+
+### `statsloginrequired`
+
+Require login to view site statistics when `1`.
+
+<a id="desc_searchloginrequired" name="desc_searchloginrequired"></a>
+
+### `searchloginrequired`
+
+`1` restricts advanced search to logged-in users; `2` also restricts simple search.
+
+<a id="desc_profileloginrequired" name="desc_profileloginrequired"></a>
+
+### `profileloginrequired`
+
+Require login to view another user's profile when `1`.
+
+<a id="desc_emailuserloginrequired" name="desc_emailuserloginrequired"></a>
+
+### `emailuserloginrequired`
+
+Require login to send email to another user using the site form when `1`.
+
+<a id="desc_emailstoryloginrequired" name="desc_emailstoryloginrequired"></a>
+
+### `emailstoryloginrequired`
+
+Require login to email articles when `1`.
+
+<a id="desc_directoryloginrequired" name="desc_directoryloginrequired"></a>
+
+### `directoryloginrequired`
+
+Require login to access the list of older articles when `1`.
+
+<a id="desc_passwordspeedlimit" name="desc_passwordspeedlimit"></a>
+
+### `passwordspeedlimit`
+
+Minimum time between password-reset requests in seconds; bundled default `300`.
+
+<a id="desc_login_attempts" name="desc_login_attempts"></a>
+
+### `login_attempts`
+
+Number of failed sign-in attempts before the login speed limit applies; bundled default `3`.
+
+<a id="desc_login_speedlimit" name="desc_login_speedlimit"></a>
+
+### `login_speedlimit`
+
+Delay, in seconds, before another login may be attempted after the failed-attempt threshold; bundled default `300`.
+
+<a id="desc_invalidloginattempts" name="desc_invalidloginattempts"></a>
+
+### `invalidloginattempts`
+
+Number of invalid login attempts for one user account before an administrator warning is eligible; bundled default `7`. Interacts with the observation window below.
+
+<a id="desc_invalidloginmaxtime" name="desc_invalidloginmaxtime"></a>
+
+### `invalidloginmaxtime`
+
+Observation period in seconds used for warnings about repeated invalid account logins; bundled default `1200`. Set to `0` to disable this warning feature in the 2.2.2 reference.
+
+<a id="desc_enable_twofactorauth" name="desc_enable_twofactorauth"></a>
+
+### `enable_twofactorauth`
+
+Enables two-factor authentication as an available account feature. Users must also configure it in their own account settings. The bundled default is disabled.
+
+<a id="desc_pass_alg" name="desc_pass_alg"></a>
+
+### `pass_alg`
+
+Legacy password-hashing algorithm selector documented for Geeklog 2.2.2. The bundled reference lists old algorithms including SHA-1 and Blowfish. **Do not treat a historical default or its recommendation as modern password-security advice**; verify the actual installed implementation and current supported upgrade path before changing existing hashes.
+
+<a id="desc_pass_stretch" name="desc_pass_stretch"></a>
+
+### `pass_stretch`
+
+Number of password-hash iterations configured for the 2.2.2 legacy scheme; documented default `4096`. Compatibility and safe migration need review before making changes.
+
