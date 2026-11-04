@@ -76,3 +76,10 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - The current online Markdown reference has **168 of 387** source-matched unique `desc_*` anchors (**43.41%** structurally present, **219 remaining**). All 168 are in the regression baseline in `tools/check_configuration_coverage.py`.
 - The original embedded `english/config.html` is still preserved byte-for-byte. Statements about third-party image libraries and Gravatar must be tested on the installed environment; presence of an older setting is not evidence of external-service current functionality.
 - Latest confirmed successful dual-preview run before this batch was **41867103306**, for `be2fb23` (146/387). The new image batch's CI outcome must be checked against the new commit before it can be called passed.
+
+## Seventh batch — system paths, database backup and search configuration
+
+- Migrated **22** original Geeklog v2.2.2 settings to `docs/configuration/README.md`: 7 site/filesystem paths, 4 database-backup options and 11 search controls.
+- Direct comparison with the tagged 2.2.2 Core config reference confirms **190 distinct source-matched `desc_*` anchors of 387** (**49.10% structural coverage, 197 remaining**) and no duplicates or invented anchors.
+- `tools/check_configuration_coverage.py` now requires all **190** anchors. The historical embedded `english/config.html` remains unmodified and must stay protected until full migration and compatibility tests.
+- Do not interpret a structural anchor check as review of defaults, security, functionality, copyright attribution or live link behavior.
