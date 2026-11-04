@@ -21,18 +21,27 @@ class Anchors(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.identifiers = []
+        self.local_fragments = []
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
         for name in ("id", "name"):
             value = attributes.get(name)
             if value:
                 self.identifiers.append(value)
+        if tag == "a" and (attributes.get("href") or "").startswith("#"):
+            self.local_fragments.append(attributes["href"][1:] )
 
 
 def names(path):
     parsed = Anchors()
     parsed.feed(path.read_text(encoding="utf-8"))
     return set(parsed.identifiers)
+
+
+def inspect(path):
+    parsed = Anchors()
+    parsed.feed(path.read_text(encoding="utf-8"))
+    return set(parsed.identifiers), set(parsed.local_fragments)
 
 
 def main():
@@ -46,8 +55,7 @@ def main():
     assert len(source) >= 300, "Unexpectedly small source anchor inventory"
     unknown = rendered - source
     assert not unknown, f"Online configuration anchors not in pinned source: {sorted(unknown)}"
-    # The two existing intentionally migrated examples must remain available.
-    # Verified site, mail and syndication migration baseline is a regression baseline.
+    # Exact 387-anchor regression baseline from Geeklog 2.2.2.
     required = {
         "desc_site_url", "desc_site_name",
         "desc_site_admin_url", "desc_site_slogan", "desc_path_site_logo",
@@ -416,12 +424,26 @@ def main():
     }
     assert required <= rendered, f"Lost existing configuration help: {required-rendered}"
     assert source == rendered, f"Full structural migration incomplete: {sorted(source - rendered)}"
+    source_all, local_links = inspect(CORE)
+    rendered_all, _ = inspect(WEB)
+    other_historical = source_all - source
+    unported_navigation = sorted(other_historical - rendered_all)
+    broken_historical = sorted(local_links - source_all)
+    assert not broken_historical, (
+        f"Original config reference has broken internal links: {broken_historical}")
+    # Do not fail the transitional preview for missing non-help anchors,
+    # but track them before permitting any future embedded config overlay.
     remaining = sorted(source - rendered)
     report = {
         "source": "Pinned Geeklog 2.2.2 Core docs/english/config.html",
         "source_help_anchor_count": len(source),
         "online_help_anchor_count": len(rendered),
         "remaining_help_anchor_count": len(remaining),
+        "historic_non_help_anchor_count": len(other_historical),
+        "online_missing_non_help_anchor_count": len(unported_navigation),
+        "online_missing_non_help_anchors": unported_navigation,
+        "original_internal_fragment_target_count": len(local_links),
+        "original_broken_internal_fragment_targets": broken_historical,
         "percent_migrated": round(100 * len(source & rendered) / len(source), 2),
         "remaining_anchors": remaining,
         "note": "Coverage is structural only. Text, behavior and technical accuracy require review. Original embedded config.html stays byte-identical.",
@@ -430,6 +452,7 @@ def main():
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"PASS: pinned embedded configuration reference unchanged")
     print(f"COVERAGE: {len(rendered)}/{len(source)} help anchors on the online Markdown page; {len(remaining)} remaining")
+    print(f"NAVIGATION: {len(unported_navigation)}/{len(other_historical)} historical non-help anchors not yet mirrored online")
     print(f"REPORT: {REPORT}")
 
 
