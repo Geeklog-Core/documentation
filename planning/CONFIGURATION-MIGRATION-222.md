@@ -83,3 +83,10 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - Direct comparison with the tagged 2.2.2 Core config reference confirms **190 distinct source-matched `desc_*` anchors of 387** (**49.10% structural coverage, 197 remaining**) and no duplicates or invented anchors.
 - `tools/check_configuration_coverage.py` now requires all **190** anchors. The historical embedded `english/config.html` remains unmodified and must stay protected until full migration and compatibility tests.
 - Do not interpret a structural anchor check as review of defaults, security, functionality, copyright attribution or live link behavior.
+
+## Eighth configuration batch — advanced themes, cookies, misc and digest
+
+- Migrated **32** further Geeklog 2.2.2 settings into the Markdown source: 3 advanced theme features, 13 cookie/session options, 13 general/diagnostic options and 3 daily digest options.
+- **222 / 387** distinct original `desc_*` help anchors now structurally present (**57.36%**, with **165 outstanding**). All 222 are source-backed and unique and locked by the required anchor regression list.
+- Security-sensitive historic defaults (such as session cookies, `rootdebug`, `frame_options`) are discussed as version-scoped behavior, not modern production recommendations.
+- Embedded `english/config.html` remains byte-for-byte the original; full editorial review, runtime testing and legal attribution must precede any replacement.
