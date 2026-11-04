@@ -1122,3 +1122,151 @@ Maximum Gravatar rating permitted for displayed remote avatars; the 2.2.2 refere
 
 Fallback Gravatar style when a remote avatar is absent. The historical reference lists Mystery Man, Identicon, MonsterId, WAvatar and Retro; availability may change with the external provider.
 
+
+
+## Filesystem paths and storage — Geeklog 2.2.2
+
+Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
+
+<a id="desc_path_html" name="desc_path_html"></a>
+
+### `path_html`
+
+Filesystem path of the web-accessible Geeklog tree. A trailing slash is required. The 2.2.2 reference warns against modifying this setting on a live site except as part of a controlled migration; dependent image, editor, theme and feed paths must remain consistent.
+
+<a id="desc_path_log" name="desc_path_log"></a>
+
+### `path_log`
+
+Filesystem path of the Geeklog logging directory. Keep log files protected against public downloads.
+
+<a id="desc_path_language" name="desc_path_language"></a>
+
+### `path_language`
+
+Filesystem path to the installed Geeklog language files.
+
+<a id="desc_backup_path" name="desc_backup_path"></a>
+
+### `backup_path`
+
+Filesystem path to stored database backup files. Protect this directory from web access and verify write permissions and actual recovery procedures.
+
+<a id="desc_path_data" name="desc_path_data"></a>
+
+### `path_data`
+
+Filesystem path for Geeklog application data, including data used by bulk user import.
+
+<a id="desc_path_images" name="desc_path_images"></a>
+
+### `path_images`
+
+Filesystem path for Geeklog images, user photos and article images. The 2.2.2 reference requires it to reside within `path_html`.
+
+<a id="desc_path_editors" name="desc_path_editors"></a>
+
+### `path_editors`
+
+Filesystem path to the rich-text editor assets. The 2.2.2 reference requires it to reside within `path_html`.
+
+
+## Database backup options — Geeklog 2.2.2
+
+Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
+
+<a id="desc_dbdump_filename_prefix" name="desc_dbdump_filename_prefix"></a>
+
+### `dbdump_filename_prefix`
+
+Filename prefix used for database dump files; the 2.2.2 reference uses `geeklog_db_backup`.
+
+<a id="desc_dbdump_tables_only" name="desc_dbdump_tables_only"></a>
+
+### `dbdump_tables_only`
+
+When `1`, export database table structures without their row data; when `0`, export both table definitions and data. **Structure-only dumps cannot restore site content.**
+
+<a id="desc_dbdump_gzip" name="desc_dbdump_gzip"></a>
+
+### `dbdump_gzip`
+
+Controls whether database backup dumps are compressed when gzip support is available.
+
+<a id="desc_dbdump_max_files" name="desc_dbdump_max_files"></a>
+
+### `dbdump_max_files`
+
+Maximum number of retained database backup files; the reference default is `10`, with `0` disabling automatic deletion. Set retention based on your recovery requirements.
+
+
+## Search results configuration — Geeklog 2.2.2
+
+Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
+
+<a id="desc_search_style" name="desc_search_style"></a>
+
+### `search_style`
+
+Display style for search results: `google` or `table` in Geeklog 2.2.2.
+
+<a id="desc_search_limits" name="desc_search_limits"></a>
+
+### `search_limits`
+
+Comma-separated result counts offered to users; the reference lists `10,15,25,30`.
+
+<a id="desc_num_search_results" name="desc_num_search_results"></a>
+
+### `num_search_results`
+
+Default number of search results per page, chosen from `search_limits`; the bundled default is `30`.
+
+<a id="desc_search_show_limit" name="desc_search_show_limit"></a>
+
+### `search_show_limit`
+
+Controls whether visitors can select the number of results shown on a search page.
+
+<a id="desc_search_show_sort" name="desc_search_show_sort"></a>
+
+### `search_show_sort`
+
+Controls display of sorting controls; in table mode it affects column sorting.
+
+<a id="desc_search_show_num" name="desc_search_show_num"></a>
+
+### `search_show_num`
+
+Controls whether the search result number is shown.
+
+<a id="desc_search_show_type" name="desc_search_show_type"></a>
+
+### `search_show_type`
+
+Controls whether the source plugin or result type is shown in search results.
+
+<a id="desc_search_separator" name="desc_search_separator"></a>
+
+### `search_separator`
+
+Separator used between search-result type subgroups.
+
+<a id="desc_search_def_keytype" name="desc_search_def_keytype"></a>
+
+### `search_def_keytype`
+
+Default matching method: `all` requires every term, `any` permits one or more terms, and `phrase` matches the supplied phrase.
+
+<a id="desc_search_def_sort" name="desc_search_def_sort"></a>
+
+### `search_def_sort`
+
+Default ordering of search results; the 2.2.2 reference uses descending hits.
+
+<a id="desc_search_use_topic" name="desc_search_use_topic"></a>
+
+### `search_use_topic`
+
+If enabled, search can default to the most recently visited topic; otherwise it defaults to all topics.
+
