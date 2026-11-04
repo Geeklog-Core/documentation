@@ -1270,3 +1270,215 @@ Default ordering of search results; the 2.2.2 reference uses descending hits.
 
 If enabled, search can default to the most recently visited topic; otherwise it defaults to all topics.
 
+
+## Advanced theme settings — Geeklog 2.2.2
+
+These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="desc_show_right_blocks" name="desc_show_right_blocks"></a>
+
+### `show_right_blocks`
+
+When enabled, shows the right-side block column on all site pages instead of limiting it to the homepage.
+
+<a id="desc_showfirstasfeatured" name="desc_showfirstasfeatured"></a>
+
+### `showfirstasfeatured`
+
+When enabled, renders the first article on any article listing page using featured-article templates, even when the article itself is not marked as featured.
+
+<a id="desc_template_comments" name="desc_template_comments"></a>
+
+### `template_comments`
+
+Controls whether internal template comments are preserved as HTML comments rather than removed. The 2.2.2 reference also describes extra template-path diagnostic output for `Root` users under specific template debugging settings. Avoid enabling diagnostic output on production sites.
+
+
+## Cookies and sessions — Geeklog 2.2.2
+
+These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="desc_cookie_session" name="desc_cookie_session"></a>
+
+### `cookie_session`
+
+Name of the cookie storing the session identifier; historical reference default `gl_session`.
+
+<a id="desc_cookie_name" name="desc_cookie_name"></a>
+
+### `cookie_name`
+
+Name of the persistent site cookie; the 2.2.2 reference uses `geeklog`.
+
+<a id="desc_cookie_password" name="desc_cookie_password"></a>
+
+### `cookie_password`
+
+Name used for the historical password-related cookie. This describes a legacy configuration identifier, not a recommended modern credential-storage pattern.
+
+<a id="desc_cookie_theme" name="desc_cookie_theme"></a>
+
+### `cookie_theme`
+
+Cookie name for the selected theme.
+
+<a id="desc_cookie_language" name="desc_cookie_language"></a>
+
+### `cookie_language`
+
+Cookie name for the selected language.
+
+<a id="desc_cookie_tzid" name="desc_cookie_tzid"></a>
+
+### `cookie_tzid`
+
+Cookie name used for the selected time zone.
+
+<a id="desc_cookie_anon_name" name="desc_cookie_anon_name"></a>
+
+### `cookie_anon_name`
+
+Cookie name for the name supplied by an anonymous commenter.
+
+<a id="desc_cookie_ip" name="desc_cookie_ip"></a>
+
+### `cookie_ip`
+
+Legacy option for associating the session ID with the visitor's IP address. The 2.2.2 reference notes that enabling it can cause users whose IP changes to log in again; do not assume it replaces current session-security controls.
+
+<a id="desc_default_perm_cookie_timeout" name="desc_default_perm_cookie_timeout"></a>
+
+### `default_perm_cookie_timeout`
+
+Default automatic-login cookie duration, in seconds; historical default `28800` (8 hours). The reference describes its interaction with `session_cookie_timeout`.
+
+<a id="desc_session_cookie_timeout" name="desc_session_cookie_timeout"></a>
+
+### `session_cookie_timeout`
+
+Inactivity timeout for the session cookie, in seconds; historical default `7200` (2 hours), with reference bounds of 300 to 86400 seconds.
+
+<a id="desc_cookie_path" name="desc_cookie_path"></a>
+
+### `cookie_path`
+
+URL path scope for cookies, typically `/`.
+
+<a id="desc_cookiedomain" name="desc_cookiedomain"></a>
+
+### `cookiedomain`
+
+Cookie domain scope. Geeklog's 2.2.2 reference says it attempts to derive the domain from `site_url`.
+
+<a id="desc_cookiesecure" name="desc_cookiesecure"></a>
+
+### `cookiesecure`
+
+Controls whether the Secure cookie flag is used. For HTTPS deployments, protect authentication cookies with an appropriate Secure setting; do not treat the old `0` default as security guidance.
+
+
+## General functionality and diagnostics — Geeklog 2.2.2
+
+These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="desc_notification" name="desc_notification"></a>
+
+### `notification`
+
+Selects administrative email notifications for submissions and account events. The 2.2.2 reference lists event keys `article`, `comment`, `trackback`, `pingback`, `user` and `user_update`.
+
+<a id="desc_cron_schedule_interval" name="desc_cron_schedule_interval"></a>
+
+### `cron_schedule_interval`
+
+Interval, in seconds, for Geeklog's visitor-triggered scheduled tasks; `0` disables. This internal mechanism depends on a homepage visit near the scheduled time, so lightly visited sites may run tasks late.
+
+<a id="desc_disable_autolinks" name="desc_disable_autolinks"></a>
+
+### `disable_autolinks`
+
+When enabled, stops interpreting Geeklog content autotags such as `[article:]`.
+
+<a id="desc_clickable_links" name="desc_clickable_links"></a>
+
+### `clickable_links`
+
+Controls automatic conversion of URLs in plaintext posts to clickable links.
+
+<a id="desc_linktext_maxlen" name="desc_linktext_maxlen"></a>
+
+### `linktext_maxlen`
+
+Maximum displayed URL text length for auto-linked URLs; `0` means unlimited in the 2.2.2 reference.
+
+<a id="desc_compressed_output" name="desc_compressed_output"></a>
+
+### `compressed_output`
+
+Experimental option to compress some HTML output when supported by browser and server. The bundled 2.2.2 reference states it is not implemented for all output.
+
+<a id="desc_frame_options" name="desc_frame_options"></a>
+
+### `frame_options`
+
+Controls the `X-Frame-Options` anti-clickjacking header. The 2.2.2 reference offers deny, same-origin and disabled modes. Disabling frame restrictions can expose pages to framing risks.
+
+<a id="desc_page_navigation_max_pages" name="desc_page_navigation_max_pages"></a>
+
+### `page_navigation_max_pages`
+
+Number of pagination links displayed on desktop; bundled default `7`, with permitted range from 3 to 20.
+
+<a id="desc_page_navigation_mobile_max_pages" name="desc_page_navigation_mobile_max_pages"></a>
+
+### `page_navigation_mobile_max_pages`
+
+Number of pagination links shown on mobile; bundled default `7`. Different desktop/mobile page counts may require separated mobile caching when template caching is enabled.
+
+<a id="desc_default_cache_time_block" name="desc_default_cache_time_block"></a>
+
+### `default_cache_time_block`
+
+Default block-cache policy: positive seconds specify a lifetime, `0` disables cache, and `-1` keeps cached content until the block is edited.
+
+<a id="desc_titletoid" name="desc_titletoid"></a>
+
+### `titletoid`
+
+Enables automatically deriving content identifiers from titles in supporting article, topic and Static Pages editors.
+
+<a id="desc_404_log" name="desc_404_log"></a>
+
+### `404_log`
+
+Controls logging of HTTP 404 errors into the `404.log` file in Geeklog's log directory.
+
+<a id="desc_rootdebug" name="desc_rootdebug"></a>
+
+### `rootdebug`
+
+If enabled, PHP error details may be shown to all visitors instead of only `Root` users. **Keep disabled on production** to avoid leaking private information.
+
+
+## Daily digest options — Geeklog 2.2.2
+
+These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="desc_emailstories" name="desc_emailstories"></a>
+
+### `emailstories`
+
+Enables sending articles through Geeklog's legacy email digest feature; the 2.2.2 reference says it requires cron and PHP command-line execution.
+
+<a id="desc_emailstorieslength" name="desc_emailstorieslength"></a>
+
+### `emailstorieslength`
+
+When the digest is enabled, `0` sends titles and links, `1` sends full article introductions, and other numeric values limit the number of introduction characters.
+
+<a id="desc_emailstoriesperdefault" name="desc_emailstoriesperdefault"></a>
+
+### `emailstoriesperdefault`
+
+When enabled, newly registered accounts are automatically subscribed to the daily digest. Verify consent requirements before enabling.
+
