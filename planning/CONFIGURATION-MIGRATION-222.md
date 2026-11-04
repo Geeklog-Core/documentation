@@ -61,3 +61,11 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - **109 / 387** source-matched unique `desc_*` anchors now appear in the online reference (**28.17% structural coverage, 278 outstanding**). All new names were checked against the pinned Core `config.html`, with no duplicates or invented identifiers.
 - `tools/check_configuration_coverage.py` now locks all 109 migrated identifiers as regression requirements. The original embedded `english/config.html` remains byte-identical and is not replaced.
 - Remaining substantive checks: verify the prose and defaults against actual installer configuration, live plugin/theme behavior, link fragment behavior, security and attribution. Do not treat structural coverage as editorial validation.
+
+## Fifth migration batch — blocks and language/locale settings
+
+- Added **37** version-scoped configurations: **19** for admin/topic/online/What's New blocks and **18** for site language, multilingual content, date/time and number formats.
+- **146 of 387** official help anchors now structurally appear in the Markdown online configuration reference (**37.73%** coverage, **241** remain).
+- Compared all 146 `desc_*` IDs with the exact Geeklog v2.2.2 bundled config HTML: all unique and present, and all required in `tools/check_configuration_coverage.py`.
+- Embedded `english/config.html` is still preserved byte-for-byte; version-specific descriptions and runtime behavior need further editorial and staging validation.
+- The corresponding GitHub Actions build has not yet completed; structural ID validation was performed separately and should not be confused with CI success.
