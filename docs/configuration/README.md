@@ -716,3 +716,246 @@ Controls whether the comment editor is shown on the same page as the content ins
 
 Controls whether existing comments are visible on the dedicated reply page. This option is irrelevant when the same-page editor is enabled.
 
+
+
+## Blocks — administration and topic navigation — Geeklog 2.2.2
+
+Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+
+<a id="desc_sort_admin" name="desc_sort_admin"></a>
+
+### `sort_admin`
+
+Sort entries in the Administrator block and Command and Control icons alphabetically when enabled.
+
+<a id="desc_link_documentation" name="desc_link_documentation"></a>
+
+### `link_documentation`
+
+Show the Geeklog documentation link in the administrator block when set to `1`.
+
+<a id="desc_link_versionchecker" name="desc_link_versionchecker"></a>
+
+### `link_versionchecker`
+
+Display the version-check link in the administrator block when enabled; the reference notes this is visible only to `Root` members.
+
+<a id="desc_sortmethod" name="desc_sortmethod"></a>
+
+### `sortmethod`
+
+Topic sorting in the Sections block: `alpha` sorts alphabetically; `sortnum` uses the configured sort number.
+
+<a id="desc_showstorycount" name="desc_showstorycount"></a>
+
+### `showstorycount`
+
+Show the number of articles in each topic in the Sections block when `1`.
+
+<a id="desc_showsubmissioncount" name="desc_showsubmissioncount"></a>
+
+### `showsubmissioncount`
+
+Show the number of article submissions by topic in the Sections block when `1`.
+
+<a id="desc_hide_home_link" name="desc_hide_home_link"></a>
+
+### `hide_home_link`
+
+Hide the Home link in the Sections block when `1`.
+
+
+## Blocks — online users and recent content — Geeklog 2.2.2
+
+Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+
+<a id="desc_whosonline_threshold" name="desc_whosonline_threshold"></a>
+
+### `whosonline_threshold`
+
+Idle-time threshold, in seconds, after which a user is no longer listed in the Who's Online block; the 2.2.2 reference default is `300`.
+
+<a id="desc_whosonline_anonymous" name="desc_whosonline_anonymous"></a>
+
+### `whosonline_anonymous`
+
+When enabled, anonymous visitors see only the count of registered users online rather than their names.
+
+<a id="desc_whosonline_photo" name="desc_whosonline_photo"></a>
+
+### `whosonline_photo`
+
+When enabled, display a thumbnail of a user's uploaded photo where available, otherwise a photo icon.
+
+<a id="desc_newstoriesinterval" name="desc_newstoriesinterval"></a>
+
+### `newstoriesinterval`
+
+Maximum age, in seconds, for articles classified as new; default `86400`.
+
+<a id="desc_newcommentsinterval" name="desc_newcommentsinterval"></a>
+
+### `newcommentsinterval`
+
+Maximum age, in seconds, for comments classified as new; default `172800`.
+
+<a id="desc_newtrackbackinterval" name="desc_newtrackbackinterval"></a>
+
+### `newtrackbackinterval`
+
+Maximum age of new trackbacks, in seconds; default `172800`.
+
+<a id="desc_hidenewstories" name="desc_hidenewstories"></a>
+
+### `hidenewstories`
+
+Hide new articles in the What's New block when `1`.
+
+<a id="desc_hidenewcomments" name="desc_hidenewcomments"></a>
+
+### `hidenewcomments`
+
+Hide new comments in the What's New block when `1`.
+
+<a id="desc_hidenewtrackbacks" name="desc_hidenewtrackbacks"></a>
+
+### `hidenewtrackbacks`
+
+Hide new trackbacks in the What's New block when `1`.
+
+<a id="desc_hidenewplugins" name="desc_hidenewplugins"></a>
+
+### `hidenewplugins`
+
+Hide recent items provided by plugins in the What's New block when `1`.
+
+<a id="desc_title_trim_length" name="desc_title_trim_length"></a>
+
+### `title_trim_length`
+
+Maximum displayed title length for items in the What's New block; default `20`.
+
+<a id="desc_whatsnew_cache_time" name="desc_whatsnew_cache_time"></a>
+
+### `whatsnew_cache_time`
+
+Maximum cache duration for the What's New block, in seconds; default `3600`. Set to `0` to disable this cache.
+
+
+## Language selection and multilingual content — Geeklog 2.2.2
+
+Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+
+<a id="desc_language" name="desc_language"></a>
+
+### `language`
+
+Default interface language for the site; the 2.2.2 bundled reference uses `english`.
+
+<a id="desc_allow_user_language" name="desc_allow_user_language"></a>
+
+### `allow_user_language`
+
+Allow registered users to choose an interface language in My Account when `1`.
+
+<a id="desc_switchlang_homepage" name="desc_switchlang_homepage"></a>
+
+### `switchlang_homepage`
+
+When enabled, changing language returns the visitor to the homepage, useful when an equivalent translated topic or page is absent.
+
+<a id="desc_new_item_set_current_lang" name="desc_new_item_set_current_lang"></a>
+
+### `new_item_set_current_lang`
+
+When enabled and multilingual support is configured, eligible new article or Static Pages identifiers include a current-language suffix.
+
+<a id="desc_language_files" name="desc_language_files"></a>
+
+### `language_files`
+
+Mapping of language suffixes such as `en` or `de` to installed Geeklog language files for multilingual content. It must be configured together with `languages`.
+
+<a id="desc_languages" name="desc_languages"></a>
+
+### `languages`
+
+Mapping of the same language suffixes to display names for multilingual content. This must match `language_files`; both must be enabled or disabled together.
+
+
+## Locale, dates and number formats — Geeklog 2.2.2
+
+Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+
+<a id="desc_locale" name="desc_locale"></a>
+
+### `locale`
+
+PHP locale used for localized information such as dates; bundled reference default `en_GB`.
+
+<a id="desc_date" name="desc_date"></a>
+
+### `date`
+
+Format string used for general dates and article timestamps. Check the bundled reference for its version-specific formatting directives.
+
+<a id="desc_daytime" name="desc_daytime"></a>
+
+### `daytime`
+
+Shorter date-time format used where compact timestamps are needed.
+
+<a id="desc_shortdate" name="desc_shortdate"></a>
+
+### `shortdate`
+
+Shortest date format, with the historical default `%x`.
+
+<a id="desc_dateonly" name="desc_dateonly"></a>
+
+### `dateonly`
+
+Short day-and-month date format, used by features including event and older-article blocks.
+
+<a id="desc_timeonly" name="desc_timeonly"></a>
+
+### `timeonly`
+
+Time-only format used for time-specific displays such as event details.
+
+<a id="desc_week_start" name="desc_week_start"></a>
+
+### `week_start`
+
+First day of a calendar week: `Sun` or `Mon`.
+
+<a id="desc_hour_mode" name="desc_hour_mode"></a>
+
+### `hour_mode`
+
+Time-editing mode: `12` for AM/PM or `24` for a 24-hour clock.
+
+<a id="desc_thousand_separator" name="desc_thousand_separator"></a>
+
+### `thousand_separator`
+
+Character used to group thousands in formatted numbers.
+
+<a id="desc_decimal_separator" name="desc_decimal_separator"></a>
+
+### `decimal_separator`
+
+Character separating the integer and fractional parts of a number.
+
+<a id="desc_decimal_count" name="desc_decimal_count"></a>
+
+### `decimal_count`
+
+Number of decimal places displayed; historical default `2`.
+
+<a id="desc_timezone" name="desc_timezone"></a>
+
+### `timezone`
+
+Site's intended time zone when it differs from that of the hosting server. Confirm behavior on the installed release.
+
