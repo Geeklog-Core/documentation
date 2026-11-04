@@ -54,3 +54,10 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - The legacy `pass_alg` setting is explicitly flagged as **historical**, not present-day security guidance. Actual login/security behavior remains to be tested in a disposable Geeklog installation.
 - The embedded `docs/english/config.html` remains unchanged pending complete migration and compatibility tests.
 - CI for this latest branch state must be confirmed separately; queued GitHub Actions workflows are not evidence of success.
+
+## Fourth configuration batch — themes, submissions and comments
+
+- Migrated **33** additional Geeklog 2.2.2 settings to Markdown: seven theme/template settings, three account-submission rules, nine content submission settings and fourteen comment/moderation settings.
+- **109 / 387** source-matched unique `desc_*` anchors now appear in the online reference (**28.17% structural coverage, 278 outstanding**). All new names were checked against the pinned Core `config.html`, with no duplicates or invented identifiers.
+- `tools/check_configuration_coverage.py` now locks all 109 migrated identifiers as regression requirements. The original embedded `english/config.html` remains byte-identical and is not replaced.
+- Remaining substantive checks: verify the prose and defaults against actual installer configuration, live plugin/theme behavior, link fragment behavior, security and attribution. Do not treat structural coverage as editorial validation.
