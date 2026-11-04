@@ -1,7 +1,7 @@
 name: Dual documentation prototype (unofficial)
 on:
   push:
-    branches: [prototype/dual-output-222]
+    branches: [prototype/dual-output-222, prototype/wiki-unified-222]
   workflow_dispatch:
 permissions:
   contents: read
