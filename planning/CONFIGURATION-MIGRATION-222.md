@@ -118,3 +118,11 @@ An independent inventory of the original Geeklog 2.2.2 HTML config reference fou
 The configuration coverage script now reports the missing 62 non-help anchors and checks that the original source's same-page references still resolve. Missing headings are **reported rather than failed** in the transitional online preview; the legacy embedded HTML remains unchanged. Before replacing `english/config.html`, migrate these 62 section anchors or provide verified compatibility aliases, and test all help navigation and substantive paragraphs.
 
 **Caution:** source uses a duplicate named anchor `users_comments`; preserve all source *unique identifiers* but resolve ambiguous duplicate heading naming during the final editorial pass without breaking historic references.
+
+## Eleventh batch — all historical navigation anchors restored
+
+- Added exact same-page compatibility anchors for all **62** non-`desc_*` historical section IDs to the Markdown configuration page, including headings for site, stories, users, images, locale, file manager and all original appendix entries. The source's repeated `users_comments` name is represented once (unique historical anchors preserved).
+- Online Markdown now contains **449 / 449 distinct** historical anchor names, of which **387** are individual help settings and **62** are navigation/reference fragments. Verified direct ID-set comparison before commit (no unknown, missing or duplicate IDs).
+- Added short migration-preview explanations at 8 original appendix destinations (`db-config.php`, `url-rewrite`, `url-routing`, `Localization`, `date_formats`, `url-cron`, `cron_daily_digest`, `cron_emailed_database_backup`). These **do not yet contain all the original long tables and examples**.
+- The coverage script now **fails on any mismatch in the entire 449-anchor set** and if the 34 original same-page fragment destinations are absent from the generated online page. Original embedded `english/config.html` is still byte-identical.
+- This closes the **structural anchor compatibility** gap but not remaining content, legacy relative link or installed admin functional parity. Do not ship a replacement embedded `config.html` before those gates and rights attribution review.
