@@ -2006,3 +2006,229 @@ The suffixes `_0`, `_1`, `_2` and `_3` refer to distinct audience/role positions
 
 **Bundled default:** No Access. Usage permission for autotag by anonymous users. This is a version-specific initial permission; the effective permission may differ on an upgraded or customized site.
 
+
+
+## Articles — structured data and related content — Geeklog 2.2.2
+
+Version-scoped documentation adapted from the [tagged Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Do not assume historical external identity or ping services remain supported.
+
+<a id="desc_structured_data_type_default" name="desc_structured_data_type_default"></a>
+
+### `structured_data_type_default`
+
+Selects the default structured-data type for new articles. The 2.2.2 reference offers `none`, `core-webpage`, `core-article`, `core-newsarticle`, and `core-blogposting`. Full-article pages may expose JSON-LD; validate actual markup before release.
+
+<a id="desc_structured_data_article_topic" name="desc_structured_data_article_topic"></a>
+
+### `structured_data_article_topic`
+
+Controls whether article structured data is included on home/topic listings as well as full article pages; the historical reference describes `1` enabled and `0` disabled.
+
+<a id="desc_aftersave_story" name="desc_aftersave_story"></a>
+
+### `aftersave_story`
+
+Where the administrator is sent after saving an article: `item`, `list`, `home` or `admin`. Editing a queued submission continues to return to moderation, regardless of this setting.
+
+<a id="desc_related_topics" name="desc_related_topics"></a>
+
+### `related_topics`
+
+Controls whether related topics are shown on articles, article and topic pages, or neither; verify exact choices in the installed configuration UI.
+
+<a id="desc_related_topics_max" name="desc_related_topics_max"></a>
+
+### `related_topics_max`
+
+Maximum number of related topics to display; `0` means no limit.
+
+<a id="desc_whats_related" name="desc_whats_related"></a>
+
+### `whats_related`
+
+Controls the What's Related block on article pages, including filtering of internal/external article links.
+
+<a id="desc_whats_related_max" name="desc_whats_related_max"></a>
+
+### `whats_related_max`
+
+Maximum number of related links displayed on an article; `0` requests all available items, with a minimum of two items for display in the historical reference.
+
+<a id="desc_whats_related_trim" name="desc_whats_related_trim"></a>
+
+### `whats_related_trim`
+
+Maximum displayed length of related-item titles. A value of `0` disables truncation; changing the option can rebuild stored related links.
+
+<a id="desc_default_cache_time_article" name="desc_default_cache_time_article"></a>
+
+### `default_cache_time_article`
+
+Default article cache policy: positive seconds for an expiry, `0` to regenerate for each request, or `-1` to keep the cached article until it is edited.
+
+<a id="desc_blocks_article_topic_list_repeat_after" name="desc_blocks_article_topic_list_repeat_after"></a>
+
+### `blocks_article_topic_list_repeat_after`
+
+Number of article introductions after which the Article Topic List block location repeats; `0` disables that block placement.
+
+
+## Trackbacks and pingbacks — legacy integration — Geeklog 2.2.2
+
+Version-scoped documentation adapted from the [tagged Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Do not assume historical external identity or ping services remain supported.
+
+<a id="desc_trackback_enabled" name="desc_trackback_enabled"></a>
+
+### `trackback_enabled`
+
+Enables or disables sending and receiving trackback comments. The original source contains a boolean wording typo; treat `true` as enabled and check runtime behavior before changing it.
+
+<a id="desc_trackback_code" name="desc_trackback_code"></a>
+
+### `trackback_code`
+
+Default setting for new articles: `0` accepts trackbacks, `-1` disables them.
+
+<a id="desc_trackbackspeedlimit" name="desc_trackbackspeedlimit"></a>
+
+### `trackbackspeedlimit`
+
+Minimum number of seconds between trackbacks or pingbacks originating from the same IP address; historical default `300`.
+
+<a id="desc_check_trackback_link" name="desc_check_trackback_link"></a>
+
+### `check_trackback_link`
+
+Selects anti-spam validation of incoming trackbacks, including backlink presence and possibly sender IP checks. Check the exact option modes in the tagged source before relying on the protection.
+
+<a id="desc_multiple_trackbacks" name="desc_multiple_trackbacks"></a>
+
+### `multiple_trackbacks`
+
+Handling repeated trackbacks/pingbacks from a source: `0` keep the first, `1` replace with the latest, `2` allow multiple.
+
+<a id="desc_pingback_enabled" name="desc_pingback_enabled"></a>
+
+### `pingback_enabled`
+
+Enables or disables sending and receiving pingbacks; the original description contains an apparent boolean typo.
+
+<a id="desc_pingback_excerpt" name="desc_pingback_excerpt"></a>
+
+### `pingback_excerpt`
+
+When enabled, Geeklog attempts to retrieve the linking page and extract an excerpt for a pingback, since pingbacks do not transmit one themselves.
+
+<a id="desc_pingback_self" name="desc_pingback_self"></a>
+
+### `pingback_self`
+
+Controls processing of pingbacks that point to other pages on the same site; the historical source documents `0` as skipping these.
+
+<a id="desc_ping_enabled" name="desc_ping_enabled"></a>
+
+### `ping_enabled`
+
+Enables sending notifications to historical weblog-directory ping services; availability of old external services is not guaranteed.
+
+
+## User registration, identity and profile options — Geeklog 2.2.2
+
+Version-scoped documentation adapted from the [tagged Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Do not assume historical external identity or ping services remain supported.
+
+<a id="desc_disable_new_user_registration" name="desc_disable_new_user_registration"></a>
+
+### `disable_new_user_registration`
+
+When enabled, disables public registration of new Geeklog accounts.
+
+<a id="desc_allow_user_themes" name="desc_allow_user_themes"></a>
+
+### `allow_user_themes`
+
+Allows registered users to select a site theme in their account preferences when enabled.
+
+<a id="desc_allow_user_photo" name="desc_allow_user_photo"></a>
+
+### `allow_user_photo`
+
+Allows users to upload a profile photograph when enabled.
+
+<a id="desc_allow_username_change" name="desc_allow_username_change"></a>
+
+### `allow_username_change`
+
+Allows account holders to change their login username. The 2.2.2 reference says article/comment bylines are updated to use the new username.
+
+<a id="desc_allow_account_delete" name="desc_allow_account_delete"></a>
+
+### `allow_account_delete`
+
+Allows users to delete their own accounts. The historical reference says existing articles and comments are retained but attributed to Anonymous.
+
+<a id="desc_hide_author_exclusion" name="desc_hide_author_exclusion"></a>
+
+### `hide_author_exclusion`
+
+Hides the preference for excluding selected authors' content from a user's view.
+
+<a id="desc_show_fullname" name="desc_show_fullname"></a>
+
+### `show_fullname`
+
+Controls whether an account's full name is shown instead of its username; the username is used when no full name is supplied.
+
+<a id="desc_require_user_email" name="desc_require_user_email"></a>
+
+### `require_user_email`
+
+Requires accounts lacking an email address to provide and verify one before continued authenticated use; remote login providers may not supply email.
+
+<a id="desc_show_servicename" name="desc_show_servicename"></a>
+
+### `show_servicename`
+
+Appends a remote authentication service identifier to a username, helping distinguish local and remotely authenticated accounts.
+
+<a id="desc_custom_registration" name="desc_custom_registration"></a>
+
+### `custom_registration`
+
+Enables a custom account registration form provided by site code, such as custom hooks in `lib-custom.php`.
+
+<a id="desc_user_login_method_standard" name="desc_user_login_method_standard"></a>
+
+### `user_login_method_standard`
+
+Controls login by a local Geeklog account stored in the site's database.
+
+<a id="desc_user_login_method_openid" name="desc_user_login_method_openid"></a>
+
+### `user_login_method_openid`
+
+Enables the historical OpenID login integration. The 2.2.2 reference notes that account approval queues can disable this login path. Compatibility with today's identity providers is unverified.
+
+<a id="desc_user_login_method_3rdparty" name="desc_user_login_method_3rdparty"></a>
+
+### `user_login_method_3rdparty`
+
+Enables external account authentication, including the historical LDAP integration, where the provider and necessary authorization settings are configured.
+
+<a id="desc_user_login_method_oauth" name="desc_user_login_method_oauth"></a>
+
+### `user_login_method_oauth`
+
+Enables the built-in legacy OAuth login methods. This 2.2.2 feature is **not proof of compatibility with current provider APIs**; test each connection with up-to-date credentials and endpoints.
+
+<a id="desc_aftersave_user" name="desc_aftersave_user"></a>
+
+### `aftersave_user`
+
+Administrator destination after saving a user record: `item`, `list`, `home`, or `admin`, as listed by the original reference.
+
+<a id="desc_spamx" name="desc_spamx"></a>
+
+### `spamx`
+
+Bitmask selecting actions that the Spam-X plugin runs when spam is detected. The 2.2.2 reference documents `128` for its delete action; inspect installed plugin modules before combining bit flags.
+
