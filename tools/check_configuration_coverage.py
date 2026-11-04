@@ -47,7 +47,22 @@ def main():
     unknown = rendered - source
     assert not unknown, f"Online configuration anchors not in pinned source: {sorted(unknown)}"
     # The two existing intentionally migrated examples must remain available.
-    required = {"desc_site_url", "desc_site_name"}
+    # First verified site + mail migration batch is a regression baseline.
+    required = {
+        "desc_site_url", "desc_site_name",
+        "desc_site_admin_url", "desc_site_slogan", "desc_path_site_logo",
+        "desc_site_disabled_msg", "desc_owner_name", "desc_copyrightyear",
+        "desc_url_rewrite", "desc_url_routing", "desc_cdn_hosted",
+        "desc_meta_tags", "desc_meta_description", "desc_meta_keywords",
+        "desc_cookie_consent", "desc_about_cookies_link",
+        "desc_terms_of_use_link", "desc_privacy_policy_link",
+        "desc_ip_anonymization", "desc_site_mail", "desc_noreply_mail",
+        "desc_mail_settings_backend", "desc_mail_settings_sendmail_path",
+        "desc_mail_settings_sendmail_args", "desc_mail_settings_host",
+        "desc_mail_settings_port", "desc_mail_settings_auth",
+        "desc_mail_settings_username", "desc_mail_settings_password",
+        "desc_mail_cc_enabled", "desc_mail_cc_default", "desc_mail_charset",
+    }
     assert required <= rendered, f"Lost existing configuration help: {required-rendered}"
     remaining = sorted(source - rendered)
     report = {
