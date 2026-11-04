@@ -21,6 +21,8 @@ SOURCES = [
     ("development/plugin-api", "Plugin API"),
     ("development/templates", "Themes and templates"),
     ("plugins/static-pages", "Static Pages"),
+    ("development/webservices", "Webservices API"),
+    ("development/configuration-api", "Configuration API"),
 ]
 CSS = """*{box-sizing:border-box}body{font:16px/1.65 system-ui,sans-serif;color:#202b36;max-width:1040px;margin:0 auto;padding:20px}header,footer{padding:16px 0;border-bottom:1px solid #ddd}footer{border-top:1px solid #ddd;border-bottom:0}nav{display:flex;flex-wrap:wrap;gap:14px}a{color:#1763a5}main{padding:18px 0}pre{padding:16px;background:#f4f6f8;overflow:auto}code{overflow-wrap:anywhere}blockquote{padding:8px 16px;background:#fff6de;border-left:4px solid #ba8b21}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto}td,th{padding:6px 10px;border:1px solid #cdd}input[type=search]{font:inherit;width:100%;padding:12px;margin:12px 0;border:1px solid #aaa;border-radius:6px}"""
 class Inspect(HTMLParser):
