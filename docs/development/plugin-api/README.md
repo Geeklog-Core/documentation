@@ -24,6 +24,23 @@ Historically documented callback families include:
 
 This table identifies **documented historical callbacks**, not confirmation that every one remains supported unchanged in Geeklog 2.2.2.
 
+## Verification against Geeklog 2.2.2
+
+The following **dispatcher-to-callback mappings were checked directly in the tagged Geeklog 2.2.2 source**, `system/lib-plugins.php` at [`v2.2.2`](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php):
+
+| Core dispatcher or installation mechanism | Callback referenced by Core |
+| --- | --- |
+| `PLG_install()` | `plugin_autoinstall_<name>` |
+| `PLG_upgrade()` | `plugin_upgrade_<name>` |
+| `PLG_uninstall()` | `plugin_autouninstall_<name>` (auto path) or `plugin_uninstall_<name>` (legacy path) |
+| `PLG_doSearch()` | `plugin_dopluginsearch_<name>` |
+| `PLG_getSubmissionCount()` | `plugin_submissioncount_<name>` |
+| `PLG_approveSubmission()` | `plugin_moderationapprove_<name>` |
+| `PLG_displayComment()` | `plugin_displaycomment_<name>` |
+| `PLG_getPluginStats()` | `plugin_showstats_<name>` when applicable |
+
+This confirms that **Core references these callback names** in 2.2.2. It does **not** establish every callback's full parameter contract, required implementation, availability in later Geeklog versions, or safety of older Wiki examples. Those remain release-validation tasks.
+
 ## Files and organization
 
 Historically, plugin files reside under `plugins/<pluginname>/`, including `functions.inc`. The auto-install integration described in the old Wiki uses `autoinstall.php` in the same plugin directory. Review the plugin skeleton actually distributed with your Geeklog release before creating files.
