@@ -69,3 +69,10 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - Compared all 146 `desc_*` IDs with the exact Geeklog v2.2.2 bundled config HTML: all unique and present, and all required in `tools/check_configuration_coverage.py`.
 - Embedded `english/config.html` is still preserved byte-for-byte; version-specific descriptions and runtime behavior need further editorial and staging validation.
 - The corresponding GitHub Actions build has not yet completed; structural ID validation was performed separately and should not be confused with CI success.
+
+## Sixth migration batch — image processing and avatars
+
+- Migrated **22** more version-scoped configuration descriptions from the pinned Geeklog v2.2.2 source: 3 image libraries, 4 upload/scaling settings, 3 article image limits, 3 topic icon limits, 6 user photo/avatar settings and 3 Gravatar settings.
+- The current online Markdown reference has **168 of 387** source-matched unique `desc_*` anchors (**43.41%** structurally present, **219 remaining**). All 168 are in the regression baseline in `tools/check_configuration_coverage.py`.
+- The original embedded `english/config.html` is still preserved byte-for-byte. Statements about third-party image libraries and Gravatar must be tested on the installed environment; presence of an older setting is not evidence of external-service current functionality.
+- Latest confirmed successful dual-preview run before this batch was **41867103306**, for `be2fb23` (146/387). The new image batch's CI outcome must be checked against the new commit before it can be called passed.
