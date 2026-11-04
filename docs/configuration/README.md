@@ -10,6 +10,9 @@ Geeklog provides a Configuration administration panel for most settings. Install
 
 Core configuration help links use `config.html#desc_<option>`. These examples illustrate the intended Markdown source format.
 
+<a id="site" name="site"></a>
+<a id="site_site" name="site_site"></a>
+
 <a id="desc_site_url" name="desc_site_url"></a>
 
 ### Site URL
@@ -135,6 +138,8 @@ The 2.2.2 reference documents `-1` as disabled, `0` as immediate, and positive n
 
 ## Mail settings — Geeklog 2.2.2
 
+<a id="site_mail" name="site_mail"></a>
+
 <a id="desc_site_mail" name="desc_site_mail"></a>
 
 ### `site_mail`
@@ -222,6 +227,8 @@ Character encoding of outgoing email. If empty, the configuration reference says
 
 The settings below are **defaults for newly created feeds**, not necessarily overrides of existing feed configurations. They follow the [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#site_syndication). Geeklog also provides a *Content Syndication* administration interface.
 
+<a id="site_syndication" name="site_syndication"></a>
+
 <a id="desc_backend" name="desc_backend"></a>
 
 ### `backend`
@@ -288,6 +295,9 @@ Optional format string for a link to the comment author's profile and name. It c
 ## Articles and presentation — Geeklog 2.2.2
 
 Source: [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Descriptions reflect this specific release; do not apply old security defaults to newer deployments.
+
+<a id="stories" name="stories"></a>
+<a id="stories_story" name="stories_story"></a>
 
 <a id="desc_maximagesperarticle" name="desc_maximagesperarticle"></a>
 
@@ -388,6 +398,8 @@ If enabled, restricts selection of featured articles to `Root` users to avoid co
 ## Login, access and account protection — Geeklog 2.2.2
 
 Source: [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Descriptions reflect this specific release; do not apply old security defaults to newer deployments.
+
+<a id="users_login" name="users_login"></a>
 
 <a id="desc_lastlogin" name="desc_lastlogin"></a>
 
@@ -503,6 +515,9 @@ Number of password-hash iterations configured for the 2.2.2 legacy scheme; docum
 
 Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
 
+<a id="theme" name="theme"></a>
+<a id="theme_theme" name="theme_theme"></a>
+
 <a id="desc_theme" name="desc_theme"></a>
 
 ### `theme`
@@ -550,6 +565,8 @@ Controls combining, minifying and caching JavaScript and CSS resources. The 2.2.
 
 Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
 
+<a id="users_usersub" name="users_usersub"></a>
+
 <a id="desc_usersubmission" name="desc_usersubmission"></a>
 
 ### `usersubmission`
@@ -572,6 +589,8 @@ List or regular expressions for email domains forbidden for new registrations. T
 ## Article and content submissions — Geeklog 2.2.2
 
 Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="users_submission" name="users_submission"></a>
 
 <a id="desc_storysubmission" name="desc_storysubmission"></a>
 
@@ -631,6 +650,8 @@ Controls removal of four-byte UTF-8 characters, including emoji, when `COM_apply
 ## Comments and moderation — Geeklog 2.2.2
 
 Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="users_comments" name="users_comments"></a>
 
 <a id="desc_commentspeedlimit" name="desc_commentspeedlimit"></a>
 
@@ -722,6 +743,9 @@ Controls whether existing comments are visible on the dedicated reply page. This
 
 Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
 
+<a id="blocks" name="blocks"></a>
+<a id="blocks_admin" name="blocks_admin"></a>
+
 <a id="desc_sort_admin" name="desc_sort_admin"></a>
 
 ### `sort_admin`
@@ -739,6 +763,8 @@ Show the Geeklog documentation link in the administrator block when set to `1`.
 ### `link_versionchecker`
 
 Display the version-check link in the administrator block when enabled; the reference notes this is visible only to `Root` members.
+
+<a id="blocks_topics" name="blocks_topics"></a>
 
 <a id="desc_sortmethod" name="desc_sortmethod"></a>
 
@@ -769,6 +795,8 @@ Hide the Home link in the Sections block when `1`.
 
 Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
 
+<a id="blocks_who" name="blocks_who"></a>
+
 <a id="desc_whosonline_threshold" name="desc_whosonline_threshold"></a>
 
 ### `whosonline_threshold`
@@ -786,6 +814,8 @@ When enabled, anonymous visitors see only the count of registered users online r
 ### `whosonline_photo`
 
 When enabled, display a thumbnail of a user's uploaded photo where available, otherwise a photo icon.
+
+<a id="blocks_what" name="blocks_what"></a>
 
 <a id="desc_newstoriesinterval" name="desc_newstoriesinterval"></a>
 
@@ -846,6 +876,9 @@ Maximum cache duration for the What's New block, in seconds; default `3600`. Set
 
 Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
 
+<a id="languages" name="languages"></a>
+<a id="languages_language" name="languages_language"></a>
+
 <a id="desc_language" name="desc_language"></a>
 
 ### `language`
@@ -886,6 +919,8 @@ Mapping of the same language suffixes to display names for multilingual content.
 ## Locale, dates and number formats — Geeklog 2.2.2
 
 Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+
+<a id="languages_locale" name="languages_locale"></a>
 
 <a id="desc_locale" name="desc_locale"></a>
 
@@ -965,6 +1000,9 @@ Site's intended time zone when it differs from that of the hosting server. Confi
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
 
+<a id="images" name="images"></a>
+<a id="images_imagelib" name="images_imagelib"></a>
+
 <a id="desc_image_lib" name="desc_image_lib"></a>
 
 ### `image_lib`
@@ -987,6 +1025,8 @@ Absolute directory containing Netpbm executables when `image_lib` is `netpbm`. T
 ## Image uploads and scaling — Geeklog 2.2.2
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="images_upload" name="images_upload"></a>
 
 <a id="desc_keep_unscaled_image" name="desc_keep_unscaled_image"></a>
 
@@ -1017,6 +1057,8 @@ Adds diagnostic output for image upload and resize operations to Geeklog's error
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
 
+<a id="images_articles" name="images_articles"></a>
+
 <a id="desc_max_image_width" name="desc_max_image_width"></a>
 
 ### `max_image_width`
@@ -1040,6 +1082,8 @@ Maximum uploaded article image size in bytes; documented as `1048576` (1 MiB). F
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
 
+<a id="images_topic" name="images_topic"></a>
+
 <a id="desc_max_topicicon_width" name="desc_max_topicicon_width"></a>
 
 ### `max_topicicon_width`
@@ -1062,6 +1106,8 @@ Maximum uploaded topic icon size in bytes; documented as `65536` (64 KiB). Overs
 ## User photos and generated avatars — Geeklog 2.2.2
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
+
+<a id="images_photos" name="images_photos"></a>
 
 <a id="desc_max_photo_width" name="desc_max_photo_width"></a>
 
@@ -1104,6 +1150,8 @@ When enabled and `default_photo` is unavailable, generates a basic avatar from t
 
 Descriptions adapted from the [official Geeklog 2.2.2 configuration HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). These are release-specific settings; test image operations in staging before applying them to a public site.
 
+<a id="images_gravatar" name="images_gravatar"></a>
+
 <a id="desc_use_gravatar" name="desc_use_gravatar"></a>
 
 ### `use_gravatar`
@@ -1127,6 +1175,8 @@ Fallback Gravatar style when a remote avatar is absent. The historical reference
 ## Filesystem paths and storage — Geeklog 2.2.2
 
 Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
+
+<a id="site_paths" name="site_paths"></a>
 
 <a id="desc_path_html" name="desc_path_html"></a>
 
@@ -1175,6 +1225,8 @@ Filesystem path to the rich-text editor assets. The 2.2.2 reference requires it 
 
 Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
 
+<a id="site_database" name="site_database"></a>
+
 <a id="desc_dbdump_filename_prefix" name="desc_dbdump_filename_prefix"></a>
 
 ### `dbdump_filename_prefix`
@@ -1203,6 +1255,8 @@ Maximum number of retained database backup files; the reference default is `10`,
 ## Search results configuration — Geeklog 2.2.2
 
 Descriptions based on the [versioned Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Values and operating behavior must be checked on the target installation before modifying production settings.
+
+<a id="site_search" name="site_search"></a>
 
 <a id="desc_search_style" name="desc_search_style"></a>
 
@@ -1275,6 +1329,8 @@ If enabled, search can default to the most recently visited topic; otherwise it 
 
 These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
 
+<a id="theme_advanced" name="theme_advanced"></a>
+
 <a id="desc_show_right_blocks" name="desc_show_right_blocks"></a>
 
 ### `show_right_blocks`
@@ -1297,6 +1353,9 @@ Controls whether internal template comments are preserved as HTML comments rathe
 ## Cookies and sessions — Geeklog 2.2.2
 
 These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="misc" name="misc"></a>
+<a id="misc_cookies" name="misc_cookies"></a>
 
 <a id="desc_cookie_session" name="desc_cookie_session"></a>
 
@@ -1381,6 +1440,8 @@ Controls whether the Secure cookie flag is used. For HTTPS deployments, protect 
 
 These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
 
+<a id="misc_misc" name="misc_misc"></a>
+
 <a id="desc_notification" name="desc_notification"></a>
 
 ### `notification`
@@ -1453,6 +1514,8 @@ Enables automatically deriving content identifiers from titles in supporting art
 
 Controls logging of HTTP 404 errors into the `404.log` file in Geeklog's log directory.
 
+<a id="misc_debug" name="misc_debug"></a>
+
 <a id="desc_rootdebug" name="desc_rootdebug"></a>
 
 ### `rootdebug`
@@ -1463,6 +1526,8 @@ If enabled, PHP error details may be shown to all visitors instead of only `Root
 ## Daily digest options — Geeklog 2.2.2
 
 These settings describe the historical [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html); they should be reviewed on a staging installation and must not be interpreted as current security defaults.
+
+<a id="misc_digest" name="misc_digest"></a>
 
 <a id="desc_emailstories" name="desc_emailstories"></a>
 
@@ -1487,6 +1552,8 @@ When enabled, newly registered accounts are automatically subscribed to the dail
 ## HTML filtering and safe content — Geeklog 2.2.2
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="misc_html" name="misc_html"></a>
 
 <a id="desc_user_html" name="desc_user_html"></a>
 
@@ -1523,6 +1590,8 @@ List of URL schemes allowed in HTML links. The 2.2.2 reference includes `http`, 
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
 
+<a id="misc_censoring" name="misc_censoring"></a>
+
 <a id="desc_censormode" name="desc_censormode"></a>
 
 ### `censormode`
@@ -1541,6 +1610,8 @@ Text substituted for censored words; historically `*censored*`. The legacy filte
 
 List of terms checked by the censoring facility. Test false positives and the actual filter implementation before deployment.
 
+<a id="misc_ip_lookup" name="misc_ip_lookup"></a>
+
 <a id="desc_ip_lookup" name="desc_ip_lookup"></a>
 
 ### `ip_lookup`
@@ -1551,6 +1622,8 @@ Optional external IP lookup URL for administrative review of comment poster IPs.
 ## Webservices API controls — Geeklog 2.2.2
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="misc_ip_webservices" name="misc_ip_webservices"></a>
 
 <a id="desc_disable_webservices" name="desc_disable_webservices"></a>
 
@@ -1574,6 +1647,8 @@ Maximum number of articles returned by an Atom webservices feed request; documen
 ## Topic breadcrumb controls — Geeklog 2.2.2
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="misc_topics" name="misc_topics"></a>
 
 <a id="desc_multiple_breadcrumbs" name="desc_multiple_breadcrumbs"></a>
 
@@ -1609,6 +1684,9 @@ Display the site name as the root entry of breadcrumb navigation when enabled.
 ## File manager — display and server behavior — Geeklog 2.2.2
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
+
+<a id="filemanager" name="filemanager"></a>
+<a id="filemanager_general" name="filemanager_general"></a>
 
 <a id="desc_filemanager_disabled" name="desc_filemanager_disabled"></a>
 
@@ -1681,6 +1759,8 @@ Generate thumbnail images using PHP for faster directory browsing. The reference
 
 Based on the [tagged configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Test behavior in a staging site before changing production settings, especially HTML filtering, permissions, uploads and external services.
 
+<a id="filemanager_upload" name="filemanager_upload"></a>
+
 <a id="desc_filemanager_upload_overwrite" name="desc_filemanager_upload_overwrite"></a>
 
 ### `filemanager_upload_overwrite`
@@ -1693,11 +1773,15 @@ Overwrite an existing file with the same name when enabled; otherwise append an 
 
 Maximum upload size checked by the HTML5 client and PHP connector, in MiB; bundled default `16`. Server-side PHP limits may further restrict uploads.
 
+<a id="filemanager_images" name="filemanager_images"></a>
+
 <a id="desc_filemanager_images_ext" name="desc_filemanager_images_ext"></a>
 
 ### `filemanager_images_ext`
 
 Allowed image filename extensions in the file manager; the 2.2.2 reference lists `jpg`, `jpeg`, `gif`, `png` and `svg`. Extension checks alone are not sufficient file-content validation.
+
+<a id="filemanager_videos" name="filemanager_videos"></a>
 
 <a id="desc_filemanager_show_video_player" name="desc_filemanager_show_video_player"></a>
 
@@ -1723,6 +1807,8 @@ Width in pixels for the embedded video player; historical default `400`.
 
 Height in pixels for the embedded video player; historical default `222`.
 
+<a id="filemanager_audios" name="filemanager_audios"></a>
+
 <a id="desc_filemanager_show_audio_player" name="desc_filemanager_show_audio_player"></a>
 
 ### `filemanager_show_audio_player`
@@ -1741,6 +1827,8 @@ Audio filename extensions recognized by the player; the 2.2.2 reference lists `o
 The following 44 help identifiers describe the **defaults** for content permissions and autotag usage in the [bundled Geeklog 2.2.2 reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#misc_permissions). They are not recommendations to grant public users broader rights. Review effective group permissions and test with least-privileged accounts before changing production.
 
 The suffixes `_0`, `_1`, `_2` and `_3` refer to distinct audience/role positions recorded by the original configuration page. Do not infer access solely from a setting name; the actual group and operation are important.
+
+<a id="misc_permissions" name="misc_permissions"></a>
 
 <a id="desc_default_permissions_story_0" name="desc_default_permissions_story_0"></a>
 
@@ -2077,6 +2165,8 @@ Number of article introductions after which the Article Topic List block locatio
 
 Version-scoped documentation adapted from the [tagged Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Do not assume historical external identity or ping services remain supported.
 
+<a id="stories_trackback" name="stories_trackback"></a>
+
 <a id="desc_trackback_enabled" name="desc_trackback_enabled"></a>
 
 ### `trackback_enabled`
@@ -2107,6 +2197,8 @@ Selects anti-spam validation of incoming trackbacks, including backlink presence
 
 Handling repeated trackbacks/pingbacks from a source: `0` keep the first, `1` replace with the latest, `2` allow multiple.
 
+<a id="stories_pingback" name="stories_pingback"></a>
+
 <a id="desc_pingback_enabled" name="desc_pingback_enabled"></a>
 
 ### `pingback_enabled`
@@ -2135,6 +2227,9 @@ Enables sending notifications to historical weblog-directory ping services; avai
 ## User registration, identity and profile options — Geeklog 2.2.2
 
 Version-scoped documentation adapted from the [tagged Geeklog configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Do not assume historical external identity or ping services remain supported.
+
+<a id="users" name="users"></a>
+<a id="users_users" name="users_users"></a>
 
 <a id="desc_disable_new_user_registration" name="desc_disable_new_user_registration"></a>
 
@@ -2225,6 +2320,8 @@ Enables the built-in legacy OAuth login methods. This 2.2.2 feature is **not pro
 ### `aftersave_user`
 
 Administrator destination after saving a user record: `item`, `list`, `home`, or `admin`, as listed by the original reference.
+
+<a id="users_spamx" name="users_spamx"></a>
 
 <a id="desc_spamx" name="desc_spamx"></a>
 
@@ -2512,6 +2609,8 @@ View permission for anonymous visitors of the dynamic likes block. Original refe
 
 These descriptions are scoped to the [versioned source reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Provider integrations and bootstrap settings need separate operational checks before a live change.
 
+<a id="siteconfig.php" name="siteconfig.php"></a>
+
 <a id="desc_path" name="desc_path"></a>
 
 ### `path`
@@ -2541,4 +2640,58 @@ Fallback character encoding when the selected language file does not specify one
 ### `rootdebug_siteconfig`
 
 Emergency diagnostic override in `siteconfig.php`. The special `force` mode may expose extremely sensitive information, including credentials or cookies. **Never leave this enabled on a public site.**
+
+
+
+## Historical configuration reference appendices — migration preview
+
+These reference sections retain their original fragment identifiers, but some legacy tables and operational examples are **not yet fully transcribed**. The embedded v2.2.2 `config.html` remains the authoritative complete version until final content review.
+
+<a id="db-config.php" name="db-config.php"></a>
+
+### Database bootstrap configuration
+
+The installation's `db-config.php` stores connection parameters such as the database host, name, user, password, table prefix and database type. These are installation-sensitive values, not safe defaults to copy into an existing site. Do not expose this file or credentials.
+
+<a id="url-rewrite" name="url-rewrite"></a>
+
+### URL rewriting
+
+Geeklog 2.2.2 supports rewritten links for articles, topic pages, Static Pages and selected plugin resources. The exact legacy URL mapping table is retained in the original embedded reference while conversion and regression tests remain incomplete. Check old links and server handling before switching.
+
+<a id="url-routing" name="url-routing"></a>
+
+### URL routing
+
+URL routing builds on URL rewriting and can use `index.php` as a front controller. It requires URL rewriting first, and server rules may be needed to omit `index.php`. The complete route and priority table must still be migrated and tested.
+
+<a id="Localization" name="Localization"></a>
+
+### Language-file localization
+
+Geeklog ships interface strings in language files, such as `english.php`. Interface translation is distinct from translating site content. Check that locale settings, language file names, encodings and user-selectable languages align.
+
+<a id="date_formats" name="date_formats"></a>
+
+### Locale and date format reference
+
+Date formats are version- and locale-dependent. The original 2.2.2 reference includes a detailed table of formatting tokens, including `%a`, `%A`, `%b`, `%B`, `%d`, `%H`, `%I`, `%m`, `%M`, `%p` and `%Y`. That full table still requires editorial migration; retain the legacy reference until it is complete.
+
+<a id="url-cron" name="url-cron"></a>
+
+### Command-line scheduled jobs
+
+Geeklog 2.2.2 documents command-line PHP scripts for tasks such as daily digests and emailed database backups. Scripts should remain outside the public web tree. Review script paths, CLI availability and scheduler configuration on the installed environment.
+
+<a id="cron_daily_digest" name="cron_daily_digest"></a>
+
+### Daily-digest cron script
+
+The historical `cron-emailgeeklogdailydigest` sends newly published articles to subscribers. On first activation, older articles may all be considered new; review the latest digest marker and test delivery carefully in staging.
+
+<a id="cron_emailed_database_backup" name="cron_emailed_database_backup"></a>
+
+### Email-based database backup cron script
+
+The historical `cron-emailgeeklogdatabasebackup` sends a database dump to an address configured by the cron script or a `db_backup_sendto` value. Email attachments are not a substitute for a complete, encrypted, regularly tested backup strategy.
 
