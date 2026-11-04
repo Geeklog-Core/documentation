@@ -98,3 +98,11 @@ The configuration reference is **not yet modernized**. Coverage is 76/387, with 
 - All 303 identifiers were directly compared against tagged Geeklog 2.2.2 bundled config HTML: unique, all present; explicit `tools/check_configuration_coverage.py` regression set requires all 303.
 - Permissions and file-management descriptions are version-scoped, not endorsements of the historical security defaults. Review effective access on a staged site.
 - The embedded legacy `english/config.html` remains byte-for-byte unchanged until all source anchors and page contents are verified, with a separate full-link/compatibility test and provenance/licensing check.
+
+## Tenth batch — full structural configuration help coverage
+
+- Converted the **last 84** `desc_*` help anchors from tagged Geeklog 2.2.2 `config.html`: 10 structured data/related article, 9 trackback/pingback, 16 core registration/identity/Spam-X, 21 historical third-party OAuth, 23 Likes, and 5 `siteconfig.php` bootstrap settings.
+- Markdown now contains **all 387 / 387** official help identifiers, each exactly once. This was directly checked by comparing the complete `desc_*` ID sets from the Markdown and pinned source.
+- `tools/check_configuration_coverage.py` now requires **exact equality** of source vs generated online help-ID sets, rather than only reporting partially migrated IDs. The 387 identifier regression baseline is pinned.
+- **100% structural coverage is not 100% text or link compatibility.** The Markdown descriptions are often condensed; not all historical subtopics, tables, examples and cross-references have been migrated. The original embedded `config.html` has **not** been replaced.
+- Next acceptance gates before making the Markdown the single source for the *embedded* config help: (a) extract ALL historical HTML ids/named anchors, not only `desc_*`, (b) audit local links/embedded assets and external references, (c) compare substantive sections and defaults for information loss, (d) review licensing/source attribution, (e) test in real Geeklog 2.2.2 configuration administration and install/staging flows, (f) only then generate `english/config.html` from a single Markdown source with compatible HTML paths and anchors.
