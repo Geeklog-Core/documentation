@@ -19,6 +19,8 @@ SOURCES = {
     "modern/development/plugin-api/index.html": "Plugin API",
     "modern/development/templates/index.html": "Themes and templates",
     "modern/plugins/static-pages/index.html": "Static Pages",
+    "modern/development/webservices/index.html": "Webservices API",
+    "modern/development/configuration-api/index.html": "Configuration API",
 }
 
 SEARCH_JS = r"""(() => {
@@ -106,7 +108,7 @@ def main():
             "title": title,
             "text": re.sub(r"\s+", " ", " ".join(parser.content)).strip()[:50000],
         })
-    assert len(entries) == len(SOURCES) == 6
+    assert len(entries) == len(SOURCES) == 8
     (SITE / "search-index.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
