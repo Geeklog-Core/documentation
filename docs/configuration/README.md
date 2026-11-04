@@ -216,3 +216,70 @@ Character encoding of outgoing email. If empty, the configuration reference says
 ---
 
 **Migration note:** These are version-scoped descriptions based on the bundled 2.2.2 reference; a working installation and original defaults should still be reviewed before calling them authoritative. The embedded `config.html` is intentionally preserved unchanged until complete migration.
+
+
+## Syndication and feeds — Geeklog 2.2.2
+
+The settings below are **defaults for newly created feeds**, not necessarily overrides of existing feed configurations. They follow the [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#site_syndication). Geeklog also provides a *Content Syndication* administration interface.
+
+<a id="desc_backend" name="desc_backend"></a>
+
+### `backend`
+
+Controls whether a feed file is generated for articles. The 2.2.2 reference documents `0` for disabled and `1` for enabled. The default in that reference is `1`.
+
+<a id="desc_rdf_file" name="desc_rdf_file"></a>
+
+### `rdf_file`
+
+Filesystem path to the feed file. The bundled reference places it under the site's HTML directory, with a `/backend/geeklog.rss` suffix. The destination directory **must be inside `path_html`**. This is a server path, not a public URL.
+
+<a id="desc_rdf_limit" name="desc_rdf_limit"></a>
+
+### `rdf_limit`
+
+Controls how many articles are exported. A number such as `10` limits the count; a value such as `24h` selects articles within the previous number of hours. The documented default is `10`.
+
+<a id="desc_rdf_storytext" name="desc_rdf_storytext"></a>
+
+### `rdf_storytext`
+
+Determines how much article introduction text is included in a feed: `0` excludes it, `1` includes the complete introduction, and a value greater than `1` limits it to that many characters. The documented default is `0`.
+
+<a id="desc_rdf_language" name="desc_rdf_language"></a>
+
+### `rdf_language`
+
+Language tag advertised by the feed. The bundled reference gives `en-gb` as the default and notes that feed language tags can differ from PHP locale strings; for example, `de-DE` versus `de_DE`.
+
+<a id="desc_syndication_max_headlines" name="desc_syndication_max_headlines"></a>
+
+### `syndication_max_headlines`
+
+Maximum number of headlines **imported** into a portal block. The per-block setting can also provide a limit. The documented default `0` means import all available headlines.
+
+<a id="desc_comment_feeds_article_tag" name="desc_comment_feeds_article_tag"></a>
+
+### `comment_feeds_article_tag`
+
+Format string inserted for an article referenced in a comment feed. The bundled documentation describes **four ordered string placeholders**, supplied through a formatting call: article URL, article title, article-author tag and comment-author tag. Preserve the correct placeholder count and formatting when customizing it; avoid inserting untrusted raw markup.
+
+<a id="desc_comment_feeds_article_tag_position" name="desc_comment_feeds_article_tag_position"></a>
+
+### `comment_feeds_article_tag_position`
+
+Controls placement of the formatted article tag within the comment body. The 2.2.2 reference documents `start`, `end` and `none`; the default is `end`.
+
+<a id="desc_comment_feeds_article_author_tag" name="desc_comment_feeds_article_author_tag"></a>
+
+### `comment_feeds_article_author_tag`
+
+Optional format string for a link to the article author's profile and name. It contributes to `comment_feeds_article_tag` when populated. The documented default is an empty string.
+
+<a id="desc_comment_feeds_comment_author_tag" name="desc_comment_feeds_comment_author_tag"></a>
+
+### `comment_feeds_comment_author_tag`
+
+Optional format string for a link to the comment author's profile and name. It contributes to `comment_feeds_article_tag`; setting it to an empty string omits that tag.
+
+**Compatibility note:** These are version-specific descriptions, not tested configuration changes. Confirm effects on a staging installation. The embedded `config.html` remains unchanged during migration.
