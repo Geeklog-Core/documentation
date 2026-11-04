@@ -1,6 +1,6 @@
 # Maintaining and upgrading Geeklog
 
-> **Geeklog 2.2.2 — administrator checklist.** This guide complements [the installation and upgrade guide](../../installation/README.md); it is not a claim of compatibility with every modern PHP, database or plugin release.
+> **Geeklog 2.2.2 — administrator checklist.** This guide complements [the versioned Geeklog installation instructions](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/install.html); it is not a claim of compatibility with every modern PHP, database or plugin release.
 
 ## Before making changes
 
