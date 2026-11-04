@@ -103,5 +103,17 @@ def main():
         for name in required: assert "public_html/docs/english/"+name in names
         assert "public_html/admin/plugins/recaptcha/docs/english/config.html" in names
         assert len(names)==sum(p.is_file() for p in (ROOT/"dist/geeklog-2.2.2/public_html").rglob("*"))
-    print(f"PASS: {len(PAGES)} online pages and {len(names)} embedded files; ZIP {archive.name}")
+    online_html = list(WEB.rglob("*.html"))
+    modern_html = list(modern_web.rglob("*.html"))
+    assert len(online_html) == len(PAGES) + len(modern_html)
+    assert len(modern_html) == 4, "Expected modern index and three guides"
+    assert (WEB / "modern/search-index.json").is_file()
+    assert (WEB / "modern/search.js").is_file()
+    for page in modern_html:
+        relative = page.relative_to(modern_web)
+        embedded_path = DIST / "english/modern" / relative
+        assert embedded_path.is_file(), f"Missing embedded modern page: {relative}"
+    print(f"PASS: {len(online_html)} total online HTML pages, including "
+          f"{len(modern_html)} modern pages, and {len(names)} embedded files; "
+          f"ZIP {archive.name}")
 if __name__=="__main__": main()
