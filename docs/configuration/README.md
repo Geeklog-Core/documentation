@@ -497,3 +497,222 @@ Legacy password-hashing algorithm selector documented for Geeklog 2.2.2. The bun
 
 Number of password-hash iterations configured for the 2.2.2 legacy scheme; documented default `4096`. Compatibility and safe migration need review before making changes.
 
+
+
+## Theme and template settings — Geeklog 2.2.2
+
+Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="desc_theme" name="desc_theme"></a>
+
+### `theme`
+
+Default theme for anonymous visitors and new accounts. Existing users may retain their chosen theme if user theme selection is allowed; 2.2.2 reference default: Denim Three.
+
+<a id="desc_doctype" name="desc_doctype"></a>
+
+### `doctype`
+
+Document type declaration emitted by themes that use the `{doctype}` template variable. Hard-coded DOCTYPE declarations in a theme are not controlled by this setting.
+
+<a id="desc_menu_elements" name="desc_menu_elements"></a>
+
+### `menu_elements`
+
+Controls entries in themes using `{menu_elements}`. The 2.2.2 reference lists `home`, `contribute`, `search`, `stats`, `directory`, `login`, `prefs`, `plugins` and `custom`; actual display depends on the theme.
+
+<a id="desc_path_themes" name="desc_path_themes"></a>
+
+### `path_themes`
+
+Filesystem directory containing themes. The 2.2.2 reference identifies it as the site's `public_html/layout/` directory and states this path cannot be changed from its default.
+
+<a id="desc_cache_templates" name="desc_cache_templates"></a>
+
+### `cache_templates`
+
+Controls caching of theme template files. Caching usually helps performance, but may be unsuitable for disk bottlenecks or dynamic autotags in templates. It is separate from content caching.
+
+<a id="desc_cache_mobile" name="desc_cache_mobile"></a>
+
+### `cache_mobile`
+
+When enabled, mobile-device responses may be cached separately from desktop responses. Disabling it can reduce cache variants when mobile and desktop output are equivalent.
+
+<a id="desc_cache_resource" name="desc_cache_resource"></a>
+
+### `cache_resource`
+
+Controls combining, minifying and caching JavaScript and CSS resources. The 2.2.2 reference notes that themes using `style.css.php` can apply separate mandatory caching behavior.
+
+
+## User registration and approval — Geeklog 2.2.2
+
+Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="desc_usersubmission" name="desc_usersubmission"></a>
+
+### `usersubmission`
+
+Enables the approval queue for newly submitted accounts when `1`; when turning it off, first process existing queued accounts.
+
+<a id="desc_allow_domains" name="desc_allow_domains"></a>
+
+### `allow_domains`
+
+Comma-separated approved email domains that can bypass the user approval queue when that queue is enabled. The 2.2.2 reference allows regular expressions; review patterns carefully to avoid unintended approvals.
+
+<a id="desc_disallow_domains" name="desc_disallow_domains"></a>
+
+### `disallow_domains`
+
+List or regular expressions for email domains forbidden for new registrations. This blacklist applies even when the account approval queue is disabled.
+
+
+## Article and content submissions — Geeklog 2.2.2
+
+Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="desc_storysubmission" name="desc_storysubmission"></a>
+
+### `storysubmission`
+
+Enable or disable moderation queue for submitted articles (`1` on, `0` off).
+
+<a id="desc_listdraftstories" name="desc_listdraftstories"></a>
+
+### `listdraftstories`
+
+When enabled, adds a block of draft articles to the moderation page.
+
+<a id="desc_postmode" name="desc_postmode"></a>
+
+### `postmode`
+
+Default article submission format: `plaintext` or `html` in the 2.2.2 reference.
+
+<a id="desc_speedlimit" name="desc_speedlimit"></a>
+
+### `speedlimit`
+
+Minimum delay between content submissions, in seconds; bundled default `45`. This is a rate-limiting mechanism, not a complete spam defense.
+
+<a id="desc_skip_preview" name="desc_skip_preview"></a>
+
+### `skip_preview`
+
+When enabled, permits immediate article and comment submission without first requiring a preview.
+
+<a id="desc_advanced_editor" name="desc_advanced_editor"></a>
+
+### `advanced_editor`
+
+Enables a rich-text/WYSIWYG editor for supported article, comment and Static Pages forms. Geeklog 2.2.2 shipped with CKEditor.
+
+<a id="desc_advanced_editor_name" name="desc_advanced_editor_name"></a>
+
+### `advanced_editor_name`
+
+Name of the selected rich-text editor; the 2.2.2 reference lists CKEditor as the default.
+
+<a id="desc_wikitext_editor" name="desc_wikitext_editor"></a>
+
+### `wikitext_editor`
+
+Adds Wiki-style formatting to the article editor using the older PEAR Text_Wiki implementation when enabled. Confirm dependencies before relying on this legacy option.
+
+<a id="desc_remove_4byte_chars" name="desc_remove_4byte_chars"></a>
+
+### `remove_4byte_chars`
+
+Controls removal of four-byte UTF-8 characters, including emoji, when `COM_applyBasicFilter()` runs. Turning removal off requires compatible `utf8mb4` database/table/column collations and compatible plugins; otherwise saving content can fail.
+
+
+## Comments and moderation — Geeklog 2.2.2
+
+Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Verify behavior against the installed release before changing live site settings.
+
+<a id="desc_commentspeedlimit" name="desc_commentspeedlimit"></a>
+
+### `commentspeedlimit`
+
+Minimum delay in seconds between comments by the same user; bundled default `45`.
+
+<a id="desc_comment_limit" name="desc_comment_limit"></a>
+
+### `comment_limit`
+
+Maximum number of comments displayed per page; bundled default `100`.
+
+<a id="desc_comment_mode" name="desc_comment_mode"></a>
+
+### `comment_mode`
+
+Default display mode for comments; 2.2.2 lists `threaded`, `nested`, `flat` and `nocomments`.
+
+<a id="desc_comment_order" name="desc_comment_order"></a>
+
+### `comment_order`
+
+Top-level comment order by date: `ASC` oldest first or `DESC` newest first.
+
+<a id="desc_comment_code" name="desc_comment_code"></a>
+
+### `comment_code`
+
+Default comment availability on new articles: `0` enables comments, while `-1` disables them.
+
+<a id="desc_commentsubmission" name="desc_commentsubmission"></a>
+
+### `commentsubmission`
+
+Controls whether submitted comments must be approved in a moderation queue.
+
+<a id="desc_comment_edit" name="desc_comment_edit"></a>
+
+### `comment_edit`
+
+Enables a limited editing window for registered users' own comments. Anonymous users cannot edit their comments, while administrators with `comment.edit` may. Review interactions with queued comments.
+
+<a id="desc_comment_edittime" name="desc_comment_edittime"></a>
+
+### `comment_edittime`
+
+Time in seconds during which an author may edit a comment when editing is enabled; bundled default `1800`.
+
+<a id="desc_article_comment_close_enabled" name="desc_article_comment_close_enabled"></a>
+
+### `article_comment_close_enabled`
+
+Default setting for whether newly created articles should stop accepting comments after a specified number of days. It can be changed per article.
+
+<a id="desc_article_comment_close_days" name="desc_article_comment_close_days"></a>
+
+### `article_comment_close_days`
+
+Number of days after which new articles configured for automatic closure stop accepting comments; bundled default `30`. It has no effect unless closure is enabled for that article.
+
+<a id="desc_comment_close_rec_stories" name="desc_comment_close_rec_stories"></a>
+
+### `comment_close_rec_stories`
+
+Number of most recent articles that permit new comments; older articles can be closed as new ones arrive. `0` disables this limit.
+
+<a id="desc_allow_reply_notifications" name="desc_allow_reply_notifications"></a>
+
+### `allow_reply_notifications`
+
+Controls whether registered users can subscribe to email notifications when someone replies directly to their comments.
+
+<a id="desc_comment_on_same_page" name="desc_comment_on_same_page"></a>
+
+### `comment_on_same_page`
+
+Controls whether the comment editor is shown on the same page as the content instead of a separate page.
+
+<a id="desc_show_comments_at_replying" name="desc_show_comments_at_replying"></a>
+
+### `show_comments_at_replying`
+
+Controls whether existing comments are visible on the dedicated reply page. This option is irrelevant when the same-page editor is enabled.
+
