@@ -64,6 +64,22 @@ def main():
             body='<h1>Geeklog documentation</h1><p>Independent Markdown migration prototype, not an official release.</p><p>Explore <a href="installation.html">installation</a>, <a href="configuration.html">configuration</a>, and <a href="administration.html">administration</a>.</p>'
         page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head><body><nav>{NAV}</nav><main>{body}</main><footer><hr>Preview only · Geeklog 2.2.2 documentation migration</footer></body></html>'
         (WEB/file).write_text(page,encoding="utf-8")
+    # Render the unified modern Markdown pilot into both outputs. Core 2.2.2
+    # historical help paths remain unchanged; modern help is additive.
+    from build_modern_pilot import write_site, check_links
+    modern_web = WEB / "modern"
+    modern_embed = DIST / "english" / "modern"
+    for target in (modern_web, modern_embed):
+        assert write_site(target) == 3
+        assert check_links(target) == 4
+    for p in modern_web.rglob("*"):
+        if p.is_file():
+            assert p.read_bytes() == (modern_embed / p.relative_to(modern_web)).read_bytes()
+    # Add the newly generated section to the existing site homepage.
+    index_file = WEB / "index.html"
+    index_html = index_file.read_text(encoding="utf-8")
+    index_html = index_html.replace("</main>", '<p><a href="modern/index.html">Modernized developer and plugin guides (draft)</a></p></main>')
+    index_file.write_text(index_html, encoding="utf-8")
     for file in PAGES:
         p=WEB/file
         d=Inspect();d.feed(p.read_text(encoding="utf-8"))
