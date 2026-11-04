@@ -431,8 +431,15 @@ def main():
     broken_historical = sorted(local_links - source_all)
     assert not broken_historical, (
         f"Original config reference has broken internal links: {broken_historical}")
-    # Do not fail the transitional preview for missing non-help anchors,
-    # but track them before permitting any future embedded config overlay.
+    assert not unported_navigation, (
+        f"Missing historical section/navigation anchors: {unported_navigation}")
+    assert rendered_all == source_all, (
+        f"Incorrect full historical anchor inventory; "
+        f"missing={sorted(source_all - rendered_all)}, "
+        f"unexpected={sorted(rendered_all - source_all)}")
+    missing_fragment_targets_online = sorted(local_links - rendered_all)
+    assert not missing_fragment_targets_online, (
+        f"Original local fragment targets not present online: {missing_fragment_targets_online}")
     remaining = sorted(source - rendered)
     report = {
         "source": "Pinned Geeklog 2.2.2 Core docs/english/config.html",
@@ -444,6 +451,9 @@ def main():
         "online_missing_non_help_anchors": unported_navigation,
         "original_internal_fragment_target_count": len(local_links),
         "original_broken_internal_fragment_targets": broken_historical,
+        "online_missing_historic_fragment_targets": missing_fragment_targets_online,
+        "source_total_unique_anchor_count": len(source_all),
+        "online_total_unique_anchor_count": len(rendered_all),
         "percent_migrated": round(100 * len(source & rendered) / len(source), 2),
         "remaining_anchors": remaining,
         "note": "Coverage is structural only. Text, behavior and technical accuracy require review. Original embedded config.html stays byte-identical.",
@@ -452,7 +462,7 @@ def main():
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"PASS: pinned embedded configuration reference unchanged")
     print(f"COVERAGE: {len(rendered)}/{len(source)} help anchors on the online Markdown page; {len(remaining)} remaining")
-    print(f"NAVIGATION: {len(unported_navigation)}/{len(other_historical)} historical non-help anchors not yet mirrored online")
+    print(f"NAVIGATION: {len(other_historical)} legacy non-help anchors all present; {len(local_links)} source fragment destinations preserved")
     print(f"REPORT: {REPORT}")
 
 
