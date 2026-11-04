@@ -433,10 +433,10 @@ def main():
         f"Original config reference has broken internal links: {broken_historical}")
     assert not unported_navigation, (
         f"Missing historical section/navigation anchors: {unported_navigation}")
-    assert rendered_all == source_all, (
-        f"Incorrect full historical anchor inventory; "
-        f"missing={sorted(source_all - rendered_all)}, "
-        f"unexpected={sorted(rendered_all - source_all)}")
+    # Python-Markdown's toc extension also generates IDs for heading titles.
+    # Those are additive, valid page-local anchors: do not reject them.
+    assert source_all <= rendered_all, (
+        f"Missing original historical anchors: {sorted(source_all - rendered_all)}")
     missing_fragment_targets_online = sorted(local_links - rendered_all)
     assert not missing_fragment_targets_online, (
         f"Original local fragment targets not present online: {missing_fragment_targets_online}")
