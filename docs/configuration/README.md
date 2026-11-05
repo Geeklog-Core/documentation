@@ -373,6 +373,32 @@ Optional format string for a link to the article author's profile and name. It c
 **Documented default (Geeklog 2.2.2):** `, Comment By: &lt;a href="%s"&gt;%s&lt;/a&gt;`
 Optional format string for a link to the comment author's profile and name. It contributes to `comment_feeds_article_tag`; setting it to an empty string omits that tag.
 
+### Comment-feed formatting examples
+
+The bundled 2.2.2 reference includes three preformatted templates. The examples below present their *literal template characters* for review, not HTML to insert directly into this Markdown page. A site-specific formatter must supply the expected arguments in the documented order and escape output appropriately.
+
+**Article reference** — four `%s` substitutions (article URL, title, article-author fragment, comment-author fragment):
+
+```text
+<p>[Original Article: <a href="%s">%s</a>%s%s]\\n
+```
+
+**Article-author fragment** — two `%s` substitutions:
+
+```text
+ Written By: <a href="%s">%s</a>
+```
+
+**Comment-author fragment** — two `%s` substitutions:
+
+```text
+, Comment By: <a href="%s">%s</a>
+```
+
+These legacy strings should not be treated as safe, modern HTML templates without checking escaping, author visibility and the current rendering context.
+
+
+
 **Compatibility note:** These are version-specific descriptions, not tested configuration changes. Confirm effects on a staging installation. The embedded `config.html` remains unchanged during migration.
 
 
@@ -3471,6 +3497,49 @@ URL routing requires URL rewriting to be enabled first. The tagged 2.2.2 documen
 **Order matters:** the print route must be matched before the article pagination route. Rewriting and routing require end-to-end tests on the actual server.
 
 **Source:** [Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#url-routing).
+
+### Web server rewrite examples (Geeklog 2.2.2)
+
+These are **historical examples** for installations that enable URL routing without `index.php`. They are not complete hardened server configurations. The original release includes `.htaccess.txt` and `web.config.txt`; review those files, your actual document root and your server's rewrite module before using any rule.
+
+**Apache `mod_rewrite` example:**
+
+```apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /index.php/$1 [L]
+</IfModule>
+```
+
+For a site in a subdirectory, adjust the path prefix on the `RewriteRule` and review the public route rules separately. Do not copy a subdirectory placeholder verbatim.
+
+**IIS URL Rewrite example:**
+
+```xml
+<configuration>
+  <system.webServer>
+    <rewrite>
+      <rules>
+        <rule name="Geeklog front controller" stopProcessing="true">
+          <match url="^(.*)$" ignoreCase="false" />
+          <conditions>
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+          </conditions>
+          <action type="Rewrite" url="/index.php/{R:1}" />
+        </rule>
+      </rules>
+    </rewrite>
+  </system.webServer>
+</configuration>
+```
+
+The examples reflect the routing mechanism in the tagged 2.2.2 reference; they do **not** reproduce all settings or security rules in the distribution's sample files. Routing relies on supported `PATH_INFO` handling, rule ordering and a compatible web server configuration. First validate existing and rewritten URLs in staging, including articles, archives, print views and a site installed in a subdirectory.
+
+
 
 
 <a id="Localization" name="Localization"></a>
