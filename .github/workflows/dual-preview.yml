@@ -65,6 +65,9 @@ jobs:
       - run: python tools/audit_config_defaults.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/build_config_candidate.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_delivery_readiness.py
       - run: python tools/check_extracted_overlay.py
         env:
@@ -81,6 +84,13 @@ jobs:
         with:
           name: geeklog-2.2.2-configuration-defaults-audit
           path: dist/config-defaults-audit.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-2.2.2-config-candidate-review
+          path: |
+            dist/config-candidate-review.zip
+            dist/config-candidate-report.json
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
