@@ -8,7 +8,7 @@ Documentation for [Geeklog CMS](https://github.com/Geeklog-Core/geeklog), mainta
 - [Official source repository](https://github.com/Geeklog-Core/documentation)
 - [Contributor fork](https://github.com/hostellerie/documentation)
 
-The official website exists, but the additional guides in this contributor branch are **not published upstream until reviewed and merged**.
+The official documentation website is published from the upstream repository. Contributor changes appear there only after merging and running the maintainer-controlled Pages deployment.
 
 ## Two outputs from maintained Markdown
 
@@ -21,14 +21,14 @@ The embedded `public_html/docs/english/config.html` and bundled plugin help are 
 
 See [the 2.2.2 release-candidate delivery checklist](planning/DELIVERY-222.md) and [staging test results](planning/INSTALL-STAGING-VALIDATION.md). The Actions workflow `.github/workflows/dual-preview.yml` builds both artifacts and checks provenance, anchors, expected archive paths, local resources and website search/navigation.
 
-The Pages workflow is manually triggered after maintainer review and merge. The preview ZIP must be validated in an isolated Geeklog 2.2.2 installation before it can be described as a production-ready replacement.
+The Pages workflow is manually triggered after maintainer review and merge. The 2.2.2 overlay ZIP has been tested in an isolated Geeklog 2.2.2 installation, including browser/help navigation and rollback. This does not make it an official CMS release package.
 
 ## Migration scope
 
 - Consolidate and technically review existing English Core documentation.
 - Selectively recover useful information from the historic MediaWiki, preserving attribution and identifying obsolete APIs.
 - Preserve offline help links, plugin-specific paths, Japanese legacy material, and release-specific references until replacement is verified.
-- Develop in a consolidated contributor branch and submit reviewed changes to the official repository; do not maintain a parallel Wiki.
+- Use one active contributor branch for the next set of reviewed Markdown changes; do not maintain a parallel Wiki.
 
 These are progressive goals. **Neither the historic Wiki nor all legacy configuration content has been completely migrated.**
 
