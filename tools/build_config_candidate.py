@@ -138,8 +138,8 @@ def main():
     # All nine historical preformatted example slots are now represented
     # in the Markdown-derived candidate. This is a formatting/coverage
     # gate, NOT an assertion of byte-for-byte snippet equivalence.
-    legacy_examples = re.findall(r"<pre\\b[^>]*>", LEGACY.read_text(encoding="utf-8"), re.I)
-    rendered_examples = re.findall(r"<pre\\b[^>]*>", candidate, re.I)
+    legacy_examples = re.findall(r"<pre\b[^>]*>", LEGACY.read_text(encoding="utf-8"), re.I)
+    rendered_examples = re.findall(r"<pre\b[^>]*>", candidate, re.I)
     assert len(legacy_examples) == 9, "Unexpected legacy example baseline"
     assert len(rendered_examples) == 9, (
         f"Missing preformatted examples: {len(rendered_examples)} of 9")
