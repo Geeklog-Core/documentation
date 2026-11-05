@@ -52,6 +52,16 @@ The tagged 2.2.2 configuration HTML includes two substantial URL reference table
 
 **Still outstanding:** detailed examples outside these appendices, the other historical tables and links, semantic review of the full 387 descriptions, compatible representation of obsolete links, and final real administrator tests. Do not infer that passing the two specific table checks proves full content parity.
 
+## Cron appendices and source verification — 2026-11-05
+
+- Expanded the existing `url-cron`, `cron_daily_digest`, and `cron_emailed_database_backup` Markdown sections rather than creating separate or duplicate guides.
+- Restored the historic daily-digest cron example `30 2 * * * /path/to/geeklog/cron-emailgeeklogdailydigest` as a fenced, preformatted example, explicitly marked as a non-deployable example path.
+- Cross-checked the two actual Geeklog `v2.2.2` root scripts. Both load `lib-common.php` from a configurable installation path; the digest script calls `COM_emailUserTopics()`; the emailed database backup uses `dbBackup` and is limited to MySQL in the tagged implementation. The historic `db_backup_sendto` and `lastemailedstories` behaviors are documented with backup/staging precautions.
+- The isolated candidate checker now requires the cron command, script names, key configuration identifiers and a rendered `<pre>` block. [GitHub Actions #41980462276](https://github.com/hostellerie/documentation/actions/runs/41980462276) passed.
+- This remains a **documentation/source-code verification**. No cron script was executed, no outgoing mail was sent, and no production database was modified. The standard Geeklog embedded `config.html` remains the original.
+
+**Remaining release blockers:** reconcile the other historical explanatory tables and formatted examples, review the 387 descriptions semantically, resolve/categorize old link destinations, and run context-sensitive help tests with the candidate in a disposable Geeklog 2.2.2 installation.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
