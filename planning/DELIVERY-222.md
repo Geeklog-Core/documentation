@@ -25,6 +25,31 @@ Both CI workflows now run `tools/check_extracted_overlay.py` after building and 
 
 This test **does not start Geeklog or a Docker container** and is **not equivalent** to clicking Core and plugin help links in the installed administrator UI. It is a repeatable filesystem packaging and restoration gate, intended to catch deployment-path errors before a manual integration test.
 
+## Served HTTP smoke test — validated in CI
+
+The release-candidate workflow additionally runs `tools/check_http_preview.py`. It starts a local loopback HTTP server for the generated website and one for the unpacked 2.2.2 overlay. It checks successful HTTP responses and expected content types for the homepage, all 13 online indexed guides, styling and JavaScript; then checks the embedded installation/configuration help, six bundled Core plugin HTML guides, plugin-local reCAPTCHA configuration help, modern guide index, ten modern guides and their assets.
+
+**Verified CI for commit `53359dd`:** [dual output build #41963935889](https://github.com/hostellerie/documentation/actions/runs/41963935889) and [installation docs #41963938676](https://github.com/hostellerie/documentation/actions/runs/41963938676), both successful.
+
+**Boundary:** these are static HTTP requests, not browser rendering checks, administration UI clicks, PHP execution or an upgrade/restore rehearsal. Do not infer actual application integration from this result.
+
+## Final review handoff — one upstream PR
+
+The **single consolidated contributor branch** is `hostellerie/documentation:prototype/wiki-unified-222`. Upstream draft PR #4 was closed without merging after its changes were integrated. The remaining fork draft PR #1 is internal to the contributor fork, not a second upstream publication.
+
+| Gate | Current status | Required evidence before declaring complete |
+| --- | --- | --- |
+| Site and offline ZIP generation | **PASS (CI)** | Dual-output workflow artifacts |
+| Historical Core/plugin help preserved | **PASS (CI)** | Archive diff, anchor and content hashes |
+| ZIP extraction and rollback | **PASS (disposable filesystem)** | Extracted-overlay workflow check |
+| Search, navigation and static HTTP reachability | **PASS (CI)** | Delivery-readiness and HTTP smoke checks |
+| Editorial and technical review of all 13 guides | **PARTIAL** | `EDITORIAL-PROVENANCE-REVIEW-222.md` plus maintainer sign-off |
+| Wiki reuse license/author credits | **UNRESOLVED** | Verified Wiki notice, histories, or replacement with noncopied original text |
+| Latest ZIP integration in running Geeklog 2.2.2 | **NOT VERIFIED** | Admin help clicks, config/plugins and rollback recorded in staging |
+| Official Pages publication and browser check | **NOT DONE for this branch** | Maintainer merge then manual publish and visual review |
+
+**Release decision: NO-GO for calling the complete documentation officially released.** This does not block presenting a consolidated **draft PR** for maintainer review, provided its body openly records those outstanding gates. If the user's priority is a single final, ready-to-merge PR, satisfy the unresolved gates first rather than claiming completeness.
+
 ## Scope boundaries
 
 - 387 individual configuration help anchors and 449 historical unique configuration IDs are structurally present on the **online** Markdown configuration page. This does **not** mean full content parity.
