@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Add unified client-side search to the existing online Geeklog preview.
+"""Add unified client-side search to the published Geeklog site.
 
 Only the online HTML folder is modified. The embedded legacy documentation and
 its compatibility anchors are deliberately untouched.
@@ -138,7 +138,7 @@ def main():
     browse_markup = (
         '<section aria-label="Browse all guides">'
         '<h2>Browse the documentation</h2>'
-        '<p>Guides for Geeklog 2.2.2 and modernized documentation drafts. '
+        '<p>Guides for Geeklog 2.2.2, with additional administration and development references. '
         'The original embedded configuration help remains authoritative for '
         'historical defaults and detailed examples.</p>'
         '<ul>' + ''.join(
