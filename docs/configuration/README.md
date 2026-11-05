@@ -3483,7 +3483,47 @@ Geeklog ships interface strings in language files, such as `english.php`. Interf
 
 ### Locale and date format reference
 
-Date formats are version- and locale-dependent. The original 2.2.2 reference includes a detailed table of formatting tokens, including `%a`, `%A`, `%b`, `%B`, `%d`, `%H`, `%I`, `%m`, `%M`, `%p` and `%Y`. That full table still requires editorial migration; retain the legacy reference until it is complete.
+The tagged Geeklog 2.2.2 documentation lists **33 date-format directives**. Their output is locale- and platform-dependent. This reference preserves the full directive inventory while using concise, newly written descriptions; test formatting against the PHP runtime used by your installation.
+
+| Directive | Meaning |
+| --- | --- |
+| `%a` | Short weekday name, using the active locale |
+| `%A` | Full weekday name, using the active locale |
+| `%b` | Short month name, using the active locale |
+| `%B` | Full month name, using the active locale |
+| `%c` | Locale's date and time representation |
+| `%C` | Century number |
+| `%d` | Day of month, zero-padded |
+| `%D` | Numeric date in month/day/two-digit-year order |
+| `%e` | Day of month, space-padded |
+| `%h` | Same abbreviated month as `%b` |
+| `%H` | Hour on a 24-hour clock |
+| `%I` | Hour on a 12-hour clock |
+| `%j` | Day number within the year |
+| `%m` | Numeric month |
+| `%M` | Minute |
+| `%n` | Newline |
+| `%p` | Locale-specific AM/PM indicator |
+| `%r` | Locale-specific 12-hour time representation |
+| `%R` | Hours and minutes in 24-hour format |
+| `%S` | Seconds |
+| `%t` | Tab |
+| `%T` | 24-hour time with seconds |
+| `%u` | Weekday number, Monday first (1–7) |
+| `%U` | Week number, Sunday-first convention |
+| `%V` | ISO week number |
+| `%W` | Week number, Monday-first convention |
+| `%w` | Weekday number, Sunday = 0 |
+| `%x` | Locale-specific date representation |
+| `%X` | Locale-specific time representation |
+| `%y` | Two-digit year |
+| `%Y` | Four-digit year |
+| `%Z` | Time zone name or abbreviation |
+| `%%` | Literal percent sign |
+
+The operating system must have the requested locale installed. Check available locales and actual date output before changing formatting settings. These are **historical directives**; compatibility with newer PHP/runtime combinations must be confirmed separately.
+
+**Source:** [Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#date_formats).
 
 <a id="url-cron" name="url-cron"></a>
 
