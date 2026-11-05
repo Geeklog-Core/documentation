@@ -163,6 +163,24 @@ def main():
         "Not all 387 historical defaults are present in the candidate"
     )
 
+    # In addition to preserving the 449 anchor targets, require all 34
+    # original in-page cross-reference links to occur in the candidate.
+    # This covers navigation links, not their original prose placement.
+    original_internal = {
+        urlsplit(link).fragment for link in original.links
+        if link.startswith("#") and urlsplit(link).fragment
+    }
+    candidate_internal = {
+        urlsplit(link).fragment for link in current.links
+        if link.startswith("#") and urlsplit(link).fragment
+    }
+    assert len(original_internal) == 34, "Unexpected source cross-reference count"
+    omitted_internal = sorted(original_internal - candidate_internal)
+    assert not omitted_internal, (
+        f"Historical internal navigation links missing: {omitted_internal}")
+    assert original_internal <= generated, (
+        "Candidate in-page cross-reference targets not all available")
+
     # Work out link destinations as if config.html were installed in the
     # existing validated 2.2.2 archive. Do not mutate that archive.
     linked = 0
@@ -220,6 +238,7 @@ def main():
         "historical_unique_anchors": len(historical),
         "generated_unique_anchors": len(generated),
         "historical_defaults_transcribed": 387,
+        "historical_same_page_link_destinations_restored": len(original_internal),
         "candidate_local_links_checked": linked,
         "legacy_embedded_configuration_replaced": False,
         "content_parity": "INCOMPLETE — original tables, examples and links remain under review",
@@ -240,6 +259,7 @@ def main():
     print("PASS: candidate generated from Markdown, 449 historical anchors, 387 defaults")
     print("PASS: all 20 legacy URL rewriting/routing data rows match the candidate")
     print("PASS: all 33 date format directives preserved in source order")
+    print("PASS: all 34 historical in-page navigation link destinations restored")
     print("PASS: 9 historical preformatted example slots represented in candidate")
     print(f"PASS: {linked} candidate local links, referenced assets and fragments checked")
     print("NOTE: candidate is an isolated review artifact, NOT a production replacement")
