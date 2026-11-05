@@ -101,6 +101,29 @@ def main():
     # One file only: recipient may preview/inspect it, never auto-deploy it.
     with zipfile.ZipFile(ARCHIVE, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(OUTPUT, "public_html/docs/english/config.html")
+    legacy_html = LEGACY.read_text(encoding="utf-8")
+    historical_links = {
+        url for url in original.links
+        if not urlsplit(url).scheme and not urlsplit(url).netloc
+        and not url.startswith("//")
+    }
+    candidate_links = {
+        url for url in current.links
+        if not urlsplit(url).scheme and not urlsplit(url).netloc
+        and not url.startswith("//")
+    }
+    # This is an outstanding migration inventory, not a signoff: the old
+    # reference may intentionally have obsolete links that need rewriting.
+    link_gaps = sorted(historical_links - candidate_links)
+    structure = {
+        "legacy_html_tables": len(re.findall(r"<table\\b", legacy_html, re.I)),
+        "candidate_html_tables": len(re.findall(r"<table\\b", candidate, re.I)),
+        "legacy_preformatted_blocks": len(re.findall(r"<pre\\b", legacy_html, re.I)),
+        "candidate_preformatted_blocks": len(re.findall(r"<pre\\b", candidate, re.I)),
+        "original_local_link_count": len(historical_links),
+        "candidate_local_link_count": len(candidate_links),
+        "historical_link_targets_not_yet_represented": link_gaps,
+    }
     report = {
         "scope": "Geeklog 2.2.2 candidate for review ONLY; not deployed",
         "candidate_html": str(OUTPUT.relative_to(ROOT)),
@@ -109,6 +132,8 @@ def main():
         "historical_defaults_transcribed": 387,
         "candidate_local_links_checked": linked,
         "legacy_embedded_configuration_replaced": False,
+        "content_parity": "INCOMPLETE — original tables, examples and links remain under review",
+        "comparison": structure,
         "outstanding": [
             "Full semantic/text/table/example parity with tagged original",
             "Editorial provenance and contributor license review",
