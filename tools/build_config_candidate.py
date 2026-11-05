@@ -69,23 +69,23 @@ def main():
             'name="' + anchor + '"')
         candidate_location = candidate.index('id="' + anchor + '"')
         legacy_table = re.search(
-            r"<table\\b[^>]*>[\\s\\S]*?</table>",
+            r"<table\b[^>]*>[\s\S]*?</table>",
             LEGACY.read_text(encoding="utf-8")[old_location:], re.I)
         new_table = re.search(
-            r"<table\\b[^>]*>[\\s\\S]*?</table>",
+            r"<table\b[^>]*>[\s\S]*?</table>",
             candidate[candidate_location:], re.I)
         assert legacy_table and new_table, (
             f"Missing legacy or migrated routing table: {anchor}")
         def read_rows(markup):
             result = []
             for row in re.findall(
-                r"<tr\\b[^>]*>([\\s\\S]*?)</tr>", markup, re.I
+                r"<tr\b[^>]*>([\s\S]*?)</tr>", markup, re.I
             ):
                 cells = [
-                    re.sub(r"\\s+", " ", unescape(
+                    re.sub(r"\s+", " ", unescape(
                         re.sub(r"<[^>]+>", "", text))).strip()
                     for text in re.findall(
-                        r"<td\\b[^>]*>([\\s\\S]*?)</td>", row, re.I)
+                        r"<td\b[^>]*>([\s\S]*?)</td>", row, re.I)
                 ]
                 if cells:
                     result.append(cells)
@@ -98,16 +98,16 @@ def main():
         routing_tables[anchor] = len(actual)
 
     # Keep the complete historical date directive inventory in Markdown.
-    locale_start = legacy_html_for_tokens = LEGACY.read_text(encoding="utf-8").index(
+    locale_start = LEGACY.read_text(encoding="utf-8").index(
         "<h3>Date Format Syntax</h3>")
     legacy_list = re.search(
-        r"<ul[^>]*>([\\s\\S]*?)</ul>",
+        r"<ul[^>]*>([\s\S]*?)</ul>",
         LEGACY.read_text(encoding="utf-8")[locale_start:], re.I)
     assert legacy_list, "Missing original date format list"
     original_directives = [
         re.search(r"%[a-zA-Z%]", item).group(0)
         for item in re.findall(
-            r"<li[^>]*>([\\s\\S]*?)</li>", legacy_list.group(1), re.I)
+            r"<li[^>]*>([\s\S]*?)</li>", legacy_list.group(1), re.I)
     ]
     candidate_date = candidate.index('id="date_formats"')
     candidate_next = candidate.index('id="url-cron"', candidate_date)
