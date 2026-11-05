@@ -1,6 +1,6 @@
 # Back up and recover a Geeklog site
 
-> **Geeklog 2.2.2 — administration draft.** Confirm backup and restore procedures with your actual database, hosting environment, plugins and PHP version before touching a production installation.
+> **Geeklog 2.2.2 reference.** These procedures distinguish the built-in database export from a complete site backup. Rehearse restoration with your actual database, hosting environment and plugins before using the procedure in production.
 
 ## What must be backed up
 
@@ -18,6 +18,30 @@ The source confirms two important constraints:
 - Its built-in database backup facility is restricted to installations whose `$_DB_dbms` is **`mysql`**. Do not assume the same facility works for PostgreSQL.
 
 The backup file location is controlled by the configuration setting **`backup_path`**, documented by the bundled [configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html).
+
+## Before relying on the administrator backup screen
+
+The [Geeklog 2.2.2 database administration handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/database.php) checks `SEC_inGroup('Root')` and refuses unsupported database engines when `$_DB_dbms` is not `mysql`. It also checks whether `$_CONF['backup_path']` is writable before presenting or creating database backups.
+
+A practical administrator preflight:
+
+1. Confirm that you are using a separately authorized `Root` administrator account. Do not grant `Root` merely to make backups convenient.
+2. Confirm the configured database engine. For a different engine, use that engine's supported backup tools rather than assuming the Geeklog page supports it.
+3. Inspect the configured `backup_path` **outside the public document root**. The PHP worker needs only the necessary directory access; do not grant broad permissions to the whole site.
+4. Verify available disk space and a protected destination for copying the resulting backup away from the web server.
+5. Confirm that the exported file can be identified by date, checked for size and securely transferred. A readable SQL dump alone does not capture uploaded images or custom theme/plugin files.
+
+A failed or empty export is not a recovery point. Resolve any directory-permission warning before an upgrade, without using `chmod -R 777`.
+
+## Backup inventory to preserve
+
+| Component | Why it matters | Verification |
+| --- | --- | --- |
+| Database export | Articles, users, settings and plugin-managed records stored in SQL | Check file size, export completion and successful import in staging |
+| Core and private configuration files | Environment-specific paths and database connection settings | Store securely; never put credentials in public tickets |
+| Uploaded media and files | Attachments and images often live outside the SQL dump | Compare file inventory and open representative media after restore |
+| Installed plugins and themes | Custom code and templates must match the restored data | Record exact versions and compare plugin directories |
+| Site-specific changes | Deployment settings, customizations and local assets | Record a manifest or protected file hashes |
 
 ## Making a backup
 
@@ -48,6 +72,7 @@ This guide does **not** claim that the 2.2.2 administration screen offers a comp
 - [x] Database backup page and class confirmed in the Geeklog 2.2.2 source.
 - [x] `Root` restriction and `mysql` limitation confirmed in `admin/database.php`.
 - [x] `backup_path` configuration key located in the bundled reference.
+- [x] `SEC_inGroup('Root')`, `$_DB_dbms` and `backup_path` checks rechecked directly in tagged `public_html/admin/database.php`.
 - [ ] A complete backup-and-restore drill performed against an isolated 2.2.2 installation.
 - [ ] Database-engine-specific recovery steps tested.
 - [ ] Historical Wiki reuse and attribution checked.

@@ -1,6 +1,6 @@
 # Geeklog 2.2.2 — editorial and provenance release audit
 
-Audit initiated: 2026-11-05. Scope: Markdown guides in `prototype/wiki-unified-222` destined for the official online documentation and the 2.2.2 embedded HTML preview. **This file is a release gate, not license clearance.**
+Audit initiated: 2026-11-05. Scope: Markdown guides published through `Geeklog-Core/documentation`, with further revisions consolidated in the contributor branch `docs/published-site-labels`. **This file is a release gate, not license clearance.**
 
 ## Evidence and licensing policy
 
@@ -32,6 +32,17 @@ Audit initiated: 2026-11-05. Scope: Markdown guides in `prototype/wiki-unified-2
 ## Confirmed code-review finding — 2026-11-05
 
 Review of the tagged `system/lib-plugins.php` established that the earlier plugin guide mistakenly mapped `PLG_install()` to `plugin_autoinstall_<name>`. The source explicitly marks `PLG_install()` deprecated since 1.6.0 and calls `plugin_install_<name>`; `PLG_getParams()` consults `plugins/<name>/autoinstall.php` and invokes `plugin_autoinstall_<name>` if present. Corrected in the unified branch. Independently rechecked signatures of `SEC_hasRights`, `SEC_inGroup`, `SEC_createToken`, `SEC_checkToken`, `Configuration::add` and `PLG_invokeService` against tag v2.2.2.
+
+## Post-publication editorial updates — 2026-11-05
+
+- **Backup and recovery:** inspected tagged `public_html/admin/database.php` again: line-level access uses `SEC_inGroup('Root')`; database-engine access uses `$_DB_dbms`; backup access checks `$_CONF['backup_path']`. The newly added preflight and inventory distinguish SQL exports from complete site recovery. **No new claim of completed live database restoration.**
+- **Users and groups:** rechecked tagged `public_html/admin/user.php` (`user.edit` and `group.assign`) and `public_html/admin/group.php` (`group.edit`). Added a least-privilege staging acceptance matrix. **The matrix is a proposed test procedure, not a claim those role scenarios were run.**
+- **Landing page:** removes prototype labels, repeated introductory links and overlapping catalogue/search listings. The original 2.2.2 `config.html` remains the authority for exhaustive defaults and examples; no content-parity claim has changed.
+- These updates are original explanatory text grounded in tagged Geeklog source and the documented staging workflow. No historical Wiki article wording or imagery is imported.
+
+## Verified plugin documentation update — Static Pages 1.7.3
+
+The tagged `plugins/staticpages/autoinstall.php` identifies plugin version **1.7.3** for Geeklog **2.2.2** and declares `staticpages.edit`, `staticpages.delete`, and the security-sensitive `staticpages.PHP` rights. The default Static Page Admin group is assigned edit/delete, while `staticpages.PHP` is **not assigned to any group by default**. Updated `docs/plugins/static-pages/README.md` to describe those source-backed behaviors rather than implying that a historical Wiki claim is sufficient. Proposed manual permission checks remain unexecuted; no Wiki prose/images reused.
 
 ## Attribution and release decision
 

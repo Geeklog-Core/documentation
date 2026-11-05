@@ -57,7 +57,7 @@ def wrap(title, body, depth):
             '<title>' + escape(title) + ' — Geeklog documentation</title>'
             '<link rel="stylesheet" href="' + '../'*depth + 'style.css"></head>'
             '<body><header>' + relative_nav(depth) + '</header><main>' + body
-            + '</main><footer>Geeklog documentation · modernized draft · '
+            + '</main><footer>Geeklog documentation · Geeklog 2.2.2 reference · '
               'verify version-specific APIs before production use</footer></body></html>')
 
 
@@ -79,9 +79,9 @@ def write_site(directory):
                         "text":re.sub(r"\s+"," ",plain)[:30000]})
     (directory/"search-index.json").write_text(
         json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
-    body = ('<h1>Geeklog documentation — modernization preview</h1>'
-            '<p>One maintained Markdown source, two outputs. These pages are '
-            'under technical review, not yet authoritative release instructions.</p>'
+    body = ('<h1>Geeklog documentation — additional guides</h1>'
+            '<p>One maintained Markdown source, two outputs. These guides complement '
+            'the original Geeklog 2.2.2 documentation, which retains detailed historical settings.</p>'
             '<label for="search">Search published pilot pages</label>'
             '<input id="search" type="search" placeholder="Search documentation">'
             '<div id="results" aria-live="polite"></div>'

@@ -1,6 +1,6 @@
 # Geeklog plugin API — developer guide
 
-> **Modernization draft for Geeklog 2.2.2.** This guide consolidates the recovered Wiki articles `Plugin_API`, `Functions.inc_-_Listing_of_the_Plugin_Functions`, `Plugin_Autoinstall`, `Adding_Moderation_Capability` and `Integrating_the_Comment_Engine`. The historic names and callbacks below are leads for inspection; verify declarations and signatures in the **target version's** `system/lib-plugins.php`, each plugin's `functions.inc`, and the installation routines before publishing this as an API contract.
+> **Version scope: Geeklog 2.2.2.** This guide introduces the Core plugin dispatchers and links them to tagged source code. It is a practical reference, not a complete API contract: verify callback signatures and parameters in the installed release before implementation. Historical Wiki topics are noted for provenance but their wording and code have not been republished.
 
 ## How plugins integrate
 

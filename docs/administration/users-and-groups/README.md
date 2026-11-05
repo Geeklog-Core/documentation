@@ -1,6 +1,6 @@
 # Managing users and groups
 
-> **Geeklog 2.2.2 administration guide — draft.** This guide is grounded in the tagged 2.2.2 source and deliberately avoids assuming that historical Wiki screenshots or menus are unchanged.
+> **Geeklog 2.2.2 administration reference.** Permission checks below are verified in the tagged source. Use a disposable test account to confirm the behavior of your particular installation and enabled plugins.
 
 ## Permissions and administrator access
 
@@ -30,6 +30,27 @@ The exact form fields depend on the installed version and enabled authentication
 4. Test both allowed and denied actions after changing group assignments.
 
 A user with `user.edit` does not automatically have every group-administration right. The 2.2.2 user handler checks `group.assign` in addition to user-edit rights for group assignment operations.
+
+## Least-privilege acceptance test
+
+When reviewing a new administrative role, verify both **permitted** and **denied** actions on an isolated staging site. Do not conduct these tests using real users or production personal data.
+
+| Test account | Expected access | What to confirm |
+| --- | --- | --- |
+| Ordinary account without `user.edit` | Cannot use user administration | Denial is enforced by the server, not just hidden navigation |
+| Account with `user.edit` but not `group.assign` | User editing subject to other checks; group assignment not authorized | Editing does not silently escalate access |
+| Account without `group.edit` | Cannot use group administration | Requests are rejected even if the admin URL is entered directly |
+| Appropriately authorized administrator | Only explicitly granted operations | Each form action requires the normal token and rights checks |
+
+The [2.2.2 user administration handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/user.php) checks `user.edit` at entry and checks `group.assign` for membership-changing paths. The [group administration handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/group.php) checks `group.edit`. These checks do **not** imply that the roles above have no other rights; check each test account's effective memberships.
+
+### After adjusting group membership
+
+1. Save the change through the normal administrator interface, never by manually manipulating group tables on a live site.
+2. Sign out, then verify access in a separate test session with the affected account.
+3. Check a permitted action and a prohibited action. Record the operation and outcome, without copying user records.
+4. Confirm the intended administrators retain access and that `Root` membership has not expanded.
+5. If the change breaks access, use a documented recovery procedure based on a tested backup rather than bypassing authorization checks.
 
 ## Protecting changes
 

@@ -31,6 +31,21 @@ A practical maintenance cycle includes checking backups and restoration readines
 
 The 2.2.2 database administration page at `admin/database.php` is **restricted to `Root` and `mysql`**. Its optimization and backup interfaces are not a substitute for a tested recovery strategy.
 
+## Documentation and context-sensitive help after a change
+
+Geeklog 2.2.2 uses HTML documentation at release-specific filesystem paths. An upgrade, theme change, or documentation overlay should not silently break links from administration screens.
+
+Check the documentation as part of the same post-change smoke test:
+
+1. Open `/docs/english/install.html` and the original `/docs/english/config.html#desc_site_url` link from the site being tested.
+2. From an authenticated administration configuration page, follow at least one help link and verify that it reaches the correct configuration item rather than only returning HTTP 200.
+3. If using the optional modern guide overlay, open `/docs/english/modern/index.html`, test its navigation, search, stylesheet, and a developer or administrator guide.
+4. Check the bundled plugin documentation links for Calendar, Links, Polls, Spam-X, Static Pages and XMLSitemap, plus the separately located reCAPTCHA help at `/admin/plugins/recaptcha/docs/english/config.html`.
+5. Keep the source release's `config.html` unchanged until a replacement has been reviewed for **complete** default-value, example, table, and anchor parity. Preserving only anchor names does not preserve the full reference.
+6. Take a filesystem backup before applying a documentation overlay and rehearse its restoration on an isolated installation. Documentation testing does not authorize resetting a database or replaying the installer.
+
+**Version boundary:** this procedure is documented for Geeklog 2.2.2. A documentation URL returning 200 does not prove that a plugin is installed, enabled or functioning.
+
 ## Troubleshooting after an update
 
 If a site fails after an upgrade, collect the **first meaningful error**, the actual software versions and relevant server logs. Verify the file layout, database connectivity, configuration paths and plugin compatibility before attempting additional upgrades.

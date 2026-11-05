@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Add unified client-side search to the existing online Geeklog preview.
+"""Add unified client-side search to the published Geeklog site.
 
 Only the online HTML folder is modified. The embedded legacy documentation and
 its compatibility anchors are deliberately untouched.
@@ -33,7 +33,8 @@ SEARCH_JS = r"""(() => {
   'use strict';
   const field = document.getElementById('docs-search');
   const output = document.getElementById('docs-results');
-  if (!field || !output) return;
+  const catalogue = document.getElementById('docs-catalogue');
+  if (!field || !output || !catalogue) return;
   let records = [];
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
@@ -55,6 +56,8 @@ SEARCH_JS = r"""(() => {
 
   function update() {
     list.replaceChildren();
+    catalogue.hidden = field.value.trim().length > 0;
+    output.hidden = !catalogue.hidden;
     const terms = field.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     if (!terms.length) {
       status.textContent = '';
@@ -130,15 +133,15 @@ def main():
         '<label for="docs-search">Find a topic across all available guides</label>'
         '<input type="search" id="docs-search" autocomplete="off" '
         'placeholder="Search all documentation">'
-        '<div id="docs-results" aria-live="polite"></div>'
+        '<div id="docs-results" aria-live="polite" hidden></div>'
         '<noscript>Search requires JavaScript. Use the topic links instead.</noscript>'
         '</section>'
         '<script defer src="search.js"></script>'
     )
     browse_markup = (
-        '<section aria-label="Browse all guides">'
+        '<section id="docs-catalogue" aria-label="Browse all guides">'
         '<h2>Browse the documentation</h2>'
-        '<p>Guides for Geeklog 2.2.2 and modernized documentation drafts. '
+        '<p>Guides for Geeklog 2.2.2, with additional administration and development references. '
         'The original embedded configuration help remains authoritative for '
         'historical defaults and detailed examples.</p>'
         '<ul>' + ''.join(
@@ -146,7 +149,7 @@ def main():
             for item in entries
         ) + '</ul></section>'
     )
-    html = html.replace(tag, browse_markup + search_markup + tag)
+    html = html.replace(tag, search_markup + browse_markup + tag)
     index.write_text(html, encoding="utf-8")
     assert all((SITE / item["url"]).is_file() for item in entries)
     assert html.count('aria-label="Browse all guides"') == 1

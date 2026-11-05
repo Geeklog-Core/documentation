@@ -61,12 +61,25 @@ def validate_site():
                 dest = inspect(destination.read_text(encoding="utf-8"))
                 assert unquote(target.fragment) in dest.identifiers, f"Broken fragment: {page}: {reference}"
             references_checked += 1
+    # Once published, navigation and footers must no longer call the site
+    # an unpublished prototype. Editorial scope disclaimers remain elsewhere.
+    forbidden = ("Geeklog documentation — prototype",
+                 "Independent Markdown migration prototype",
+                 "Preview only · Geeklog 2.2.2 documentation migration",
+                 "modernization preview", "modernized draft")
+    for page in SITE.rglob("*.html"):
+        markup = page.read_text(encoding="utf-8")
+        assert not any(phrase in markup for phrase in forbidden), (
+            f"Obsolete launch label in {page}")
     assert page_count == 15, f"Expected 15 HTML pages, got {page_count}"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
     assert home.count('aria-label="Browse all guides"') == 1
+    assert home.count('id="docs-catalogue"') == 1
+    assert home.count('id="docs-results"') == 1
+    assert home.count('<h1>Geeklog documentation</h1>') == 1
     for url in urls:
-        assert 'href="' + url + '"' in home, f"Guide not visible from homepage: {url}"
+        assert home.count('href="' + url + '"') == 1, f"Guide link missing or duplicated: {url}"
     assert (SITE / "search.js").is_file()
     config = inspect((SITE / "configuration.html").read_text(encoding="utf-8"))
     assert "desc_site_url" in config.identifiers
