@@ -97,6 +97,27 @@ def main():
             f"Routing URL / priority mismatch in {anchor}")
         routing_tables[anchor] = len(actual)
 
+    # Keep the complete historical date directive inventory in Markdown.
+    locale_start = legacy_html_for_tokens = LEGACY.read_text(encoding="utf-8").index(
+        "<h3>Date Format Syntax</h3>")
+    legacy_list = re.search(
+        r"<ul[^>]*>([\\s\\S]*?)</ul>",
+        LEGACY.read_text(encoding="utf-8")[locale_start:], re.I)
+    assert legacy_list, "Missing original date format list"
+    original_directives = [
+        re.search(r"%[a-zA-Z%]", item).group(0)
+        for item in re.findall(
+            r"<li[^>]*>([\\s\\S]*?)</li>", legacy_list.group(1), re.I)
+    ]
+    candidate_date = candidate.index('id="date_formats"')
+    candidate_next = candidate.index('id="url-cron"', candidate_date)
+    date_section = candidate[candidate_date:candidate_next]
+    migrated_directives = re.findall(
+        r"<td><code>(%[a-zA-Z%])</code></td>", date_section)
+    assert len(original_directives) == 33, "Unexpected legacy directive count"
+    assert migrated_directives == original_directives, (
+        "Date format token lost or reordered in Markdown candidate")
+
     current = parsed(candidate)
     historical = set(original.anchors)
     generated = set(current.anchors)
@@ -171,6 +192,7 @@ def main():
         "legacy_embedded_configuration_replaced": False,
         "content_parity": "INCOMPLETE — original tables, examples and links remain under review",
         "validated_routing_tables": routing_tables,
+        "validated_date_format_directives": len(migrated_directives),
         "comparison": structure,
         "outstanding": [
             "Full semantic/text/table/example parity with tagged original",
@@ -182,6 +204,7 @@ def main():
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print("PASS: candidate generated from Markdown, 449 historical anchors, 387 defaults")
     print("PASS: all 20 legacy URL rewriting/routing data rows match the candidate")
+    print("PASS: all 33 date format directives preserved in source order")
     print(f"PASS: {linked} candidate local links, referenced assets and fragments checked")
     print("NOTE: candidate is an isolated review artifact, NOT a production replacement")
 
