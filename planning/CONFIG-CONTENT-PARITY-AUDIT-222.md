@@ -1,6 +1,24 @@
 # Geeklog 2.2.2 configuration reference — content parity audit
 
-Audit date: 2026-11-05. This audit compares `docs/configuration/README.md` on `prototype/wiki-unified-222` with the tagged Geeklog Core v2.2.2 `public_html/docs/english/config.html`. It supplements (does not supersede) `planning/CONFIGURATION-MIGRATION-222.md`.
+Audit date: 2026-11-05. This audit compares `docs/configuration/README.md` on the current `docs/published-site-labels` working branch with the tagged Geeklog Core v2.2.2 `public_html/docs/english/config.html`. It supplements (does not supersede) `planning/CONFIGURATION-MIGRATION-222.md`.
+
+## Incremental migration progress — 2026-11-05
+
+The configuration landing page now identifies itself as the **Geeklog 2.2.2 configuration reference**, rather than an unpublished prototype. Its warning remains explicit: it is not yet the complete replacement for bundled `config.html`.
+
+A first audited Markdown table restores seven historical default values, extracted from the [v2.2.2 tagged Core HTML](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html):
+
+| Anchor / setting | Historical default |
+| --- | --- |
+| `desc_site_url` | `http://www.example.com` |
+| `desc_site_admin_url` | `http://www.example.com/admin` |
+| `desc_site_name` | `Geeklog Site` |
+| `desc_site_slogan` | `Another Nifty Geeklog Site` |
+| `desc_mail_settings_port` | `25` |
+| `desc_mail_settings_auth` | `0` |
+| `desc_ip_anonymization` | `-1` |
+
+`tools/check_configuration_coverage.py` now checks these values in generated online HTML and continues requiring the **embedded config.html to be byte-identical** to the original v2.2.2 source. These are documented *historical defaults* rather than universal recommended live settings, and this work does not certify the remaining 380 setting descriptions, 49 source tables or their embedded replacement.
 
 ## Decision
 
