@@ -20,6 +20,12 @@ A first audited Markdown table restores seven historical default values, extract
 
 `tools/check_configuration_coverage.py` now checks these values in generated online HTML and continues requiring the **embedded config.html to be byte-identical** to the original v2.2.2 source. These are documented *historical defaults* rather than universal recommended live settings, and this work does not certify the remaining 380 setting descriptions, 49 source tables or their embedded replacement.
 
+## Reproducible defaults inventory — 2026-11-05
+
+The workflow now runs `tools/audit_config_defaults.py` against the **pinned Geeklog 2.2.2** `public_html/docs/english/config.html`. The audit parses **387** `desc_*` table rows, extracts each row's displayed default into `dist/config-defaults-audit.json`, and explicitly marks only the **seven** individually source-checked entries as reviewed. This JSON file is a CI artifact for review and **is not published as official configuration guidance**.
+
+The inventory checks for missing or duplicate help IDs and rejects changes to the seven validated default values. All remaining **380** entries require human editorial comparison, including contextual table notes, examples, markup, nontrivial defaults, and actual installer values. No automatic transformation of the old `config.html` into the embedded package is authorized by this progress.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
