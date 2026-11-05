@@ -100,7 +100,7 @@ Enable or disable URL rewriting. Check your web server's support and the site ro
 
 
 **Documented default (Geeklog 2.2.2):** `Disabled`
-URL routing requires URL rewriting to be enabled. The option that removes `index.php` from routes can require additional web server configuration. Test old and new links before enabling it.
+URL routing requires URL rewriting to be enabled. The `Enabled (without "index.php")` setting requires compatible web-server rewriting. Review the [historical routing appendix](#url-routing), verify `PATH_INFO` support and test existing links before enabling it.
 
 <a id="desc_cdn_hosted" name="desc_cdn_hosted"></a>
 
@@ -172,7 +172,7 @@ Link to the site's privacy policy. For internal links, use a site-relative path 
 
 
 **Documented default (Geeklog 2.2.2):** `-1`
-The 2.2.2 reference documents `-1` as disabled, `0` as immediate, and positive numbers as delays in seconds. Its scheduled processing depends on Geeklog's cron configuration, so anonymity changes may not occur immediately. It affects supported IP data in the Geeklog database, **not web server or application log files**. Low delays can interfere with functions that rely on IP addresses.
+The 2.2.2 reference documents `-1` as disabled, `0` as immediate, and positive numbers as delays in seconds. Its scheduled processing depends on Geeklog's [`cron_schedule_interval`](#desc_cron_schedule_interval), so anonymization may occur later than the configured delay. It affects supported IP data in the Geeklog database, **not web server or application log files**. The tagged reference warns that separately retained application and server logs must be handled under the site's own retention procedures. Low delays can interfere with functions that rely on IP addresses.
 
 ## Mail settings — Geeklog 2.2.2
 
@@ -200,7 +200,7 @@ Sender address used by system-generated messages such as registration emails. Co
 
 
 **Documented default (Geeklog 2.2.2):** `mail`
-Select the email sending method: `smtp`, `smtps`, `sendmail` or PHP `mail` in the 2.2.2 reference. Secure SMTP support depends on compatible PHP/OpenSSL and mail server configuration.
+Select the email sending method: `smtp`, `smtps`, `sendmail` or PHP `mail` in the 2.2.2 reference. In the tagged 2.2.2 reference, the `smtps` transport requires the PHP OpenSSL extension. Available transports are `smtp`, `smtps`, `sendmail` and PHP `mail`. Verify the server's current encryption and authentication requirements before selecting a transport; this historical setting does not guarantee transport security by itself.
 
 <a id="desc_mail_settings_sendmail_path" name="desc_mail_settings_sendmail_path"></a>
 
@@ -677,7 +677,7 @@ Enables two-factor authentication as an available account feature. Users must al
 
 
 **Documented default (Geeklog 2.2.2):** `sha1`
-Legacy password-hashing algorithm selector documented for Geeklog 2.2.2. The bundled reference lists old algorithms including SHA-1 and Blowfish. **Do not treat a historical default or its recommendation as modern password-security advice**; verify the actual installed implementation and current supported upgrade path before changing existing hashes.
+Legacy password-hashing algorithm selector documented for Geeklog 2.2.2. The bundled 2.2.2 reference lists `md5`, `sha1`, `sha256`, `sha512` and `blowfish`. It describes `sha1` as portable and Blowfish as stronger in that historical context. **These old recommendations are not current password-security guidance.** Do not change this setting or existing stored password hashes without a tested migration and the actual installed implementation.
 
 <a id="desc_pass_stretch" name="desc_pass_stretch"></a>
 
