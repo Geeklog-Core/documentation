@@ -3650,3 +3650,15 @@ For reliable recovery, retain separate protected copies of both the database **a
 
 **Source:** [Geeklog 2.2.2 configuration appendix](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#cron_emailed_database_backup).
 
+## Historical configuration cross-references
+
+The Geeklog 2.2.2 HTML reference links to the following 34 same-page destinations. All these historical anchors are preserved in this Markdown source. This index keeps those **navigation targets clickable** in the generated documentation; it does not yet reproduce every link in its original explanatory context.
+
+**Main sections:** [Site](#site) · [Stories](#stories) · [Themes](#theme) · [Blocks](#blocks) · [Users](#users) · [Images](#images) · [Languages](#languages) · [Miscellaneous](#misc) · [File manager](#filemanager).
+
+**Installation and appendices:** [Database configuration](#db-config.php) · [Site bootstrap](#siteconfig.php) · [URL rewriting](#url-rewrite) · [URL routing](#url-routing) · [Localization](#Localization) · [Date formats](#date_formats) · [Cron jobs](#url-cron).
+
+**Settings and linked help:** [Structured data](#desc_structured_data_type_default) · [Cookie information URL](#desc_about_cookies_link) · [Cookie consent](#desc_cookie_consent) · [Cron interval](#desc_cron_schedule_interval) · [Site HTML path](#desc_path_html) · [Image path](#desc_path_images) · [Editor path](#desc_path_editors) · [Theme path](#desc_path_themes) · [Feed file path](#desc_rdf_file) · [Comment edit period](#desc_comment_edittime) · [Comment editing](#desc_comment_edit) · [Likes block subtype](#desc_likes_block_subtype) · [Likes block type](#desc_likes_block_type) · [Gravatar](#images_gravatar) · [Debug configuration](#desc_rootdebug_siteconfig) · [Advanced editor](#desc_advanced_editor) · [Site-disabled message](#desc_site_disabled_msg) · [Root debug](#desc_rootdebug).
+
+**Scope:** Legacy relative links to other HTML help files and historical external websites are audited separately in `config-link-audit.json`. Only valid in-page navigation is asserted here.
+
