@@ -118,6 +118,23 @@ def main():
     assert migrated_directives == original_directives, (
         "Date format token lost or reordered in Markdown candidate")
 
+    # Regression gates for the restored historical cron appendix.
+    cron_start = candidate.index('id="url-cron"')
+    cron_markup = candidate[cron_start:]
+    for expected in (
+        "cron-emailgeeklogdailydigest",
+        "cron-emailgeeklogdatabasebackup",
+        "db_backup_sendto",
+        "lastemailedstories",
+        "lib-common.php",
+        "COM_emailUserTopics",
+    ):
+        assert expected in cron_markup, f"Cron appendix detail missing: {expected}"
+    assert "30 2 * * * /path/to/geeklog/cron-emailgeeklogdailydigest" in cron_markup, (
+        "Original daily digest cron schedule absent")
+    assert "<pre>" in cron_markup and "</pre>" in cron_markup, (
+        "Cron schedule example is not rendered as preformatted code")
+
     current = parsed(candidate)
     historical = set(original.anchors)
     generated = set(current.anchors)
@@ -193,6 +210,7 @@ def main():
         "content_parity": "INCOMPLETE — original tables, examples and links remain under review",
         "validated_routing_tables": routing_tables,
         "validated_date_format_directives": len(migrated_directives),
+        "validated_cron_appendix": True,
         "comparison": structure,
         "outstanding": [
             "Full semantic/text/table/example parity with tagged original",
