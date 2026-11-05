@@ -42,7 +42,7 @@ curl -fLsS https://raw.githubusercontent.com/hostellerie/documentation/prototype
 python3 test_chromebook_overlay.py --apply geeklog-2.2.2-docs-preview.zip
 ```
 
-The helper rejects target paths other than `~/geeklog-docs-validation/staging-222/site`, validates ZIP layout and the original Core/reCAPTCHA config files, and creates a timestamped backup in `staging-222/`. It does **not** access the database or start/restart any containers. If permissions prevent writing, stop and inspect ownership; **do not** run recursive `chmod 777` or point it at another installation.
+The helper rejects target paths other than `~/geeklog-docs-validation/staging-222/site`, validates ZIP layout, compares preexisting historical files while tolerating CRLF/LF-only differences, **preserves the original historical files byte-for-byte**, and creates a timestamped backup in `staging-222/`. It does **not** access the database or start/restart any containers. If permissions prevent writing, stop and inspect ownership; **do not** run recursive `chmod 777` or point it at another installation.
 
 ## 4. Browser and administrator acceptance
 
