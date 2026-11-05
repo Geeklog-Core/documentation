@@ -29,13 +29,22 @@ def main():
         assert all(n.startswith("public_html/") and ".." not in Path(n).parts for n in names), "Unsafe path"
         zipped={n.removeprefix(EXPECTED_PREFIX) for n in names if n.startswith(EXPECTED_PREFIX)}
         recaptcha={p.relative_to(RECAPTCHA).as_posix():p for p in RECAPTCHA.rglob("*") if p.is_file()}
-        expected=set(EXPECTED_PREFIX+name for name in core) | set("public_html/admin/plugins/recaptcha/docs/"+name for name in recaptcha)
+        modern_root = ROOT / "dist/online/modern"
+        modern = {p.relative_to(modern_root).as_posix(): p for p in modern_root.rglob("*") if p.is_file()}
+        assert modern and "index.html" in modern and "search-index.json" in modern
+        expected = (set(EXPECTED_PREFIX + name for name in core)
+                    | set("public_html/admin/plugins/recaptcha/docs/" + name for name in recaptcha)
+                    | set(EXPECTED_PREFIX + "english/modern/" + name for name in modern))
         assert set(names)==expected, f"Unexpected or missing ZIP entries: {sorted(set(names)^expected)}"
         for name,path in recaptcha.items():
             key="public_html/admin/plugins/recaptcha/docs/"+name
             assert key in names, f"Missing plugin-local documentation: {key}"
             assert hashlib.sha256(z.read(key)).digest()==hashlib.sha256(path.read_bytes()).digest(),f"Changed plugin document: {key}"
-        assert zipped==set(core),f"Missing or added Core docs: {sorted(zipped ^ set(core))}"
+        expected_docs = set(core) | {"english/modern/" + name for name in modern}
+        assert zipped == expected_docs, f"Missing or unexpected docs: {sorted(zipped ^ expected_docs)}"
+        for name, path in modern.items():
+            actual = z.read(EXPECTED_PREFIX + "english/modern/" + name)
+            assert actual == path.read_bytes(), f"Modern HTML differs across outputs: {name}"
         for name,path in core.items():
             actual=z.read(EXPECTED_PREFIX+name)
             if name!="english/install.html":
@@ -55,6 +64,6 @@ def main():
         assert "english/config.html" in recaptcha, "Missing reCAPTCHA config help"
         assert b"../docstyle.css" in z.read(EXPECTED_PREFIX+"english/install.html")
         assert b"../images/logo.gif" in z.read(EXPECTED_PREFIX+"english/install.html")
-        print(f"PASS: ZIP has {len(names)} files including {len(recaptcha)} reCAPTCHA docs, exactly one intentional Core overlay, historical install/config anchors and six other plugin help pages")
+        print(f"PASS: ZIP has {len(names)} files including {len(recaptcha)} reCAPTCHA docs, one intentional legacy Core overlay plus additive modern guides, historical install/config anchors and six other plugin help pages")
         print("NOTE: artifact is checked against pinned Core commit, not verified release ZIP")
 if __name__=="__main__": main()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a Markdown documentation website and a 2.2.2-layout offline preview ZIP.
+"""Build a non-official online preview and a 2.2.2-layout offline ZIP.
 
 Requires tools/check_install_anchors.py to have built build/ using a pinned
 Geeklog Core documentation tree (GEEKLOG_CORE_DOCS).
@@ -18,7 +18,7 @@ BUILD = ROOT / "build"
 DIST = ROOT / "dist/geeklog-2.2.2/public_html/docs"
 WEB = ROOT / "dist/online"
 PAGES = {
-    "index.html": ("Geeklog documentation", None),
+    "index.html": ("Geeklog documentation — prototype", None),
     "installation.html": ("Installation", ROOT / "docs/installation/README.md"),
     "configuration.html": ("Configuration", ROOT / "docs/configuration/README.md"),
     "administration.html": ("Administration", ROOT / "docs/administration/README.md"),
@@ -61,9 +61,25 @@ def main():
         if md:
             body=markdown.markdown(md.read_text(encoding="utf-8"),extensions=["tables","fenced_code","toc"])
         else:
-            body='<h1>Geeklog documentation</h1><p>Official Geeklog documentation project. These migration guides are still being reviewed; consult the documentation bundled with your Geeklog release for complete version-specific instructions.</p><p>Explore <a href="installation.html">installation</a>, <a href="configuration.html">configuration</a>, and <a href="administration.html">administration</a>.</p>'
-        page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head><body><nav>{NAV}</nav><main>{body}</main><footer><hr>Geeklog documentation · Content migration in progress · Embedded ZIP is a Geeklog 2.2.2 compatibility preview</footer></body></html>'
+            body='<h1>Geeklog documentation</h1><p>Independent Markdown migration prototype, not an official release.</p><p>Explore <a href="installation.html">installation</a>, <a href="configuration.html">configuration</a>, and <a href="administration.html">administration</a>.</p>'
+        page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head><body><nav>{NAV}</nav><main>{body}</main><footer><hr>Preview only · Geeklog 2.2.2 documentation migration</footer></body></html>'
         (WEB/file).write_text(page,encoding="utf-8")
+    # Render the unified modern Markdown pilot into both outputs. Core 2.2.2
+    # historical help paths remain unchanged; modern help is additive.
+    from build_modern_pilot import write_site, check_links
+    modern_web = WEB / "modern"
+    modern_embed = DIST / "english" / "modern"
+    for target in (modern_web, modern_embed):
+        assert write_site(target) == 10
+        assert check_links(target) == 11
+    for p in modern_web.rglob("*"):
+        if p.is_file():
+            assert p.read_bytes() == (modern_embed / p.relative_to(modern_web)).read_bytes()
+    # Add the newly generated section to the existing site homepage.
+    index_file = WEB / "index.html"
+    index_html = index_file.read_text(encoding="utf-8")
+    index_html = index_html.replace("</main>", '<p><a href="modern/index.html">Modernized developer and plugin guides (draft)</a></p></main>')
+    index_file.write_text(index_html, encoding="utf-8")
     for file in PAGES:
         p=WEB/file
         d=Inspect();d.feed(p.read_text(encoding="utf-8"))
@@ -87,5 +103,17 @@ def main():
         for name in required: assert "public_html/docs/english/"+name in names
         assert "public_html/admin/plugins/recaptcha/docs/english/config.html" in names
         assert len(names)==sum(p.is_file() for p in (ROOT/"dist/geeklog-2.2.2/public_html").rglob("*"))
-    print(f"PASS: {len(PAGES)} online pages and {len(names)} embedded files; ZIP {archive.name}")
+    online_html = list(WEB.rglob("*.html"))
+    modern_html = list(modern_web.rglob("*.html"))
+    assert len(online_html) == len(PAGES) + len(modern_html)
+    assert len(modern_html) == 11, "Expected modern index and ten guides"
+    assert (WEB / "modern/search-index.json").is_file()
+    assert (WEB / "modern/search.js").is_file()
+    for page in modern_html:
+        relative = page.relative_to(modern_web)
+        embedded_path = DIST / "english/modern" / relative
+        assert embedded_path.is_file(), f"Missing embedded modern page: {relative}"
+    print(f"PASS: {len(online_html)} total online HTML pages, including "
+          f"{len(modern_html)} modern pages, and {len(names)} embedded files; "
+          f"ZIP {archive.name}")
 if __name__=="__main__": main()

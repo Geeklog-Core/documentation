@@ -1,0 +1,33 @@
+# Isolated LOCAL testing only. Run with: docker compose -p geeklog-docs-stage up -d
+# All named volumes are scoped by the dedicated Compose project name.
+services:
+  db:
+    image: mariadb:10.11
+    restart: "no"
+    environment:
+      MARIADB_ROOT_PASSWORD: "${STAGE_DB_ROOT_PASSWORD:?Run prepare_local_staging.py first}"
+      MARIADB_DATABASE: geeklog_stage
+      MARIADB_USER: geeklog_stage
+      MARIADB_PASSWORD: "${STAGE_DB_PASSWORD:?Run prepare_local_staging.py first}"
+    volumes:
+      - stage-db:/var/lib/mysql
+    networks:
+      - stage-net
+  web:
+    image: 222-web
+    restart: "no"
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public_html
+    ports:
+      - "127.0.0.1:8083:80"
+    volumes:
+      - ./site:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - stage-net
+volumes:
+  stage-db:
+networks:
+  stage-net:
+    internal: false

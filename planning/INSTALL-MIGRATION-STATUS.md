@@ -2,7 +2,7 @@
 
 Source: `Geeklog-Core/geeklog` master `public_html/docs/english/install.html`, blob `eae47434247b4fc0e54706ee9b116618cc40f83e` (checked 2026-10-29).
 
-This branch was created directly from the documentation repository's `main` so it can be reviewed independently from the foundation PR #1.
+Historical checklist migrated to the official documentation repository. PR #1 has been superseded and closed; the documentation architecture has been merged via PR #2 and GitHub Pages is live. This checklist retains earlier milestones for traceability.
 
 - [x] Identify nine legacy named HTML anchors and record them in `docs/installation/README.md`.
 - [x] Write a limited installation/upgrade/migration introduction with explicit release-specific caveats.
@@ -57,3 +57,43 @@ This branch was created directly from the documentation repository's `main` so i
 
 - [x] Prepare isolated new-install, upgrade, migration, offline-doc, rollback and security test matrix in `INSTALL-STAGING-VALIDATION.md`.
 - [ ] Obtain approval for disposable staging environment before performing runtime tests; never test on production.
+
+## Post-publication installation review — 2026-11-03
+
+- [x] User validated the generated installation page and representative historical links in Geeklog 2.2.2 Docker, along with all seven plugin documentation pages and representative administration help links. See `INSTALL-STAGING-VALIDATION.md` for the **limited scope**.
+- [x] Confirm tagged installer constants and official v2.2.2 release notes. **Discrepancy:** release notes say MySQL 4.1.2, tagged installer's `Common.php` says MySQL 4.1.3. Both are historical minimums; see `INSTALL-REQUIREMENTS-SOURCE-AUDIT.md`.
+- [x] Publish initial official Markdown website at https://geeklog-core.github.io/documentation/; note that online installation text and embedded ZIP still have different release-readiness states.
+- [ ] Execute clean install, upgrade, migrate, rollback, and security checks in approved disposable environments; merely opening HTML in Docker does not exercise the installer.
+- [ ] Compare generated output with the exact downloadable Geeklog 2.2.2 release archive; tag-source identity is already checked but cannot establish package identity.
+- [ ] Technical/editorial release review of the installation draft before treating it as authoritative.
+
+## Exact 2.2.2 release tarball verification — 2026-11-03
+
+- [x] Add `tools/check_official_release_docs.py` to compare posted official archive size/MD5 and SHA-256 of all packaged Core and reCAPTCHA documentation against pinned `v2.2.2` source.
+- [x] Add four synthetic tarball regression cases (`tools/test_official_release_docs.py`) and run them in dual-output CI; documented in `OFFICIAL-ARCHIVE-VALIDATION.md`.
+- [x] Received `geeklog-2.2.2.tar.gz` from the user; actual file size 16,978,448 bytes and MD5 `962cc6e6ed1ce13f65066e47859511d8` exactly match official metadata; SHA-256 `d12991f78225289d2bac297bff1a7e9be55f04a9e0aa097bb379e41d7fb138a8`.
+- [x] Compared all 46 packaged documentation files to GitHub's official `v2.2.2` tree blob IDs: 8 identical, 38 differ only by CRLF vs LF, 0 missing, 0 extra, 0 substantive differences. Updated checker to report CRLF-only differences separately and require explicit opt-in to accept them. See `OFFICIAL-ARCHIVE-VALIDATION.md`.
+- [x] Updated checker unit tests passed in [CI run 41564854616](https://github.com/hostellerie/documentation/actions/runs/41564854616) (5 synthetic cases), and the **actual generated artifact ZIP** was compared to the **actual user-supplied 2.2.2 tar.gz**: 46/46 files, 0 missing or extra, 8 byte-identical, 37 line-ending-only changes, and exactly **one intended content replacement**: `docs/english/install.html`. Full evidence in `OFFICIAL-ARCHIVE-VALIDATION.md`.
+- [ ] Still required: execute installer, upgrade, migration, rollback and post-install security scenarios in disposable staging and obtain editorial/release maintainer approval before distributing the generated HTML as an official release.
+
+## Safe Docker installer preflight — 2026-11-03
+
+- [x] Inspected real official 2.2.2 tarball installer entrypoint `public_html/admin/install/index.php`: sets `GL_INSTALL_ACTIVE`, loads `Common.php`, `Install.php`, `Upgrade.php`, `Migrate.php` and `installer.class.php`, then runs `Installer::run()`.
+- [x] Reconfirmed in packaged `Common.php` historic requirements PHP 5.6.4, MySQL 4.1.3 and PostgreSQL 9.1.7 (source values only, not secure recommendations).
+- [x] Added `tools/inspect_docker_staging.py` with **read-only Docker inspect only**; emits state, image name, published ports and mount types/destination paths but not environment/credentials/source paths.
+- [x] Added detailed `planning/INSTALL-STAGING-VALIDATION.md` preflight instructions, independent volumes/networks/databases, five disposable workflows and safety stop conditions.
+- [ ] Execute read-only preflight on user's local Docker host and inspect sanitised output.
+- [ ] Create and verify *independent disposable* Docker staging environment before exercising installer/upgrade/migrate; existing Geeklog 2.1.1 and 2.2.2 containers must stay untouched.
+
+
+## Observed isolated installation and embedded-doc deployment — 2026-11-03
+
+- [x] User ran the actual **official Geeklog 2.2.2 archive** installer in a separate Docker Compose project `geeklog-docs-stage` (PHP 8.1.33, MariaDB 10.11, localhost port 8083), without modifying pre-existing 2.1.1/2.2.2 installations. The newly created database contains 43 tables and `gl_vars.database_version=2.2.2`.
+- [x] Diagnosed the misleading wizard “Admin Directory Path” input. Its `site_admin_url` is an **HTTP URL** (e.g. `http://localhost:8083/admin`), not `/var/www/html/public_html/admin`. Correcting this stored setting restored authenticated administration without reinstalling.
+- [x] Confirmed seven registered core plugins: Calendar, Links, Polls, reCAPTCHA, SpamX, Static Pages **active**, XMLSitemap **disabled**. XMLSitemap attempted to write `public_html/sitemap.xml` without permission during post-install; the underlying plugin write failure is **not fixed**, and the generic installer error's exact causal chain is not conclusively established.
+- [x] Removed the installer from the staging Web root and user confirmed HTTP **404** at `/admin/install/index.php`.
+- [x] User obtained the latest successful branch-produced embedded docs ZIP and installed an overlay **after backing up** the original staged Core and reCAPTCHA docs. Browser checks of `docs/english/install.html`, `docs/english/config.html#desc_site_url`, `docs/english/index.html` and reCAPTCHA help were confirmed working. Only `english/install.html` has been migrated to Markdown in the embedded output; all other legacy docs remain as published in the compatibility prototype.
+- [x] Exact archive documentation inventory already validated: 46 files, 8 byte-identical, 37 CRLF/LF-only and one intended installation HTML content change (see `OFFICIAL-ARCHIVE-VALIDATION.md`).
+- [ ] **Open before production/release approval:** validate rollback from the staging docs backup, check admin default password replacement, inspect post-install config ownership/access and broader contextual help. Upgrade and migrate test scenarios remain distinct and unperformed; maintainer editorial review is required.
+
+The earlier unchecked boxes in this chronological checklist reflect **previous milestones**, not the status as of November 3. See `INSTALL-STAGING-VALIDATION.md` sections K–N for the later observed evidence. The generated ZIP remains a **prototype**, not an official Geeklog release.
