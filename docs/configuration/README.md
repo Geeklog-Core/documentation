@@ -3529,17 +3529,35 @@ The operating system must have the requested locale installed. Check available l
 
 ### Command-line scheduled jobs
 
-Geeklog 2.2.2 documents command-line PHP scripts for tasks such as daily digests and emailed database backups. Scripts should remain outside the public web tree. Review script paths, CLI availability and scheduler configuration on the installed environment.
+Geeklog 2.2.2 ships two optional command-line PHP scripts at the **private Geeklog installation root**, outside `public_html`. Both must load the correct `lib-common.php` for the site; the tagged scripts contain a placeholder `/path/to/geeklog/lib-common.php` which must be adjusted before use. Confirm the PHP CLI executable, filesystem permissions and scheduler environment on your own server.
+
+The tagged reference gives this historical **daily-digest scheduling example** (02:30 every day):
+
+```cron
+30 2 * * * /path/to/geeklog/cron-emailgeeklogdailydigest
+```
+
+The schedule describes when cron runs, not whether the script has been installed or configured. Replace the example path with the actual private installation path. Do not expose these scripts through a public web directory. Check whether the installed PHP CLI matches your Geeklog release's runtime requirements, and avoid broad filesystem permissions.
+
+**Source:** [Geeklog 2.2.2 cron appendix](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#url-cron).
 
 <a id="cron_daily_digest" name="cron_daily_digest"></a>
 
 ### Daily-digest cron script
 
-The historical `cron-emailgeeklogdailydigest` sends newly published articles to subscribers. On first activation, older articles may all be considered new; review the latest digest marker and test delivery carefully in staging.
+The [bundled daily-digest script](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/cron-emailgeeklogdailydigest) invokes `COM_emailUserTopics()` after loading `lib-common.php`. The site's Daily Digest configuration and the subscriber's topic preferences determine the content.
+
+**First-run warning:** the historical reference warns that previously published articles may all be treated as new when the feature is first activated. Test delivery with a controlled recipient and review the `lastemailedstories` marker in the Geeklog `vars` table if you need to prevent an unexpectedly large first mailing. Do not edit a live database marker without a backup, a verified database prefix and a staging rehearsal.
 
 <a id="cron_emailed_database_backup" name="cron_emailed_database_backup"></a>
 
 ### Email-based database backup cron script
 
-The historical `cron-emailgeeklogdatabasebackup` sends a database dump to an address configured by the cron script or a `db_backup_sendto` value. Email attachments are not a substitute for a complete, encrypted, regularly tested backup strategy.
+The [tagged backup script](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/cron-emailgeeklogdatabasebackup) uses `dbBackup` to create and email a database export. In Geeklog 2.2.2, this script explicitly supports **MySQL only**; it does not create a complete backup of themes, uploads, private files or plugin directories.
+
+The recipient can be configured in the script or via the `db_backup_sendto` value in the site's `vars` table. Configure a controlled mailbox and confirm that the attachment size fits the mail provider's limits. Schedule this task during a quieter period, restrict its access, and protect backup emails because SQL exports may contain personal or sensitive data.
+
+For reliable recovery, retain separate protected copies of both the database **and** site files, and test restoration in an isolated environment. Email delivery is not itself evidence of a usable backup.
+
+**Source:** [Geeklog 2.2.2 configuration appendix](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#cron_emailed_database_backup).
 
