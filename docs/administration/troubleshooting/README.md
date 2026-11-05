@@ -33,6 +33,30 @@ The bundled [Geeklog 2.2.2 installation instructions](https://github.com/Geeklog
 
 Do not repeatedly execute a failed upgrade against the same production database without first understanding the failure and verifying recovery options.
 
+## Installer redirects to an error page after saving settings
+
+In the isolated Geeklog 2.2.2 staging tests, entering a **filesystem directory** in a form field that stores `site_admin_url` caused an incorrect administration URL to be saved. The UI label may suggest an admin directory path, but the configuration value is an **HTTP URL**, not a path on disk.
+
+For example, on a local staging installation served at `http://localhost:8083`:
+
+| Setting or location | Example | Meaning |
+| --- | --- | --- |
+| `site_url` | `http://localhost:8083` | Browser-accessible site URL |
+| `site_admin_url` | `http://localhost:8083/admin` | Browser-accessible administration URL |
+| Admin directory on disk | `/var/www/html/public_html/admin` | Filesystem path; **not** a value for `site_admin_url` |
+
+Do not paste these sample URLs into a live site: use its actual configured hostname and paths.
+
+If installation fails after writing configuration, **do not rerun the installer blindly**. Inspect the existing staging configuration and database version first; an installation can be partially complete even when a later page fails. Back up the current state before any remediation. Never share the database password or full configuration dump when asking for help.
+
+### XMLSitemap cannot create sitemap.xml
+
+The bundled XMLSitemap plugin for Geeklog 2.2.2 may attempt to create `public_html/sitemap.xml` during post-install setup. On a staging system lacking write permission, the PHP error log can show a `touch(): Unable to create file` warning for this path.
+
+Inspect the actual path and the web worker's permissions. Correct **only** the necessary file ownership/permissions in a disposable environment. Avoid `chmod -R 777` or granting write access to the entire public web tree. A successfully served XMLSitemap documentation page does **not** mean the plugin was installed or enabled successfully.
+
+These examples are based on the documented 2.2.2 installation staging observations in [the repository's test report](https://github.com/Geeklog-Core/documentation/blob/main/planning/INSTALL-STAGING-VALIDATION.md), not on an assertion that the same problem affects every host.
+
 ## Configuration documentation
 
 The bundled [configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html) remains the authoritative source for release-specific setting names until those settings have been fully migrated to Markdown. Older Core/plugin help fragments are preserved in the generated embedded documentation.
