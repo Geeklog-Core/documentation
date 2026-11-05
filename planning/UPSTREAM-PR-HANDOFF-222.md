@@ -8,7 +8,7 @@
 
 **Title:** Docs: consolidate Geeklog 2.2.2 online and embedded documentation
 
-**Create:** https://github.com/Geeklog-Core/documentation/compare/main...hostellerie:documentation:prototype/wiki-unified-222?expand=1
+**Create:** https://github.com/Geeklog-Core/documentation/compare/main...hostellerie:prototype/wiki-unified-222?expand=1
 
 ## PR description — copy below
 
