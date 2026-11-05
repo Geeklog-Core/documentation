@@ -40,6 +40,10 @@ Review of the tagged `system/lib-plugins.php` established that the earlier plugi
 - **Landing page:** removes prototype labels, repeated introductory links and overlapping catalogue/search listings. The original 2.2.2 `config.html` remains the authority for exhaustive defaults and examples; no content-parity claim has changed.
 - These updates are original explanatory text grounded in tagged Geeklog source and the documented staging workflow. No historical Wiki article wording or imagery is imported.
 
+## Verified plugin documentation update — Static Pages 1.7.3
+
+The tagged `plugins/staticpages/autoinstall.php` identifies plugin version **1.7.3** for Geeklog **2.2.2** and declares `staticpages.edit`, `staticpages.delete`, and the security-sensitive `staticpages.PHP` rights. The default Static Page Admin group is assigned edit/delete, while `staticpages.PHP` is **not assigned to any group by default**. Updated `docs/plugins/static-pages/README.md` to describe those source-backed behaviors rather than implying that a historical Wiki claim is sufficient. Proposed manual permission checks remain unexecuted; no Wiki prose/images reused.
+
 ## Attribution and release decision
 
 **Current decision: not yet cleared for unqualified official publication.**
