@@ -62,6 +62,16 @@ The tagged 2.2.2 configuration HTML includes two substantial URL reference table
 
 **Remaining release blockers:** reconcile the other historical explanatory tables and formatted examples, review the 387 descriptions semantically, resolve/categorize old link destinations, and run context-sensitive help tests with the candidate in a disposable Geeklog 2.2.2 installation.
 
+## Comment templates and server examples — 2026-11-05
+
+The maintained Markdown now contains the three historical comment-feed template shapes (article reference, article author and comment author), including the `%s` placeholder counts and escaped HTML template syntax. These are shown as **literal code examples**, not executable or trusted HTML.
+
+The URL routing appendix also includes the historical **Apache `mod_rewrite` rule example**, its three rule/path variants, and an **IIS `web.config` front-controller example** with the two file/directory bypass conditions. All are explicitly described as historical examples requiring per-host security/configuration review, not deployment-ready configs.
+
+Together with the previously migrated cron sample, the generated review candidate now contains **nine preformatted examples**, matching the number of legacy `<pre>` blocks. The candidate checker enforces that count and the expected example topics. [GitHub Actions #41994067764](https://github.com/hostellerie/documentation/actions/runs/41994067764) succeeded.
+
+**Important limitation:** matching nine rendered example blocks does not prove literal equivalence of every legacy snippet. The IIS sample has a newly written rule label and the examples contain editorial explanation. A separate review of semantics and deployed routing behavior is still required. The original embedded Geeklog 2.2.2 `config.html` is unchanged.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
@@ -74,7 +84,7 @@ The tagged 2.2.2 configuration HTML includes two substantial URL reference table
 | Individual help anchors | 387 | 387 preserved | Structural gate only |
 | HTML tables | 49 | Two restored URL mapping tables plus one date-format directive table | **Other table content still requires review** |
 | HTML table rows | 462 | 20 URL mapping rows and 33 date-format directives now tabulated; defaults appear in each setting's section | **Full table parity remains unverified** |
-| HTML code/preformatted blocks | 9 `<pre>` elements | 0 fenced code blocks | **Example-format gap** |
+| HTML code/preformatted blocks | 9 `<pre>` elements | 9 preformatted examples in candidate | **Structural count checked; snippet semantics still under review** |
 | HTML list items | 76 `<li>` elements | Must compare manually/semantically | Review required |
 | Historical HTML characters | 174,651 | 110,804 Markdown characters | Not a valid proof of missing text alone |
 
@@ -86,7 +96,7 @@ Counts are indicators, not claims that each HTML row needs a one-to-one Markdown
 2. **URL rewriting and routing:** Markdown itself says the historical URL mapping and route priority tables still need migration. Restore their complete legacy examples and test representative paths.
 3. **Locale/date formatting:** Markdown retains some format tokens but explicitly says the full formatting table is missing.
 4. **Cron scripts and schedules:** Markdown provides concise summaries rather than the full invocation examples and operational instructions.
-5. **Syndication/comment formats:** Historical literal templates, placeholders, and formatted examples (including the `sprintf` argument order) require exact preservation, not just paraphrases.
+5. **Syndication/comment formats:** Three historical template forms are now displayed as code with placeholder explanations. Exact runtime formatting and escaping behavior still require source-level and staging verification.
 6. **Other deep explanations:** Review all 387 setting descriptions against the HTML source and actual tagged 2.2.2 config definitions, including permissions, mail, authentication, file manager, OAuth and IP anonymization.
 7. **Relative references and assets:** Tagged HTML refers to `../docstyle.css`, `../images/logo.gif`, `index.html`, `spamx.html` and various internal fragment links. A generated embedded file must resolve the relative assets and links from `public_html/docs/english/config.html`, not the online preview base URL.
 8. **Historical outgoing links:** External references include obsolete Wiki and third-party destinations. Record and classify each (valid, replacement, archived, historical-only), rather than silently deleting it.
