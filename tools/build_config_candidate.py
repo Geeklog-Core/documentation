@@ -116,10 +116,10 @@ def main():
     # reference may intentionally have obsolete links that need rewriting.
     link_gaps = sorted(historical_links - candidate_links)
     structure = {
-        "legacy_html_tables": len(re.findall(r"<table\\b", legacy_html, re.I)),
-        "candidate_html_tables": len(re.findall(r"<table\\b", candidate, re.I)),
-        "legacy_preformatted_blocks": len(re.findall(r"<pre\\b", legacy_html, re.I)),
-        "candidate_preformatted_blocks": len(re.findall(r"<pre\\b", candidate, re.I)),
+        "legacy_html_tables": len(re.findall(r"<table", legacy_html, re.I)),
+        "candidate_html_tables": len(re.findall(r"<table", candidate, re.I)),
+        "legacy_preformatted_blocks": len(re.findall(r"<pre", legacy_html, re.I)),
+        "candidate_preformatted_blocks": len(re.findall(r"<pre", candidate, re.I)),
         "original_local_link_count": len(historical_links),
         "candidate_local_link_count": len(candidate_links),
         "historical_link_targets_not_yet_represented": link_gaps,
