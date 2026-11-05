@@ -26,6 +26,20 @@ The workflow now runs `tools/audit_config_defaults.py` against the **pinned Geek
 
 The inventory checks for missing or duplicate help IDs and rejects changes to the seven validated default values. All remaining **380** entries require human editorial comparison, including contextual table notes, examples, markup, nontrivial defaults, and actual installer values. No automatic transformation of the old `config.html` into the embedded package is authorized by this progress.
 
+## Full defaults transcription and compatibility candidate — 2026-11-05
+
+**New migration work beyond the original 449-anchor structural coverage:**
+
+- All **387 of 387 historical default values** from the tagged 2.2.2 reference are now written beside the existing Markdown setting descriptions, using the same setting identifiers. The previous seven-value summary table was removed to avoid duplicating entries. The transcription is checked against the original values on every CI build by `tools/audit_config_defaults.py`. **Only seven values have had separate human-style source review so far**; mechanically matching text is not full editorial verification.
+- `tools/audit_config_defaults.py` records the complete **historical description text** next to the **maintained Markdown description** for each of the 387 settings in `dist/config-defaults-audit.json`. This creates a reviewable comparison for detecting missing explanations, rather than pretending that an anchor or default match proves content parity.
+- A separate, **non-deployable** Markdown-generated `public_html/docs/english/config.html` candidate is built by `tools/build_config_candidate.py`. CI requires **all 449 unique historical anchors**, no unexpected/duplicate IDs, and 387 defaults, and checks its existing relative resources and internal links against the tagged 2.2.2 documentation tree.
+- The candidate is uploaded as `geeklog-2.2.2-config-candidate-review` for review. It is **not** used in the standard 2.2.2 documentation ZIP or in the public site until maintainer approval and remaining parity gates.
+- The candidate report now inventories original versus generated HTML tables, code blocks and local links. Those gaps still block replacing the embedded legacy reference.
+
+**Remaining blocking work:** review 387 full descriptions against their source text, reconstruct the original section-specific tables, preformatted examples and internal cross-links, check applicable attribution/licensing, and test a complete candidate in the isolated Geeklog 2.2.2 administrator interface. The existing legacy `config.html` stays byte-identical.
+
+**Earlier notes in this audit that refer to only seven migrated defaults or no available default values are historical snapshots, superseded by this section.** The old configuration reference is still authoritative for unreviewed wording and examples.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
