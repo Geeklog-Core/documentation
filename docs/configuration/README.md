@@ -2198,7 +2198,7 @@ Based on the [tagged configuration reference](https://github.com/Geeklog-Core/ge
 
 
 **Documented default (Geeklog 2.2.2):** `false`
-Disable the file manager for ordinary users when enabled; the 2.2.2 reference specifies that `Root` members retain access.
+When set to `true`, disables the Filemanager feature for ordinary users. The tagged 2.2.2 reference explicitly states that members of the `Root` group can still use it. Verify effective permissions on the installed site; this setting alone is not a complete access-control policy.
 
 <a id="desc_filemanager_browse_only" name="desc_filemanager_browse_only"></a>
 
