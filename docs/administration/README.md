@@ -1,6 +1,6 @@
 # Geeklog 2.2.2 administration
 
-> **Documentation modernization in progress.** This page brings together the maintained administration guides for Geeklog 2.2.2. The bundled configuration and plugin help files remain the reference for historical settings and their context-sensitive help links until their complete migration has been reviewed.
+> **Geeklog 2.2.2 reference.** This page brings together the available administration guides. The bundled configuration and plugin help files remain the reference for historical settings and their context-sensitive help links until their complete migration has been reviewed.
 
 ## Start here
 
@@ -16,7 +16,7 @@ Geeklog administration features depend on your account permissions and enabled p
 | Installation and migration | [Install, upgrade or move a site](installation.html) | Installation wizard, upgrades and migration guidance |
 | Static Pages | [Static Pages plugin](modern/plugins/static-pages/index.html) | Managing standalone pages and plugin-specific permissions |
 
-All linked guides are generated from the maintained Markdown tree. Some are still undergoing technical or editorial review; release-specific configuration details must be checked against the installed version.
+All linked guides are generated from the maintained Markdown tree. Release-specific configuration details should be checked against the installed version.
 
 ## Configuration and help links
 
