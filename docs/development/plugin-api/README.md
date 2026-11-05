@@ -77,4 +77,4 @@ See the future dedicated guides for plugin installation, moderation and comment 
 - [ ] Legacy Wiki links mapped to final anchors
 - [ ] Attribution and reuse license approved
 
-**Source provenance:** new release-scoped synthesis informed by topic titles from the recovered 2024-11-02 Geeklog Wiki backup (titles above) and the tagged Geeklog v2.2.2 source. Original Wiki text, page contributors and reuse license still require verification before any verbatim republication. See [editorial provenance review](../../../planning/EDITORIAL-PROVENANCE-REVIEW-222.md).
+**Source provenance:** new release-scoped synthesis informed by topic titles from the recovered 2024-11-02 Geeklog Wiki backup (titles above) and the tagged Geeklog v2.2.2 source. Original Wiki text, page contributors and reuse license still require verification before any verbatim republication. See `planning/EDITORIAL-PROVENANCE-REVIEW-222.md` in the source repository.
