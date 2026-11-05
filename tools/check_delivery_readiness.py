@@ -64,6 +64,9 @@ def validate_site():
     assert page_count == 15, f"Expected 15 HTML pages, got {page_count}"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
+    assert home.count('aria-label="Browse all guides"') == 1
+    for url in urls:
+        assert 'href="' + url + '"' in home, f"Guide not visible from homepage: {url}"
     assert (SITE / "search.js").is_file()
     config = inspect((SITE / "configuration.html").read_text(encoding="utf-8"))
     assert "desc_site_url" in config.identifiers
