@@ -40,6 +40,18 @@ The inventory checks for missing or duplicate help IDs and rejects changes to th
 
 **Earlier notes in this audit that refer to only seven migrated defaults or no available default values are historical snapshots, superseded by this section.** The old configuration reference is still authoritative for unreviewed wording and examples.
 
+## Detailed appendix migration — 2026-11-05
+
+The tagged 2.2.2 configuration HTML includes two substantial URL reference tables and a locale date-format list. The existing Markdown page previously mentioned these appendices without reproducing their detailed values.
+
+- Migrated **10 URL rewriting examples** into the existing `url-rewrite` section, preserving legacy query-string and rewritten URL patterns.
+- Migrated **10 URL routing rules and numeric priorities** into the existing `url-routing` section.
+- Restored all **33 locale date-format directives** in source order with newly written, concise explanations. This retains the legacy syntax for reference; support in modern runtime environments still needs checking.
+- `tools/build_config_candidate.py` now compares every rewriting/routing table cell against the tagged source and checks every date-format token. The latest CI [run #41980025419](https://github.com/hostellerie/documentation/actions/runs/41980025419) passed.
+- Candidate output remains isolated from the official embedded `english/config.html` and has not undergone a live Geeklog admin-help integration test.
+
+**Still outstanding:** detailed examples outside these appendices, the other historical tables and links, semantic review of the full 387 descriptions, compatible representation of obsolete links, and final real administrator tests. Do not infer that passing the two specific table checks proves full content parity.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
