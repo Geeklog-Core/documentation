@@ -34,6 +34,14 @@ This test **does not start Geeklog or a Docker container** and is **not equivale
 - The Git tag docs have been checked against the pinned Core tree. The official historical `geeklog-2.2.2.tar.gz` distribution was independently audited in `planning/OFFICIAL-ARCHIVE-VALIDATION.md`; this audit is not certification of the generated preview ZIP as an official release.
 - No branch proliferation: continue improvements on `prototype/wiki-unified-222` until its single consolidated upstream PR is ready.
 
+## Editorial, technical sources and attribution gate
+
+Review the [guide-by-guide editorial/provenance register](EDITORIAL-PROVENANCE-REVIEW-222.md) before requesting final upstream approval. The 13 guides have different validation maturity: several API function signatures and Core admin checks are verified against the tagged `v2.2.2` source, but some recovered Wiki topics are historical drafts and do not yet establish runtime behavior.
+
+**The archived Geeklog Wiki's site-specific content license, original contributor credits and edit histories have not been verified.** Do not assume the Geeklog source-code GPL licenses all Wiki articles or pictures. Reuse no unverified historical wording, code examples or images; write new release-scoped prose grounded in tagged Core code, and credit confirmed contributors only when provenance is established. Ask maintainers to confirm rights/attribution requirements before publishing Wiki-derived material officially.
+
+The plugin API guide contains a corrected version-specific distinction: deprecated `PLG_install()` calls `plugin_install_*`, while `PLG_getParams()` discovers `plugin_autoinstall_*` through plugin `autoinstall.php`. Avoid merging older Wiki examples that conflate these pathways.
+
 ## Go/no-go
 
 - **Online:** build/test succeeds, 13 searchable guides available, documentation links and layout verified, maintainer-approved merge and manual Pages publication.
