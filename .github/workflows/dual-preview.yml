@@ -62,6 +62,9 @@ jobs:
       - run: python tools/check_configuration_coverage.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/audit_config_defaults.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_delivery_readiness.py
       - run: python tools/check_extracted_overlay.py
         env:
