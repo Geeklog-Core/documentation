@@ -72,6 +72,7 @@ jobs:
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
           GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
+      - run: python tools/check_http_preview.py
       - uses: actions/upload-artifact@v4
         with:
           name: geeklog-2.2.2-embedded-docs-preview
