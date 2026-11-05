@@ -49,7 +49,7 @@ def main():
     assert LEGACY.is_file() and SOURCE.is_file()
     original = parsed(LEGACY.read_text(encoding="utf-8"))
     md = SOURCE.read_text(encoding="utf-8")
-    body = markdown.markdown(md, extensions=["tables", "fenced_code", "toc"])
+    body = markdown.markdown(md, extensions=["tables", "fenced_code"])
     # Old relative stylesheet layout must remain resolvable at docs/english.
     candidate = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
