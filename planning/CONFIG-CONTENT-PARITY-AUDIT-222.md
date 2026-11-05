@@ -72,6 +72,14 @@ Together with the previously migrated cron sample, the generated review candidat
 
 **Important limitation:** matching nine rendered example blocks does not prove literal equivalence of every legacy snippet. The IIS sample has a newly written rule label and the examples contain editorial explanation. A separate review of semantics and deployed routing behavior is still required. The original embedded Geeklog 2.2.2 `config.html` is unchanged.
 
+## Historical link inventory and release gate — 2026-11-05
+
+A distinct, repeatable `tools/audit_config_links.py` job now parses actual link elements in the **tagged Geeklog 2.2.2 HTML**, so escaped `href="%s"` examples are not mistaken for navigation. It produces `dist/config-link-audit.json` as part of the existing **isolated candidate-review artifact**, without changing the official embedded configuration document.
+
+GitHub Actions [#41998134534](https://github.com/hostellerie/documentation/actions/runs/41998134534) succeeded and identified **34 distinct historical same-page fragment destinations**, **3 local document/stylesheet paths**, and **48 external URLs**. All 34 fragments resolve within the historical reference and all three relative targets exist in the pinned installation archive. These are **original reference links**, not proof that all navigation has been reproduced in the Markdown candidate.
+
+The 48 external URLs are classified separately; Wiki references receive a provenance/replacement-review flag. CI deliberately **does not follow external links** or claim their availability. The candidate's current references are validated separately by `tools/build_config_candidate.py`. The remaining publication requirement is an editorial decision for each external link: keep as useful, replace with authoritative maintained documentation, retain clearly as a historical reference, or remove with a documented reason. Do not blindly reproduce deprecated or insecure destinations.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
