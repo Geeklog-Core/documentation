@@ -5,6 +5,7 @@ Only the online HTML folder is modified. The embedded legacy documentation and
 its compatibility anchors are deliberately untouched.
 """
 from html.parser import HTMLParser
+from html import escape
 from pathlib import Path
 from urllib.parse import quote
 import json
@@ -134,9 +135,22 @@ def main():
         '</section>'
         '<script defer src="search.js"></script>'
     )
-    html = html.replace(tag, search_markup + tag)
+    browse_markup = (
+        '<section aria-label="Browse all guides">'
+        '<h2>Browse the documentation</h2>'
+        '<p>Guides for Geeklog 2.2.2 and modernized documentation drafts. '
+        'The original embedded configuration help remains authoritative for '
+        'historical defaults and detailed examples.</p>'
+        '<ul>' + ''.join(
+            '<li><a href="' + item["url"] + '">' + escape(item["title"]) + '</a></li>'
+            for item in entries
+        ) + '</ul></section>'
+    )
+    html = html.replace(tag, browse_markup + search_markup + tag)
     index.write_text(html, encoding="utf-8")
     assert all((SITE / item["url"]).is_file() for item in entries)
+    assert html.count('aria-label="Browse all guides"') == 1
+    assert all('href="' + item["url"] + '"' in html for item in entries)
     assert html.count('id="docs-search"') == 1
     assert (SITE / "search.js").is_file()
     print(f"PASS: unified homepage search indexes {len(entries)} current Markdown guides")
