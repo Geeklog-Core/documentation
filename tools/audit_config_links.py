@@ -42,10 +42,7 @@ def main():
     results = []
     for href, uses in sorted(Counter(old.links).items()):
         parsed = urlsplit(href)
-        if href == "%s":
-            # Historic printf template, not an actual href.
-            kind, state = "template-placeholder", "not-a-navigation-link"
-        elif parsed.scheme in ("http", "https") or parsed.netloc:
+        if parsed.scheme in ("http", "https") or parsed.netloc:
             kind = "external"
             state = "editorial-review-needed"
             if "wiki.geeklog.net" in parsed.netloc.lower():
@@ -74,7 +71,9 @@ def main():
     assert all(r["status"] == "file-present"
                for r in results if r["kind"] == "local-file"), (
                    "Missing historical local file in the 2.2.2 archive")
-    assert len([r for r in results if r["kind"] == "template-placeholder"]) == 1
+    # Escaped <a href="%s"> inside a <pre> is text, NOT a real href.
+    assert not any(r["href"] == "%s" for r in results), (
+        "Incorrectly parsed a literal printf template as a navigation link")
 
     counter = Counter(r["kind"] for r in results)
     REPORT.parent.mkdir(parents=True, exist_ok=True)
