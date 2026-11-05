@@ -21,13 +21,13 @@ Source: contributor-supplied `wiki-review-pilot-14.zip`, exported from the Geekl
 | `Coding_Guidelines` | **Do not make authoritative without project approval** | Historical March 2007 PEAR convention; check today's contribution requirements |
 | `Adding_Moderation_Capability` | **Merge** into plugin API and future moderation guide | Historic callback examples must be checked in pinned source |
 
-## New Markdown drafts in this branch
+## Markdown guides now available on the consolidated branch
 
-- `docs/development/plugin-api/README.md`
-- `docs/development/templates/README.md`
-- `docs/plugins/static-pages/README.md`
+The original 14-page Wiki pilot informed the Markdown guides for plugin APIs, themes/templates, Static Pages, configuration APIs, webservices, security, and associated administration topics. The consolidated branch also contains installation, configuration and administration guides and 10 supplementary guides, delivered through the same online and embedded build.
 
-These are **editorial drafts**, not verified release reference documentation. No old Wiki markup, personal data, or credentials have been committed. The historical 14 article bodies remain in the contributor's local review ZIP.
+**Status is mixed:** selected Geeklog 2.2.2 function signatures and callbacks were checked against tagged source; full API examples, runtime behavior, copyright reuse and attribution have not all passed review. These guides are **not** blanket-approved historical Wiki imports. No bulk Wiki body was committed. The historic 14 article bodies remain in the contributor's review ZIP.
+
+This pilot is **14 of 351** recovered Wiki pages, not an audit of all archived pages. The remaining pages require inventory and selective classification before any claim of full Wiki migration.
 
 ## Release gates
 
@@ -35,4 +35,5 @@ These are **editorial drafts**, not verified release reference documentation. No
 2. Confirm compatibility with the `prototype/dual-output-222` build and embedded help anchor contract.
 3. Check licenses/attribution and review any code samples before publication.
 4. Introduce these pages into a single online navigation and search, and the appropriate embedded HTML output.
-5. Only then open a scoped PR, keeping installation PR #4 independent.
+5. Consolidate the validated guides and installation/staging checks into **one reviewed upstream PR**. The original upstream installation draft PR #4 was closed without merge on 2026-11-05 after its changes were carried into `prototype/wiki-unified-222`.
+6. Do not block an initial complete-to-use Geeklog 2.2.2 documentation delivery on all 351 historic Wiki pages; retain explicit release scope and list unresolved historical topics.
