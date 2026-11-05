@@ -75,8 +75,11 @@ def validate_site():
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
     assert home.count('aria-label="Browse all guides"') == 1
+    assert home.count('id="docs-catalogue"') == 1
+    assert home.count('id="docs-results"') == 1
+    assert home.count('<h1>Geeklog documentation</h1>') == 1
     for url in urls:
-        assert 'href="' + url + '"' in home, f"Guide not visible from homepage: {url}"
+        assert home.count('href="' + url + '"') == 1, f"Guide link missing or duplicated: {url}"
     assert (SITE / "search.js").is_file()
     config = inspect((SITE / "configuration.html").read_text(encoding="utf-8"))
     assert "desc_site_url" in config.identifiers
