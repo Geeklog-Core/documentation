@@ -1,0 +1,35 @@
+# Geeklog documentation — rapid release checklist for Geeklog 2.2.2
+
+Status: **release candidate / preview only**, not an official Geeklog 2.2.2 distribution. The objective is to provide **both** the public documentation on `Geeklog-Core/documentation` GitHub Pages and a verifiable offline-compatible documentation ZIP from the **same Markdown source**.
+
+## Online publication
+
+1. Review and merge one consolidated fork PR into `Geeklog-Core/documentation:main`; do not change upstream `main` directly without maintainer review.
+2. From the official repository Actions, run **Publish Geeklog documentation (maintainer opt-in)** on `main` after merge. The workflow checks out the selected repository/ref (not a pinned fork branch).
+3. Build and check the original Core 2.2.2 documents, the Markdown-generated installation page, modern supplementary guides, and all historical configuration anchors.
+4. Build the **unified homepage search** (13 indexed guides), then upload `dist/online/` to GitHub Pages.
+5. Visit `https://geeklog-core.github.io/documentation/`, open the homepage, its search, `configuration.html#desc_site_url`, `installation.html`, and `modern/index.html`. Verify navigation and CSS in a browser; a green CI is not a substitute for a visual check.
+
+## Embedded Geeklog 2.2.2 documentation ZIP
+
+1. Use the **Dual documentation prototype** workflow or the same manual publishing workflow and download the `geeklog-2.2.2-embedded-docs-preview` artifact.
+2. The contained `geeklog-2.2.2-docs-preview.zip` has relative paths beginning with `public_html/`. **Inspect the ZIP**: it is an overlay into the Geeklog installation **root**, not into `public_html/docs` directly.
+3. On a disposable Geeklog 2.2.2 test installation, **back up** `public_html/docs/` and `public_html/admin/plugins/recaptcha/docs/` before applying the overlay. Never assume this ZIP is a full CMS installation.
+4. Unpack it **at the installation root** (in test staging only), preserving the `public_html/` prefix. Verify that the same `public_html/docs/english/install.html` path still exists and that `config.html` retains its 2.2.2 content.
+5. Check `/docs/english/install.html`, `/docs/english/config.html#desc_site_url`, `/docs/english/modern/index.html`, one modern guide's CSS, and context-sensitive help launched from the actual administration UI; test all seven bundled plugin help destinations.
+6. Preserve an original-docs rollback copy. Do not announce fully verified packaging until tests are recorded. The built ZIP contains unchanged legacy config/plugin help and a generated install.html; additional Markdown guides are additive under `docs/english/modern/`.
+
+## Scope boundaries
+
+- 387 individual configuration help anchors and 449 historical unique configuration IDs are structurally present on the **online** Markdown configuration page. This does **not** mean full content parity.
+- The **embedded** `public_html/docs/english/config.html` is deliberately preserved byte-identical to the tagged Core 2.2.2 source. Its tables, defaults, and context-sensitive help must not be silently replaced with the condensed online reference.
+- The retained legacy HTML is a **temporary compatibility asset**, not a second actively edited source of documentation.
+- Historical Wiki content is selectively modernized. The prototype does not purport to have migrated the whole Wiki or all release versions.
+- The Git tag docs have been checked against the pinned Core tree. The downloadable historical `geeklog-2.2.2.tar.gz` binary is a separate release-equivalence check, not yet asserted.
+- No branch proliferation: continue improvements on `prototype/wiki-unified-222` until its single consolidated upstream PR is ready.
+
+## Go/no-go
+
+- **Online:** build/test succeeds, 13 searchable guides available, documentation links and layout verified, maintainer-approved merge and manual Pages publication.
+- **Embedded:** built ZIP passes integrity checker, offline staging installation and admin help tests are recorded, release scope and rollback documented.
+- **Do not claim final release** on only structural anchor counts or a green build.
