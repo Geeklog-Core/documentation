@@ -62,13 +62,13 @@ The tagged 2.2.2 configuration HTML includes two substantial URL reference table
 | --- | ---: | ---: | --- |
 | Unique historical anchors | 449 | 449 preserved by existing coverage check | Structural gate only |
 | Individual help anchors | 387 | 387 preserved | Structural gate only |
-| HTML tables | 49 | One new 7-setting default table; previous setting descriptions are prose | **Content/format gap remains** |
-| HTML table rows | 462 | Seven historical defaults now in a table; complete table parity unverified | **Content/format gap remains** |
+| HTML tables | 49 | Two restored URL mapping tables plus one date-format directive table | **Other table content still requires review** |
+| HTML table rows | 462 | 20 URL mapping rows and 33 date-format directives now tabulated; defaults appear in each setting's section | **Full table parity remains unverified** |
 | HTML code/preformatted blocks | 9 `<pre>` elements | 0 fenced code blocks | **Example-format gap** |
 | HTML list items | 76 `<li>` elements | Must compare manually/semantically | Review required |
 | Historical HTML characters | 174,651 | 110,804 Markdown characters | Not a valid proof of missing text alone |
 
-Counts are indicators, not claims that each HTML row needs a one-to-one Markdown table. The historic reference has **49 tables**, including configuration defaults and explanations. The Markdown reference already has all 387 setting descriptions and 449 anchors, and now includes one seven-setting default table; the remaining original default-value columns, examples and explanatory details have not been checked for content parity.
+Counts are indicators, not claims that each HTML row needs a one-to-one Markdown table. The historic reference has **49 tables**, including configuration defaults and explanations. The Markdown reference has all 387 setting descriptions, 449 anchors and each original documented default, plus the URL mapping/routing and date-format tables. This does not certify parity for the remaining original table layouts, examples and explanations.
 
 ## Confirmed content loss / incomplete topics
 
