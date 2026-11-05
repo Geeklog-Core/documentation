@@ -1,6 +1,22 @@
-# Geeklog configuration — migration preview
+# Geeklog 2.2.2 configuration reference
 
-> **Prototype only.** This is a partial, non-authoritative guide. The embedded distribution deliberately retains the complete historical `english/config.html` until its anchors and options have been migrated and verified.
+> **Coverage notice:** This Markdown reference preserves historical help anchors but does not yet reproduce all details of the bundled 2.2.2 configuration guide. Use the original `docs/english/config.html` for exhaustive defaults, examples and tables. The embedded distribution keeps that file unchanged until full content parity has been reviewed.
+
+## Selected documented defaults — Geeklog 2.2.2
+
+The following **historical defaults** were checked against the [tagged 2.2.2 Core configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). They describe the example/default values in that documentation, **not the current values on your site**.
+
+| Setting | Documented 2.2.2 default | Purpose and precautions |
+| --- | --- | --- |
+| `site_url` | `http://www.example.com` | Public base URL, without a trailing slash. Replace with the actual site's URL. |
+| `site_admin_url` | `http://www.example.com/admin` | Browser URL of the administration directory, **not** a filesystem path. |
+| `site_name` | `Geeklog Site` | Site name displayed in the interface. |
+| `site_slogan` | `Another Nifty Geeklog Site` | Slogan added to the HTML title. |
+| `mail_settings_port` | `25` | Historic mail-server port setting; configure the actual SMTP provider's required port and encryption, not an assumed default. |
+| `mail_settings_auth` | `0` | Historic setting for SMTP authentication disabled; enable authentication when required by the server. |
+| `ip_anonymization` | `-1` | Historic setting for no database-IP anonymization; cron scheduling can affect nonnegative policies. |
+
+For a migrated or upgraded installation, record the actual configuration before making changes. Avoid reusing example domains, historic SMTP ports or historic security defaults as production recommendations.
 
 ## Configuration panel
 
