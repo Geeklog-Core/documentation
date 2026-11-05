@@ -80,7 +80,7 @@ def apply(site, archive):
     with zipfile.ZipFile(archive) as z:
         for name in names:
             target = site / name
-            if target.is_file() and name != str(DOCS / "english/install.html"):
+            if target.is_file() and name != str(DOCS / "english/install.html") and not name.startswith("public_html/docs/english/modern/"):
                 packed = z.read(name)
                 original_bytes = target.read_bytes()
                 if packed.replace(b"\\r\\n", b"\\n") != original_bytes.replace(b"\\r\\n", b"\\n"):
@@ -99,7 +99,7 @@ def apply(site, archive):
                 if any(parent.is_symlink() for parent in (dest, *dest.parents) if parent != site and site in parent.parents):
                     raise RuntimeError("Refusing symlink target: " + name)
                 # Preserve existing historical files exactly, including CRLF.
-                if dest.is_file() and name != str(DOCS / "english/install.html"):
+                if dest.is_file() and name != str(DOCS / "english/install.html") and not name.startswith("public_html/docs/english/modern/"):
                     continue
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 dest.write_bytes(z.read(name))
