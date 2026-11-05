@@ -3431,13 +3431,47 @@ The installation's `db-config.php` stores connection parameters such as the data
 
 ### URL rewriting
 
-Geeklog 2.2.2 supports rewritten links for articles, topic pages, Static Pages and selected plugin resources. The exact legacy URL mapping table is retained in the original embedded reference while conversion and regression tests remain incomplete. Check old links and server handling before switching.
+Geeklog 2.2.2 documents the following mappings. The placeholders such as `@sid`, `@page` and `@topic` are identifiers; the domains shown are examples, not deployment URLs. URL rewriting availability depends on the installed web server and configuration.
+
+| Original URL | Rewritten URL |
+| --- | --- |
+| `https://www.example.com/article.php?story=@sid` | `https://www.example.com/article.php/@sid` |
+| `https://www.example.com/article.php?story=@sid&mode=print` | `https://www.example.com/article.php/@sid/print` |
+| `https://www.example.com/article.php?story=@sid&page=@page` | `https://www.example.com/article.php/@sid/@page` |
+| `https://www.example.com/index.php?topic=@topic` | `https://www.example.com/index.php/topic/@topic/` |
+| `https://www.example.com/index.php?topic=@topic&page=@page` | `https://www.example.com/index.php/topic/@topic/@page` |
+| `https://www.example.com/directory.php?topic=@topic&year=@year&month=@month` | `https://www.example.com/directory.php/@topic/@year/@month` |
+| `https://www.example.com/staticpages/index.php?page=@page` | `https://www.example.com/staticpages/index.php/@page` |
+| `https://www.example.com/staticpages/index.php?page=@page&disp_mode=print` | `https://www.example.com/staticpages/index.php/@page/print` |
+| `https://www.example.com/links/portal.php?what=link&item=@item` | `https://www.example.com/links/portal.php/link/@item` |
+| `https://www.example.com/links/index.php?category=@cat` | `https://www.example.com/links/index.php/@cat` |
+
+**Source:** [Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#url-rewrite).
+
 
 <a id="url-routing" name="url-routing"></a>
 
 ### URL routing
 
-URL routing builds on URL rewriting and can use `index.php` as a front controller. It requires URL rewriting first, and server rules may be needed to omit `index.php`. The complete route and priority table must still be migrated and tested.
+URL routing requires URL rewriting to be enabled first. The tagged 2.2.2 documentation defines these route patterns and priorities. Check the web server's routing configuration and existing links before enabling this feature.
+
+| Public route | Internal destination | Priority |
+| --- | --- | --- |
+| `https://www.example.com/article/@sid` | `https://www.example.com/article.php?story=@sid` | 100 |
+| `https://www.example.com/article/@sid/print` | `https://www.example.com/article.php?story=@sid&mode=print` | 110 |
+| `https://www.example.com/article/@sid/@page` | `https://www.example.com/article.php?story=@sid&page=@page` | 120 |
+| `https://www.example.com/topic/@topic` | `https://www.example.com/index.php?topic=@topic` | 130 |
+| `https://www.example.com/topic/@topic/@page` | `https://www.example.com/index.php?topic=@topic&page=@page` | 140 |
+| `https://www.example.com/archives/@topic/@year/@month` | `https://www.example.com/directory.php?topic=@topic&year=@year&month=@month` | 150 |
+| `https://www.example.com/page/@page` | `https://www.example.com/staticpages/index.php?page=@page` | 160 |
+| `https://www.example.com/page/@page/print` | `https://www.example.com/staticpages/index.php?page=@page&disp_mode=print` | 170 |
+| `https://www.example.com/links/portal/@item` | `https://www.example.com/links/portal.php?what=link&item=@item` | 180 |
+| `https://www.example.com/links/category/@cat` | `https://www.example.com/links/index.php?category=@cat` | 190 |
+
+**Order matters:** the print route must be matched before the article pagination route. Rewriting and routing require end-to-end tests on the actual server.
+
+**Source:** [Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html#url-routing).
+
 
 <a id="Localization" name="Localization"></a>
 
