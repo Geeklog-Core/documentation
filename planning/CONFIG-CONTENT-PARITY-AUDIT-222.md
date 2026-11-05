@@ -36,13 +36,13 @@ The inventory checks for missing or duplicate help IDs and rejects changes to th
 | --- | ---: | ---: | --- |
 | Unique historical anchors | 449 | 449 preserved by existing coverage check | Structural gate only |
 | Individual help anchors | 387 | 387 preserved | Structural gate only |
-| HTML tables | 49 | 0 Markdown table rows | **Content/format gap** |
-| HTML table rows | 462 | No equivalent tabular representation yet | **Content/format gap** |
+| HTML tables | 49 | One new 7-setting default table; previous setting descriptions are prose | **Content/format gap remains** |
+| HTML table rows | 462 | Seven historical defaults now in a table; complete table parity unverified | **Content/format gap remains** |
 | HTML code/preformatted blocks | 9 `<pre>` elements | 0 fenced code blocks | **Example-format gap** |
 | HTML list items | 76 `<li>` elements | Must compare manually/semantically | Review required |
 | Historical HTML characters | 174,651 | 110,804 Markdown characters | Not a valid proof of missing text alone |
 
-Counts are indicators, not claims that each HTML row needs a one-to-one Markdown table. The historic reference has **49 tables**, including configuration defaults and explanations; the migrated reference currently represents settings as prose without preserving those original default-value columns.
+Counts are indicators, not claims that each HTML row needs a one-to-one Markdown table. The historic reference has **49 tables**, including configuration defaults and explanations. The Markdown reference already has all 387 setting descriptions and 449 anchors, and now includes one seven-setting default table; the remaining original default-value columns, examples and explanatory details have not been checked for content parity.
 
 ## Confirmed content loss / incomplete topics
 
