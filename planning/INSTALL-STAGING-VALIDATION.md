@@ -201,3 +201,11 @@ The contributor manually downloaded the **GitHub Actions dual-preview artifact f
 - **Browser confirmation for this latest ZIP (user-reported, 2026-11-05):** the modern documentation home, CSS/navigation/search, Plugin API guide, and an actual configuration help link opened from the Geeklog administration interface all worked. This is **manual user evidence**, not a remote automated browser test. **Testing rollback** from the recorded backup remains outstanding.
 - **Special case:** XMLSitemap documentation is reachable (HTTP 200), but its plugin was previously recorded disabled in this isolated installation. Do not describe that as a runtime plugin test.
 - **Status:** latest consolidated ZIP **installed, 12/12 HTTP accepted and browser/admin help validated on the Chromebook**. Rollback remains **pending**, not failed. This supplements the older November 3 overlay test, which used a different archive.
+
+### P. Rollback confirmed on Chromebook — 2026-11-05
+
+After passing the 60-file overlay deployment, 12/12 HTTP checks, visual navigation/search and administrator help-link test, the user reports **“Restore OK”** for the isolated-stage restore. The backup used in this acceptance sequence was `staging-222/docs-qa-backup-20261105-112828`, created by `tools/test_chromebook_overlay.py`. The helper's rollback path restores the original Core and reCAPTCHA help trees and checks saved SHA-256 digests for three sentinel files.
+
+**Evidence boundary:** success was reported by the Chromebook operator; the exact rollback terminal output and a post-rollback HTTP screenshot were not provided. Accordingly, record **manual rollback accepted (user-confirmed)**, not an independently reproduced container test or production backup/restore certification. No database rollback or Geeklog upgrade/migration is implied.
+
+**Embedded documentation acceptance decision:** PASS for first-edition **2.2.2 documentation overlay in isolated staging** (ZIP integrity, original help preservation, HTTP/browser/help, and user-confirmed rollback). Historical Wiki contributor rights and editorial source verification remain separate approval matters for official publication.
