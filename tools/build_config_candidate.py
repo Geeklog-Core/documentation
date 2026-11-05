@@ -32,7 +32,9 @@ class Inspect(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
-        self.anchors.extend(dict.fromkeys(a[n] for n in ("id", "name") if a.get(n)))
+        self.anchors.extend(dict.fromkeys([a["id"]] if a.get("id") else []))
+        if tag == "a" and a.get("name") and a["name"] != a.get("id"):
+            self.anchors.append(a["name"])
         if tag == "a" and a.get("href"):
             self.links.append(a["href"])
         if tag == "link" and a.get("href"):
