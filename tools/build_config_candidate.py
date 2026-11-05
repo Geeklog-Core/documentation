@@ -6,6 +6,7 @@ Geeklog 2.2.2 config.html, which stays byte-identical to the tagged release.
 Run after the dual documentation build, with GEEKLOG_CORE_DOCS set.
 """
 from html.parser import HTMLParser
+from html import unescape
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 import json
@@ -60,6 +61,42 @@ def main():
         '<link rel="stylesheet" href="../docstyle.css"></head>'
         '<body><main>' + body + '</main></body></html>'
     )
+    # The two historical routing tables are now maintained in Markdown.
+    # Compare all individual legacy rows with the candidate, not just counts.
+    routing_tables = {}
+    for anchor, columns in (("url-rewrite", 2), ("url-routing", 3)):
+        old_location = LEGACY.read_text(encoding="utf-8").index(
+            'name="' + anchor + '"')
+        candidate_location = candidate.index('id="' + anchor + '"')
+        legacy_table = re.search(
+            r"<table\\b[^>]*>[\\s\\S]*?</table>",
+            LEGACY.read_text(encoding="utf-8")[old_location:], re.I)
+        new_table = re.search(
+            r"<table\\b[^>]*>[\\s\\S]*?</table>",
+            candidate[candidate_location:], re.I)
+        assert legacy_table and new_table, (
+            f"Missing legacy or migrated routing table: {anchor}")
+        def read_rows(markup):
+            result = []
+            for row in re.findall(
+                r"<tr\\b[^>]*>([\\s\\S]*?)</tr>", markup, re.I
+            ):
+                cells = [
+                    re.sub(r"\\s+", " ", unescape(
+                        re.sub(r"<[^>]+>", "", text))).strip()
+                    for text in re.findall(
+                        r"<td\\b[^>]*>([\\s\\S]*?)</td>", row, re.I)
+                ]
+                if cells:
+                    result.append(cells)
+            return result
+        expected = read_rows(legacy_table.group(0))
+        actual = read_rows(new_table.group(0))
+        assert len(expected) == 10 and all(len(row) == columns for row in expected)
+        assert actual == expected, (
+            f"Routing URL / priority mismatch in {anchor}")
+        routing_tables[anchor] = len(actual)
+
     current = parsed(candidate)
     historical = set(original.anchors)
     generated = set(current.anchors)
@@ -133,6 +170,7 @@ def main():
         "candidate_local_links_checked": linked,
         "legacy_embedded_configuration_replaced": False,
         "content_parity": "INCOMPLETE — original tables, examples and links remain under review",
+        "validated_routing_tables": routing_tables,
         "comparison": structure,
         "outstanding": [
             "Full semantic/text/table/example parity with tagged original",
@@ -143,6 +181,7 @@ def main():
     }
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print("PASS: candidate generated from Markdown, 449 historical anchors, 387 defaults")
+    print("PASS: all 20 legacy URL rewriting/routing data rows match the candidate")
     print(f"PASS: {linked} candidate local links, referenced assets and fragments checked")
     print("NOTE: candidate is an isolated review artifact, NOT a production replacement")
 
