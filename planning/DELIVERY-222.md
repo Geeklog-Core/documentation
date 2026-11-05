@@ -45,10 +45,10 @@ The **single consolidated contributor branch** is `hostellerie/documentation:pro
 | Search, navigation and static HTTP reachability | **PASS (CI)** | Delivery-readiness and HTTP smoke checks |
 | Editorial and technical review of all 13 guides | **PARTIAL** | `EDITORIAL-PROVENANCE-REVIEW-222.md` plus maintainer sign-off |
 | Wiki reuse license/author credits | **UNRESOLVED** | Verified Wiki notice, histories, or replacement with noncopied original text |
-| Latest ZIP integration in running Geeklog 2.2.2 | **NOT VERIFIED** | Admin help clicks, config/plugins and rollback recorded in staging |
+| Latest ZIP integration in running Geeklog 2.2.2 | **PASS — user-confirmed isolated staging** | 60-file ZIP; 12/12 HTTP; modern search/layout; admin contextual help; rollback accepted; see `INSTALL-STAGING-VALIDATION.md` sections O–P |
 | Official Pages publication and browser check | **NOT DONE for this branch** | Maintainer merge then manual publish and visual review |
 
-**Release decision: NO-GO for calling the complete documentation officially released.** This does not block presenting a consolidated **draft PR** for maintainer review, provided its body openly records those outstanding gates. If the user's priority is a single final, ready-to-merge PR, satisfy the unresolved gates first rather than claiming completeness.
+**Release decision: ready for a single consolidated maintainer-review PR, but NOT yet for automatic publication or an unqualified claim of a complete Wiki migration.** This does not block presenting a consolidated **draft PR** for maintainer review, provided its body openly records those outstanding gates. The 2.2.2 embedded overlay has now passed the real Chromebook staging acceptance, including user-confirmed rollback. Wiki content attribution/editorial sign-off and official Pages deployment are separate maintainer approval/publication gates.
 
 ## Scope boundaries
 
@@ -70,5 +70,5 @@ The plugin API guide contains a corrected version-specific distinction: deprecat
 ## Go/no-go
 
 - **Online:** build/test succeeds, 13 searchable guides available, documentation links and layout verified, maintainer-approved merge and manual Pages publication.
-- **Embedded:** built ZIP passes integrity checker, offline staging installation and admin help tests are recorded, release scope and rollback documented.
+- **Embedded:** built ZIP passes integrity checker, offline staging installation, admin help tests and rollback are recorded, release scope and rollback documented.
 - **Do not claim final release** on only structural anchor counts or a green build.
