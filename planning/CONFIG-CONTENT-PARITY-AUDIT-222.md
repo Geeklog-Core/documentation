@@ -90,6 +90,14 @@ Added a clearly labeled **Historical configuration cross-references** section to
 
 **Limitation:** this restores the source's set of navigation links, **not their original in-paragraph positions**. The 3 historical relative file links remain a separate online/embedded path decision; the 48 external URLs still need editorial relevance, licensing and link-target review. Do not declare complete link-content parity based on this navigation index.
 
+## First source-backed semantic review batch — 2026-11-05
+
+The 387 configuration help anchors and their historical defaults were previously migrated. This batch improves **actual descriptions**, focusing on five configuration options with compatibility or security implications: `mail_settings_backend`, `pass_alg`, `ip_anonymization`, `url_routing`, and `filemanager_disabled`.
+
+The changes restore specific tagged 2.2.2 information: the `smtps` transport's OpenSSL requirement; the full five historical password hash algorithm identifiers with a modern-security caveat; the dependence of delayed database IP anonymization on `cron_schedule_interval` and its exclusion of log files; URL routing's rewrite prerequisite and the historic appendix; and the exact `filemanager_disabled=true` behavior, including the `Root` exception.
+
+A small `tools/check_config_semantic_gates.py` guard now checks those critical option tokens against both the tagged source and maintained Markdown. This is a **targeted editorial regression check for five options**, not an automated approval of the remaining **382** descriptions. It does not claim that an installed Geeklog 2.2.2 administration UI has been tested.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
