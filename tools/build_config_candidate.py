@@ -135,6 +135,21 @@ def main():
     assert "<pre>" in cron_markup and "</pre>" in cron_markup, (
         "Cron schedule example is not rendered as preformatted code")
 
+    # All nine historical preformatted example slots are now represented
+    # in the Markdown-derived candidate. This is a formatting/coverage
+    # gate, NOT an assertion of byte-for-byte snippet equivalence.
+    legacy_examples = re.findall(r"<pre\\b[^>]*>", LEGACY.read_text(encoding="utf-8"), re.I)
+    rendered_examples = re.findall(r"<pre\\b[^>]*>", candidate, re.I)
+    assert len(legacy_examples) == 9, "Unexpected legacy example baseline"
+    assert len(rendered_examples) == 9, (
+        f"Missing preformatted examples: {len(rendered_examples)} of 9")
+    for keyword in (
+        "Original Article:", "Written By:", "Comment By:",
+        "RewriteEngine On", "RewriteRule", "system.webServer",
+        "RewriteCond", "cron-emailgeeklogdailydigest",
+    ):
+        assert keyword in candidate, f"Expected legacy example topic absent: {keyword}"
+
     current = parsed(candidate)
     historical = set(original.anchors)
     generated = set(current.anchors)
@@ -211,6 +226,8 @@ def main():
         "validated_routing_tables": routing_tables,
         "validated_date_format_directives": len(migrated_directives),
         "validated_cron_appendix": True,
+        "historical_preformatted_example_slots": len(legacy_examples),
+        "candidate_preformatted_example_slots": len(rendered_examples),
         "comparison": structure,
         "outstanding": [
             "Full semantic/text/table/example parity with tagged original",
@@ -223,6 +240,7 @@ def main():
     print("PASS: candidate generated from Markdown, 449 historical anchors, 387 defaults")
     print("PASS: all 20 legacy URL rewriting/routing data rows match the candidate")
     print("PASS: all 33 date format directives preserved in source order")
+    print("PASS: 9 historical preformatted example slots represented in candidate")
     print(f"PASS: {linked} candidate local links, referenced assets and fragments checked")
     print("NOTE: candidate is an isolated review artifact, NOT a production replacement")
 
