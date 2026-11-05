@@ -60,7 +60,9 @@ def main():
             "anchor": identifier,
             "setting": identifier.removeprefix("desc_"),
             "documented_default": text(1),
+            "historical_description": text(2),
             "default_reviewed": False,
+            "description_editorially_reviewed": False,
         })
 
     # A stable structural baseline; not an assertion that every default is
@@ -106,6 +108,14 @@ def main():
         assert actual == expected, (
             f"Default mismatch for {key}: {actual!r} != {expected!r}")
         item["default_transcribed"] = True
+        # Keep the old full cell description and the current Markdown
+        # paragraph together for line-by-line editorial comparison.
+        # No automated similarity score can certify semantic parity.
+        match = re.search(r"(?m)^#{2,3} ", section)
+        excerpt = section if match is None else section[:match.start()]
+        excerpt = re.sub(pattern, "", excerpt)
+        excerpt = re.sub(r"\\s+", " ", excerpt).strip()
+        item["modern_description"] = excerpt
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps({
@@ -114,6 +124,8 @@ def main():
         "total_rows": len(records),
         "manually_reviewed_settings": list(historical),
         "defaults_transcribed_into_markdown": len(records),
+        "description_review_pending": len(records),
+        "description_comparison": "Historic full text and current Markdown excerpt recorded per parameter; requires editorial review",
         "items": records,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"PASS: {len(records)} historical defaults reproduced in the Markdown source; "
