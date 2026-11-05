@@ -3537,6 +3537,26 @@ For a site in a subdirectory, adjust the path prefix on the `RewriteRule` and re
 </configuration>
 ```
 
+**Apache `RewriteRule` path variants from the legacy reference:**
+
+For a site deployed at the document root:
+
+```apache
+RewriteRule ^(.*)$ /index.php/$1 [L]
+```
+
+For a subdirectory deployment, the original examples use a placeholder. Replace `[sub_directory]` with the correct path, including the slash where required:
+
+```apache
+RewriteRule ^(.*)$ [sub_directory]/index.php/$1 [L]
+```
+
+```apache
+RewriteRule ^(.*)$ /[sub_directory]/index.php/$1 [L]
+```
+
+Never keep `[sub_directory]` literally in a production rule. The required prefix depends on the document root and application location.
+
 The examples reflect the routing mechanism in the tagged 2.2.2 reference; they do **not** reproduce all settings or security rules in the distribution's sample files. Routing relies on supported `PATH_INFO` handling, rule ordering and a compatible web server configuration. First validate existing and rewritten URLs in staging, including articles, archives, print views and a site installed in a subdirectory.
 
 
