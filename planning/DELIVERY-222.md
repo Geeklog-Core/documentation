@@ -19,13 +19,19 @@ Status: **release candidate / preview only**, not an official Geeklog 2.2.2 dist
 5. Check `/docs/english/install.html`, `/docs/english/config.html#desc_site_url`, `/docs/english/modern/index.html`, one modern guide's CSS, and context-sensitive help launched from the actual administration UI; test all seven bundled plugin help destinations.
 6. Preserve an original-docs rollback copy. Do not announce fully verified packaging until tests are recorded. The built ZIP contains unchanged legacy config/plugin help and a generated install.html; additional Markdown guides are additive under `docs/english/modern/`.
 
+## Automated extracted-overlay test
+
+Both CI workflows now run `tools/check_extracted_overlay.py` after building and checking the ZIP. The test copies the pinned Geeklog 2.2.2 Core documentation and tagged reCAPTCHA documentation into a **temporary disposable filesystem tree**, extracts the actual generated ZIP there, compares all original files, and confirms that only `public_html/docs/english/install.html` changes. It also verifies the modern HTML/CSS/search files exist, that unrelated installation files remain untouched, and that restoring the historical documentation returns the entire test tree to its original checksums.
+
+This test **does not start Geeklog or a Docker container** and is **not equivalent** to clicking Core and plugin help links in the installed administrator UI. It is a repeatable filesystem packaging and restoration gate, intended to catch deployment-path errors before a manual integration test.
+
 ## Scope boundaries
 
 - 387 individual configuration help anchors and 449 historical unique configuration IDs are structurally present on the **online** Markdown configuration page. This does **not** mean full content parity.
 - The **embedded** `public_html/docs/english/config.html` is deliberately preserved byte-identical to the tagged Core 2.2.2 source. Its tables, defaults, and context-sensitive help must not be silently replaced with the condensed online reference.
 - The retained legacy HTML is a **temporary compatibility asset**, not a second actively edited source of documentation.
 - Historical Wiki content is selectively modernized. The prototype does not purport to have migrated the whole Wiki or all release versions.
-- The Git tag docs have been checked against the pinned Core tree. The downloadable historical `geeklog-2.2.2.tar.gz` binary is a separate release-equivalence check, not yet asserted.
+- The Git tag docs have been checked against the pinned Core tree. The official historical `geeklog-2.2.2.tar.gz` distribution was independently audited in `planning/OFFICIAL-ARCHIVE-VALIDATION.md`; this audit is not certification of the generated preview ZIP as an official release.
 - No branch proliferation: continue improvements on `prototype/wiki-unified-222` until its single consolidated upstream PR is ready.
 
 ## Go/no-go
