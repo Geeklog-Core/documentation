@@ -74,11 +74,17 @@ def copy_originals(site, backup):
 def apply(site, archive):
     names = validate_archive(archive)
     original = {str(rel): digest(site / rel) for rel in SENTINELS}
+    # The official 2.2.2 release can differ from the pinned source only by
+    # line ending normalization. Preserve *all* existing historical files
+    # byte-for-byte instead of rewriting them with the ZIP's line endings.
     with zipfile.ZipFile(archive) as z:
-        if z.read(str(DOCS / "english/config.html")) != (site / DOCS / "english/config.html").read_bytes():
-            raise RuntimeError("Refusing ZIP: Core config.html differs from stage")
-        if z.read(str(RECAPTCHA / "english/config.html")) != (site / RECAPTCHA / "english/config.html").read_bytes():
-            raise RuntimeError("Refusing ZIP: reCAPTCHA config.html differs from stage")
+        for name in names:
+            target = site / name
+            if target.is_file() and name != str(DOCS / "english/install.html"):
+                packed = z.read(name)
+                original_bytes = target.read_bytes()
+                if packed.replace(b"\\r\\n", b"\\n") != original_bytes.replace(b"\\r\\n", b"\\n"):
+                    raise RuntimeError("Refusing ZIP: legacy document content differs: " + name)
     backup = site.parent / ("docs-qa-backup-" + time.strftime("%Y%m%d-%H%M%S"))
     backup.mkdir(mode=0o700)
     try:
@@ -92,6 +98,9 @@ def apply(site, archive):
                 # Do not write through symlinks, even when located below docs.
                 if any(parent.is_symlink() for parent in (dest, *dest.parents) if parent != site and site in parent.parents):
                     raise RuntimeError("Refusing symlink target: " + name)
+                # Preserve existing historical files exactly, including CRLF.
+                if dest.is_file() and name != str(DOCS / "english/install.html"):
+                    continue
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 dest.write_bytes(z.read(name))
         for rel in (DOCS / "english/config.html", RECAPTCHA / "english/config.html"):
@@ -101,7 +110,7 @@ def apply(site, archive):
         print("ERROR: deployment stopped. Backup retained at:", backup, file=sys.stderr)
         print("Use --rollback with this backup once the staging path is confirmed.", file=sys.stderr)
         raise
-    print("PASS: overlay applied in isolated staging only")
+    print("PASS: overlay applied in isolated staging only; original legacy files preserved")
     print("Files in ZIP:", len(names))
     print("Backup:", backup)
     print("HTTP test: http://localhost:8083/docs/english/modern/index.html")
