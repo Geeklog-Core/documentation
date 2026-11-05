@@ -61,6 +61,16 @@ def validate_site():
                 dest = inspect(destination.read_text(encoding="utf-8"))
                 assert unquote(target.fragment) in dest.identifiers, f"Broken fragment: {page}: {reference}"
             references_checked += 1
+    # Once published, navigation and footers must no longer call the site
+    # an unpublished prototype. Editorial scope disclaimers remain elsewhere.
+    forbidden = ("Geeklog documentation — prototype",
+                 "Independent Markdown migration prototype",
+                 "Preview only · Geeklog 2.2.2 documentation migration",
+                 "modernization preview", "modernized draft")
+    for page in SITE.rglob("*.html"):
+        markup = page.read_text(encoding="utf-8")
+        assert not any(phrase in markup for phrase in forbidden), (
+            f"Obsolete launch label in {page}")
     assert page_count == 15, f"Expected 15 HTML pages, got {page_count}"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
