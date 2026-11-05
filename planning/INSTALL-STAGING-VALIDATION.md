@@ -186,3 +186,18 @@ The user then followed staging-only backup/overlay instructions on `~/geeklog-do
 **Validated scope:** a real fresh Geeklog 2.2.2 staging site under PHP 8.1.33 / MariaDB 10.11 (site and authenticated admin accessible), six active bundled plugins with XMLSitemap disabled, installer entrypoint HTTP 404, generated documentation overlay and sampled contextual help. **Not yet validated:** every historic help link, actual restore/rollback, all-plugin success (XMLSitemap issue remains), administrator password change, config permissions after install, upgrade/migrate scenarios.
 
 **Next:** review remaining gates, update contradictory old status claims in this document and the README/PROTOTYPE, run branch workflow after latest edits, then prepare **one grouped PR** for the installation-documentation workstream. Do not present the generated ZIP as an official release package.
+
+
+### O. Latest consolidated ZIP — Chromebook acceptance, 2026-11-05
+
+The contributor manually downloaded the **GitHub Actions dual-preview artifact from run #41964801825** (branch `prototype/wiki-unified-222`, commit `b57d742`). The outer artifact ZIP was verified with `unzip -tq`, contained `geeklog-2.2.2-docs-preview.zip`, and the inner ZIP passed `unzip -tq`.
+
+- **Exact inner ZIP SHA-256:** `d4bc5bd80229e3d503d174dbd30d1bf02ae27bb0e1ff5f1dcd535bbb0915d69d`.
+- **Archive entries:** 60, rooted under `public_html/docs/` and `public_html/admin/plugins/recaptcha/docs/`.
+- **Staging container:** `geeklog-docs-stage-web-1` (image `222-web`, `127.0.0.1:8083->80`), independent MariaDB `geeklog-docs-stage-db-1` (`mariadb:10.11`, no published database port). No production installation used.
+- **Apply:** `python3 tools/test_chromebook_overlay.py --apply geeklog-2.2.2-docs-preview.zip` returned `PASS: overlay applied in isolated staging only; original legacy files preserved` and `Files in ZIP: 60`.
+- **Backup reported by local helper:** `/home/hostellerie/geeklog-docs-validation/staging-222/docs-qa-backup-20261105-112828`.
+- **Static web requests:** the user ran the 12-URL HTTP check against `http://localhost:8083` and reports **HTTP 200 for all 12**, including install/config, modern index/plugin API/backup guide, six bundled Core plugin help pages and plugin-local reCAPTCHA config help.
+- **Still unverified for this latest ZIP:** current browser rendering/CSS/navigation/search, actually clicking a configuration help button in the administration UI, and **testing rollback** from the reported backup. HTTP 200 alone does not certify those.
+- **Special case:** XMLSitemap documentation is reachable (HTTP 200), but its plugin was previously recorded disabled in this isolated installation. Do not describe that as a runtime plugin test.
+- **Status:** latest consolidated ZIP **installed and HTTP acceptance passed on the Chromebook**. Functional-admin and rollback gates remain **pending**, not failed. This supplements the older November 3 overlay test, which used a different archive.
