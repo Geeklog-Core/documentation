@@ -80,6 +80,7 @@ def main():
         assert by_id[identifier]["documented_default"] == expected, (
             f"Unexpected historical default for {identifier}"
         )
+        by_id[identifier]["default_reviewed"] = True
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps({
