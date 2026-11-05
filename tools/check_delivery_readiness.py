@@ -84,7 +84,30 @@ def validate_embedded():
         assert MODERN + "index.html" in names
         modern_pages = [name for name in names if name.startswith(MODERN) and name.endswith(".html")]
         assert len(modern_pages) == 11, f"Expected 11 modern HTML pages, got {len(modern_pages)}"
-        assert z.read(MODERN + "search-index.json")
+        embedded_index = json.loads(z.read(MODERN + "search-index.json"))
+        assert len(embedded_index) == 10, "Expected ten searchable offline guides"
+        assert len({item["url"] for item in embedded_index}) == 10
+        for item in embedded_index:
+            assert MODERN + item["url"] in names, f"Offline search entry missing: {item['url']}"
+        # Check each generated modern guide from its final ZIP path, including
+        # CSS, scripts, navigation links, and intra/inter-page fragments.
+        checked = 0
+        for name in modern_pages:
+            parsed = inspect(z.read(name).decode("utf-8"))
+            for reference in parsed.references:
+                parts = urlsplit(reference)
+                if parts.scheme or parts.netloc or reference.startswith("//"):
+                    continue
+                path = Path(name).parent / unquote(parts.path) if parts.path else Path(name)
+                normalized = __import__("posixpath").normpath(path.as_posix())
+                assert normalized.startswith(MODERN), f"Embedded link escapes modern docs: {name}: {reference}"
+                assert normalized in names, f"Broken offline ZIP link: {name}: {reference}"
+                if parts.fragment and normalized.endswith(".html"):
+                    dest = inspect(z.read(normalized).decode("utf-8"))
+                    assert unquote(parts.fragment) in dest.identifiers, (
+                        f"Broken offline ZIP fragment: {name}: {reference}")
+                checked += 1
+        assert checked > 30, f"Suspiciously few embedded references tested: {checked}"
         assert b"desc_site_url" in z.read(LEGACY_CONFIG)
         assert b"installation_requirements" in z.read(LEGACY_INSTALL)
         for name in ("calendar","links","polls","spamx","staticpages","xmlsitemap"):
@@ -93,7 +116,8 @@ def validate_embedded():
         for suffix in ("style.css", "search.js", "search-index.json"):
             assert MODERN + suffix in names
         return {"zip_entries":len(names),"modern_embedded_html_pages":len(modern_pages),
-                "legacy_help_pages_preserved": True}
+                "legacy_help_pages_preserved": True,
+                "offline_modern_references_checked": checked}
 
 def main():
     report = {"scope":"Geeklog 2.2.2 preliminary delivery readiness",
