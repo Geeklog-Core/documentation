@@ -130,13 +130,13 @@ def main():
         '<label for="docs-search">Find a topic across all available guides</label>'
         '<input type="search" id="docs-search" autocomplete="off" '
         'placeholder="Search all documentation">'
-        '<div id="docs-results" aria-live="polite"></div>'
+        '<div id="docs-results" aria-live="polite" hidden></div>'
         '<noscript>Search requires JavaScript. Use the topic links instead.</noscript>'
         '</section>'
         '<script defer src="search.js"></script>'
     )
     browse_markup = (
-        '<section aria-label="Browse all guides">'
+        '<section id="docs-catalogue" aria-label="Browse all guides">'
         '<h2>Browse the documentation</h2>'
         '<p>Guides for Geeklog 2.2.2, with additional administration and development references. '
         'The original embedded configuration help remains authoritative for '
@@ -146,7 +146,7 @@ def main():
             for item in entries
         ) + '</ul></section>'
     )
-    html = html.replace(tag, browse_markup + search_markup + tag)
+    html = html.replace(tag, search_markup + browse_markup + tag)
     index.write_text(html, encoding="utf-8")
     assert all((SITE / item["url"]).is_file() for item in entries)
     assert html.count('aria-label="Browse all guides"') == 1
