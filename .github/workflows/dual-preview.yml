@@ -65,6 +65,9 @@ jobs:
       - run: python tools/audit_config_defaults.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/audit_config_links.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/build_config_candidate.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
@@ -91,6 +94,7 @@ jobs:
           path: |
             dist/config-candidate-review.zip
             dist/config-candidate-report.json
+            dist/config-link-audit.json
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
