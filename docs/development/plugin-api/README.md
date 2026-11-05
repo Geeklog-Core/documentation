@@ -30,7 +30,8 @@ The following **dispatcher-to-callback mappings were checked directly in the tag
 
 | Core dispatcher or installation mechanism | Callback referenced by Core |
 | --- | --- |
-| `PLG_install()` | `plugin_autoinstall_<name>` |
+| `PLG_install()` — **deprecated** | `plugin_install_<name>` (legacy callback; deprecated dispatcher) |
+| `PLG_getParams()` — auto-install metadata lookup | `plugin_autoinstall_<name>` loaded from `plugins/<name>/autoinstall.php` when present |
 | `PLG_upgrade()` | `plugin_upgrade_<name>` |
 | `PLG_uninstall()` | `plugin_autouninstall_<name>` (auto path) or `plugin_uninstall_<name>` (legacy path) |
 | `PLG_doSearch()` | `plugin_dopluginsearch_<name>` |
@@ -38,6 +39,8 @@ The following **dispatcher-to-callback mappings were checked directly in the tag
 | `PLG_approveSubmission()` | `plugin_moderationapprove_<name>` |
 | `PLG_displayComment()` | `plugin_displaycomment_<name>` |
 | `PLG_getPluginStats()` | `plugin_showstats_<name>` when applicable |
+
+**Important 2.2.2 distinction:** `PLG_install()` is marked deprecated since Geeklog 1.6.0 in the tagged source and calls `plugin_install_<name>`, not `plugin_autoinstall_<name>`. The `plugin_autoinstall_<name>` callback is accessed through `PLG_getParams()` when `autoinstall.php` exists. These are separate pathways and must not be conflated.
 
 This confirms that **Core references these callback names** in 2.2.2. It does **not** establish every callback's full parameter contract, required implementation, availability in later Geeklog versions, or safety of older Wiki examples. Those remain release-validation tasks.
 
@@ -66,11 +69,12 @@ See the future dedicated guides for plugin installation, moderation and comment 
 
 ## Compatibility checklist
 
-- [ ] API and parameters checked against the target Geeklog release
+- [x] Dispatcher mapping for `PLG_install()`, `PLG_getParams()` and `PLG_upgrade()` rechecked against the Geeklog v2.2.2 tagged source
+- [ ] Complete callback parameter contracts checked against the target Geeklog release
 - [ ] Installation and upgrade rehearsed in staging
 - [ ] All code examples tested with the target PHP/runtime
 - [ ] Permission/CSRF checks reviewed
 - [ ] Legacy Wiki links mapped to final anchors
 - [ ] Attribution and reuse license approved
 
-**Source provenance:** recovered 2024-11-02 Geeklog Wiki backup (titles above); actual editing and code validation remain pending.
+**Source provenance:** new release-scoped synthesis informed by topic titles from the recovered 2024-11-02 Geeklog Wiki backup (titles above) and the tagged Geeklog v2.2.2 source. Original Wiki text, page contributors and reuse license still require verification before any verbatim republication. See [editorial provenance review](../../../planning/EDITORIAL-PROVENANCE-REVIEW-222.md).
