@@ -33,7 +33,8 @@ SEARCH_JS = r"""(() => {
   'use strict';
   const field = document.getElementById('docs-search');
   const output = document.getElementById('docs-results');
-  if (!field || !output) return;
+  const catalogue = document.getElementById('docs-catalogue');
+  if (!field || !output || !catalogue) return;
   let records = [];
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
@@ -55,6 +56,8 @@ SEARCH_JS = r"""(() => {
 
   function update() {
     list.replaceChildren();
+    catalogue.hidden = field.value.trim().length > 0;
+    output.hidden = !catalogue.hidden;
     const terms = field.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     if (!terms.length) {
       status.textContent = '';
