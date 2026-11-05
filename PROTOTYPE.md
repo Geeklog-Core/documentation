@@ -23,3 +23,9 @@ The maintainer should merge one reviewed PR into the official `Geeklog-Core/docu
 - Maintain release version labeling, source attribution and rollback documentation.
 
 Do not treat structural anchor coverage as content or runtime compatibility.
+
+## Verified official archive and isolated installer observations
+
+The [official Geeklog 2.2.2 archive validation](planning/OFFICIAL-ARCHIVE-VALIDATION.md) checked the downloaded distribution's documentation against the pinned source: 46 documented files, eight byte-identical, 37 differing only by line-ending normalization, and one intended updated installation HTML file. These checks are distinct from an officially approved release.
+
+The [isolated Docker installation report](planning/INSTALL-STAGING-VALIDATION.md) records a fresh installation from the official 2.2.2 archive using PHP 8.1.33 / MariaDB 10.11, working authenticated administration and a documentation overlay. XMLSitemap was disabled following a post-install permissions warning; this is not proof its installation is repaired. Upgrade, migration, tested rollback, and the final post-install security checklist are not yet accepted.
