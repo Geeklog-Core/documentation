@@ -50,6 +50,24 @@ def main():
             raise SystemExit(f"Required input absent: {path}")
     assert PACKAGED.read_bytes() == CORE.read_bytes(), (
         "Embedded config.html differs from pinned source")
+    # The first migrated default-value table is an audited, source-backed subset.
+    # Do not infer parity for all configuration settings from this check.
+    reference = WEB.read_text(encoding="utf-8")
+    for setting, default in (
+        ("site_url", "http://www.example.com"),
+        ("site_admin_url", "http://www.example.com/admin"),
+        ("site_name", "Geeklog Site"),
+        ("site_slogan", "Another Nifty Geeklog Site"),
+        ("mail_settings_port", "25"),
+        ("mail_settings_auth", "0"),
+        ("ip_anonymization", "-1"),
+    ):
+        assert f"<code>{setting}</code>" in reference, (
+            f"Missing audited setting in online configuration: {setting}")
+        assert f"<code>{default}</code>" in reference, (
+            f"Missing audited historical default in online configuration: {setting}")
+    assert "Prototype only" not in reference, "Obsolete configuration banner"
+
     source = {name for name in names(CORE) if name.startswith("desc_")}
     rendered = {name for name in names(WEB) if name.startswith("desc_")}
     assert len(source) >= 300, "Unexpectedly small source anchor inventory"
