@@ -52,6 +52,32 @@ The [2.2.2 user administration handler](https://github.com/Geeklog-Core/geeklog/
 4. Confirm the intended administrators retain access and that `Root` membership has not expanded.
 5. If the change breaks access, use a documented recovery procedure based on a tested backup rather than bypassing authorization checks.
 
+## Account-access review after an administrator change
+
+Treat user administration, group membership and access to individual content as **separate questions**. An administrator account used to save a configuration change is not a reliable test of what a normal visitor can do.
+
+1. Record the intended role and the exact action it must perform, such as editing users, managing groups or publishing a page.
+2. Review the effective group memberships and feature rights of a disposable staging account, not just its displayed role name.
+3. Test the allowed action using the normal application form. Verify that the action really persisted and did not merely render the form.
+4. In a separate session, test an action outside that role. Directly visiting an administration URL must not bypass its server-side check.
+5. Verify the content's **read permissions** separately by opening its public URL anonymously and with the relevant registered role.
+6. Review whether granting membership introduces additional inherited privileges; confirm that the intended `Root` accounts still retain access.
+
+| Administrative task | Representative feature right or condition | Separate check |
+| --- | --- | --- |
+| Edit user records | `user.edit` | Group assignment may also require `group.assign` |
+| Change group settings | `group.edit` | Do not treat an edit form as proof that assigning membership is allowed |
+| Edit Static Pages | `staticpages.edit` in the bundled plugin | Check per-page visibility and independent `staticpages.PHP` restriction |
+| Export through the built-in database page | `Root` group for Geeklog 2.2.2 | Check the database engine and backup path; this is not a general user-management permission |
+
+These are **representative checks**, not a complete authorization matrix for every installed plugin. Inspect the tagged handlers and active deployment before making security claims.
+
+## Recovery planning for accidental lockout
+
+Before modifying administrator memberships, ensure an independently tested recovery plan exists. Keep an authorized administrator account available for verification. If the intended account loses access, do not modify SQL tables blindly or bypass token checks; follow the [backup and recovery guide](https://geeklog-core.github.io/documentation/modern/administration/backup-and-recovery/index.html) and use the supported procedure for the installed release.
+
+For a failed login or a 403 response, collect a sanitized timestamp and error message and follow the [troubleshooting guide](https://geeklog-core.github.io/documentation/modern/administration/troubleshooting/index.html). Avoid disclosing usernames, password hashes, sessions or account records in public issues.
+
 ## Protecting changes
 
 The tagged 2.2.2 user and group administration handlers use `SEC_createToken()` and `SEC_checkToken()` to protect sensitive form actions. Keep these checks when extending the interface.
