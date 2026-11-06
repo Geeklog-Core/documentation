@@ -887,7 +887,7 @@ Maximum number of comments displayed per page; bundled default `100`.
 
 
 **Documented default (Geeklog 2.2.2):** `nested`
-Default display mode for comments; 2.2.2 lists `threaded`, `nested`, `flat` and `nocomments`.
+The historical comment display options are `threaded`, `nested`, `flat`, or `nocomments`. The bundled default is `nested`. This selects how comments are displayed, not who can post them.
 
 <a id="desc_comment_order" name="desc_comment_order"></a>
 
@@ -895,7 +895,7 @@ Default display mode for comments; 2.2.2 lists `threaded`, `nested`, `flat` and 
 
 
 **Documented default (Geeklog 2.2.2):** `ASC`
-Top-level comment order by date: `ASC` oldest first or `DESC` newest first.
+Sorts top-level comments by date: `ASC` means **Oldest First**, while `DESC` means **Newest First**. The documented default is `ASC`; this is distinct from the comment display mode.
 
 <a id="desc_comment_code" name="desc_comment_code"></a>
 
@@ -903,7 +903,7 @@ Top-level comment order by date: `ASC` oldest first or `DESC` newest first.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Default comment availability on new articles: `0` enables comments, while `-1` disables them.
+Initial setting for **new articles**: `0` means **comments enabled**, while `-1` means **disabled**. The documented default is `0`. It is an article creation default and does not automatically rewrite existing articles.
 
 <a id="desc_commentsubmission" name="desc_commentsubmission"></a>
 
@@ -919,7 +919,7 @@ Set to `1` to enable the comment submission moderation queue, or `0` to disable 
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Enables a limited editing window for registered users' own comments. Anonymous users cannot edit their comments, while administrators with `comment.edit` may. Review interactions with queued comments.
+When enabled, allows registered users to edit their own comments for a limited time (see `comment_edittime`). **Anonymous** users can never edit their own comments; administrators with the `comment.edit` permission can always edit them. The original reference advises setting this to `0` when **Comment Submissions are Queued**, because authors generally cannot access their submitted comments before approval. The bundled default is `0`; verify effective rights in a test installation.
 
 <a id="desc_comment_edittime" name="desc_comment_edittime"></a>
 
@@ -927,7 +927,7 @@ Enables a limited editing window for registered users' own comments. Anonymous u
 
 
 **Documented default (Geeklog 2.2.2):** `1800`
-Time in seconds during which an author may edit a comment when editing is enabled; bundled default `1800`.
+Maximum number of **seconds** for which the submitting user may edit a comment. The documented default is `1800` seconds. This only applies when comment editing is enabled by `comment_edit`; it does not replace administrators' `comment.edit` permissions.
 
 <a id="desc_article_comment_close_enabled" name="desc_article_comment_close_enabled"></a>
 
@@ -935,7 +935,7 @@ Time in seconds during which an author may edit a comment when editing is enable
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Default setting for whether newly created articles should stop accepting comments after a specified number of days. It can be changed per article.
+Default setting for **new articles** determining whether comments should be closed after a configured number of days. This can be changed **separately for each article**. The bundled default is `0` (not enabled); see `article_comment_close_days` for the duration.
 
 <a id="desc_article_comment_close_days" name="desc_article_comment_close_days"></a>
 
@@ -943,7 +943,7 @@ Default setting for whether newly created articles should stop accepting comment
 
 
 **Documented default (Geeklog 2.2.2):** `30`
-Number of days after which new articles configured for automatic closure stop accepting comments; bundled default `30`. It has no effect unless closure is enabled for that article.
+The historical default is `30` **days** after which an article configured for automatic closing accepts **no new comments**. This supplies the initial value of the article's **Disable Comments** control; it has **no effect unless enabled for that article** through the corresponding close setting.
 
 <a id="desc_comment_close_rec_stories" name="desc_comment_close_rec_stories"></a>
 
@@ -951,7 +951,7 @@ Number of days after which new articles configured for automatic closure stop ac
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Number of most recent articles that permit new comments; older articles can be closed as new ones arrive. `0` disables this limit.
+The number of **most recent articles** for which comment posting remains allowed. Publishing a **new article** automatically closes comments on the **oldest** article outside this rolling group. Set to `0` to **disable** this rule (the documented default). This is independent of per-article closure by age.
 
 <a id="desc_allow_reply_notifications" name="desc_allow_reply_notifications"></a>
 
@@ -959,7 +959,7 @@ Number of most recent articles that permit new comments; older articles can be c
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Controls whether registered users can subscribe to email notifications when someone replies directly to their comments.
+`1` allows and `0` disallows **subscribing** to comment reply notifications. **Registered users** may receive an **email** when someone posts a **direct reply** to their comment. The documented default is `0`; this does not describe notifications for all site comments.
 
 <a id="desc_comment_on_same_page" name="desc_comment_on_same_page"></a>
 
@@ -975,13 +975,7 @@ Controls whether the comment editor is shown on the same page as the content ins
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Controls whether existing comments are visible on the dedicated reply page. This option is irrelevant when the same-page editor is enabled.
-
-
-
-## Blocks — administration and topic navigation — Geeklog 2.2.2
-
-Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+`1` shows and `0` hides the existing **comment list** while replying on the separate **comment page**. If `comment_on_same_page` is enabled, this setting **does not matter**, because comments already appear on the same page as the content. The documented default is `0`.
 
 <a id="blocks" name="blocks"></a>
 <a id="blocks_admin" name="blocks_admin"></a>
