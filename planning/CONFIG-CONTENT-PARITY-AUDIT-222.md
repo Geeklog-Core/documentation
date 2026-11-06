@@ -168,6 +168,12 @@ Added CI gate `tools/check_config_candidate_review.py` to verify the review ZIP 
 
 **Boundary:** This new CI gate is a *static candidate-integrity test*, not evidence that the Markdown candidate has been installed or used through a live administrator interface. No local Docker environment, database, live role account, or browser session was operated. The legacy embedded help must not be replaced until the separate manual/runtime and editorial gates pass.
 
+## Negative regression tests for configuration candidate integrity — 2026-11-06
+
+Added `tools/test_config_candidate_review.py` with **seven unit tests**, including validation of the intact candidate and one-file ZIP, plus intentional failures for a deleted/renamed help anchor, a duplicate anchor, a broken same-page fragment, an extra ZIP entry and tampered candidate ZIP content. The test helper is extracted from `check_config_candidate_review.py` and is invoked by the existing GitHub Actions workflow immediately after the candidate build and integrity check.
+
+These are deliberately **static fault-injection checks**. They do not test actual PHP help routing, deployed browser behavior, permissions or rollback in the user's Docker staging installation. See `planning/CONFIG-CANDIDATE-RUNTIME-ACCEPTANCE-222.md` for the separate, unexecuted evidence form. The legacy embedded file remains unchanged.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
