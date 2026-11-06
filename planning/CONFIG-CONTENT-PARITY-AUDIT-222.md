@@ -148,6 +148,12 @@ Restored the exact display/sorting choices and `comment_code` enable/disable val
 
 Added the ten keys to the existing source-backed `tools/check_config_semantic_gates.py`, raising its targeted count from **31 to 41** descriptions; **346 of 387** remain outside this targeted review. These checks assert critical tokens in both original and maintained prose but are **not** runtime tests or full semantic equivalence proofs. The source 2.2.2 `config.html` stays unchanged; no new branch or PR was created.
 
+## Sixth semantic review — blocks and content listings (2026-11-06)
+
+Reviewed **15** additional help descriptions against the pinned v2.2.2 config reference: `sort_admin`, `link_documentation`, `link_versionchecker`, `sortmethod`, `showstorycount`, `showsubmissioncount`, `hide_home_link`, `whosonline_threshold`, `whosonline_anonymous`, `whosonline_photo`, `newstoriesinterval`, `newcommentsinterval`, `hidenewstories`, `hidenewcomments`, `whatsnew_cache_time`. This batch clarifies Admin block link visibility and Root-only version checks, topic sorting and counts in the Sections block, online-user list visibility and idle thresholds, the What's New listing windows, and its independent cache duration.
+
+The targeted source-and-Markdown token checker now covers **56 of 387** configuration descriptions; **331** remain outside this specific semantic review. This is separate from the 387 default-value transcription and the 12+32 permission matrix checks, and does not certify runtime behavior. The historical embedded `config.html` remains byte-identical; no branch or pull request is opened by this batch.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
