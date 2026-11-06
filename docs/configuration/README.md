@@ -1088,7 +1088,7 @@ A comment is considered **new** while its age is within this many **seconds**. T
 
 
 **Documented default (Geeklog 2.2.2):** `172800`
-Maximum age of new trackbacks, in seconds; default `172800`.
+Trackback **comments** are considered **new** when they are within this many **seconds** of age. The documented default is `172800` seconds (two days). This affects What's New classification, not the permission to receive trackbacks.
 
 <a id="desc_hidenewstories" name="desc_hidenewstories"></a>
 
@@ -1112,7 +1112,7 @@ Set to `1` to **hide new comments** from the **What's New block**; the historica
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Hide new trackbacks in the What's New block when `1`.
+Set to `1` to **hide new trackback comments** from the **What's New block**. The historical default is `0`. This hides the listing entry, not the actual trackback.
 
 <a id="desc_hidenewplugins" name="desc_hidenewplugins"></a>
 
@@ -1120,7 +1120,7 @@ Hide new trackbacks in the What's New block when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Hide recent items provided by plugins in the What's New block when `1`.
+Set to `1` to **hide new entries by plugins** from the **What's New block**. The historical default is `0`; this does not change the plugin's underlying permissions.
 
 <a id="desc_title_trim_length" name="desc_title_trim_length"></a>
 
@@ -1128,7 +1128,7 @@ Hide recent items provided by plugins in the What's New block when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `20`
-Maximum displayed title length for items in the What's New block; default `20`.
+Sets the **maximum length** of the **title** for **items listed** in the **What's New block**. Historical default: `20`. Trimming display text does not shorten the stored title.
 
 <a id="desc_whatsnew_cache_time" name="desc_whatsnew_cache_time"></a>
 
@@ -1147,7 +1147,7 @@ The **What's New Block** is **cached** for **no longer** than the configured num
 
 
 **Documented default (Geeklog 2.2.2):** `english`
-Default interface language for the site; the 2.2.2 bundled reference uses `english`.
+Defines the site's **default language**. The historical source discusses additional **language files**, **Localization**, and deleting corresponding files from the Geeklog **language directory** to remove language choices. Verify that language files are installed before changing the configuration.
 
 <a id="desc_allow_user_language" name="desc_allow_user_language"></a>
 
@@ -1155,7 +1155,7 @@ Default interface language for the site; the 2.2.2 bundled reference uses `engli
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Allow registered users to choose an interface language in My Account when `1`.
+When set to `1`, users can select the language of the **site labels** in **My Account**. Historical default `1`; this does not itself enable multilingual content IDs.
 
 <a id="desc_switchlang_homepage" name="desc_switchlang_homepage"></a>
 
@@ -1163,7 +1163,7 @@ Allow registered users to choose an interface language in My Account when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled, changing language returns the visitor to the homepage, useful when an equivalent translated topic or page is absent.
+When set to `1`, the **switch language block** redirects to the **homepage**. This matters when translations of **articles**, **topics** or **staticpages** are missing. Switching from `topic_en` to a missing or inaccessible `topic_ja` can otherwise produce a **404**. The historical default is `0`.
 
 <a id="desc_new_item_set_current_lang" name="desc_new_item_set_current_lang"></a>
 
@@ -1171,7 +1171,7 @@ When enabled, changing language returns the visitor to the homepage, useful when
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled and multilingual support is configured, eligible new article or Static Pages identifiers include a current-language suffix.
+When set to `1` with **multiple languages** configured, **COM_makeSid** appends the **current language** identifier to new item IDs. The tagged source names **Articles** and **Staticpages** as supported, while **Blocks** and **Topics** do not automatically generate IDs for new items and therefore do not support this setting. Default: `0`.
 
 <a id="desc_language_files" name="desc_language_files"></a>
 
@@ -1179,7 +1179,7 @@ When enabled and multilingual support is configured, eligible new article or Sta
 
 
 **Documented default (Geeklog 2.2.2):** `(disabled)`
-Mapping of language suffixes such as `en` or `de` to installed Geeklog language files for multilingual content. It must be configured together with `languages`.
+For multilingual sites, map **language shortcuts** such as `en` and `de` to installed **language files**; each shortcut must have the **same number of characters**. Item IDs may use suffixes such as `storyid_en`. The historical reference describes **hreflang** on supported canonical pages. Configure **both** `language_files` and `languages` with matching codes; both must be **enabled** or **disabled** together. Documented default: disabled.
 
 <a id="desc_languages" name="desc_languages"></a>
 
@@ -1187,12 +1187,7 @@ Mapping of language suffixes such as `en` or `de` to installed Geeklog language 
 
 
 **Documented default (Geeklog 2.2.2):** `(disabled)`
-Mapping of the same language suffixes to display names for multilingual content. This must match `language_files`; both must be enabled or disabled together.
-
-
-## Locale, dates and number formats — Geeklog 2.2.2
-
-Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+For multilingual sites, map **language shortcuts** such as `en` and `de` to each language's **native name**. The codes must **match** those in **Language Files** (`language_files`); both settings must be **enabled** together or **disabled** together. Documented default: disabled.
 
 <a id="languages_locale" name="languages_locale"></a>
 
