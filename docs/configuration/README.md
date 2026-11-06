@@ -2386,6 +2386,23 @@ For these defaults, **Read-Only permits viewing but not editing**. A new item's 
 
 Autotag `Use` permissions are distinct from content `Read-Write` permissions: being allowed to use an autotag does **not** in itself authorize modifying the referenced content. Each autotag family and audience has its own defaults documented below.
 
+### Autotag usage permissions at a glance
+
+These are the **32 historical documented defaults** in Geeklog 2.2.2. The group column refers to the autotag's assigned administration group, which differs across families (Article Admin, User Admin, Topic Admin, Block Admin or Root). It is **not** a generic group permission. The `structureddata` Root Group exception is explained in its individual setting below.
+
+| Autotag family | Owner (`_0`) | Assigned group (`_1`) | Logged-in users (`_2`) | Anonymous visitors (`_3`) |
+| --- | --- | --- | --- | --- |
+| `story` | Use | Use | Use | Use |
+| `user` | Use | Use | Use | Use |
+| `topic` | Use | Use | Use | Use |
+| `related_topics` | Use | Use | No Access | No Access |
+| `related_items` | Use | Use | No Access | No Access |
+| `block` | Use | Use | No Access | No access |
+| `structureddata` | Use | Use | No Access | No access |
+| `likes_block` | Use | Use | No Access | No Access |
+
+`Use` and `No Access` are the exact *documented* 2.2.2 labels (including the original capitalization of `No access` for two cells). They do not independently prove that an autotag is registered, that the referenced content is visible, or that a current installation enforces the same access. For structured-data autotags, the historic reference says the Root Group retains access regardless of changing its default and mentions the `structureddata.autotag` feature for other security groups. Test actual rendering and authorization with accounts of different roles before deployment.
+
 <a id="misc_permissions" name="misc_permissions"></a>
 
 <a id="desc_default_permissions_story_0" name="desc_default_permissions_story_0"></a>
