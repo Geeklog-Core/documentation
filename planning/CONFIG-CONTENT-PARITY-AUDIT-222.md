@@ -160,6 +160,14 @@ Reviewed **ten additional** configuration descriptions against the tagged v2.2.2
 
 The targeted semantic regression check now covers **66/387** descriptions, leaving **321** without this focused review. This is not a runtime certification; historical embedded `config.html` remains unchanged and the site candidate remains isolated.
 
+## Isolated candidate runtime acceptance protocol (2026-11-06)
+
+Added `planning/CONFIG-CANDIDATE-RUNTIME-ACCEPTANCE-222.md` to distinguish the already accepted **legacy-preserving** documentation ZIP from the **single-file, non-deployable** Markdown-generated `config.html` review artifact. The operator-only procedure identifies a disposable Geeklog 2.2.2 stage, requires a verified independent backup and rollback, and lists ten representative help fragments plus real admin help-button/browser observations.
+
+Added CI gate `tools/check_config_candidate_review.py` to verify the review ZIP contains exactly the generated `public_html/docs/english/config.html`, that the standard embedded `config.html` still matches the original (line-endings normalized), that the 449 historical anchor targets and ten sample IDs survive, that same-page links resolve, and that the candidate report still explicitly says **INCOMPLETE**.
+
+**Boundary:** This new CI gate is a *static candidate-integrity test*, not evidence that the Markdown candidate has been installed or used through a live administrator interface. No local Docker environment, database, live role account, or browser session was operated. The legacy embedded help must not be replaced until the separate manual/runtime and editorial gates pass.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
