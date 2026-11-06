@@ -114,6 +114,11 @@ jobs:
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
+          name: geeklog-online-guide-audit
+          path: dist/online-guide-audit.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
           name: geeklog-online-preview
           path: dist/online/
           if-no-files-found: error
