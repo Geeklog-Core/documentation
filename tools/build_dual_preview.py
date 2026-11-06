@@ -24,7 +24,7 @@ PAGES = {
     "administration.html": ("Administration", ROOT / "docs/administration/README.md"),
 }
 NAV = ' · '.join(f'<a href="{name}">{escape(title)}</a>' for name, (title, _) in PAGES.items())
-CSS = """*{box-sizing:border-box}body{font:17px/1.6 system-ui,sans-serif;max-width:960px;margin:auto;padding:20px;color:#24292f}nav{padding:1rem 0;border-bottom:1px solid #ddd}main{padding-top:1rem}a{color:#1766a2}pre{overflow:auto;background:#f4f4f4;padding:1rem}blockquote{border-left:4px solid #bd8700;padding:.1rem 1rem;background:#fff8e8}img{max-width:100%}@media(max-width:600px){body{padding:12px}nav a{display:inline-block;margin:.3rem}}"""
+CSS = """*{box-sizing:border-box}body{font:17px/1.6 system-ui,sans-serif;max-width:960px;margin:auto;padding:20px;color:#24292f}nav{padding:1rem 0;border-bottom:1px solid #ddd}main{padding-top:1rem}a{color:#1766a2}pre{overflow:auto;background:#f4f4f4;padding:1rem}blockquote{border-left:4px solid #bd8700;padding:.1rem 1rem;background:#fff8e8}img{max-width:100%}label[for=docs-search]{display:block;margin-bottom:.6rem}#docs-search{display:block;width:100%;max-width:32rem;min-height:2.75rem;padding:.6rem .75rem;border:1px solid #8c959f;border-radius:6px;font:inherit}#docs-search:focus-visible{outline:2px solid #1766a2;outline-offset:2px}@media(max-width:600px){body{padding:12px}nav a{display:inline-block;margin:.3rem}}"""
 class Inspect(HTMLParser):
     def __init__(self):
         super().__init__()
