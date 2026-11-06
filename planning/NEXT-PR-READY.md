@@ -9,6 +9,31 @@
 
 **Scope:** post-launch wording, nonrepeating homepage navigation/search, source-verified Geeklog 2.2.2 administration and Static Pages documentation, and maintenance/branch cleanup helpers.
 
+## Online-publication PR handoff — 2026-11-06
+
+**Manual creation is required:** the GitHub connector returned HTTP 403 `Resource not accessible by integration` when attempting to open the upstream PR. No PR was created by that attempt.
+
+[Open GitHub comparison and create PR](https://github.com/Geeklog-Core/documentation/compare/main...hostellerie:documentation:docs/published-site-labels?expand=1)
+
+**Title:** `docs: publish expanded Geeklog 2.2.2 online configuration reference`
+
+**Target:** `Geeklog-Core/documentation:main`  
+**Source:** `hostellerie/documentation:docs/published-site-labels`  
+**PR status:** ready for maintainer review after latest Actions run passes. **Do not merge/deploy automatically.**
+
+**Recommended description highlights:**
+
+- P0: improve the public, searchable 13-guide website and publish the clearly labelled historical Geeklog 2.2.2 configuration reference.
+- Source-backed structural parity: 449 historical anchors, 387 configuration help identifiers and 387 transcribed documented defaults.
+- Historical examples and links: 34 internal link targets, nine preformatted example slots, restored rewriting/routing and date syntax sections.
+- Source-backed reviews for 66/387 setting descriptions (321 still outstanding), and matrices for 12 new-content permissions plus 32 autotag usage rights.
+- CI checks for default/link/semantic regressions; separate non-deployable candidate `config.html` and seven negative tests.
+- **Not included:** replacement of historical embedded `config.html`, live validation of the candidate in an admin session, upstream Core changes, or a Geeklog 2.2.3 release package.
+- P1 later: create and validate offline documentation for Geeklog 2.2.3 against its own release source and plugin help requirements.
+- After Tom merges: manually launch `Publish Geeklog documentation (maintainer opt-in)` from official `main`, then inspect the published home/search and configuration anchor.
+
+**Review note:** The current PR diff is concentrated on the online configuration source and its evidence/CI tools. Do not claim new site navigation or all 13 guides were added in this PR: they already existed on the base branch.
+
 ## Proposed title
 
 Docs: simplify published site and expand Geeklog 2.2.2 admin guides
