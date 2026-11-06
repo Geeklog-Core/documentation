@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Twenty-two source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Thirty-one source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -31,6 +31,15 @@ checks = {
     "storysubmission": ["1", "0"],
     "commentsubmission": ["1", "0"],
     "trackback_enabled": ["true", "sending", "receiving"],
+    "show_topic_icon": ["new articles", "article submissions", "topic icon"],
+    "draft_flag": ["Story Admins", "draft", "1", "0"],
+    "frontpage": ["frontpage", "topic", "archive"],
+    "hide_no_news_msg": ["No News To Display", "index"],
+    "hide_main_page_navigation": ["frontpage", "frontpage_topics", "older articles"],
+    "onlyrootfeatures": ["root", "article admins", "feature"],
+    "listdraftstories": ["moderation.php", "draft", "block"],
+    "skip_preview": ["Preview", "Submit", "articles", "comments"],
+    "aftersave_story": ["item", "list", "home", "admin", "submission"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
