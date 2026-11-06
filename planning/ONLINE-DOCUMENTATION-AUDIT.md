@@ -77,6 +77,14 @@ This is not a live external-link checker, accessibility audit, PHP functionality
 - **External-reference inventory:** `tools/audit_online_guides.py` now records external references grouped by hostname in `dist/online-guide-audit.json`, and rejects explicit `/blob/main/`, `/blob/master/`, `/tree/main/`, or `/tree/master/` references to Geeklog Core inside the release-scoped guide set. This is a static version-pinning gate, **not** an HTTP availability or redirect test.
 - **Still outstanding:** independently visit external destinations, review the historical Wiki attribution/licensing, test the keyboard/mobile/search experience in a browser, confirm PHP/API behaviors in a staged installation and review every remaining configuration description. No claims of live URL validation were added.
 
+## Public homepage usability — search field spacing (2026-11-06)
+
+A screenshot of the live public homepage showed the text **“Find a topic across all available guides”** touching its search field on the same line. This is caused by the default inline layout of the `label` and `input`.
+
+**Fixed on the contributor branch (not yet deployed):** `tools/build_dual_preview.py` generates CSS that displays the search label as a block with a 0.6rem bottom margin; the search input is block-level, responsive (100% width, capped at 32rem), has a comfortable minimum height/padding and a visible `:focus-visible` outline. `tools/check_http_preview.py` now verifies the generated search markup and associated CSS rules.
+
+The change affects the public online homepage styling only. It does not alter bundled configuration HTML, plugin help or release installation procedures. This source-level check is **not** a substitute for later visual and keyboard verification in a real browser.
+
 ## Next substantial contribution criteria (no PR yet)
 
 1. Expand cross-guide task navigation where useful, without duplicating entire articles.
