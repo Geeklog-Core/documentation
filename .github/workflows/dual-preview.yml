@@ -65,6 +65,9 @@ jobs:
       - run: python tools/audit_config_defaults.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_config_permission_matrix.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_config_semantic_gates.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
