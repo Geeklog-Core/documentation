@@ -781,7 +781,7 @@ When the user approval queue is enabled, a comma-separated list of email domains
 
 
 **Documented default (Geeklog 2.2.2):** `'' (empty)`
-Reject registration email domains matching this list or its regular expressions. Unlike `allow_domains`, the 2.2.2 reference explicitly states that **this restriction applies even if `usersubmission` is disabled**. Validate expression boundaries and representative addresses before relying on the restriction.
+Reject registration email domains matching this list or its regular expressions. Unlike `allow_domains`, the 2.2.2 reference explicitly states that **this restriction applies even when the `usersubmission` approval queue is disabled**. Validate expression boundaries and representative addresses before relying on the restriction.
 
 
 ## Article and content submissions — Geeklog 2.2.2
