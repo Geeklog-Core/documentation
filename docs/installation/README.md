@@ -1,6 +1,6 @@
 # Installing, upgrading and migrating Geeklog
 
-> **Migration draft — not yet authoritative.** Adapted from the Geeklog Core `install.html` bundled with the source tree (which describes Geeklog 2.2.2). Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
+> **Geeklog 2.2.2 online installation reference — editorial review ongoing.** Adapted from the Geeklog Core `install.html` bundled with the tagged 2.2.2 release. Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
 
 <a id="glossary" name="glossary"></a>
 
@@ -137,7 +137,7 @@ The existing installer describes a **Migrate** option for changing servers or do
 
 Start by checking the filesystem paths in `siteconfig.php` and reading the **first** reported error; secondary errors may be consequences of an incorrect path. Also check PHP extensions, database connectivity, filesystem permissions and your web-server logs.
 
-This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/master/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
+This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
 
 
 ### Historical errors and modern diagnostic approach
