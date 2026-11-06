@@ -1,6 +1,6 @@
 # Geeklog themes and templates
 
-> **Modernization draft.** Consolidates recovered Wiki articles `Caching_Template_Library` and `Theme_Developers_Guide`. These pages span different Geeklog releases. Check the target release and the actual bundled theme before reusing configuration keys or code snippets.
+> **Geeklog 2.2.2 online theme guide — technical verification ongoing.** This guide is a new synthesis informed by topics in the recovered Wiki inventory, including `Caching_Template_Library` and `Theme_Developers_Guide`. These pages span different Geeklog releases. Check the target release and the actual bundled theme before reusing configuration keys or code snippets.
 
 ## Overview
 
