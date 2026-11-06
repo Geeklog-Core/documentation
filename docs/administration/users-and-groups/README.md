@@ -74,9 +74,9 @@ These are **representative checks**, not a complete authorization matrix for eve
 
 ## Recovery planning for accidental lockout
 
-Before modifying administrator memberships, ensure an independently tested recovery plan exists. Keep an authorized administrator account available for verification. If the intended account loses access, do not modify SQL tables blindly or bypass token checks; follow the [backup and recovery guide](../../../administration/backup-and-recovery/index.html) and use the supported procedure for the installed release.
+Before modifying administrator memberships, ensure an independently tested recovery plan exists. Keep an authorized administrator account available for verification. If the intended account loses access, do not modify SQL tables blindly or bypass token checks; follow the [backup and recovery guide](../../administration/backup-and-recovery/index.html) and use the supported procedure for the installed release.
 
-For a failed login or a 403 response, collect a sanitized timestamp and error message and follow the [troubleshooting guide](../../../administration/troubleshooting/index.html). Avoid disclosing usernames, password hashes, sessions or account records in public issues.
+For a failed login or a 403 response, collect a sanitized timestamp and error message and follow the [troubleshooting guide](../../administration/troubleshooting/index.html). Avoid disclosing usernames, password hashes, sessions or account records in public issues.
 
 ## Protecting changes
 
