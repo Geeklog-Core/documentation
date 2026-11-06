@@ -83,6 +83,9 @@ jobs:
       - run: python tools/check_config_candidate_review.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python -m unittest tools/test_config_candidate_review.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_delivery_readiness.py
       - run: python tools/check_extracted_overlay.py
         env:
