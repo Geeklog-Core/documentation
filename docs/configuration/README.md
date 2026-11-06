@@ -2372,6 +2372,20 @@ The following 44 help identifiers describe the **defaults** for content permissi
 
 The suffixes `_0`, `_1`, `_2` and `_3` refer to distinct audience/role positions recorded by the original configuration page. Do not infer access solely from a setting name; the actual group and operation are important.
 
+### Default permissions at a glance
+
+The following values are taken from the Geeklog **2.2.2 bundled configuration reference**, for **new content**. They are not the effective permissions of existing articles, topics or blocks.
+
+| New content | Owner (`_0`) | Group (`_1`) | Logged-in users (`_2`) | Anonymous visitors (`_3`) |
+| --- | --- | --- | --- | --- |
+| Articles (`story`) | Read-Write | Read-Only | Read-Only | Read-Only |
+| Topics (`topic`) | Read-Write | Read-Only | Read-Only | Read-Only |
+| Blocks (`block`) | Read-Write | Read-Only | Read-Only | Read-Only |
+
+For these defaults, **Read-Only permits viewing but not editing**. A new item's effective access also depends on its assigned owner/group and the permissions saved for that item. If public access is not intended, review the `_3` settings **before** creating new content and test anonymous requests on a staging site. Changes to a default must not be assumed to retroactively modify existing records.
+
+Autotag `Use` permissions are distinct from content `Read-Write` permissions: being allowed to use an autotag does **not** in itself authorize modifying the referenced content. Each autotag family and audience has its own defaults documented below.
+
 <a id="misc_permissions" name="misc_permissions"></a>
 
 <a id="desc_default_permissions_story_0" name="desc_default_permissions_story_0"></a>
