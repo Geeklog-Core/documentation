@@ -70,6 +70,13 @@ These are **automated file/link observations**, not visual browser acceptance, e
 
 This is not a live external-link checker, accessibility audit, PHP functionality test or editorial license verifier.
 
+## Second pass — public labels and external reference hygiene (2026-11-06)
+
+- **Clarified online guide status without overstating verification:** the installation page now identifies itself as an online Geeklog 2.2.2 reference with editorial review ongoing; the themes guide similarly flags release-specific technical checks; the security guide flags pending runtime verification. These pages are published guides, not unpublished prototypes. Historical compatibility pilot files `docs/index.md`, `docs/install.md`, and `docs/config.md` were **not** renamed or treated as a primary site source.
+- **Source version correction:** the installation troubleshooting section no longer sends readers to changing `Geeklog-Core/geeklog:master` for its supposedly original 2.2.2 reference. It points to tagged `v2.2.2` documentation, matching the version discussed.
+- **External-reference inventory:** `tools/audit_online_guides.py` now records external references grouped by hostname in `dist/online-guide-audit.json`, and rejects explicit `/blob/main/`, `/blob/master/`, `/tree/main/`, or `/tree/master/` references to Geeklog Core inside the release-scoped guide set. This is a static version-pinning gate, **not** an HTTP availability or redirect test.
+- **Still outstanding:** independently visit external destinations, review the historical Wiki attribution/licensing, test the keyboard/mobile/search experience in a browser, confirm PHP/API behaviors in a staged installation and review every remaining configuration description. No claims of live URL validation were added.
+
 ## Next substantial contribution criteria (no PR yet)
 
 1. Expand cross-guide task navigation where useful, without duplicating entire articles.
