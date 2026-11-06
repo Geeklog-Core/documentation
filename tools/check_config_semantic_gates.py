@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Twelve source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Twenty-two source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -21,6 +21,16 @@ checks = {
     "invalidloginmaxtime": ["0"],
     "enable_twofactorauth": ["Google Authenticator", "1"],
     "pass_stretch": ["iterations", "0"],
+    "allow_account_delete": ["1", "Anonymous"],
+    "allow_username_change": ["1", "username"],
+    "custom_registration": ["true", "lib-custom.php"],
+    "usersubmission": ["1", "0", "queue"],
+    "disable_new_user_registration": ["true", "new"],
+    "allow_domains": ["queue", "regular expressions"],
+    "disallow_domains": ["queue", "regular expression"],
+    "storysubmission": ["1", "0"],
+    "commentsubmission": ["1", "0"],
+    "trackback_enabled": ["true", "sending", "receiving"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
