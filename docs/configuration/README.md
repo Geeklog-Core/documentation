@@ -824,7 +824,7 @@ Minimum delay between content submissions, in seconds; bundled default `45`. Thi
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When set to `1`, displays both **Preview** and **Submit** buttons on the article and comment submission forms, so the user need not preview before submitting. With the default `0`, preview is required by the historical workflow. This does not bypass the separate moderation queue or permission checks.
+When set to `1`, displays both **Preview** and **Submit** buttons on the submission forms for articles and comments, so the user need not preview before submitting. With the default `0`, preview is required by the historical workflow. This does not bypass the separate moderation queue or permission checks.
 
 <a id="desc_advanced_editor" name="desc_advanced_editor"></a>
 
