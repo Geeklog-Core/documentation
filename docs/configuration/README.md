@@ -1088,7 +1088,7 @@ A comment is considered **new** while its age is within this many **seconds**. T
 
 
 **Documented default (Geeklog 2.2.2):** `172800`
-Trackback **comments** are considered **new** when they are within this many **seconds** of age. The documented default is `172800` seconds (two days). This affects What's New classification, not the permission to receive trackbacks.
+Trackback comments are considered **new** when they are within this many **seconds** of age. The documented default is `172800` seconds (two days). This affects What's New classification, not the permission to receive trackbacks.
 
 <a id="desc_hidenewstories" name="desc_hidenewstories"></a>
 
