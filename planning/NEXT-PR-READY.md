@@ -1,5 +1,8 @@
 # Next documentation PR — reviewer handoff
 
+> **Delivery priority (2026-11-06): P0 online publication first.** This PR should publish the improved 13-guide website and clearly labelled 2.2.2 configuration reference on GitHub Pages. Full replacement of bundled `config.html`, exhaustive 387-description editorial sign-off and 2.2.3 offline packaging are **not** conditions for this website-only milestone. Refer to [ONLINE-FIRST-ROADMAP.md](ONLINE-FIRST-ROADMAP.md). Following maintainer review/merge, manually deploy upstream Pages from `main`. The separate P1 release gate targets Geeklog 2.2.3 and needs 2.2.3-specific testing.
+
+
 **Target:** `Geeklog-Core/documentation:main`
 
 **Head:** `hostellerie/documentation:docs/published-site-labels`
