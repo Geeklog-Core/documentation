@@ -495,7 +495,7 @@ Displays the article's topic image on the `right` or `left`; bundled default `ri
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Default for new articles and submissions: `1` shows the topic icon, `0` hides it.
+Default for **new articles and article submissions**: `1` shows the topic icon, `0` hides it. This controls the initial setting for those items; it does not change already saved articles.
 
 <a id="desc_draft_flag" name="desc_draft_flag"></a>
 
@@ -503,7 +503,7 @@ Default for new articles and submissions: `1` shows the topic icon, `0` hides it
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Default draft status of newly created articles by story administrators; `1` drafts, `0` otherwise.
+The default draft flag for **new articles created by Story Admins**: `1` marks the article as a draft; `0` leaves the draft flag unset. This is a creation default, not a rule that publishes all drafts automatically.
 
 <a id="desc_frontpage" name="desc_frontpage"></a>
 
@@ -511,7 +511,7 @@ Default draft status of newly created articles by story administrators; `1` draf
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Default article and submission placement: `1` front page, `0` topic-only. The archived topic is an exception.
+For **new articles and article submissions**, `1` selects the site's frontpage and `0` selects only the article's topic page. The original 2.2.2 reference explicitly exempts articles submitted to the **archive topic**: they do not appear on the frontpage even if this setting would otherwise select it. This is an initial placement setting, not a change to existing articles.
 
 <a id="desc_hide_no_news_msg" name="desc_hide_no_news_msg"></a>
 
@@ -519,7 +519,7 @@ Default article and submission placement: `1` front page, `0` topic-only. The ar
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Set to `1` to suppress the no-news notice on pages with no articles.
+Set to `1` to suppress the **No News To Display** message on `index.php`, including topic views with no articles. The documented default is `0`, so the message is normally shown.
 
 <a id="desc_hide_main_page_navigation" name="desc_hide_main_page_navigation"></a>
 
@@ -527,7 +527,7 @@ Set to `1` to suppress the no-news notice on pages with no articles.
 
 
 **Documented default (Geeklog 2.2.2):** `false`
-Controls hiding index pagination on the front page or on front page plus topic pages; doing so can make older articles harder to reach.
+The historical values are `frontpage` (hide Google-style paging on the site's `index.php` frontpage) and `frontpage_topics` (hide it on both the frontpage and topic pages); the bundled default is `false`. Hiding pagination can make older articles difficult to reach. These strings are historical 2.2.2 options, not a recommendation for newer versions.
 
 <a id="desc_onlyrootfeatures" name="desc_onlyrootfeatures"></a>
 
@@ -535,11 +535,7 @@ Controls hiding index pagination on the front page or on front page plus topic p
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-If enabled, restricts selection of featured articles to `Root` users to avoid conflicts between administrators with different article visibility.
-
-## Login, access and account protection — Geeklog 2.2.2
-
-Source: [bundled Geeklog 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Descriptions reflect this specific release; do not apply old security defaults to newer deployments.
+Set to `1` to allow only **Root** users to mark an article as featured. The source explains the reason: multiple Story Admins may have different visibility over articles and otherwise unintentionally replace one another's featured article. The default `0` does not impose this Root-only restriction; actual editorial privileges still depend on the site's permissions.
 
 <a id="users_login" name="users_login"></a>
 
@@ -804,7 +800,7 @@ Set to `1` to enable the article submission moderation queue, or `0` to disable 
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled, adds a block of draft articles to the moderation page.
+When set to `1`, displays an additional block on the submissions/moderation page (`moderation.php`) listing articles with the **draft** flag. It does not itself publish, approve or change those drafts.
 
 <a id="desc_postmode" name="desc_postmode"></a>
 
@@ -828,7 +824,7 @@ Minimum delay between content submissions, in seconds; bundled default `45`. Thi
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled, permits immediate article and comment submission without first requiring a preview.
+When set to `1`, displays both **Preview** and **Submit** buttons on the article and comment submission forms, so the user need not preview before submitting. With the default `0`, preview is required by the historical workflow. This does not bypass the separate moderation queue or permission checks.
 
 <a id="desc_advanced_editor" name="desc_advanced_editor"></a>
 
@@ -2785,7 +2781,7 @@ Controls whether article structured data is included on home/topic listings as w
 
 
 **Documented default (Geeklog 2.2.2):** `'list'`
-Where the administrator is sent after saving an article: `item`, `list`, `home` or `admin`. Editing a queued submission continues to return to moderation, regardless of this setting.
+Where a Story Admin is redirected after saving an article: `item` displays the article, `list` shows the admin article list (the default), `home` goes to the site's homepage, and `admin` opens **Admin Home (Command & Control)**. The 2.2.2 reference explicitly excludes **article submissions**: editing a queued submission returns to the submission queue regardless of this setting. Verify actual navigation in staging before replacing the bundled help.
 
 <a id="desc_related_topics" name="desc_related_topics"></a>
 
