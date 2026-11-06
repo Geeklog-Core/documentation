@@ -62,6 +62,30 @@ jobs:
       - run: python tools/check_configuration_coverage.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/audit_config_defaults.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_config_permission_matrix.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_config_autotag_matrix.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_config_semantic_gates.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/audit_config_links.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/build_config_candidate.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python tools/check_config_candidate_review.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
+      - run: python -m unittest tools/test_config_candidate_review.py
+        env:
+          GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_delivery_readiness.py
       - run: python tools/check_extracted_overlay.py
         env:
@@ -73,6 +97,19 @@ jobs:
         with:
           name: geeklog-2.2.2-embedded-docs-preview
           path: dist/geeklog-2.2.2-docs-preview.zip
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-2.2.2-configuration-defaults-audit
+          path: dist/config-defaults-audit.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-2.2.2-config-candidate-review
+          path: |
+            dist/config-candidate-review.zip
+            dist/config-candidate-report.json
+            dist/config-link-audit.json
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
