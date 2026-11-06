@@ -50,3 +50,25 @@ Record pass/fail and date for each observed test, exact Geeklog/PHP versions, si
 Do **not** mark `config.html` ready to replace until real administrator links, complete prose/table/example/link parity, contributor attribution/licensing and maintainer approval pass. An isolated successful runtime experiment is necessary, **not sufficient**, for upstream PR acceptance.
 
 Current status: no manual application of this candidate and no configuration-help runtime acceptance have been performed by this document or CI.
+
+## Gate E — reproducible evidence form (complete only after actual testing)
+
+Keep one copy per tested candidate commit and staging installation. **Never mark a row PASS based only on CI or direct URL checks.**
+
+| Test / observation | Result (PASS / FAIL / NOT RUN) | Evidence / observation |
+| --- | --- | --- |
+| Staging site and separate Docker volume identity checked | NOT RUN | |
+| Candidate ZIP run ID, commit and SHA-256 verified | NOT RUN | |
+| One-file ZIP and source report checked | NOT RUN | |
+| Original `config.html` backed up and SHA-256 recorded | NOT RUN | |
+| Direct URLs and fragment navigation (10 sample targets) | NOT RUN | |
+| Real configuration help clicks (site, mail, privacy, permissions) | NOT RUN | |
+| CSS and HTML tables render correctly | NOT RUN | |
+| Keyboard navigation and narrow viewport | NOT RUN | |
+| Non-administrator or anonymous access checks | NOT RUN | |
+| Original help restored and digest compared | NOT RUN | |
+| Remaining wording, link, license review completed | NOT RUN | |
+
+Metadata to fill: `date_utc`, `candidate_commit`, `github_actions_run`, `candidate_zip_sha256`, `geeklog_version`, `php_version`, `docker_project`, `backup_sha256`, `restored_sha256`, `operator`. Use non-sensitive identifiers; exclude usernames, tokens, cookies and server secrets.
+
+A test is **FAIL** when the observed browser/administrator behavior differs from the expected target. A test is **NOT RUN** when evidence has not been collected. Keep blockers open and attach sanitized screenshots or notes only if authorized.
