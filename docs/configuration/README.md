@@ -192,7 +192,7 @@ Administrative email address used by Geeklog.
 
 
 **Documented default (Geeklog 2.2.2):** `noreply@example.com`
-Sender address used by system-generated messages such as registration emails. Configure it as a valid address allowed by your mail transport.
+Sender address of system-generated messages, including registration emails. The tagged 2.2.2 reference permits the same address as `site_mail` or a separate non-reply address to reduce address harvesting through registrations. When it differs from `site_mail`, the historical mail output includes a message discouraging replies to that address. Use a valid authenticated sender accepted by your actual transport; do not rely on an undeliverable address.
 
 <a id="desc_mail_settings_backend" name="desc_mail_settings_backend"></a>
 
@@ -232,7 +232,7 @@ SMTP server hostname for the `smtp` and `smtps` backends.
 
 
 **Documented default (Geeklog 2.2.2):** `25`
-Port used to connect to the mail server. Match this setting to the server and its encryption requirements rather than relying on a default port.
+SMTP destination port used by `smtp` or `smtps`. The 2.2.2 reference gives `25` for SMTP and `587` for its secure SMTP example, but the correct port and encryption mode are determined by the real mail server. The historical default `25` is not a deployment recommendation.
 
 <a id="desc_mail_settings_auth" name="desc_mail_settings_auth"></a>
 
@@ -240,7 +240,7 @@ Port used to connect to the mail server. Match this setting to the server and it
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Controls SMTP authentication: the 2.2.2 reference documents `1` when authentication is required and `0` otherwise.
+Controls authentication with an `smtp` or `smtps` backend: `1` if the server requires credentials, `0` (or an empty field) otherwise. Review the configured SMTP username and password separately; do not publish credentials in documentation or logs.
 
 <a id="desc_mail_settings_username" name="desc_mail_settings_username"></a>
 
@@ -653,7 +653,7 @@ Delay, in seconds, before another login may be attempted after the failed-attemp
 
 
 **Documented default (Geeklog 2.2.2):** `7`
-Number of invalid login attempts for one user account before an administrator warning is eligible; bundled default `7`. Interacts with the observation window below.
+Maximum invalid login attempts for one user account before Geeklog sends an administrator alert within the configured time window; bundled default `7`. Setting this option to `0` disables this alert in the tagged 2.2.2 reference. This notification is distinct from the login retry speed limit.
 
 <a id="desc_invalidloginmaxtime" name="desc_invalidloginmaxtime"></a>
 
@@ -661,7 +661,7 @@ Number of invalid login attempts for one user account before an administrator wa
 
 
 **Documented default (Geeklog 2.2.2):** `1200`
-Observation period in seconds used for warnings about repeated invalid account logins; bundled default `1200`. Set to `0` to disable this warning feature in the 2.2.2 reference.
+Time window, in seconds, during which invalid attempts on a user account are counted before Geeklog emails an administrator; bundled default `1200`. Setting `0` disables this notification in the tagged 2.2.2 reference. The `login_speedlimit` and `login_attempts` settings can suppress or delay retries enough that the warning threshold is never reached; test the interaction before relying on these alerts.
 
 <a id="desc_enable_twofactorauth" name="desc_enable_twofactorauth"></a>
 
@@ -669,7 +669,7 @@ Observation period in seconds used for warnings about repeated invalid account l
 
 
 **Documented default (Geeklog 2.2.2):** `False`
-Enables two-factor authentication as an available account feature. Users must also configure it in their own account settings. The bundled default is disabled.
+Set to `1` to make two-factor authentication available. Each user must also enable it in their own account settings and configure a compatible authenticator application; the tagged 2.2.2 guide specifically references Google Authenticator. The bundled default is `False`, so enabling the site option alone does not automatically enroll users.
 
 <a id="desc_pass_alg" name="desc_pass_alg"></a>
 
@@ -685,7 +685,7 @@ Legacy password-hashing algorithm selector documented for Geeklog 2.2.2. The bun
 
 
 **Documented default (Geeklog 2.2.2):** `4096`
-Number of password-hash iterations configured for the 2.2.2 legacy scheme; documented default `4096`. Compatibility and safe migration need review before making changes.
+Number of password-hash iterations in the historical 2.2.2 scheme; it must be greater than `0` and its documented default is `4096`. Do not infer that this legacy iteration count provides adequate password protection today; changing hashing parameters requires a tested account migration and review of the installed implementation.
 
 
 
