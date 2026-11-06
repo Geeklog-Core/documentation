@@ -57,7 +57,7 @@ checks = {
     "showstorycount": ["articles","topic","Sections","0","1"],
     "showsubmissioncount": ["article submissions","topic","Sections","0","1"],
     "hide_home_link": ["Home","Sections","0","1"],
-    "whosonline_threshold": ["seconds","idle","whosonline"],
+    "whosonline_threshold": ["seconds","idle"],
     "whosonline_anonymous": ["anonymous users","number","registered users","names","logged-in users"],
     "whosonline_photo": ["thumbnail","photo","else","photo icon"],
     "newstoriesinterval": ["new","seconds"],
