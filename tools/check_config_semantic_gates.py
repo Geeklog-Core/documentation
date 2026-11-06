@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Five source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Twelve source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -14,6 +14,13 @@ checks = {
     "ip_anonymization": ["-1", "cron_schedule_interval", "log files"],
     "url_routing": ["URL rewriting", "index.php", "web server"],
     "filemanager_disabled": ["Root", "true"],
+    "noreply_mail": ["site_mail"],
+    "mail_settings_port": ["25", "587"],
+    "mail_settings_auth": ["smtp", "smtps", "1", "0"],
+    "invalidloginattempts": ["0"],
+    "invalidloginmaxtime": ["0"],
+    "enable_twofactorauth": ["Google Authenticator", "1"],
+    "pass_stretch": ["iterations", "0"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
@@ -31,4 +38,4 @@ for setting, tokens in checks.items():
         assert token.lower().replace(" ", "-") in original.replace(" ", "-"), (
             "Source meaning changed " + setting + ": " + token)
 assert "not current password-security guidance" in markdown.lower()
-print("PASS: five release-scoped semantic checks; no complete editorial-parity claim")
+print(f"PASS: {len(checks)} release-scoped semantic checks; no complete editorial-parity claim")
