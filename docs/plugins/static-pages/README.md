@@ -80,7 +80,7 @@ The permissions table above identifies **plugin-level feature rights**, not ever
 | Embedded features or PHP do not execute | Plugin feature rights and selected rendering mode; never enable `staticpages.PHP` as a generic workaround |
 | A cloned page behaves differently | Unique identifier, inherited settings, permissions and links before publication |
 
-When troubleshooting a site failure, follow the [administration troubleshooting guide](https://geeklog-core.github.io/documentation/modern/administration/troubleshooting/index.html). Where behavior depends on the original plugin implementation, compare with the tagged 2.2.2 plugin files linked below.
+When troubleshooting a site failure, follow the [administration troubleshooting guide](../../../administration/troubleshooting/index.html). Where behavior depends on the original plugin implementation, compare with the tagged 2.2.2 plugin files linked below.
 
 ## Before publishing or upgrading
 
