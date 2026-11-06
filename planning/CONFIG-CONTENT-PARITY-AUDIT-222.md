@@ -140,6 +140,14 @@ Compared **nine additional** individual setting descriptions directly with the t
 
 The `tools/check_config_semantic_gates.py` targeted regression list is extended from **22 to 31** entries. These tokens are checked in both the pinned original documentation and the current Markdown; they do not establish runtime validation. **356/387 setting descriptions** remain outside this targeted editorial review. This batch is separate from the 12 content and 32 autotag default-value matrix checks. Embedded `config.html` remains byte-identical and no replacement is approved.
 
+## Fifth semantic review — comment display, editing and closure (2026-11-06)
+
+Reviewed **ten additional** option descriptions against the original v2.2.2 reference: `comment_mode`, `comment_order`, `comment_code`, `comment_edit`, `comment_edittime`, `article_comment_close_enabled`, `article_comment_close_days`, `comment_close_rec_stories`, `allow_reply_notifications` and `show_comments_at_replying`.
+
+Restored the exact display/sorting choices and `comment_code` enable/disable values; the `comment.edit` exception and incompatibility risk of editing comments queued for approval; the dependency of the edit time window on `comment_edit`; per-article automatic closure and the independent rolling `comment_close_rec_stories` rule; direct-reply email subscriptions and the same-page comment editor exception.
+
+Added the ten keys to the existing source-backed `tools/check_config_semantic_gates.py`, raising its targeted count from **31 to 41** descriptions; **346 of 387** remain outside this targeted review. These checks assert critical tokens in both original and maintained prose but are **not** runtime tests or full semantic equivalence proofs. The source 2.2.2 `config.html` stays unchanged; no new branch or PR was created.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
