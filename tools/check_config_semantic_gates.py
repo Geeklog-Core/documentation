@@ -38,7 +38,7 @@ for setting, tokens in checks.items():
     assert len(hits) == 1, "Original option missing: " + setting
     cells = re.findall(r"<td\b[^>]*>([\s\S]*?)</td>", hits[0], re.I)
     assert len(cells) == 3, "Original row malformed: " + setting
-    original = re.sub(r"<[^>]*>", " ", unescape(cells[2])).lower()
+    original = re.sub(r"\s+", " ", re.sub(r"<[^>]*>", " ", unescape(cells[2]))).strip().lower()
     heading = "### `" + setting + "`\n"
     assert markdown.count(heading) == 1, "Markdown heading missing: " + setting
     current = markdown.split(heading, 1)[1].split("\n<a id=", 1)[0].lower()
