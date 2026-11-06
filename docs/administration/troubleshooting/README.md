@@ -36,7 +36,7 @@ Use the **first reproducible symptom**, not several speculative fixes at once:
 3. **Site loads but admin/login fails?** Check the configured site and administration URLs, browser cookie behavior, and actual account/group permissions. Test in a private staging browser session; do not disable authentication to diagnose it.
 4. **Database error?** Confirm the configured database engine, hostname and driver in a protected environment. Test connectivity using approved hosting tools; avoid printing connection secrets, and do not rerun the installer on an existing database.
 5. **Failure began after a plugin/theme change?** Compare the before/after versions and inspect the first application error. Reproduce in an isolated copy before attempting rollback or disabling plugins on production.
-6. **Failure began after upgrading?** Stop further upgrade attempts, preserve the current state, and follow the [maintenance and upgrade guide](../../../administration/maintenance/index.html). Validate a complete database-and-files backup before recovery.
+6. **Failure began after upgrading?** Stop further upgrade attempts, preserve the current state, and follow the [maintenance and upgrade guide](../../administration/maintenance/index.html). Validate a complete database-and-files backup before recovery.
 
 If the first error is inconclusive, collect more evidence. Do not change multiple settings simultaneously: otherwise it becomes difficult to identify the actual cause.
 
@@ -80,7 +80,7 @@ What was checked (read-only) and the result:
 Available backup and restoration test status:
 ```
 
-Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration.html), [users and groups guide](../../../administration/users-and-groups/index.html), or [backup and recovery guide](../../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
+Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration.html), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
 
 ## Installation and upgrade checks
 
