@@ -43,6 +43,38 @@ A failed or empty export is not a recovery point. Resolve any directory-permissi
 | Installed plugins and themes | Custom code and templates must match the restored data | Record exact versions and compare plugin directories |
 | Site-specific changes | Deployment settings, customizations and local assets | Record a manifest or protected file hashes |
 
+## Define recovery objectives before choosing a backup process
+
+A backup procedure is only useful if it matches the site's recovery needs. Decide what would be lost if the most recent backup were unavailable and how long the site could reasonably remain offline. Record these as operational objectives; the Geeklog 2.2.2 built-in export does not enforce them automatically.
+
+For each backup set, store a protected manifest containing:
+
+| Field | Record |
+| --- | --- |
+| Application and data versions | Geeklog release, plugin versions, PHP and database engine |
+| Backup scope | Database, private configuration, uploads, themes, plugins and other customized files |
+| Export location | Protected location outside the publicly served web tree |
+| Integrity evidence | Timestamp, file inventory and checksums for the artifacts created |
+| Recovery dependency | Required database engine, extensions, permissions and relevant encryption keys |
+| Restoration evidence | Date and result of the latest **isolated** restore drill, including what was not tested |
+
+A checksum confirms that an artifact matches a recorded byte sequence; **it does not prove that the data is complete or restorable**. Protect the manifest if it contains sensitive paths or infrastructure details.
+
+## Isolated restore rehearsal and acceptance
+
+Conduct this test with separate infrastructure and sanitized data whenever possible. Do not overwrite a live database, change the production site's URLs, or point a staging application at production services.
+
+1. Verify the archive inventory and record the backup source release and database engine.
+2. Restore into a **new, isolated database**, with independent credentials and no unexpected network access to production.
+3. Restore matching application files, uploaded assets and configuration into a separate site directory.
+4. Adjust only the staging-specific URL, connection, secrets and filesystem ownership settings using approved procedures; preserve a record of these changes outside the public tree.
+5. Verify public and authenticated page loads, a representative article and media upload, plugin pages, and the configuration help links.
+6. Verify that the intended administrator can access an allowed action while a lower-privilege staging account is denied a prohibited action.
+7. Record errors, missing assets and elapsed recovery steps, plus any manual intervention needed.
+8. Mark the backup set **restore-tested** only if these acceptance checks pass; otherwise record a failure and correct the backup process before relying on it for an upgrade.
+
+The initial restore is not a substitute for auditing application-specific integrations, scheduled jobs, mail delivery or third-party services. Document those as separate checks where applicable.
+
 ## Making a backup
 
 1. Decide whether this is a routine backup or the mandatory pre-upgrade backup. For an upgrade, arrange a maintenance window if necessary.
