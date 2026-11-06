@@ -88,7 +88,7 @@ def main():
         assert re.search(r"(?m)^# ", body), f"Missing title: {source}"
         if path.startswith("modern/"):
             assert not re.search(
-                r"https://geeklog-core\\.github\\.io/documentation/modern/",
+                r"https://geeklog-core[.]github[.]io/documentation/modern/",
                 body
             ), f"Use a relative cross-guide URL for online/offline navigation: {source}"
             embedded = OFFLINE / path.removeprefix("modern/")
