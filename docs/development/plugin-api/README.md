@@ -100,7 +100,7 @@ Run these checks on an isolated Geeklog site with **disposable data** before rel
 
 ## Document the plugin alongside its source
 
-For a maintainable plugin, keep an English README or documentation section that describes its compatibility target, installation/upgrade procedure, configuration, permissions, user workflows, known limitations and recovery method. Refer to the [security and permissions guide](https://geeklog-core.github.io/documentation/modern/development/security-and-permissions/index.html) and the [configuration API guide](https://geeklog-core.github.io/documentation/modern/development/configuration-api/index.html) rather than duplicating unverified PHP examples.
+For a maintainable plugin, keep an English README or documentation section that describes its compatibility target, installation/upgrade procedure, configuration, permissions, user workflows, known limitations and recovery method. Refer to the [security and permissions guide](../../../development/security-and-permissions/index.html) and the [configuration API guide](../../../development/configuration-api/index.html) rather than duplicating unverified PHP examples.
 
 When Geeklog 2.2.3 becomes the integration target, repeat callback and plugin-version checks against the actual tagged release. The 2.2.2 mappings in this page should remain labelled historical until that verification is complete.
 
