@@ -39,7 +39,7 @@ def main():
     text = MARKDOWN.read_text(encoding="utf-8")
     heading = "### Default permissions at a glance"
     assert text.count(heading) == 1
-    section = text.split(heading, 1)[1].split('<a id="misc_permissions"', 1)[0]
+    section = text.split(heading, 1)[1].split("### Autotag usage permissions at a glance", 1)[0]
     rendered = markdown.markdown(section, extensions=["tables"])
     tables = re.findall(r"<table[^>]*>([\s\S]*?)</table>", rendered, re.I)
     assert len(tables) == 1, "Exactly one permission matrix expected"
