@@ -56,24 +56,17 @@ def parse(data):
     parser.feed(data.decode("utf-8"))
     return parser
 
-def main():
-    original_bytes = LEGACY.read_bytes()
-    candidate_bytes = CANDIDATE.read_bytes()
-    assert RELEASE.is_file() and REPORT.is_file()
-    # The standard distribution still must contain historical config.html.
-    # Compare normalized line endings because the source and source archive
-    # may have different historical checkout normalization.
-    normalize = lambda b: b.replace(b"\r\n", b"\n")
-    assert normalize(RELEASE.read_bytes()) == normalize(original_bytes), (
-        "The standard embedded config.html has changed"
-    )
-    with zipfile.ZipFile(ZIP) as archive:
-        assert archive.testzip() is None, "Corrupt candidate review ZIP"
-        assert archive.namelist() == [MEMBER], "Candidate review must be a single config.html file"
-        info = archive.infolist()[0]
-        assert not info.is_dir(), "Unexpected directory"
-        assert (info.external_attr >> 16) & 0o170000 != 0o120000, "Symlink member"
-        assert archive.read(MEMBER) == candidate_bytes, "Archive differs from generated candidate"
+def validate_archive(archive, candidate_bytes):
+    """Reject extra members and any mismatch against the generated candidate."""
+    assert archive.testzip() is None, "Corrupt candidate review ZIP"
+    assert archive.namelist() == [MEMBER], "Candidate review must be a single config.html file"
+    info = archive.infolist()[0]
+    assert not info.is_dir(), "Unexpected directory"
+    assert (info.external_attr >> 16) & 0o170000 != 0o120000, "Symlink member"
+    assert archive.read(MEMBER) == candidate_bytes, "Archive differs from generated candidate"
+
+
+def validate_anchors(original_bytes, candidate_bytes):
     baseline = parse(original_bytes)
     candidate = parse(candidate_bytes)
     assert not candidate.duplicates, f"Duplicate anchor IDs: {sorted(candidate.duplicates)[:5]}"
@@ -86,6 +79,23 @@ def main():
             assert unquote(target.fragment) in candidate.anchors, "Broken internal help link: " + link
     assert "../docstyle.css" in candidate.links, "Legacy stylesheet link absent"
     assert b"Documented default (Geeklog 2.2.2)" in candidate_bytes
+    return candidate
+
+
+def main():
+    original_bytes = LEGACY.read_bytes()
+    candidate_bytes = CANDIDATE.read_bytes()
+    assert RELEASE.is_file() and REPORT.is_file()
+    # The standard distribution still must contain historical config.html.
+    # Compare normalized line endings because the source and source archive
+    # may have different historical checkout normalization.
+    normalize = lambda b: b.replace(b"\r\n", b"\n")
+    assert normalize(RELEASE.read_bytes()) == normalize(original_bytes), (
+        "The standard embedded config.html has changed"
+    )
+    with zipfile.ZipFile(ZIP) as archive:
+        validate_archive(archive, candidate_bytes)
+    candidate = validate_anchors(original_bytes, candidate_bytes)
     report = json.loads(REPORT.read_text(encoding="utf-8"))
     assert report["legacy_embedded_configuration_replaced"] is False
     assert report["historical_unique_anchors"] == 449
