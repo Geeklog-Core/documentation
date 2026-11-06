@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thirty-one source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Forty-one source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -40,6 +40,16 @@ checks = {
     "listdraftstories": ["moderation.php", "draft", "block"],
     "skip_preview": ["Preview", "Submit", "articles", "comments"],
     "aftersave_story": ["item", "list", "home", "admin", "submission"],
+    "comment_mode": ["threaded", "nested", "flat", "nocomments"],
+    "comment_order": ["ASC", "DESC", "Oldest First", "Newest First"],
+    "comment_code": ["new articles", "0", "-1"],
+    "comment_edit": ["Anonymous", "comment.edit", "Comment Submissions", "Queued"],
+    "comment_edittime": ["seconds", "comment_edit"],
+    "article_comment_close_enabled": ["new articles", "separately", "article"],
+    "article_comment_close_days": ["days", "Disable Comments", "enabled"],
+    "comment_close_rec_stories": ["most recent articles", "new article", "oldest", "0"],
+    "allow_reply_notifications": ["subscribing", "Registered users", "email", "direct reply"],
+    "show_comments_at_replying": ["comment list", "comment page", "comment_on_same_page"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
