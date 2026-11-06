@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fifty-six source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Sixty-six source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -65,6 +65,16 @@ checks = {
     "hidenewstories": ["1","new articles","What's New"],
     "hidenewcomments": ["1","new comments","What's New"],
     "whatsnew_cache_time": ["What's New","cached","no longer","seconds","0"],
+    "newtrackbackinterval": ["Trackback comments","new","seconds"],
+    "hidenewtrackbacks": ["1","new trackback comments","What's New"],
+    "hidenewplugins": ["1","new entries by plugins","What's New"],
+    "title_trim_length": ["length","title","items","What's New"],
+    "language": ["default language","language files","language directory","Localization"],
+    "allow_user_language": ["1","site labels","My Account"],
+    "switchlang_homepage": ["switch language block","homepage","articles","topics","staticpages","404"],
+    "new_item_set_current_lang": ["multiple languages","COM_makeSid","current language","Articles","Staticpages","Blocks","Topics"],
+    "language_files": ["language shortcuts","same number of characters","language files","hreflang","both","enabled","disabled"],
+    "languages": ["language shortcuts","native name","match","Language Files","enabled","disabled"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
