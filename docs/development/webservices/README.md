@@ -32,6 +32,30 @@ They are relevant starting points when inspecting Atom-related functionality. Th
 5. Test allowed and forbidden requests in a disposable installation.
 6. Avoid exposing user passwords or access tokens in logs, documentation or support tickets.
 
+## Request-to-handler investigation checklist
+
+Before implementing a client against the 2.2.2 Webservices interface, trace the entire request rather than assuming that the presence of `PLG_invokeService()` makes an operation publicly callable.
+
+| Layer | What to inspect | What to record |
+| --- | --- | --- |
+| HTTP entry point | Route, method, content type and requested action | Exact local route and observed status in staging |
+| Authentication | Whether/how the entry point authenticates callers | Supported method verified in tagged code, without credentials |
+| Authorization | Permission check for each requested resource and action | Allowed and denied operations using disposable accounts |
+| Dispatch | How an action reaches `PLG_invokeService()` and the selected handler | Actual dispatcher and callback used |
+| Input | Required fields, field validation and decoding | Safe representative requests and expected validation failures |
+| Output | Success and error status, serialization and response format | Captured redacted response examples |
+| Logging | Whether errors expose private request data | Redaction and retention expectations |
+
+For write operations, verify that a valid authentication credential is not treated as unrestricted permission to publish or change content. For read operations, verify that private or unpublished records cannot be retrieved by unauthorized callers.
+
+## Staging-only interoperability tests
+
+A sensible minimum test set is: (a) a supported read request as an authorized test account, (b) the same request without sufficient privileges, (c) malformed or missing required inputs, (d) an unsupported action, and (e) a permitted write followed by a read-back **only when the target handler is verified to support it**.
+
+Use a disposable site and accounts. Capture HTTP status and response content type, not live session cookies or credentials. Avoid publishing a copy-and-paste request containing guessed endpoint paths or authentication headers; verify the actual routing and accepted operations in the installed release first.
+
+**Compatibility boundary:** Geeklog 2.2.2's inclusion of Atom-related files is historical evidence of code presence, not an assurance of API stability, universal standards compliance, or modern authentication support. A later Geeklog release requires new source and runtime tests.
+
 ## Historical compatibility
 
 The [Atom Publishing Protocol, RFC 5023](https://www.rfc-editor.org/rfc/rfc5023) is the standard discussed by the original Wiki page. This does **not** guarantee that every RFC feature is implemented or enabled by Geeklog 2.2.2. Check each desired operation in the source and in a staging site.
