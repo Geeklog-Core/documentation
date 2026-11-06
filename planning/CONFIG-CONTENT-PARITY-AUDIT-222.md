@@ -118,6 +118,16 @@ The targeted `tools/check_config_semantic_gates.py` now checks **22 setting desc
 
 **Review accounting:** 22/387 targeted setting descriptions checked, leaving **365 without this specific review**. This does **not** prove complete prose parity, current security suitability, plugin functionality, or installed admin behavior. Historical `english/config.html` remains unchanged and no deployable candidate is approved.
 
+## Permissions matrix verified against original 2.2.2 values — 2026-11-06
+
+Inspected all 12 historical default-permission setting descriptions for new articles, topics and blocks (`default_permissions_{story,topic,block}_{0..3}`). They already contained the original values and short explanations in Markdown, so they were **not rewritten or counted as newly semantically reviewed settings**.
+
+Added a clearly labeled role matrix to the existing permission section. The 2.2.2 defaults are **Read-Write for the owner** and **Read-Only for group, logged-in users and anonymous visitors** for each of the three content types. This table describes initial defaults for **new items**, not permissions granted on existing content or recommended current settings. The accompanying guidance distinguishes content editing from autotag `Use` rights and explicitly warns about anonymous access and non-retroactive changes.
+
+Added `tools/check_config_permission_matrix.py`, which parses the tagged 2.2.2 HTML and the Markdown-generated table and checks **every one of its 12 cells**. Wired the gate into `.github/workflows/dual-preview.yml`; [GitHub Actions #42144608822](https://github.com/hostellerie/documentation/actions/runs/42144608822) passed.
+
+**Review accounting remains unchanged:** 22 descriptions in targeted semantic review; the 12 permission defaults had already been transcribed and are now additionally covered by a **matrix-specific parity test**, not a new claim of broad prose review. Live authorization tests and full editorial parity are still outstanding; the original embedded `config.html` remains unchanged.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
