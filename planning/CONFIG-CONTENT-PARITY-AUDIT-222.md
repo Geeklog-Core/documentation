@@ -154,6 +154,12 @@ Reviewed **15** additional help descriptions against the pinned v2.2.2 config re
 
 The targeted source-and-Markdown token checker now covers **56 of 387** configuration descriptions; **331** remain outside this specific semantic review. This is separate from the 387 default-value transcription and the 12+32 permission matrix checks, and does not certify runtime behavior. The historical embedded `config.html` remains byte-identical; no branch or pull request is opened by this batch.
 
+## Seventh semantic review — multilingual content and What's New (2026-11-06)
+
+Reviewed **ten additional** configuration descriptions against the tagged v2.2.2 reference: `newtrackbackinterval`, `hidenewtrackbacks`, `hidenewplugins`, `title_trim_length`, `language`, `allow_user_language`, `switchlang_homepage`, `new_item_set_current_lang`, `language_files`, `languages`. Restored detailed language switching, missing-translation 404 cases, the `COM_makeSid` scope, required matching multilingual mappings and documented hreflang behavior. Also clarified trackback/plugin listings and title truncation in What's New.
+
+The targeted semantic regression check now covers **66/387** descriptions, leaving **321** without this focused review. This is not a runtime certification; historical embedded `config.html` remains unchanged and the site candidate remains isolated.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
