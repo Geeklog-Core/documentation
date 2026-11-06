@@ -134,6 +134,12 @@ The existing 32 autotag permission help descriptions were already transcribed. A
 
 `tools/check_config_autotag_matrix.py` validates each of the **32 rendered cells** against the corresponding row of the pinned Geeklog 2.2.2 `config.html`, including source spelling/capitalization. GitHub Actions executes this gate alongside the existing 12 content-permission cells. This is **additional default-value verification**, not another 32 semantically reviewed descriptions; the count remains **22/387**. Runtime rights and offline help integration are still untested. The original bundled reference is untouched.
 
+## Fourth semantic review — article publication and moderation (2026-11-06)
+
+Compared **nine additional** individual setting descriptions directly with the tagged Geeklog 2.2.2 configuration reference: `show_topic_icon`, `draft_flag`, `frontpage`, `hide_no_news_msg`, `hide_main_page_navigation`, `onlyrootfeatures`, `listdraftstories`, `skip_preview`, and `aftersave_story`. Added exact historical choices for frontpage/topic placement and archive exceptions; the `frontpage`/`frontpage_topics` pagination options; the Root-only featured-story restriction; the draft list on `moderation.php`; explicit Preview/Submit behavior; and the admin navigation choices including the submission queue exception.
+
+The `tools/check_config_semantic_gates.py` targeted regression list is extended from **22 to 31** entries. These tokens are checked in both the pinned original documentation and the current Markdown; they do not establish runtime validation. **356/387 setting descriptions** remain outside this targeted editorial review. This batch is separate from the 12 content and 32 autotag default-value matrix checks. Embedded `config.html` remains byte-identical and no replacement is approved.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
