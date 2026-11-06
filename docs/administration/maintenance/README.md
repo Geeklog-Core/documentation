@@ -46,7 +46,7 @@ Check the documentation as part of the same post-change smoke test:
 
 **Version boundary:** this procedure is documented for Geeklog 2.2.2. A documentation URL returning 200 does not prove that a plugin is installed, enabled or functioning.
 
-For a repeatable first-response checklist, see the [online troubleshooting decision path](../../../administration/troubleshooting/index.html). It separates 403/404/500 responses, redirect loops, login failures and plugin problems without recommending destructive changes.
+For a repeatable first-response checklist, see the [online troubleshooting decision path](../../administration/troubleshooting/index.html). It separates 403/404/500 responses, redirect loops, login failures and plugin problems without recommending destructive changes.
 
 ## Troubleshooting after an update
 
