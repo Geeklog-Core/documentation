@@ -765,7 +765,7 @@ Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https:/
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Enables the approval queue for newly submitted accounts when `1`; when turning it off, first process existing queued accounts.
+Set to `1` to require administrative approval of new accounts before their password is issued; `0` disables the submission queue. The tagged reference explicitly warns that **queued accounts should be processed before switching off the queue**, or pending registrations may be left unresolved.
 
 <a id="desc_allow_domains" name="desc_allow_domains"></a>
 
@@ -773,7 +773,7 @@ Enables the approval queue for newly submitted accounts when `1`; when turning i
 
 
 **Documented default (Geeklog 2.2.2):** `'' (empty)`
-Comma-separated approved email domains that can bypass the user approval queue when that queue is enabled. The 2.2.2 reference allows regular expressions; review patterns carefully to avoid unintended approvals.
+When the user approval queue is enabled, a comma-separated list of email domains can bypass manual approval and be accepted automatically. The 2.2.2 reference also accepts regular expressions. An overbroad regex may bypass review for unintended addresses, so test matching rules with permitted and forbidden examples before deployment.
 
 <a id="desc_disallow_domains" name="desc_disallow_domains"></a>
 
@@ -781,7 +781,7 @@ Comma-separated approved email domains that can bypass the user approval queue w
 
 
 **Documented default (Geeklog 2.2.2):** `'' (empty)`
-List or regular expressions for email domains forbidden for new registrations. This blacklist applies even when the account approval queue is disabled.
+Reject registration email domains matching this list or its regular expressions. Unlike `allow_domains`, the 2.2.2 reference explicitly states that **this restriction applies even if `usersubmission` is disabled**. Validate expression boundaries and representative addresses before relying on the restriction.
 
 
 ## Article and content submissions — Geeklog 2.2.2
@@ -796,7 +796,7 @@ Settings derived from the [tagged Geeklog 2.2.2 configuration reference](https:/
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Enable or disable moderation queue for submitted articles (`1` on, `0` off).
+Set to `1` to enable the article submission moderation queue, or `0` to disable it. The documented default is `1`. This controls review of submitted articles; do not confuse it with account registration approval.
 
 <a id="desc_listdraftstories" name="desc_listdraftstories"></a>
 
@@ -915,7 +915,7 @@ Default comment availability on new articles: `0` enables comments, while `-1` d
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Controls whether submitted comments must be approved in a moderation queue.
+Set to `1` to enable the comment submission moderation queue, or `0` to disable it. The documented default is `0`. This controls approval of submitted comments, not the separate article or user queues.
 
 <a id="desc_comment_edit" name="desc_comment_edit"></a>
 
@@ -2825,7 +2825,7 @@ Version-scoped documentation adapted from the [tagged Geeklog configuration refe
 
 
 **Documented default (Geeklog 2.2.2):** `true`
-Enables or disables sending and receiving trackback comments. The original source contains a boolean wording typo; treat `true` as enabled and check runtime behavior before changing it.
+Controls **both sending and receiving trackback comments**. The tagged 2.2.2 reference contains a typo, saying both "enable" and "disable" use `true`; the documented default is `true`. Verify the actual runtime behavior and external exposure before changing this historic feature. The contradictory wording must not be copied as configuration advice.
 
 <a id="desc_trackback_code" name="desc_trackback_code"></a>
 
@@ -2907,7 +2907,7 @@ Version-scoped documentation adapted from the [tagged Geeklog configuration refe
 
 
 **Documented default (Geeklog 2.2.2):** `false`
-When enabled, disables public registration of new Geeklog accounts.
+Set to `true` to disable all new-user signup paths in Geeklog 2.2.2 (default `false`). This is broader than requiring registration approval through `usersubmission`; it prevents new registrations entirely.
 
 <a id="desc_allow_user_themes" name="desc_allow_user_themes"></a>
 
@@ -2931,7 +2931,7 @@ Allows users to upload a profile photograph when enabled.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Allows account holders to change their login username. The 2.2.2 reference says article/comment bylines are updated to use the new username.
+Set to `1` to allow account holders to change their login username; the documented default is `0`. The 2.2.2 reference states that existing article and comment bylines automatically show the new username after a change.
 
 <a id="desc_allow_account_delete" name="desc_allow_account_delete"></a>
 
@@ -2939,7 +2939,7 @@ Allows account holders to change their login username. The 2.2.2 reference says 
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Allows users to delete their own accounts. The historical reference says existing articles and comments are retained but attributed to Anonymous.
+Set to `1` to allow users to delete their own accounts; the documented default is `0` (not allowed). The 2.2.2 reference states that the user's previously posted articles and comments remain on the site and are attributed to `Anonymous`. Account deletion therefore does not erase previously submitted content; review retention and privacy obligations separately.
 
 <a id="desc_hide_author_exclusion" name="desc_hide_author_exclusion"></a>
 
@@ -2979,7 +2979,7 @@ Appends a remote authentication service identifier to a username, helping distin
 
 
 **Documented default (Geeklog 2.2.2):** `false`
-Enables a custom account registration form provided by site code, such as custom hooks in `lib-custom.php`.
+Set to `true` to use a site-specific new-user registration form. The tagged Geeklog 2.2.2 source refers to the bundled `lib-custom.php` as an implementation example. A custom registration form is site code and should be reviewed for validation, authorization and updates before enabling.
 
 <a id="desc_user_login_method_standard" name="desc_user_login_method_standard"></a>
 
