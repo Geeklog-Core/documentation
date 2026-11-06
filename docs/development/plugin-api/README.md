@@ -67,6 +67,43 @@ The Wiki describes callback families for submitted content, comments, search, an
 
 See the future dedicated guides for plugin installation, moderation and comment integration. They should reuse this page rather than duplicating API lists.
 
+## Plan a plugin change before implementing callbacks
+
+A reliable extension starts with a narrow feature contract, not with copying a historical example. For each intended operation, record the user action, owning plugin, required permissions, data touched, expected Core dispatcher and test scenario.
+
+| Work item | Questions to answer before coding |
+| --- | --- |
+| Installation | Which files and database objects are created? How can a partially completed install be detected safely? |
+| Upgrade | What is the supported source version? Is a backup required? Can an upgrade be repeated after interruption without duplicating data? |
+| Uninstallation | What is deleted, retained or exported? Is the action visible and explicitly confirmed by the administrator? |
+| User-facing output | Are permissions checked in the request handler and is untrusted content escaped for the output context? |
+| Search integration | Do search results respect each item's visibility and publication status? |
+| Moderation/comments | Can unauthorized submissions or approvals be rejected server-side? Are state transitions recorded? |
+| Configuration | Which options are versioned, and how are upgrades from older plugin settings handled? |
+
+A callback's name alone is not its API contract. Read the actual dispatcher implementation in [`system/lib-plugins.php` for Geeklog 2.2.2](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php) and a maintained plugin's implementation for the same release. Record parameters, return values and error-handling expectations only after verifying them.
+
+## Practical staging acceptance matrix
+
+Run these checks on an isolated Geeklog site with **disposable data** before releasing an extension.
+
+| Stage | Successful outcome to verify | Failure path to exercise |
+| --- | --- | --- |
+| Fresh install | Plugin activates with expected metadata and rights | Missing prerequisite or failed installation step is reported without leaving an unsafe partial state |
+| Upgrade | Existing configuration and data remain usable | Interrupted/unsupported upgrade leaves a recoverable backup and a clear error |
+| Administrator UI | Authorized user can perform the intended action | Direct request without the required permission is rejected |
+| Public view | Intended anonymous and registered audiences see only permitted content | Private or unpublished content does not appear in direct links or search |
+| Submission or comment | Valid action follows the configured moderation workflow | Unauthorized or invalid submission is rejected |
+| Disable/uninstall | Site remains operational and documented retention policy is respected | Re-enable or restoration path is understood before deleting data |
+
+**Do not** treat the presence of a plugin's HTML help page, a visible administrator menu or a successful PHP syntax check as proof that these runtime paths have been tested.
+
+## Document the plugin alongside its source
+
+For a maintainable plugin, keep an English README or documentation section that describes its compatibility target, installation/upgrade procedure, configuration, permissions, user workflows, known limitations and recovery method. Refer to the [security and permissions guide](https://geeklog-core.github.io/documentation/modern/development/security-and-permissions/index.html) and the [configuration API guide](https://geeklog-core.github.io/documentation/modern/development/configuration-api/index.html) rather than duplicating unverified PHP examples.
+
+When Geeklog 2.2.3 becomes the integration target, repeat callback and plugin-version checks against the actual tagged release. The 2.2.2 mappings in this page should remain labelled historical until that verification is complete.
+
 ## Compatibility checklist
 
 - [x] Dispatcher mapping for `PLG_install()`, `PLG_getParams()` and `PLG_upgrade()` rechecked against the Geeklog v2.2.2 tagged source
