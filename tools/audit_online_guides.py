@@ -96,6 +96,22 @@ def main():
             assert embedded.read_bytes() == (ONLINE / path).read_bytes(), (
                 f"Online/embedded guide mismatch: {path}"
             )
+    # External link inventory only: remote sites are not fetched in CI.
+    # Pin Core source links to the release discussed by these guides rather
+    # than silently using a changing master/main revision.
+    external = {}
+    unpinned = []
+    for path, source in GUIDES.items():
+        markdown_text = (ROOT / source).read_text(encoding="utf-8")
+        for url in re.findall(r"(?<!!)\\[[^]]+\\]\\((https?://[^)\\s]+)\\)", markdown_text):
+            parsed = urlsplit(url)
+            external[parsed.netloc] = external.get(parsed.netloc, 0) + 1
+            if re.match(
+                r"^https://github[.]com/Geeklog-Core/geeklog/(?:blob|tree)/(?:main|master)/",
+                url,
+            ):
+                unpinned.append({"source": source, "url": url})
+    assert not unpinned, f"Unpinned Core source links in versioned guides: {unpinned}"
     online_pages = sorted(ONLINE.rglob("*.html"))
     embedded_pages = sorted(OFFLINE.rglob("*.html"))
     online_links, online_fragments = local_links(ONLINE, online_pages)
@@ -109,6 +125,9 @@ def main():
         "online_fragments_checked": online_fragments,
         "embedded_local_refs_checked": embedded_links,
         "embedded_fragments_checked": embedded_fragments,
+        "external_link_occurrences": sum(external.values()),
+        "external_hosts": dict(sorted(external.items())),
+        "unpinned_core_source_links": unpinned,
         "external_web_links_checked_live": False,
         "editorial_semantics_certified": False,
         "geeklog_runtime_tested": False,
@@ -118,7 +137,8 @@ def main():
     print("PASS: 13 unique indexed guides with source Markdown and generated pages")
     print(f"PASS: online HTML {len(online_pages)} pages, {online_links} local links, {online_fragments} fragments")
     print(f"PASS: embedded modern {len(embedded_pages)} pages, {embedded_links} local links, {embedded_fragments} fragments")
-    print("NOTE: external links, live Geeklog behavior and editorial provenance remain separate checks")
+    print(f"PASS: {sum(external.values())} external reference occurrences inventoried; no unpinned Geeklog Core source URLs")
+    print("NOTE: external targets NOT fetched; live Geeklog behavior and editorial provenance remain separate checks")
 
 if __name__ == "__main__":
     main()
