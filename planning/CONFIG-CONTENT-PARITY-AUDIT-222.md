@@ -108,6 +108,16 @@ The Markdown now clarifies the original mail sender/reply behavior, historic SMT
 
 **Review accounting:** 12/387 descriptions have received these targeted source-checked improvements; **375 descriptions** remain outside these focused checks. This does not establish content parity for those 375 settings or validate running configuration behavior. The embedded `config.html` remains byte-identical to the v2.2.2 reference.
 
+## Third source-backed semantic review — account and moderation settings (2026-11-06)
+
+Reviewed **10 additional** configuration descriptions against the tagged 2.2.2 reference: `allow_account_delete`, `allow_username_change`, `custom_registration`, `usersubmission`, `disable_new_user_registration`, `allow_domains`, `disallow_domains`, `storysubmission`, `commentsubmission`, and `trackback_enabled`.
+
+Restored the exact enabled/disabled meaning of account and submission controls, the retention of anonymized article/comment attribution after account deletion, byline changes after a username change, the `lib-custom.php` registration hook, queued-account handling when approval is disabled, distinctions between allowlist bypass and denylist enforcement, and separate article/comment moderation queues. The source's contradictory `trackback_enabled` boolean wording is flagged rather than copied as reliable operational advice.
+
+The targeted `tools/check_config_semantic_gates.py` now checks **22 setting descriptions** against original source content and the current Markdown, with HTML whitespace normalization. [GitHub Actions #42140701426](https://github.com/hostellerie/documentation/actions/runs/42140701426) succeeded. Earlier runs in this batch exposed a missing queue wording detail and a whitespace comparison defect; both were corrected.
+
+**Review accounting:** 22/387 targeted setting descriptions checked, leaving **365 without this specific review**. This does **not** prove complete prose parity, current security suitability, plugin functionality, or installed admin behavior. Historical `english/config.html` remains unchanged and no deployable candidate is approved.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
