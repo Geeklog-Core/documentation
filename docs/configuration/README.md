@@ -535,7 +535,7 @@ The historical values are `frontpage` (hide Google-style paging on the site's `i
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Set to `1` to allow only **Root** users to mark an article as featured. The source explains the reason: multiple Story Admins may have different visibility over articles and otherwise unintentionally replace one another's featured article. The default `0` does not impose this Root-only restriction; actual editorial privileges still depend on the site's permissions.
+Set to `1` to allow only **Root** users to mark an article as featured. The source explains the reason: multiple article admins (Story Admins) may have different visibility over articles and otherwise unintentionally replace one another's featured article. The default `0` does not impose this Root-only restriction; actual editorial privileges still depend on the site's permissions.
 
 <a id="users_login" name="users_login"></a>
 
