@@ -128,6 +128,12 @@ Added `tools/check_config_permission_matrix.py`, which parses the tagged 2.2.2 H
 
 **Review accounting remains unchanged:** 22 descriptions in targeted semantic review; the 12 permission defaults had already been transcribed and are now additionally covered by a **matrix-specific parity test**, not a new claim of broad prose review. Live authorization tests and full editorial parity are still outstanding; the original embedded `config.html` remains unchanged.
 
+## Autotag permission matrix source check — 2026-11-06
+
+The existing 32 autotag permission help descriptions were already transcribed. Added a concise comparison matrix for eight families (`story`, `user`, `topic`, `related_topics`, `related_items`, `block`, `structureddata`, `likes_block`) and all four owner/group/logged-in/anonymous positions. The matrix preserves historical documented values and distinguishes permissive `story`, `user`, `topic` from restrictive ordinary-user defaults in the other five families. The assigned group differs by autotag type, and the `structureddata` Root Group exception remains visible.
+
+`tools/check_config_autotag_matrix.py` validates each of the **32 rendered cells** against the corresponding row of the pinned Geeklog 2.2.2 `config.html`, including source spelling/capitalization. GitHub Actions executes this gate alongside the existing 12 content-permission cells. This is **additional default-value verification**, not another 32 semantically reviewed descriptions; the count remains **22/387**. Runtime rights and offline help integration are still untested. The original bundled reference is untouched.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
