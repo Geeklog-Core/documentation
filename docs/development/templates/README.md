@@ -57,7 +57,7 @@ Do not infer Geeklog template-engine behavior from visual symptoms alone. If PHP
 
 A theme can change markup and presentation; this is not the same as changing Geeklog's content model or plugin feature rights. Prefer documented extension points and maintain a clear inventory of modifications. If a new layout requires multiple columns within the main article body, first verify whether the desired structure belongs in the theme's overall page layout, in the article content itself, or in a plugin-rendered page.
 
-For related topics, use the [configuration reference](https://geeklog-core.github.io/documentation/configuration.html) for release-scoped theme settings, the [plugin API guide](../../../development/plugin-api/index.html) when implementing functionality, and the [security and permissions guide](../../../development/security-and-permissions/index.html) for server-side authorization.
+For related topics, use the [configuration reference](https://geeklog-core.github.io/documentation/configuration.html) for release-scoped theme settings, the [plugin API guide](../../development/plugin-api/index.html) when implementing functionality, and the [security and permissions guide](../../development/security-and-permissions/index.html) for server-side authorization.
 
 ## Quality and security checks
 
