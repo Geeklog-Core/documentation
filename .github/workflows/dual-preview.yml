@@ -1,7 +1,7 @@
 name: Validate online and embedded Geeklog documentation
 on:
   push:
-    branches: [docs/published-site-labels]
+    branches: [docs/published-site-labels, docs/online-troubleshooting-guide]
   workflow_dispatch:
 permissions:
   contents: read
