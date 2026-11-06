@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Forty-one source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
+"""Fifty-six source-backed Geeklog 2.2.2 semantic regression checks; not full parity."""
 from pathlib import Path
 import os
 import re
@@ -50,6 +50,21 @@ checks = {
     "comment_close_rec_stories": ["most recent articles", "new article", "oldest", "0"],
     "allow_reply_notifications": ["subscribing", "Registered users", "email"],
     "show_comments_at_replying": ["comment list", "comment page", "comment_on_same_page"],
+    "sort_admin": ["true","Admin","Command and Control","alphabetically"],
+    "link_documentation": ["documentation","Admin","0"],
+    "link_versionchecker": ["GL Version Test","Admin","0","Root"],
+    "sortmethod": ["alpha","alphabetically","sortnum","sort number"],
+    "showstorycount": ["articles","topic","Sections","0","1"],
+    "showsubmissioncount": ["article submissions","topic","Sections","0","1"],
+    "hide_home_link": ["Home","Sections","0","1"],
+    "whosonline_threshold": ["seconds","idle","whosonline"],
+    "whosonline_anonymous": ["anonymous users","number","registered users","names","logged-in users"],
+    "whosonline_photo": ["thumbnail","photo","else","photo icon"],
+    "newstoriesinterval": ["new","seconds"],
+    "newcommentsinterval": ["new","seconds"],
+    "hidenewstories": ["1","new articles","What's New"],
+    "hidenewcomments": ["1","new comments","What's New"],
+    "whatsnew_cache_time": ["What's New","cached","no longer","seconds","0"],
 }
 rows = re.findall(r"<tr\b[^>]*>[\s\S]*?</tr>", source, re.I)
 for setting, tokens in checks.items():
