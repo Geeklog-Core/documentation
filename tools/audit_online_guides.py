@@ -103,7 +103,7 @@ def main():
     unpinned = []
     for path, source in GUIDES.items():
         markdown_text = (ROOT / source).read_text(encoding="utf-8")
-        for url in re.findall(r"(?<!!)\\[[^]]+\\]\\((https?://[^)\\s]+)\\)", markdown_text):
+        for url in re.findall(r"(?<!!)\[[^\]]+\]\((https?://[^)\s]+)\)", markdown_text):
             parsed = urlsplit(url)
             external[parsed.netloc] = external.get(parsed.netloc, 0) + 1
             if re.match(
@@ -111,6 +111,7 @@ def main():
                 url,
             ):
                 unpinned.append({"source": source, "url": url})
+    assert sum(external.values()) >= 20, "External-link inventory unexpectedly empty or incomplete"
     assert not unpinned, f"Unpinned Core source links in versioned guides: {unpinned}"
     online_pages = sorted(ONLINE.rglob("*.html"))
     embedded_pages = sorted(OFFLINE.rglob("*.html"))
