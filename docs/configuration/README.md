@@ -986,7 +986,7 @@ Controls whether the comment editor is shown on the same page as the content ins
 
 
 **Documented default (Geeklog 2.2.2):** `false`
-Sort entries in the Administrator block and Command and Control icons alphabetically when enabled.
+When set to `true`, sorts entries in the **Admin block** and icons on the **Command and Control** page **alphabetically**. The documented default is `false`, and the setting affects ordering, not administrator permissions.
 
 <a id="desc_link_documentation" name="desc_link_documentation"></a>
 
@@ -994,7 +994,7 @@ Sort entries in the Administrator block and Command and Control icons alphabetic
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Show the Geeklog documentation link in the administrator block when set to `1`.
+Adds a link to Geeklog's **documentation** in the **Admin block** when `1`; set to `0` to hide that link. The 2.2.2 default is `1`. This affects navigation, not the availability of the bundled help files.
 
 <a id="desc_link_versionchecker" name="desc_link_versionchecker"></a>
 
@@ -1002,7 +1002,7 @@ Show the Geeklog documentation link in the administrator block when set to `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Display the version-check link in the administrator block when enabled; the reference notes this is visible only to `Root` members.
+Adds the **GL Version Test** link to the **Admin block** when `1`; set it to `0` to hide the link. The historical reference explicitly says it is displayed **only** to members of the **Root** group, even when enabled. This navigation control does not install updates.
 
 <a id="blocks_topics" name="blocks_topics"></a>
 
@@ -1012,7 +1012,7 @@ Display the version-check link in the administrator block when enabled; the refe
 
 
 **Documented default (Geeklog 2.2.2):** `alpha`
-Topic sorting in the Sections block: `alpha` sorts alphabetically; `sortnum` uses the configured sort number.
+In the **topic list**, `alpha` sorts topics **alphabetically**, while `sortnum` sorts by the topic's configured **sort number**. The documented default is `alpha`. This controls navigation order, not which topics a user may read.
 
 <a id="desc_showstorycount" name="desc_showstorycount"></a>
 
@@ -1020,7 +1020,7 @@ Topic sorting in the Sections block: `alpha` sorts alphabetically; `sortnum` use
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Show the number of articles in each topic in the Sections block when `1`.
+Controls the **number of articles** shown for each **topic** in the **Sections block**: `0` means no count and `1` means yes. Default `1`. These are display counts, not an article access policy.
 
 <a id="desc_showsubmissioncount" name="desc_showsubmissioncount"></a>
 
@@ -1028,7 +1028,7 @@ Show the number of articles in each topic in the Sections block when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `1`
-Show the number of article submissions by topic in the Sections block when `1`.
+Controls the **number of article submissions** shown for each **topic** in the **Sections block**: `0` means no count, `1` means yes. The documented default is `1`. Visibility of the count is separate from moderation rights.
 
 <a id="desc_hide_home_link" name="desc_hide_home_link"></a>
 
@@ -1036,12 +1036,7 @@ Show the number of article submissions by topic in the Sections block when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Hide the Home link in the Sections block when `1`.
-
-
-## Blocks — online users and recent content — Geeklog 2.2.2
-
-Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+Hides the **Home** link from the **Sections block** when `1`; `0` means no hiding. The bundled default is `0`. Removing this navigation link does not disable access to the homepage.
 
 <a id="blocks_who" name="blocks_who"></a>
 
@@ -1051,7 +1046,7 @@ Descriptions condensed from the [bundled 2.2.2 configuration reference](https://
 
 
 **Documented default (Geeklog 2.2.2):** `300`
-Idle-time threshold, in seconds, after which a user is no longer listed in the Who's Online block; the 2.2.2 reference default is `300`.
+The number of **seconds** a user may be **idle** before being removed from the **Who's Online block**. The historical default is `300` seconds. This is only an online-list threshold, not an authentication session timeout.
 
 <a id="desc_whosonline_anonymous" name="desc_whosonline_anonymous"></a>
 
@@ -1059,7 +1054,7 @@ Idle-time threshold, in seconds, after which a user is no longer listed in the W
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled, anonymous visitors see only the count of registered users online rather than their names.
+When enabled (`1`), **anonymous users** see only the **number** of **registered users** currently online in the **Who's Online block**, not their **names**. **Logged-in users** can still see the names of other currently online users. The historical default is `0`; this is not a complete privacy control for the rest of the site.
 
 <a id="desc_whosonline_photo" name="desc_whosonline_photo"></a>
 
@@ -1067,7 +1062,7 @@ When enabled, anonymous visitors see only the count of registered users online r
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-When enabled, display a thumbnail of a user's uploaded photo where available, otherwise a photo icon.
+When enabled (`1`), displays a **thumbnail** if a user **photo** exists; **else**, a **photo icon** is shown. The 2.2.2 default is `0`. Visibility of the online user list is controlled separately.
 
 <a id="blocks_what" name="blocks_what"></a>
 
@@ -1077,7 +1072,7 @@ When enabled, display a thumbnail of a user's uploaded photo where available, ot
 
 
 **Documented default (Geeklog 2.2.2):** `86400`
-Maximum age, in seconds, for articles classified as new; default `86400`.
+An article is considered **new** while its age is within this many **seconds**. The historical default is `86400` seconds (one day). This affects the What's New listing, not publication or retention of the article.
 
 <a id="desc_newcommentsinterval" name="desc_newcommentsinterval"></a>
 
@@ -1085,7 +1080,7 @@ Maximum age, in seconds, for articles classified as new; default `86400`.
 
 
 **Documented default (Geeklog 2.2.2):** `172800`
-Maximum age, in seconds, for comments classified as new; default `172800`.
+A comment is considered **new** while its age is within this many **seconds**. The documented default is `172800` seconds (two days). It does not change the comment moderation queue.
 
 <a id="desc_newtrackbackinterval" name="desc_newtrackbackinterval"></a>
 
@@ -1101,7 +1096,7 @@ Maximum age of new trackbacks, in seconds; default `172800`.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Hide new articles in the What's New block when `1`.
+Set to `1` to **hide new articles** from the **What's New block**; the historical default is `0`. The articles themselves are not deleted or unpublished.
 
 <a id="desc_hidenewcomments" name="desc_hidenewcomments"></a>
 
@@ -1109,7 +1104,7 @@ Hide new articles in the What's New block when `1`.
 
 
 **Documented default (Geeklog 2.2.2):** `0`
-Hide new comments in the What's New block when `1`.
+Set to `1` to **hide new comments** from the **What's New block**; the historical default is `0`. This only controls the block listing, not the actual comment visibility rules.
 
 <a id="desc_hidenewtrackbacks" name="desc_hidenewtrackbacks"></a>
 
@@ -1141,12 +1136,7 @@ Maximum displayed title length for items in the What's New block; default `20`.
 
 
 **Documented default (Geeklog 2.2.2):** `3600`
-Maximum cache duration for the What's New block, in seconds; default `3600`. Set to `0` to disable this cache.
-
-
-## Language selection and multilingual content — Geeklog 2.2.2
-
-Descriptions condensed from the [bundled 2.2.2 configuration reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/config.html). Check installed-release behavior before modifying a production site.
+The **What's New Block** is **cached** for **no longer** than the configured number of **seconds**. Default `3600`; setting `0` **disables** caching. This is a block-specific cache and should not be confused with caching of templates or other site content.
 
 <a id="languages" name="languages"></a>
 <a id="languages_language" name="languages_language"></a>
