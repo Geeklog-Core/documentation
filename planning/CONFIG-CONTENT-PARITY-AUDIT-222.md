@@ -98,6 +98,16 @@ The changes restore specific tagged 2.2.2 information: the `smtps` transport's O
 
 A small `tools/check_config_semantic_gates.py` guard now checks those critical option tokens against both the tagged source and maintained Markdown. This is a **targeted editorial regression check for five options**, not an automated approval of the remaining **382** descriptions. It does not claim that an installed Geeklog 2.2.2 administration UI has been tested.
 
+## Second semantic review batch — mail and account protection (2026-11-06)
+
+Reviewed **seven additional** descriptions against tagged Geeklog `v2.2.2` documentation: `noreply_mail`, `mail_settings_port`, `mail_settings_auth`, `invalidloginattempts`, `invalidloginmaxtime`, `enable_twofactorauth`, and `pass_stretch`. This is a substantive correction batch rather than an additional structural inventory.
+
+The Markdown now clarifies the original mail sender/reply behavior, historic SMTP port examples `25` and `587` without recommending them for current providers, authentication's `1`/`0`/empty distinction, the `0` switches that disable invalid-login notifications, the interaction between warning and login speed limits, per-user two-factor enrollment, and the historical password stretch requirement (greater than zero). Historical behavior must not be confused with current security best practices.
+
+`tools/check_config_semantic_gates.py` now validates key source-backed details for **12 settings** (the prior five plus this batch). [CI #42139862435](https://github.com/hostellerie/documentation/actions/runs/42139862435) succeeded.
+
+**Review accounting:** 12/387 descriptions have received these targeted source-checked improvements; **375 descriptions** remain outside these focused checks. This does not establish content parity for those 375 settings or validate running configuration behavior. The embedded `config.html` remains byte-identical to the v2.2.2 reference.
+
 ## Decision
 
 **BLOCK replacement of embedded `docs/english/config.html`.** Structural anchor coverage (387 help anchors and 62 historical navigation anchors) is necessary but not sufficient. The current embedded file must stay byte-for-byte the tagged original.
