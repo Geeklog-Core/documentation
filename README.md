@@ -10,6 +10,14 @@ Documentation for [Geeklog CMS](https://github.com/Geeklog-Core/geeklog), mainta
 
 The official documentation website is published from the upstream repository. Contributor changes appear there only after merging and running the maintainer-controlled Pages deployment.
 
+## Delivery priorities (2026-11-06)
+
+**P0 — Official online documentation.** Publish practical, version-labelled English guides on the [official documentation website](https://geeklog-core.github.io/documentation/) as soon as they pass website and editorial review. Source and build validation are already available; the remaining full embedded configuration-help migration does **not** block publication of suitably qualified online content. See [online-first roadmap](planning/ONLINE-FIRST-ROADMAP.md).
+
+**P1 — Embedded documentation for Geeklog 2.2.3.** Produce and validate version-specific offline HTML and contextual administration help against a 2.2.3 baseline before integrating it into a Geeklog release. The existing 2.2.2 preservation ZIP and isolated config candidate are historical/test artifacts, **not** an approved 2.2.3 package. Their acceptance criteria remain separate.
+
+The public website is deployed only from upstream `Geeklog-Core/documentation:main` following review, merge and the maintainer's manual GitHub Pages workflow.
+
 ## Two outputs from maintained Markdown
 
 1. A searchable public HTML website: 3 general guides and 10 modernized supplementary guides, with 13 pages in the search index.
