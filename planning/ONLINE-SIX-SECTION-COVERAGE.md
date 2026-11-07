@@ -4,6 +4,34 @@
 **Source branch:** `hostellerie/documentation:docs/online-troubleshooting-guide`  
 **Release baseline:** Geeklog **2.2.2** only. **Embedded documentation for 2.2.3 is a separate milestone.**
 
+## Current canonical public information architecture (2026-11-07)
+
+The new public output contains **24 searchable guides and 25 HTML pages** (one homepage plus the guides). The existing **22 embedded modern guides and index** remain under `public_html/docs/english/modern/`. The public version publishes **no `modern/` directory, no root-level legacy `.html` routes and no redirect/compatibility pages**.
+
+| Homepage section | Current public guides | Notes |
+| --- | ---: | --- |
+| Getting Started | 2 | Installation and configuration |
+| User Guide | 5 | Beginner orientation, content, blocks, comments and feeds |
+| Administration | 5 | Administration, users, backup, maintenance, **one merged Troubleshooting + FAQ guide** |
+| Plugins | 3 | Plugin management, bundled extensions and Static Pages |
+| Development & Theming | 5 | Plugin development, permissions, templates, theme development and contributing |
+| Technical Reference | 4 | Database schema plus Plugin, Configuration and Webservices APIs |
+| **Total** | **24** | Each public guide appears once in catalogue and search |
+
+New URL examples: `/installation/`, `/configuration/`, `/user-guide/`, `/administration/troubleshooting/`, `/reference/plugin-api/`, `/reference/configuration-api/` and `/reference/webservices/`.
+
+New navigation: **six compact section links**, page breadcrumbs, on-page contents, previous/next links in catalogue order and a visible five-step beginner learning path (install → configure → publish → manage users → back up).
+
+The existing source `docs/administration/troubleshooting-faq/README.md` is retained for the historical embedded output; its editorial content was merged into the public `docs/administration/troubleshooting/README.md`. No historic embedded help URL was renamed.
+
+**No redirects were requested or implemented.** Previously shared public URLs such as `/modern/...` and `/installation.html` will stop working after the updated upstream Pages deployment. Update links in external sites separately if needed.
+
+Automated checks: `tools/check_public_routes.py`, existing generated-link/fragment checks, local HTTP preview and embedded ZIP preservation. They cannot replace a visual audit of the deployed site.
+
+## Earlier site information architecture (historical snapshot, before public URL cleanup)
+
+The counts and category labels in the section below describe the *previous* 25-guide/27-page output and are retained as project history, not as the current published target.
+
 ## Site information architecture
 
 All **25** searchable guides are generated from Markdown and grouped into six sections on the public-site homepage. The three top-level content pages (installation, configuration and administration) plus 22 modern guides produce **27 HTML pages** in the online output (including home and the modern guide index). The same 22 modern guides are also included in the **23-page modern HTML subset** of the experimental, legacy-preserving 2.2.2 package.
