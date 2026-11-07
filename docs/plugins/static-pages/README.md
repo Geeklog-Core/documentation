@@ -91,3 +91,31 @@ When troubleshooting a site failure, follow the [administration troubleshooting 
 - Back up the site before changing plugin versions.
 
 **Sources and provenance:** [tagged Static Pages auto-installer](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/plugins/staticpages/autoinstall.php) and [plugin functions](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/plugins/staticpages/functions.inc). The archived Wiki topic `Static_Pages_Plugin` was used as a topic locator, not copied. Verify interface details on the deployed release.
+
+## Detailed tutorial: create an About page with Static Pages
+
+**Scenario:** publish a standalone **About our community** page, distinct from news articles. **Prerequisites:** the bundled Static Pages plugin is installed, a disposable site, and an account with `staticpages.edit`.
+
+1. Open the Static Pages administration interface. In the tagged 2.2.2 plugin it is handled by `admin/plugins/staticpages/index.php`.
+2. Choose the new-page action and enter **About our community** as the title. Use a unique page ID such as `training_about_us` if the installed editor exposes an editable identifier.
+3. Add simple content: **Our community shares news, tutorials and useful links.** Include a heading and a descriptive link to an existing public article where appropriate.
+4. Check owner/group and anonymous/member permissions carefully. Do not set the page to private if the intention is a public About page.
+5. Leave any PHP execution controls disabled. The `staticpages.PHP` right is distinct from `staticpages.edit` and should not be required for ordinary HTML content.
+6. Preview the page if the editor offers it. Inspect headings, link destinations and layout.
+7. Save through the normal editor. The tagged handler checks a CSRF token for the save operation.
+8. Open the resulting public URL while logged out and on a narrow-screen browser. Confirm its content and access permissions.
+9. If you want this page in a menu, add its **public URL** using a supported theme/menu feature or a normal text block; saving a page does not guarantee it appears in every theme menu.
+10. Edit a sentence and save again to confirm the maintenance workflow. Remove the disposable page later only with appropriate delete rights.
+
+**Expected output:** a stable About page with the intended public visibility. If it is absent, inspect its permission settings, page ID and navigation placement before modifying server rewrite rules.
+
+### Safe clone exercise
+
+1. In staging, create and save the test About page above.
+2. If the editor exposes **Clone**, select it and inspect the copied title, ID, permissions and placement.
+3. Give the copy a new unique ID before saving. Do not allow two pages to share a public identifier.
+4. Review permissions and links; inherited defaults may not match the new page's intended audience.
+5. Inspect the cloned page anonymously, then remove the disposable copy.
+
+**Tagged source:** [Static Pages administrator](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins/staticpages/index.php) checks `staticpages.edit` to enter, `staticpages.delete` for deletion controls, and `staticpages.PHP` plus the plugin setting before offering PHP-related options. It supports preview, edit and clone branches. Exact UI labels and template presentation require staging verification.
+
