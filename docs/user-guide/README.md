@@ -48,7 +48,7 @@ The detailed guides describe the **expected actions and source-confirmed permiss
 
 ## Why two users may see different publishing screens
 
-The public submission handler has separate behavior for users with `story.edit` and ordinary contributors: a Story Admin may be redirected into the privileged editor. Site settings can also require login before a visitor may submit. Spam filtering, topic checks and a submission speed limit can prevent a story from being accepted.
+The public submission handler has separate behavior for users with `story.edit` and ordinary contributors: a Story Admin may be redirected into the privileged editor. Site settings can also require login before a visitor may submit (including the `submitloginrequired` configuration option). Spam filtering, topic checks and a submission speed limit can prevent a story from being accepted.
 
 For a missing article, check the contributor's result message, the publication status and the moderation queue before concluding that the article was lost. See [Articles, Topics and Publishing](../articles-and-topics/index.html) for the two workflows.
 
