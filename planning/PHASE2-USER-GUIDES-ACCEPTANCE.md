@@ -59,3 +59,17 @@ Further work on Geeklog v2.2.2 tagged code and its documented edit handlers expa
 - **Repeatable documentation regression:** `tools/check_p0_user_guides.py` is run by `.github/workflows/dual-preview.yml` after the generated-site audit. It checks that all five existing P0 Markdown and HTML guides retain their version-pinned sources, key rights, procedural headings and unchecked staging items. This is **static documentation acceptance only**, not proof that PHP operations or role-based behavior passed a real installation test.
 
 **Outstanding hands-on checks:** scheduling/expiration, parent-topic inheritance and effective access, permitted block positions in different themes, PHP/portal block security controls, plugin upgrade dependencies and restore/rollback scenarios. Audit of the live public documentation website remains deferred.
+
+## Third source-review pass — P0 workflow distinctions
+
+The following behavior was cross-checked directly in **Geeklog v2.2.2** PHP source, not through an executed administration session:
+
+- The public `submit.php` route redirects users with `story.edit` toward the privileged editor for the normal story route. Submission validation also includes login-required options, topic selection, spam checks and a submission speed limit. `STORY_SAVED` and `STORY_SAVED_SUBMISSION` follow different redirect paths; the displayed result is not definitive proof of anonymous visibility.
+- Topic saves in `admin/topic.php` validate the parent topic, reserved/duplicate identifiers, archive restrictions and rights on both target and parent; `TOPIC_ROOT` is a Core constant and should not be treated as a normal editable topic.
+- Block saves in `admin/block.php` distinguish enabled state, audience permissions, device, theme/plugin placement, autotag settings and content type; the four named block types do not imply that arbitrary PHP code is an acceptable editor input.
+- The moderation dashboard `admin/moderation.php` is protected by `SEC_hasModerationAccess()` and composes different story, draft, comment and plugin queues. Absence of a queue is not evidence of lost data.
+- The plugin manager `admin/plugins.php` distinguishes read-only information actions (`info_installed`, `info_uninstalled`) from installation, upload, upgrade and load-order actions with differing rights and CSRF checks. Exact plugin migration outcomes remain plugin-specific.
+
+**CI enhancement:** `tools/check_p0_user_guides.py` now guards these five workflow distinctions in Markdown and generated online HTML. This catches accidental removal of the corresponding explanations, not behavioral changes in PHP.
+
+**Next action:** reproduce the P0 scenarios on a disposable Geeklog 2.2.2 site using specific test roles and record screenshots only after redacting private data. The user-requested live-site visual audit remains postponed. No PR has been opened for the phase 2 branch.
