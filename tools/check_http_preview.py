@@ -50,12 +50,22 @@ def online():
         assert b"docs-search" in index and b"Browse all guides" in index
         docs = json.loads(fetch(base, "search-index.json", "application/json"))
         assert len(docs) == 13
+        # Browse remains available without JS, organized by task rather than a flat list.
+        assert index.count(b'class="docs-topic-group"') == 4
+        assert index.count(b'<h3>') == 4
+        assert b'Getting started' in index and b'Site administration' in index
+        assert b'Content and appearance' in index and b'Developer reference' in index
+        for item in docs:
+            assert index.count(('href="' + item["url"] + '"').encode("utf-8")) == 1
+
         assert b"fetch('search-index.json')" in fetch(base, "search.js", "text/javascript")
         css = fetch(base, "style.css", "text/css").decode("utf-8")
         # The label and input must not run together on desktop or mobile.
         assert "label[for=docs-search]{display:block;margin-bottom:.6rem}" in css
         assert "#docs-search{display:block;width:100%;max-width:32rem;" in css
         assert "#docs-search:focus-visible" in css
+        assert ".docs-topic-grid{display:grid;" in css
+        assert "grid-template-columns:repeat(auto-fit" in css
         assert b'<label for="docs-search">Find a topic across all available guides</label>' in index
         assert b'<input type="search" id="docs-search"' in index
         for item in docs:
