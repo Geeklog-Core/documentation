@@ -28,11 +28,11 @@ SOURCES = {
     "plugins/bundled-plugins/": "Bundled Plugins Reference",
     "reference/database-schema/": "Database Schema and Data Model",
     "development/contributing/": "Contributing to Geeklog",
-    "development/plugin-api/": "Plugin API",
+    "reference/plugin-api/": "Plugin API",
     "development/templates/": "Themes and templates",
     "plugins/static-pages/": "Static Pages",
-    "development/webservices/": "Webservices API",
-    "development/configuration-api/": "Configuration API",
+    "reference/webservices/": "Webservices API",
+    "reference/configuration-api/": "Configuration API",
     "administration/users-and-groups/": "Users and groups",
     "development/security-and-permissions/": "Security and permissions",
     "administration/backup-and-recovery/": "Backup and recovery",
@@ -75,9 +75,9 @@ TOPIC_GROUPS = (
     )),
     ("Technical Reference", "Consult version-scoped technical APIs and data model.", (
         "reference/database-schema/",
-        "development/plugin-api/",
-        "development/configuration-api/",
-        "development/webservices/",
+        "reference/plugin-api/",
+        "reference/configuration-api/",
+        "reference/webservices/",
     )),
 )
 
