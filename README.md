@@ -20,8 +20,10 @@ The public website is deployed only from upstream `Geeklog-Core/documentation:ma
 
 ## Two outputs from maintained Markdown
 
-1. A searchable public HTML website: 3 general guides and 10 modernized supplementary guides, with 13 pages in the search index.
-2. A Geeklog **2.2.2 documentation overlay ZIP**, containing a generated installation guide, 10 additional modernized guides, and the historically required Core/plugin help at its original paths.
+1. A searchable public HTML website with **24 guide routes across six sections** (25 HTML pages including home). Canonical directory URLs include `/installation/`, `/configuration/`, `/user-guide/` and `/reference/plugin-api/` — there is **no public `/modern/` subtree**, old flat public `.html` page, redirect or compatibility page.
+2. A Geeklog **2.2.2 documentation overlay ZIP**, with **22 modern guides and their index** still under `public_html/docs/english/modern/`, and historically required Core/plugin help at its original paths. The public troubleshooting page includes the FAQ; the embedded guide layout is left intact.
+
+The online homepage provides a five-step beginner journey. Individual guides include compact six-section navigation, breadcrumbs, an on-page outline and previous/next links. Technical API references are grouped under **Technical Reference**.
 
 The embedded `public_html/docs/english/config.html` and bundled plugin help are still the **unmodified legacy 2.2.2 documents**. The online Geeklog 2.2.2 configuration reference preserves 387 help identifiers and 449 unique historical anchors and transcribes all 387 historical documented default values. It includes source-checked selected tables, examples and 66 targeted semantic reviews; full editorial parity of the other explanations, tables and links is still incomplete. This online reference may be published with version-scoped warnings, but must not replace the historical embedded `config.html`.
 
