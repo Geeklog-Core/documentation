@@ -23,6 +23,29 @@ Geeklog is a content management system: visitors read published content, while a
 | Create a stand-alone information page | [Static Pages](../../plugins/static-pages/index.html) |
 | Manage user and group rights | [Users and groups](../../administration/users-and-groups/index.html) |
 
+## Everyday tasks and source-backed administration paths
+
+The same action may appear through different themes or navigation menus. For Geeklog 2.2.2, these are the relevant Core entry points; the links below point to **tagged source code**, not to live URLs on your installation.
+
+| I need to… | Geeklog component | Guide |
+| --- | --- | --- |
+| Submit an article as a contributor | `submit.php` | [Articles and topics](../articles-and-topics/index.html) |
+| Edit or publish an article as an editor | `admin/article.php` (`story.edit`) | [Articles and topics](../articles-and-topics/index.html) |
+| Manage topics | `admin/topic.php` (`topic.edit`) | [Articles and topics](../articles-and-topics/index.html) |
+| Manage blocks | `admin/block.php` (`block.edit`) | [Blocks and navigation](../blocks-and-navigation/index.html) |
+| Moderate submissions | `admin/moderation.php` with queue-specific rights | [Comments and moderation](../comments-and-moderation/index.html) |
+| Manage installed plugins | `admin/plugins.php` (`plugin.edit`) | [Plugin installation and management](../../plugins/plugin-installation-management/index.html) |
+
+**Important:** `admin/` paths refer to the Geeklog Core administration directory, which may be installed at a customized URL. The visible link labels and permissions depend on configuration; never assume that being logged in means being authorized for an action.
+
+## Practical learning path
+
+Start with one small, reversible exercise on a staging site: publish a harmless article, assign an existing topic, view the public result, and then edit the article with an appropriate administrative role. For a second exercise, add a disposable block and test its appearance on a narrow screen. Finish by checking moderation and plugin screens as separate roles without making any production changes.
+
+The detailed guides describe the **expected actions and source-confirmed permission gates**. Their acceptance checklists remain unchecked until someone exercises them on a real Geeklog installation.
+
+**Tagged Core references:** [submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [articles](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topics](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php), [blocks](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php), [moderation](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [plugins](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php).
+
 ## Publishing safely
 
 Before submitting text, check its title, headings, links, image rights and intended audience. Preview the result in the installed theme when available. Some contributions require moderation or review before appearing publicly; pressing Submit does not always mean immediate publication.
