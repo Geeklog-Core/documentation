@@ -114,6 +114,18 @@ Implementation in `tools/build_modern_pilot.py`:
 
 **Evidence boundary:** generation and link checks are not manual browser UX acceptance. The baseline modern guide count remains ten and the public searchable guide count remains thirteen. These additions do not modify the original release's bundled configuration help or change API contracts.
 
+## Fifth pass — six primary sections and twelve new guides (2026-11-07)
+
+**Structural reorganization completed in the contributor branch.** The previous four-group / 13-guide navigation was expanded to six primary sections with **25 indexed guides**, including **12 newly authored Markdown guides**. The single-source online renderer generates **27 HTML pages**: 4 top-level HTML documents and 23 modern HTML pages (22 modern guides plus their modern index). It also preserves the original Geeklog 2.2.2 help paths in the experimental embedded overlay.
+
+Category coverage: Getting Started (2), User Guide (5), Administration (6), Plugins (3), Development & Theming (8), Reference & Archive (1). Each guide is searchable and appears once in homepage navigation.
+
+**Evidence:** [GitHub Actions #42321389316](https://github.com/hostellerie/documentation/actions/runs/42321389316) passed the updated builders, historical compatibility, search/index, local HTTP and generated-documentation audits. It recorded **751 local links and 41 fragment references** in 27 online HTML pages, **660 local links in 23 modern embedded HTML pages**, and **44 related-guide links** across 22 modern guides. External URLs were inventoried but not live-checked.
+
+The new pages are meaningful **initial guides with explicit editorial/runtime limitations**, not evidence that all Core features are exhaustively documented. The full 351-page Wiki catalog has not been classified (only 14 were reviewed). See [ONLINE-SIX-SECTION-COVERAGE.md](ONLINE-SIX-SECTION-COVERAGE.md) for the complete 25-guide matrix, P0/P1/P2 inventory, Wiki dispositions and remaining acceptance gates.
+
+**Earlier audit figures below (13 guides, 15 online pages, 20 related links) record prior historical snapshots; the fifth pass supersedes them for current branch status.** No PR or official site deployment has occurred.
+
 ## Next substantial contribution criteria (no PR yet)
 
 1. Expand cross-guide task navigation where useful, without duplicating entire articles.
