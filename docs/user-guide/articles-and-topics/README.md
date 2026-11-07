@@ -92,6 +92,31 @@ This means the editor's publishing checklist should cover more than title and bo
 5. After the test time, check again and record the exact observed behavior. Do not infer scheduling behavior from the existence of form fields.
 6. Remove the test item and check its topic associations.
 
+## Submission outcomes and role-aware navigation
+
+The tagged `public_html/submit.php` includes two important details that are easy to miss:
+
+- When a user already has `story.edit`, the ordinary story submission route redirects them toward the privileged article editor (`admin/article.php?mode=edit`). Therefore, do not assume the same **Submit Story** action presents an identical form to contributors and editors.
+- For an ordinary story submission, the Core invokes a spam check and submission speed limit, validates required content and topic selection, then handles the result. `STORY_SAVED` redirects to the story URL; `STORY_SAVED_SUBMISSION` redirects to the homepage with a submission message. Neither response should be described as an unconditional promise of public visibility.
+
+The `submit.php` handler also checks `loginrequired` and `submitloginrequired` before allowing anonymous submissions when those settings are enabled.
+
+### Example: compare a contributor and an editor
+
+1. In staging, visit the submission route with a normal contributor and record the visible form and its result after submission.
+2. Repeat using a user with `story.edit`. Check whether Geeklog redirects to the administration editor instead of presenting the public submission workflow.
+3. With the contributor, submit a valid test article to an allowed topic. Record whether it was saved directly or went to the moderation queue.
+4. Repeat the request with a restricted topic, invalid submission data or a blocked/too-fast repeat submission; record the actual message, not just the redirected URL.
+5. Check publication as an anonymous reader and inspect the moderation queue separately with an authorized account.
+
+**Tagged source:** [submit.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), especially `savesubmission()`, `savestory()` and the final mode dispatch.
+
+### Parent-topic access and topic identifiers
+
+The tagged `admin/topic.php` checks whether a requested parent exists, whether it is a forbidden archive parent, whether a topic identifier is reserved or already used, and whether the editor has sufficient access to the target and parent topic. Its save path requires a CSRF token.
+
+When designing the category tree, verify the parent topic and its rights **before** saving. Changing an identifier or deleting a parent can affect existing article assignments; do this first in a staging copy.
+
 ## Staging acceptance checklist
 
 - [ ] A normal contributor can submit but cannot reach the privileged article editor.
