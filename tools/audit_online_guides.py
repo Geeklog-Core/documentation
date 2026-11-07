@@ -110,7 +110,7 @@ def main():
         assert markup.count('aria-label="Related documentation"') == 1
         assert markup.count('<h2>Continue reading</h2>') == 1
         related_links = re.findall(
-            r'<a href="(\\.\\./\\.\\./[^"]+/index[.]html)">',
+            r'<a href="([.][.]/[.][.]/[^"]+/index[.]html)">',
             markup.split('class="related-guides"', 1)[1]
         )
         assert len(related_links) == len(set(related_links)) == 2, (
