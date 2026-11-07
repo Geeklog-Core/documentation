@@ -5,6 +5,7 @@ Only source and rendered HTML structure is checked. The test does not certify
 administration workflows, PHP permissions or UI behavior in a running Geeklog.
 """
 from pathlib import Path
+import csv
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +47,24 @@ def main():
             "Missing immutable Core source reference", source
         )
         assert "staging" in markdown.lower(), f"Missing real-world verification boundary: {source}"
+    scenario_file = ROOT / "planning/PHASE2-STAGING-SCENARIOS.csv"
+    with scenario_file.open(encoding="utf-8", newline="") as stream:
+        scenarios = list(csv.DictReader(stream))
+    expected_columns = {"case_id", "guide", "actor", "precondition", "action", "expected_result", "source", "status", "evidence"}
+    assert scenarios and set(scenarios[0]) == expected_columns, "Incorrect scenario schema"
+    expected_guides = set(CASES)
+    expected_roles = {"anonymous", "contributor", "editor", "topic_editor", "story_editor", "block_editor", "moderator", "plugin_editor", "plugin_admin", "unauthorized"}
+    assert len(scenarios) >= 20, "Too few source-mapped acceptance scenarios"
+    assert len({item["case_id"] for item in scenarios}) == len(scenarios), "Duplicate case IDs"
+    assert {item["guide"] for item in scenarios} == expected_guides, "Missing P0 guide acceptance coverage"
+    for item in scenarios:
+        assert item["actor"] in expected_roles, (item["case_id"], "Unexpected test role")
+        assert item["status"] in {"NOT_RUN", "PASS", "FAIL", "BLOCKED"}, (item["case_id"], "Unknown test status")
+        assert all(item[field].strip() for field in ("case_id", "guide", "actor", "precondition", "action", "expected_result", "source")), item
+        assert item["source"].startswith("public_html/"), (item["case_id"], "Missing Core source")
+        if item["status"] != "NOT_RUN":
+            assert item["evidence"].strip(), (item["case_id"], "Manual evidence required for a claimed outcome")
+    print(f"PASS: {len(scenarios)} version-scoped staging cases covering every P0 guide; no results asserted without evidence")
     print(f"PASS: {len(CASES)} P0 guides and generated pages include source-backed procedures, exact rights, and unchecked staging gates")
     print("NOTE: this is documentation coverage, not execution of a Geeklog installation")
 
