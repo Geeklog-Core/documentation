@@ -1,7 +1,7 @@
 name: Validate online and embedded Geeklog documentation
 on:
   push:
-    branches: [docs/published-site-labels, docs/online-troubleshooting-guide]
+    branches: [docs/published-site-labels, docs/online-troubleshooting-guide, docs/phase2-user-guides-222]
   workflow_dispatch:
 permissions:
   contents: read
@@ -93,6 +93,8 @@ jobs:
           GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
       - run: python tools/check_http_preview.py
       - run: python tools/audit_online_guides.py
+      - run: python tools/check_p0_user_guides.py
+      - run: python tools/check_practical_tutorials.py
       - run: python -m py_compile tools/test_chromebook_overlay.py
       - uses: actions/upload-artifact@v4
         with:
