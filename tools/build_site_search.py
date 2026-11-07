@@ -29,6 +29,58 @@ SOURCES = {
     "modern/administration/troubleshooting/index.html": "Troubleshooting",
 }
 
+# Every searchable guide appears exactly once in one task-oriented homepage group.
+# These labels organize the catalogue only; they do not alter search targets.
+TOPIC_GROUPS = (
+    ("Getting started", "Install Geeklog and understand essential settings.", (
+        "installation.html",
+        "configuration.html",
+    )),
+    ("Site administration", "Manage accounts, operations and recovery.", (
+        "administration.html",
+        "modern/administration/users-and-groups/index.html",
+        "modern/administration/backup-and-recovery/index.html",
+        "modern/administration/maintenance/index.html",
+        "modern/administration/troubleshooting/index.html",
+    )),
+    ("Content and appearance", "Create standalone pages and customize themes.", (
+        "modern/plugins/static-pages/index.html",
+        "modern/development/templates/index.html",
+    )),
+    ("Developer reference", "Build extensions and review APIs and permissions.", (
+        "modern/development/plugin-api/index.html",
+        "modern/development/configuration-api/index.html",
+        "modern/development/webservices/index.html",
+        "modern/development/security-and-permissions/index.html",
+    )),
+)
+
+def grouped_catalogue(entries):
+    by_url = {entry["url"]: entry for entry in entries}
+    assert len(by_url) == len(entries), "Duplicate guide URLs"
+    used = []
+    sections = []
+    for title, description, paths in TOPIC_GROUPS:
+        assert paths, f"Empty topic category: {title}"
+        items = []
+        for url in paths:
+            assert url in by_url, f"Unknown grouped guide: {url}"
+            used.append(url)
+            item = by_url[url]
+            items.append('<li><a href="' + item["url"] + '">' +
+                         escape(item["title"]) + '</a></li>')
+        sections.append(
+            '<section class="docs-topic-group"><h3>' + escape(title) + '</h3>'
+            '<p>' + escape(description) + '</p><ul>' +
+            ''.join(items) + '</ul></section>'
+        )
+    assert len(used) == len(set(used)) == len(entries), (
+        "A guide is missing or repeated across homepage categories"
+    )
+    assert set(used) == set(by_url), "Homepage categories do not cover search index"
+    return '<div class="docs-topic-grid">' + ''.join(sections) + '</div>'
+
+
 SEARCH_JS = r"""(() => {
   'use strict';
   const field = document.getElementById('docs-search');
@@ -144,10 +196,7 @@ def main():
         '<p>Guides for Geeklog 2.2.2, with additional administration and development references. '
         'The original embedded configuration help remains authoritative for '
         'historical defaults and detailed examples.</p>'
-        '<ul>' + ''.join(
-            '<li><a href="' + item["url"] + '">' + escape(item["title"]) + '</a></li>'
-            for item in entries
-        ) + '</ul></section>'
+        + grouped_catalogue(entries) + '</section>'
     )
     html = html.replace(tag, search_markup + browse_markup + tag)
     index.write_text(html, encoding="utf-8")
