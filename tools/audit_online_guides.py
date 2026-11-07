@@ -103,6 +103,8 @@ def main():
                 f"Old published URL in source: {source}"
             )
             original = "user-guide/overview/index.html" if path == "user-guide/" else path + "index.html"
+            if path in ("reference/plugin-api/", "reference/configuration-api/", "reference/webservices/"):
+                original = "development/" + path.removeprefix("reference/") + "index.html"
             assert (OFFLINE / original).is_file(), f"Missing preserved embedded guide: {original}"
     # Each modern guide needs two contextual onward routes; these links must
     # resolve in both outputs and remain independent from the public host.
