@@ -54,6 +54,29 @@ Geeklog 2.2.2 includes a [block administration handler](https://github.com/Geekl
 
 A menu entry and a side block are different features. Menu behavior can be supplied by a theme or plugin, so this guide does not claim that every menu is editable from `admin/block.php`.
 
+## Block types in Geeklog 2.2.2
+
+The [block editor source](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php) recognizes four type identifiers. They are **not** interchangeable, and the relevant input fields differ:
+
+| Block type | Purpose / fields recognized by Core | Documentation guidance |
+| --- | --- | --- |
+| `normal` | Title and text content | Appropriate starting point for a simple information block |
+| `portal` | Title and feed URL | Check syndication source, feed availability and output for untrusted content |
+| `phpblock` | Title and PHP block function name | **Developer-only:** execution code must be reviewed and should not be supplied by ordinary editors |
+| `gldefault` | Core-provided block controls | Treat as a built-in feature; its behavior can differ from a custom text block |
+
+The same handler obtains additional supported locations through `PLG_getBlockLocations()`. Consequently, the available position list can vary with plugins. Some theme layouts may not render all configured positions.
+
+### Example: test a normal text block safely
+
+1. Select the `normal` block type and provide a title plus a short text paragraph.
+2. Keep the content plain for the first test, with no PHP execution and no externally loaded feed.
+3. Choose a location offered by the installation and save through the administrator interface.
+4. Verify the block title, readable content and resulting position in the active theme.
+5. Compare logged-out and authenticated views, then test disable/enable and restore the original layout.
+
+**Source basis:** the type selection and validation logic in `admin/block.php`. This confirms that these fields are recognized, **not** that every type is safe or enabled under the site's configuration.
+
 ### Permission acceptance
 
 - [ ] The authorized block editor can create and update a disposable block.
