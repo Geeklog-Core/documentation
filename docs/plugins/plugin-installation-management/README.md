@@ -77,6 +77,25 @@ For a routine maintenance review, record all three before changing the plugin:
 
 **Do not edit the plugin database version field to force an upgrade.** Follow a plugin's documented migration pathway and validate with a disposable installation first.
 
+## Plugin manager actions: reading is not upgrading
+
+The tagged plugin manager exposes different operation branches:
+
+| Administrator action | Handler / safety condition |
+| --- | --- |
+| Inspect installed plugin | `info_installed` returns plugin details |
+| Inspect available plugin | `info_uninstalled` returns installation information |
+| Install from available code | `autoinstall` path checks `plugin.install` and the CSRF token |
+| Upload a package | File upload path checks `plugin.install`, `plugin.upload` and the CSRF token |
+| Upgrade installed plugin | `updatethisplugin` route invokes the upgrade handler after token validation |
+| Change load order | `change_load_order` route validates a token |
+
+Always review the installed plugin's own migration logic and permissions before attempting these actions. The presence of a Core menu option does not establish that every third-party plugin works with that option.
+
+**Important:** do not paste `mode` parameters or CSRF tokens into support messages. Use the normal administration interface, not constructed state-changing URLs.
+
+**Source:** [plugin manager dispatch](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php).
+
 ## Permission and lifecycle acceptance
 
 - [ ] Plugin editor without upload/install permissions cannot reach package upload.
