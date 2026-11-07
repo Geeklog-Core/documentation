@@ -90,3 +90,23 @@ The `tools/check_p0_user_guides.py` regression check now validates the CSV schem
 4. Take a backup before destructive plugin cases and verify restoration.
 5. Record the result and exact evidence for each case, plus any divergence requiring guide correction.
 6. Keep the online public-site visual audit deferred until this workstream is complete.
+
+## Practical tutorials completed in draft (2026-11-07)
+
+Seven existing Markdown guides now contain structured, **step-by-step worked exercises**, original sample content, prerequisites, observable outcomes, troubleshooting and links to tagged Geeklog 2.2.2 Core source:
+
+| Guide | Practical lessons |
+| --- | --- |
+| Using Geeklog | Four-part beginner course: discover roles, publish a story, add a block and standalone page, moderate and maintain |
+| Articles and topics | Draft a story, submit as a contributor, approve with editorial rights, create parent/child topics, troubleshoot missing stories |
+| Blocks and navigation | Create a normal information block, add a useful link, diagnose missing blocks |
+| Comments and moderation | Submit a comment, approve a moderated comment, review a contributed story |
+| Syndication, RSS and autotags | Create a Core RSS feed, safely insert a verified autotag, subscribe to existing public feeds |
+| Plugin installation and management | Inspect a plugin, install a verified plugin on staging, test upgrades and recovery |
+| Static Pages | Publish an About page, verify anonymous visibility, clone a disposable page safely |
+
+**New tagged source reviewed:** `public_html/admin/syndication.php` for `syndication.edit`, title/description/file/format inputs, RSS 2.0 defaults and token-checked actions; `system/lib-plugins.php` for autotag parsing and installed-plugin dependent tags; `public_html/admin/plugins/staticpages/index.php` for `staticpages.edit`, `staticpages.delete`, `staticpages.PHP` and editor/clone operations. Earlier source review remains applicable to article, topic, block, moderation and plugin manager handlers.
+
+**New CI test:** `tools/check_practical_tutorials.py` checks the seven Markdown/HTML pages for the added walkthroughs, source anchors, substantive numbered steps, permission hints and explicit staging caveats. It is invoked in `dual-preview.yml`. The original `tools/check_p0_user_guides.py` and 22 `NOT_RUN` staging scenarios remain intact.
+
+**Editorial status:** first complete drafts of practical tutorials, **not live UI tested**. Interface labels, plugin behavior, themes, feed paths and publishing settings still require execution against a disposable Geeklog 2.2.2 installation. The user explicitly deferred the visual audit of the public documentation website. No phase-two PR is opened yet.
