@@ -93,6 +93,7 @@ jobs:
           GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
       - run: python tools/check_http_preview.py
       - run: python tools/audit_online_guides.py
+      - run: python tools/check_p0_user_guides.py
       - run: python -m py_compile tools/test_chromebook_overlay.py
       - uses: actions/upload-artifact@v4
         with:
