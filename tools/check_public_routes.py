@@ -15,7 +15,8 @@ SITE = ROOT / "dist/online"
 EMBED = ROOT / "dist/geeklog-2.2.2/public_html/docs/english"
 LEGACY_WEB = ("installation.html", "configuration.html", "administration.html")
 REQUIRED = ("installation/", "configuration/", "administration/", "user-guide/",
-            "administration/troubleshooting/", "reference/database-schema/")
+            "administration/troubleshooting/", "reference/database-schema/",
+            "reference/plugin-api/", "reference/configuration-api/", "reference/webservices/")
 FORBIDDEN_PUBLIC = ("modern/", "administration/troubleshooting-faq/")
 BAD_URL = re.compile(
     r"https://geeklog-core[.]github[.]io/documentation/(?:modern/|(?:installation|configuration|administration)[.]html)"
@@ -51,6 +52,9 @@ def main():
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert home.count('class="docs-topic-group"') == 6
     assert "Technical Reference" in home and "Reference &amp; Archive" not in home
+    assert not (SITE / "development/plugin-api").exists()
+    assert not (SITE / "development/configuration-api").exists()
+    assert not (SITE / "development/webservices").exists()
     assert 'aria-label="Start here: beginner learning path"' in home
     assert 'href="installation/"' in home and 'href="administration/backup-and-recovery/"' in home
     troubleshooting = (SITE / "administration/troubleshooting/index.html").read_text(encoding="utf-8")
