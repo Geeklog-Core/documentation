@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-HTML = ROOT / "dist/online/modern"
+HTML = ROOT / "dist/online"
 TUTORIALS = {
     "user-guide/overview": (
         "user-guide/README.md",
@@ -50,7 +50,7 @@ TUTORIALS = {
 def main():
     for slug, (relative, headings, terms) in TUTORIALS.items():
         source = ROOT / "docs" / relative
-        rendered = HTML / slug / "index.html"
+        rendered = HTML / ("user-guide" if slug == "user-guide/overview" else slug) / "index.html"
         assert source.is_file() and rendered.is_file(), slug
         md = source.read_text(encoding="utf-8")
         html = rendered.read_text(encoding="utf-8")
