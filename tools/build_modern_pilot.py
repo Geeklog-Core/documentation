@@ -18,7 +18,7 @@ DOCS = ROOT / "docs"
 ONLINE = ROOT / "dist/modern-online"
 EMBED = ROOT / "dist/modern-embedded/public_html/docs/english/modern"
 SOURCES = [
-    ("user-guide", "Using Geeklog: User Guide"),
+    ("user-guide/overview", "Using Geeklog: User Guide"),
     ("user-guide/articles-and-topics", "Articles, Topics and Publishing"),
     ("user-guide/blocks-and-navigation", "Blocks, Menus and Navigation"),
     ("user-guide/comments-and-moderation", "Comments and Moderation"),
@@ -44,7 +44,7 @@ SOURCES = [
 # Each guide offers two actionable follow-up paths without leaving the current
 # generated documentation tree. These references work in both website and ZIP.
 RELATED = {
-    "user-guide": ("user-guide/articles-and-topics", "user-guide/blocks-and-navigation"),
+    "user-guide/overview": ("user-guide/articles-and-topics", "user-guide/blocks-and-navigation"),
     "user-guide/articles-and-topics": ("user-guide/comments-and-moderation", "plugins/static-pages"),
     "user-guide/blocks-and-navigation": ("development/theme-development", "plugins/static-pages"),
     "user-guide/comments-and-moderation": ("user-guide/articles-and-topics", "administration/troubleshooting-faq"),
@@ -119,7 +119,7 @@ def write_site(directory):
     (directory / "style.css").write_text(CSS, encoding="utf-8")
     records = []
     for slug, title in SOURCES:
-        source = DOCS / slug / "README.md"
+        source = DOCS / ("user-guide" if slug == "user-guide/overview" else slug) / "README.md"
         if not source.is_file():
             raise FileNotFoundError(source)
         md = source.read_text(encoding="utf-8")
