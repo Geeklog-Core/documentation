@@ -61,7 +61,7 @@ def main():
         assert re.search(r"https://github[.]com/Geeklog-Core/geeklog/blob/v2[.]2[.]2/", md), (
             slug, "no pinned tagged Core citation"
         )
-        assert len(re.findall(r"(?m)^\\d+\\. ", md)) >= 12, (slug, "insufficient action steps")
+        assert len(re.findall(r"(?m)^\d+\. ", md)) >= 12, (slug, "insufficient action steps")
         assert "staging" in md.lower() or "disposable" in md.lower(), (slug, "missing test boundary")
     print(f"PASS: {len(TUTORIALS)} detailed tutorials have source and generated HTML coverage")
     print("NOTE: no application UI or runtime workflows were executed")
