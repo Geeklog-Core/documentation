@@ -17,6 +17,15 @@ CASES = {
     "plugins/plugin-installation-management": ("plugins/plugin-installation-management/README.md", ("## Locate the Geeklog 2.2.2 plugin manager", "## Upgrade states and dependencies", "## Permission and lifecycle acceptance"), ("plugin.edit", "plugin.install", "plugin.upload", "PLG_upgrade", "PLG_resolveDependencies")),
 }
 
+# Important role/route distinctions must remain documented across revisions.
+WORKFLOW_GATES = {
+    "user-guide/overview": ("Why two users may see different publishing screens", "story.edit", "submitloginrequired"),
+    "user-guide/articles-and-topics": ("Submission outcomes and role-aware navigation", "STORY_SAVED", "STORY_SAVED_SUBMISSION", "TOPIC_ROOT"),
+    "user-guide/blocks-and-navigation": ("Check block visibility and display options", "phpblock", "PLG_getBlockLocations"),
+    "user-guide/comments-and-moderation": ("When the moderation dashboard shows nothing", "SEC_hasModerationAccess", "comment.moderate"),
+    "plugins/plugin-installation-management": ("Plugin manager actions: reading is not upgrading", "info_installed", "autoinstall", "updatethisplugin"),
+}
+
 def main():
     for slug, (source, headings, terms) in CASES.items():
         markdown_path = ROOT / "docs" / source
@@ -30,6 +39,8 @@ def main():
         for term in terms:
             assert term in markdown, (source, term)
             assert term in page, (slug, term)
+        for required in WORKFLOW_GATES[slug]:
+            assert required in markdown and required in page, (slug, "missing workflow gate", required)
         assert "[x]" not in markdown.lower(), f"Manual checklist already marked completed: {source}"
         assert re.search(r"https://github[.]com/Geeklog-Core/geeklog/blob/v2[.]2[.]2/", markdown), (
             "Missing immutable Core source reference", source
