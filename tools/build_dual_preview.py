@@ -11,6 +11,7 @@ from html.parser import HTMLParser
 import os
 import shutil
 import zipfile
+import re
 import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +64,13 @@ def main():
             body=markdown.markdown(md.read_text(encoding="utf-8"),extensions=["tables","fenced_code","toc"])
         else:
             body='<h1>Geeklog documentation</h1><p>Guides for Geeklog 2.2.2. Search the documentation or browse the topics below.</p>'
+        if md is not None:
+            # Top-level Markdown was written for the old flat public homepage.
+            # Rewrite known internal links for the new directory-based routes.
+            body = re.sub(r'href="modern/([^"]+)/index[.]html"',
+                          lambda m: 'href="../' + ('user-guide' if m.group(1) == 'user-guide/overview' else 'administration/troubleshooting' if m.group(1) == 'administration/troubleshooting-faq' else m.group(1)) + '/"', body)
+            for old in ('installation', 'configuration', 'administration'):
+                body = body.replace('href="' + old + '.html"', 'href="../' + old + '/"')
         prefix = "../" if file != "index.html" else ""
         nav = ('<a href="../">Documentation home</a> · ' + NAV) if file != "index.html" else '<a href="./">Geeklog documentation</a>'
         page=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="{prefix}style.css"></head><body><nav>{nav}</nav><main>{body}</main><footer><hr>Geeklog documentation · Geeklog 2.2.2 reference edition</footer></body></html>'
