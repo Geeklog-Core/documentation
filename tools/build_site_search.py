@@ -14,31 +14,30 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "dist/online"
 SOURCES = {
-    "installation.html": "Installation and upgrades",
-    "configuration.html": "Configuration",
-    "administration.html": "Administration",
-    "modern/user-guide/overview/index.html": "Using Geeklog: User Guide",
-    "modern/user-guide/articles-and-topics/index.html": "Articles, Topics and Publishing",
-    "modern/user-guide/blocks-and-navigation/index.html": "Blocks, Menus and Navigation",
-    "modern/user-guide/comments-and-moderation/index.html": "Comments and Moderation",
-    "modern/plugins/plugin-installation-management/index.html": "Plugin Installation and Management",
-    "modern/development/plugin-development/index.html": "Plugin Development: Step by Step",
-    "modern/development/theme-development/index.html": "Theme Development: Step by Step",
-    "modern/user-guide/syndication-rss-autotags/index.html": "Syndication, RSS and Autotags",
-    "modern/plugins/bundled-plugins/index.html": "Bundled Plugins Reference",
-    "modern/reference/database-schema/index.html": "Database Schema and Data Model",
-    "modern/administration/troubleshooting-faq/index.html": "Troubleshooting and FAQ",
-    "modern/development/contributing/index.html": "Contributing to Geeklog",
-    "modern/development/plugin-api/index.html": "Plugin API",
-    "modern/development/templates/index.html": "Themes and templates",
-    "modern/plugins/static-pages/index.html": "Static Pages",
-    "modern/development/webservices/index.html": "Webservices API",
-    "modern/development/configuration-api/index.html": "Configuration API",
-    "modern/administration/users-and-groups/index.html": "Users and groups",
-    "modern/development/security-and-permissions/index.html": "Security and permissions",
-    "modern/administration/backup-and-recovery/index.html": "Backup and recovery",
-    "modern/administration/maintenance/index.html": "Maintenance and upgrades",
-    "modern/administration/troubleshooting/index.html": "Troubleshooting",
+    "installation/": "Installation and upgrades",
+    "configuration/": "Configuration",
+    "administration/": "Administration",
+    "user-guide/": "Using Geeklog: User Guide",
+    "user-guide/articles-and-topics/": "Articles, Topics and Publishing",
+    "user-guide/blocks-and-navigation/": "Blocks, Menus and Navigation",
+    "user-guide/comments-and-moderation/": "Comments and Moderation",
+    "plugins/plugin-installation-management/": "Plugin Installation and Management",
+    "development/plugin-development/": "Plugin Development: Step by Step",
+    "development/theme-development/": "Theme Development: Step by Step",
+    "user-guide/syndication-rss-autotags/": "Syndication, RSS and Autotags",
+    "plugins/bundled-plugins/": "Bundled Plugins Reference",
+    "reference/database-schema/": "Database Schema and Data Model",
+    "development/contributing/": "Contributing to Geeklog",
+    "development/plugin-api/": "Plugin API",
+    "development/templates/": "Themes and templates",
+    "plugins/static-pages/": "Static Pages",
+    "development/webservices/": "Webservices API",
+    "development/configuration-api/": "Configuration API",
+    "administration/users-and-groups/": "Users and groups",
+    "development/security-and-permissions/": "Security and permissions",
+    "administration/backup-and-recovery/": "Backup and recovery",
+    "administration/maintenance/": "Maintenance and upgrades",
+    "administration/troubleshooting/": "Troubleshooting",
 }
 
 # Every searchable guide appears exactly once in one task-oriented homepage group.
@@ -49,37 +48,36 @@ TOPIC_GROUPS = (
         "configuration.html",
     )),
     ("User Guide", "Learn how to publish, organize content and use site features.", (
-        "modern/user-guide/overview/index.html",
-        "modern/user-guide/articles-and-topics/index.html",
-        "modern/user-guide/blocks-and-navigation/index.html",
-        "modern/user-guide/comments-and-moderation/index.html",
-        "modern/user-guide/syndication-rss-autotags/index.html",
+        "user-guide/",
+        "user-guide/articles-and-topics/",
+        "user-guide/blocks-and-navigation/",
+        "user-guide/comments-and-moderation/",
+        "user-guide/syndication-rss-autotags/",
     )),
     ("Administration", "Manage accounts, site operations, recovery and support.", (
         "administration.html",
-        "modern/administration/users-and-groups/index.html",
-        "modern/administration/backup-and-recovery/index.html",
-        "modern/administration/maintenance/index.html",
-        "modern/administration/troubleshooting/index.html",
-        "modern/administration/troubleshooting-faq/index.html",
+        "administration/users-and-groups/",
+        "administration/backup-and-recovery/",
+        "administration/maintenance/",
+        "administration/troubleshooting/",
     )),
     ("Plugins", "Install, manage and document bundled extensions.", (
-        "modern/plugins/plugin-installation-management/index.html",
-        "modern/plugins/bundled-plugins/index.html",
-        "modern/plugins/static-pages/index.html",
+        "plugins/plugin-installation-management/",
+        "plugins/bundled-plugins/",
+        "plugins/static-pages/",
     )),
     ("Development & Theming", "Build plugins, create themes and contribute safely.", (
-        "modern/development/plugin-api/index.html",
-        "modern/development/plugin-development/index.html",
-        "modern/development/configuration-api/index.html",
-        "modern/development/webservices/index.html",
-        "modern/development/security-and-permissions/index.html",
-        "modern/development/templates/index.html",
-        "modern/development/theme-development/index.html",
-        "modern/development/contributing/index.html",
+        "development/plugin-development/",
+        "development/security-and-permissions/",
+        "development/templates/",
+        "development/theme-development/",
+        "development/contributing/",
     )),
-    ("Reference & Archive", "Consult version-scoped technical data and historical context.", (
-        "modern/reference/database-schema/index.html",
+    ("Technical Reference", "Consult version-scoped technical APIs and data model.", (
+        "reference/database-schema/",
+        "development/plugin-api/",
+        "development/configuration-api/",
+        "development/webservices/",
     )),
 )
 
@@ -199,7 +197,7 @@ def main():
         raise SystemExit("Run build_dual_preview.py before creating search index")
     entries = []
     for relative, title in SOURCES.items():
-        page = SITE / relative
+        page = SITE / relative / "index.html"
         if not page.is_file():
             raise FileNotFoundError(page)
         parser = ExtractText()
@@ -209,7 +207,7 @@ def main():
             "title": title,
             "text": re.sub(r"\s+", " ", " ".join(parser.content)).strip()[:50000],
         })
-    assert len(entries) == len(SOURCES) == 25
+    assert len(entries) == len(SOURCES) == 24
     (SITE / "search-index.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
@@ -238,9 +236,18 @@ def main():
         'historical defaults and detailed examples.</p>'
         + grouped_catalogue(entries) + '</section>'
     )
-    html = html.replace(tag, search_markup + browse_markup + tag)
+    # A simple, task-oriented journey for visitors new to Geeklog.
+    journey = ('<section aria-label="Start here: beginner learning path">'
+        '<h2>Start here — five practical steps</h2><ol>'
+        '<li><a href="installation/">Install Geeklog</a></li>'
+        '<li><a href="configuration/">Configure the site</a></li>'
+        '<li><a href="user-guide/articles-and-topics/">Create your first article</a></li>'
+        '<li><a href="administration/users-and-groups/">Manage users and groups</a></li>'
+        '<li><a href="administration/backup-and-recovery/">Back up the site</a></li>'
+        '</ol><p>Use a disposable staging site for changes and follow each guide\'s rights requirements.</p></section>')
+    html = html.replace(tag, journey + search_markup + browse_markup + tag)
     index.write_text(html, encoding="utf-8")
-    assert all((SITE / item["url"]).is_file() for item in entries)
+    assert all((SITE / item["url"] / "index.html").is_file() for item in entries)
     assert html.count('aria-label="Browse all guides"') == 1
     assert all('href="' + item["url"] + '"' in html for item in entries)
     assert html.count('id="docs-search"') == 1
