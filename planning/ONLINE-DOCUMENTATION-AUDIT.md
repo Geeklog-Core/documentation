@@ -101,6 +101,19 @@ Implementation: `tools/build_site_search.py` defines and asserts a complete, non
 
 **Boundary:** source and static HTTP checks cannot certify the visual browser result. Confirm mobile wrapping, keyboard navigation, contrast and the search interaction visually before claiming UX acceptance. This is an online homepage change; the historical embedded help remains untouched.
 
+## Fourth pass — contextual navigation in modern guides (2026-11-07)
+
+Each of the **ten modern guide pages** now ends with a **Continue reading** block containing two complementary, task-oriented guides. Examples: Plugin API points toward Configuration API and Security and permissions; Backup and recovery points toward Maintenance and upgrades and Troubleshooting. These contextual links are separate from the existing global header links and offer a next step after finishing an article.
+
+Implementation in `tools/build_modern_pilot.py`:
+
+- A complete explicit `RELATED` mapping covers the ten guide slugs, with two distinct destinations each and no self-links.
+- Generated links use local relative `../../` paths and work in the online and preserved modern embedded outputs without forcing users onto the live website.
+- Semantic `aside`, descriptive `aria-label`, `h2` and short lists provide understandable navigation. Light CSS adds separation from the article.
+- `tools/audit_online_guides.py` asserts exactly one block and two unique related links per modern guide, and includes the total in the audit JSON. Existing full local link checks cover their destinations.
+
+**Evidence boundary:** generation and link checks are not manual browser UX acceptance. The baseline modern guide count remains ten and the public searchable guide count remains thirteen. These additions do not modify the original release's bundled configuration help or change API contracts.
+
 ## Next substantial contribution criteria (no PR yet)
 
 1. Expand cross-guide task navigation where useful, without duplicating entire articles.
