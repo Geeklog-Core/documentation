@@ -53,6 +53,20 @@ Check the `listdraftstories` setting and the editor's `story.edit` right **befor
 
 **Source references:** [moderation handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [security library](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php), [comment entry point](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/comment.php).
 
+## When the moderation dashboard shows nothing
+
+Geeklog 2.2.2 checks `SEC_hasModerationAccess()` before showing the dashboard. The source's separate lists matter: a user can be entitled to **one queue** without having permission to manage every other submission type.
+
+Use these checks:
+
+1. **No article submissions:** verify `story.moderate`, and whether a contributor's article actually entered the submission queue rather than being saved as an article.
+2. **No drafts:** check both `listdraftstories` and `story.edit`; drafts are not the same as ordinary submitted stories.
+3. **No comments:** check both `commentsubmission` and `comment.moderate`, and confirm the comment was actually submitted.
+4. **No plugin items:** review whether that particular plugin registers a moderation list; the Core uses `PLG_showModerationList()`.
+5. **Actions appear to do nothing:** confirm the form's valid CSRF token and rights before retrying; never bypass checks by constructing manual URLs.
+
+**Source:** [Core moderation administration](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [security handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php).
+
 ## Moderation acceptance tests
 
 - [ ] Article and comment queues follow their separate rights and configuration switches.
