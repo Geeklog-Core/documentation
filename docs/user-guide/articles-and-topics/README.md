@@ -131,3 +131,64 @@ These are **test cases to execute**, not a record of a completed staging test.
 ## Further verification
 
 The full set of Geeklog 2.2.2 article administration form fields, scheduling behavior and revision options must be checked in a running installation and against the tagged handlers. Older Wiki examples may use *story* where modern editorial language uses *article*; retain the historical term when it is a code symbol or source setting.
+
+## Detailed tutorial: write, review and publish an article
+
+**Scenario:** publish a short community announcement. **Prerequisites:** an existing topic, a contributor account and (if submissions are moderated) a separate user with `story.moderate`.
+
+### Step A — Prepare the article
+
+Use this example material (replace it with original text for your site):
+
+- **Title:** Community meeting on Saturday
+- **Topic:** News or Events, whichever exists and is accessible
+- **Introduction:** We are holding a community meeting this Saturday.
+- **Body:** Everyone is welcome. Check the events page for the time and location.
+
+Before opening Geeklog, make sure the introduction makes sense on its own: themes may display only the opening text on topic listings. Use a descriptive title and ordinary formatting; do not paste executable scripts.
+
+### Step B — Submit as a contributor
+
+1. Sign in as a regular contributor, not a Story Admin. Open the site's **Submit Story** action if available.
+2. Enter the title, introduction and the selected topic. Add the body in the field provided by the installed editor.
+3. Select an allowed content format. If HTML is enabled for the account, use only supported markup; the server may filter unsupported tags.
+4. Preview when offered. Inspect paragraphs, links and the difference between introduction and extended text.
+5. Submit once. Record the displayed message. The source distinguishes `STORY_SAVED` from `STORY_SAVED_SUBMISSION`, so the item might publish or enter a submission queue.
+6. Check the public article list. If it is absent, ask an authorized moderator to review the submission; do not repeatedly submit duplicates.
+
+### Step C — Review as an editor or moderator
+
+1. Open `admin/moderation.php` with a moderator authorized for article submissions (`story.moderate`).
+2. Confirm the submission matches the intended topic and contains no private details.
+3. Use the available approval action. The handler also checks topic access; being a moderator does not imply permission to publish into every topic.
+4. Alternatively, a user with `story.edit` can open `admin/article.php` and create or edit an article through that privileged workflow.
+5. Open the article in a logged-out browser to check actual public visibility and copy its stable public URL.
+
+**Expected output:** one announcement in the correct topic with no duplicate submission and a link accessible to its intended readers.
+
+## Detailed tutorial: create a topic and a child topic
+
+**Scenario:** add a **Resources** category and a **Tutorials** child category. **Prerequisites:** `topic.edit`, rights to the relevant parent and a disposable site.
+
+1. Open `admin/topic.php` as a topic editor. Record existing topic identifiers so that you do not reuse one.
+2. Create the parent topic with a readable name, a unique ID such as `training_resources`, and a parent choice corresponding to the root.
+3. Review its group and anonymous/member permissions. Decide whether the category is visible to the public before saving.
+4. Save through the form. Confirm it appears in the topic list, then reopen it to inspect the saved values.
+5. Create a second topic, for example `training_tutorials`, selecting `training_resources` as parent.
+6. Inspect the **inherit** option; note its selected state rather than assuming inheritance always applies.
+7. Save and assign a disposable article to the child topic. Check navigation and topic access as a member and anonymously.
+8. Test a user without `topic.edit`: the administration action must be denied. Remove the disposable article before deleting the test categories.
+
+**Common mistakes:** duplicate or reserved topic IDs, selecting an archive topic as parent, insufficient rights to a parent, and assuming topic visibility equals article visibility.
+
+## Detailed tutorial: investigate an unpublished article
+
+1. Note the article title, user role, topic and approximate submission time.
+2. Ask whether it was sent through `submit.php` or saved in `admin/article.php`.
+3. Check the submission queue (`story.moderate`) and the draft list (`listdraftstories` plus `story.edit`), which are separate.
+4. Inspect publish/expire dates, topic membership and owner/group/member/anonymous permissions.
+5. Review any spam or rate-limit feedback. Do not disable security checks just to make the test succeed.
+6. Recheck the public site in a logged-out session after an authorized change.
+
+**Source:** [submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [articles](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topics](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php). These are source-based procedures awaiting UI execution.
+
