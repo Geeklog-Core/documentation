@@ -29,7 +29,36 @@ SOURCES = [
     ("administration/maintenance", "Maintenance and upgrades"),
     ("administration/troubleshooting", "Troubleshooting"),
 ]
-CSS = """*{box-sizing:border-box}body{font:16px/1.65 system-ui,sans-serif;color:#202b36;max-width:1040px;margin:0 auto;padding:20px}header,footer{padding:16px 0;border-bottom:1px solid #ddd}footer{border-top:1px solid #ddd;border-bottom:0}nav{display:flex;flex-wrap:wrap;gap:14px}a{color:#1763a5}main{padding:18px 0}pre{padding:16px;background:#f4f6f8;overflow:auto}code{overflow-wrap:anywhere}blockquote{padding:8px 16px;background:#fff6de;border-left:4px solid #ba8b21}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto}td,th{padding:6px 10px;border:1px solid #cdd}input[type=search]{font:inherit;width:100%;padding:12px;margin:12px 0;border:1px solid #aaa;border-radius:6px}"""
+# Each guide offers two actionable follow-up paths without leaving the current
+# generated documentation tree. These references work in both website and ZIP.
+RELATED = {
+    "development/plugin-api": ("development/configuration-api", "development/security-and-permissions"),
+    "development/templates": ("plugins/static-pages", "development/plugin-api"),
+    "plugins/static-pages": ("development/templates", "administration/users-and-groups"),
+    "development/webservices": ("development/plugin-api", "development/security-and-permissions"),
+    "development/configuration-api": ("development/plugin-api", "administration/maintenance"),
+    "administration/users-and-groups": ("development/security-and-permissions", "administration/troubleshooting"),
+    "development/security-and-permissions": ("administration/users-and-groups", "development/plugin-api"),
+    "administration/backup-and-recovery": ("administration/maintenance", "administration/troubleshooting"),
+    "administration/maintenance": ("administration/backup-and-recovery", "administration/troubleshooting"),
+    "administration/troubleshooting": ("administration/maintenance", "administration/backup-and-recovery"),
+}
+
+def related_guides(slug):
+    titles = dict(SOURCES)
+    assert set(RELATED) == set(titles), "Related navigation must cover every modern guide"
+    targets = RELATED[slug]
+    assert len(targets) == len(set(targets)) == 2 and slug not in targets
+    assert all(target in titles for target in targets), f"Unknown related guide: {slug}"
+    links = ''.join(
+        '<li><a href="../../' + target + '/index.html">' +
+        escape(titles[target]) + '</a></li>'
+        for target in targets
+    )
+    return ('<aside class="related-guides" aria-label="Related documentation">'
+            '<h2>Continue reading</h2><ul>' + links + '</ul></aside>')
+
+CSS = """*{box-sizing:border-box}body{font:16px/1.65 system-ui,sans-serif;color:#202b36;max-width:1040px;margin:0 auto;padding:20px}header,footer{padding:16px 0;border-bottom:1px solid #ddd}footer{border-top:1px solid #ddd;border-bottom:0}nav{display:flex;flex-wrap:wrap;gap:14px}a{color:#1763a5}main{padding:18px 0}pre{padding:16px;background:#f4f6f8;overflow:auto}code{overflow-wrap:anywhere}blockquote{padding:8px 16px;background:#fff6de;border-left:4px solid #ba8b21}table{border-collapse:collapse;max-width:100%;display:block;overflow-x:auto}td,th{padding:6px 10px;border:1px solid #cdd}input[type=search]{font:inherit;width:100%;padding:12px;margin:12px 0;border:1px solid #aaa;border-radius:6px}.related-guides{margin-top:2rem;padding:1rem 1.25rem;border-top:1px solid #cdd;background:#f6f8fa}.related-guides h2{font-size:1.15rem;margin:.1rem 0 .6rem}.related-guides ul{margin:.4rem 0;padding-left:1.5rem}.related-guides li{margin:.35rem 0}"""
 class Inspect(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -73,7 +102,7 @@ def write_site(directory):
         body = markdown.markdown(md, extensions=["tables", "fenced_code", "toc"])
         target = directory / slug / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(wrap(title, body, 2), encoding="utf-8")
+        target.write_text(wrap(title, body + related_guides(slug), 2), encoding="utf-8")
         plain = re.sub(r"(?s)<[^>]+>", " ", body)
         records.append({"title":title,"url":slug+"/index.html",
                         "text":re.sub(r"\s+"," ",plain)[:30000]})
