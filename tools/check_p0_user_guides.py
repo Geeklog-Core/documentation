@@ -53,15 +53,15 @@ def main():
     expected_columns = {"case_id", "guide", "actor", "precondition", "action", "expected_result", "source", "status", "evidence"}
     assert scenarios and set(scenarios[0]) == expected_columns, "Incorrect scenario schema"
     expected_guides = set(CASES)
-    expected_roles = {"anonymous", "contributor", "editor", "topic_editor", "story_editor", "block_editor", "moderator", "plugin_editor", "plugin_admin", "unauthorized"}
-    assert len(scenarios) >= 20, "Too few source-mapped acceptance scenarios"
+    expected_roles = {"anonymous", "contributor", "editor", "topic_editor", "story_editor", "block_editor", "moderator", "plugin_editor", "plugin_admin", "staticpages_editor", "feed_admin", "unauthorized"}
+    assert len(scenarios) >= 30, "Too few source-mapped acceptance scenarios"
     assert len({item["case_id"] for item in scenarios}) == len(scenarios), "Duplicate case IDs"
-    assert {item["guide"] for item in scenarios} == expected_guides, "Missing P0 guide acceptance coverage"
+    assert {item["guide"] for item in scenarios} == expected_guides | {"user-guide/syndication-rss-autotags", "plugins/static-pages"}, "Missing practical guide acceptance coverage"
     for item in scenarios:
         assert item["actor"] in expected_roles, (item["case_id"], "Unexpected test role")
         assert item["status"] in {"NOT_RUN", "PASS", "FAIL", "BLOCKED"}, (item["case_id"], "Unknown test status")
         assert all(item[field].strip() for field in ("case_id", "guide", "actor", "precondition", "action", "expected_result", "source")), item
-        assert item["source"].startswith("public_html/"), (item["case_id"], "Missing Core source")
+        assert item["source"].startswith(("public_html/", "system/")), (item["case_id"], "Missing tagged Core source")
         if item["status"] != "NOT_RUN":
             assert item["evidence"].strip(), (item["case_id"], "Manual evidence required for a claimed outcome")
     print(f"PASS: {len(scenarios)} version-scoped staging cases covering every P0 guide; no results asserted without evidence")
