@@ -73,3 +73,20 @@ The following behavior was cross-checked directly in **Geeklog v2.2.2** PHP sour
 **CI enhancement:** `tools/check_p0_user_guides.py` now guards these five workflow distinctions in Markdown and generated online HTML. This catches accidental removal of the corresponding explanations, not behavioral changes in PHP.
 
 **Next action:** reproduce the P0 scenarios on a disposable Geeklog 2.2.2 site using specific test roles and record screenshots only after redacting private data. The user-requested live-site visual audit remains postponed. No PR has been opened for the phase 2 branch.
+
+## Reproducible staging test matrix
+
+The machine-readable [PHASE2-STAGING-SCENARIOS.csv](PHASE2-STAGING-SCENARIOS.csv) contains **22** case IDs covering anonymous visitors, contributors, editors, topic/block administrators, moderators and plugin administrators across all five P0 guides.
+
+Each case captures a role, precondition, user action, expected behavior, tagged Core source path, execution status and evidence reference. All cases start as `NOT_RUN`. On execution, replace the status with `PASS`, `FAIL` or `BLOCKED` and add a sanitized evidence reference; do not mark any case as passed merely because its PHP handler exists.
+
+The `tools/check_p0_user_guides.py` regression check now validates the CSV schema, unique IDs, role and guide coverage, allowed statuses and the requirement to provide evidence for any result other than `NOT_RUN`. This does not run the application or execute the scenarios; it makes future manual test results more auditable.
+
+### Recommended execution sequence
+
+1. Provision a disposable 2.2.2 site with isolated database and test users, then record configuration and theme.
+2. Run safe read-only and anonymous checks first, followed by authorized edits in disposable content.
+3. Run denied access / invalid-token cases **only in isolation** and avoid public endpoints or live user data.
+4. Take a backup before destructive plugin cases and verify restoration.
+5. Record the result and exact evidence for each case, plus any divergence requiring guide correction.
+6. Keep the online public-site visual audit deferred until this workstream is complete.
