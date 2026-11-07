@@ -80,7 +80,7 @@ What was checked (read-only) and the result:
 Available backup and restoration test status:
 ```
 
-Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration.html), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
+Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration/), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
 
 ## Installation and upgrade checks
 
