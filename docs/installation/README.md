@@ -1,6 +1,6 @@
 # Installing, upgrading and migrating Geeklog
 
-> **Migration draft — not yet authoritative.** Adapted from the Geeklog Core `install.html` bundled with the source tree (which describes Geeklog 2.2.2). Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
+> **Geeklog 2.2.2 online installation reference — editorial review ongoing.** Adapted from the Geeklog Core `install.html` bundled with the tagged 2.2.2 release. Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
 
 <a id="glossary" name="glossary"></a>
 
@@ -76,6 +76,36 @@ An installation can populate tables and install plugins before a subsequent warn
 
 **Security note:** the source mentions a legacy fallback involving a protected subdirectory inside the web root. This draft does *not* recommend that approach without a separate security review of web-server access controls.
 
+## Preflight checklist before installation or migration
+
+This checklist complements the release-specific instructions above. Complete it before using an installer or changing a live site.
+
+| Check | New installation | Upgrade or move |
+| --- | --- | --- |
+| Release and runtime | Confirm target Geeklog, PHP extensions and database compatibility | Record both source and target versions, enabled plugins and theme versions |
+| Site and administrator URLs | Check web-address values separately from filesystem paths | Record existing URLs and identify any domain/path changes |
+| Database | Prepare an empty database and installer-specific access | Verify a protected backup and a tested restore into a separate database |
+| Files | Ensure the public and non-public Geeklog directories are placed correctly | Inventory custom code, uploads, private configuration and plugin assets |
+| Permissions | Permit writes only where needed by the PHP worker | Review old ownership and ensure the installer cannot remain publicly available |
+| Recovery | Keep a clean copy of the release files | Maintain a documented rollback path for files **and** database state |
+
+**Go/no-go rule:** do not begin a production upgrade or migration if you cannot identify the matching backup, restore it safely in staging, or confirm the target release's compatibility. Passing the installer preflight is not a substitute for those checks.
+
+## Post-install acceptance checklist
+
+After the installer completes, check the site as a visitor and with an authorized staging administrator:
+
+1. Confirm that the homepage, a representative article and a plugin page render without PHP errors.
+2. Check `site_url` and `site_admin_url` are browser URLs and that administration links resolve to the correct location.
+3. Confirm public CSS/images and representative uploaded media load from their intended paths.
+4. Test sign-in and sign-out, then a permitted administrative action through the normal interface.
+5. Follow an actual context-sensitive help link, including `docs/english/config.html#desc_site_url`, and verify it points to the correct setting.
+6. Check active plugin statuses and error logs separately; a successfully rendered plugin help page does not establish plugin health.
+7. Confirm the installer directory has been removed or secured as required by the release instructions, and that the installation's default credentials have been replaced.
+8. Record the exact versions, checks performed and outstanding warnings. If any critical check fails, stop and investigate rather than deploying more changes.
+
+The [troubleshooting guide](https://geeklog-core.github.io/documentation/modern/administration/troubleshooting/index.html) explains how to collect useful error evidence. The [backup and recovery guide](https://geeklog-core.github.io/documentation/modern/administration/backup-and-recovery/index.html) covers testing restoration of both files and database.
+
 <a id="upgrade" name="upgrade"></a>
 
 ## Upgrading
@@ -107,7 +137,7 @@ The existing installer describes a **Migrate** option for changing servers or do
 
 Start by checking the filesystem paths in `siteconfig.php` and reading the **first** reported error; secondary errors may be consequences of an incorrect path. Also check PHP extensions, database connectivity, filesystem permissions and your web-server logs.
 
-This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/master/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
+This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
 
 
 ### Historical errors and modern diagnostic approach

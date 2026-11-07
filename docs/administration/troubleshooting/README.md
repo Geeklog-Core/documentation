@@ -27,6 +27,61 @@ Before changing a live site, record:
 | Upgrade wizard fails | Verify complete file deployment, database backup, permissions and the first reported error |
 | Cannot write backup | Inspect `backup_path`, filesystem ownership and availability of the built-in MySQL-only backup facility |
 
+## First-response decision path
+
+Use the **first reproducible symptom**, not several speculative fixes at once:
+
+1. **Only one page fails?** Record its full route *without sensitive query values*, HTTP status, and the action immediately before failure. Compare a second, known-good page to determine whether the problem affects all requests.
+2. **HTTP 500 or blank content?** Read the earliest relevant PHP and web server error entry. Check the installed version and required PHP extensions before changing permissions or files. A blank page alone does not prove that a plugin is responsible.
+3. **Site loads but admin/login fails?** Check the configured site and administration URLs, browser cookie behavior, and actual account/group permissions. Test in a private staging browser session; do not disable authentication to diagnose it.
+4. **Database error?** Confirm the configured database engine, hostname and driver in a protected environment. Test connectivity using approved hosting tools; avoid printing connection secrets, and do not rerun the installer on an existing database.
+5. **Failure began after a plugin/theme change?** Compare the before/after versions and inspect the first application error. Reproduce in an isolated copy before attempting rollback or disabling plugins on production.
+6. **Failure began after upgrading?** Stop further upgrade attempts, preserve the current state, and follow the [maintenance and upgrade guide](../../administration/maintenance/index.html). Validate a complete database-and-files backup before recovery.
+
+If the first error is inconclusive, collect more evidence. Do not change multiple settings simultaneously: otherwise it becomes difficult to identify the actual cause.
+
+## Safe diagnostics by HTTP symptom
+
+| Observation | What it suggests (not proof) | Next useful evidence |
+| --- | --- | --- |
+| HTTP 404 | Missing file, incorrect route, rewrite rule or application URL | Exact route, server rewrite settings, whether an existing static asset works |
+| HTTP 403 | Access control or hosting security rule | Path, account/role, timestamp and sanitized web server/security logs |
+| HTTP 500 | Server-side exception or configuration failure | First PHP/web-server error and the affected operation |
+| HTTP 200, page looks broken | Missing CSS/JS/assets or rendering error | Browser network requests, asset URLs and response content types |
+| Redirect loop | Site URL, HTTPS/proxy or cookie configuration mismatch | Sanitized redirect sequence and effective canonical URL |
+| Intermittent failure | Cache, resource pressure or external dependency | Timestamps, request pattern, server resource/error evidence |
+
+Treat status codes as diagnostic starting points. Some hosting security layers return a generic error page, and an HTTP 200 response does not prove that an administrator action succeeded.
+
+## Identify the failing layer without exposing credentials
+
+On a disposable staging installation, compare these independent checks:
+
+- **Static asset:** request a known stylesheet or image that normally loads. If static files work while PHP pages fail, investigate the PHP/application path rather than changing global file permissions.
+- **Public application page:** check a known public article or homepage. If only administration fails, inspect URL, session and role-specific issues.
+- **Documentation:** open a valid `/docs/english/config.html#desc_site_url` URL. The fragment is resolved by the browser: the server receives the document URL, not the fragment. Also click a real help link within an authorized administration session.
+- **Plugin page:** compare a working Core route with the failing plugin route. A reachable plugin help HTML file does not establish that the plugin has installed or initialized successfully.
+
+For diagnostics in production, prefer read-only observations. Do not enable verbose error display for public visitors, expose `phpinfo()` publicly, edit private configuration in a support ticket, or disable site-wide security controls as a default workaround.
+
+## Redacted incident report template
+
+When requesting help, provide enough details for reproduction without posting secrets:
+
+```text
+Geeklog version:
+PHP / database engine and versions:
+Web server / hosting type:
+Affected route or feature (remove tokens/private IDs):
+Observed HTTP status and first sanitized error:
+First occurrence and recent change:
+Does the issue reproduce in a clean staging installation?
+What was checked (read-only) and the result:
+Available backup and restoration test status:
+```
+
+Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration.html), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
+
 ## Installation and upgrade checks
 
 The bundled [Geeklog 2.2.2 installation instructions](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/install.html) document the installer location `admin/install/index.php`, and require removing `admin/install` after successful installation or upgrade.

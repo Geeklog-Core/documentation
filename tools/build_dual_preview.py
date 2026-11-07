@@ -24,7 +24,7 @@ PAGES = {
     "administration.html": ("Administration", ROOT / "docs/administration/README.md"),
 }
 NAV = ' · '.join(f'<a href="{name}">{escape(title)}</a>' for name, (title, _) in PAGES.items())
-CSS = """*{box-sizing:border-box}body{font:17px/1.6 system-ui,sans-serif;max-width:960px;margin:auto;padding:20px;color:#24292f}nav{padding:1rem 0;border-bottom:1px solid #ddd}main{padding-top:1rem}a{color:#1766a2}pre{overflow:auto;background:#f4f4f4;padding:1rem}blockquote{border-left:4px solid #bd8700;padding:.1rem 1rem;background:#fff8e8}img{max-width:100%}@media(max-width:600px){body{padding:12px}nav a{display:inline-block;margin:.3rem}}"""
+CSS = """*{box-sizing:border-box}body{font:17px/1.6 system-ui,sans-serif;max-width:960px;margin:auto;padding:20px;color:#24292f}nav{padding:1rem 0;border-bottom:1px solid #ddd}main{padding-top:1rem}a{color:#1766a2}pre{overflow:auto;background:#f4f4f4;padding:1rem}blockquote{border-left:4px solid #bd8700;padding:.1rem 1rem;background:#fff8e8}img{max-width:100%}label[for=docs-search]{display:block;margin-bottom:.6rem}#docs-search{display:block;width:100%;max-width:32rem;min-height:2.75rem;padding:.6rem .75rem;border:1px solid #8c959f;border-radius:6px;font:inherit}#docs-search:focus-visible{outline:2px solid #1766a2;outline-offset:2px}.docs-topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem;margin:1.25rem 0}.docs-topic-group{border:1px solid #d0d7de;border-radius:8px;padding:1rem 1.25rem;min-width:0}.docs-topic-group h3{margin:0 0 .25rem;font-size:1.1rem}.docs-topic-group p{margin:.25rem 0 .75rem;color:#57606a;font-size:.94rem}.docs-topic-group ul{margin:.5rem 0 0;padding-left:1.25rem}.docs-topic-group li{margin:.35rem 0}@media(max-width:600px){body{padding:12px}nav a{display:inline-block;margin:.3rem}}"""
 class Inspect(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -70,8 +70,8 @@ def main():
     modern_web = WEB / "modern"
     modern_embed = DIST / "english" / "modern"
     for target in (modern_web, modern_embed):
-        assert write_site(target) == 10
-        assert check_links(target) == 11
+        assert write_site(target) == 22
+        assert check_links(target) == 23
     for p in modern_web.rglob("*"):
         if p.is_file():
             assert p.read_bytes() == (modern_embed / p.relative_to(modern_web)).read_bytes()
@@ -105,7 +105,7 @@ def main():
     online_html = list(WEB.rglob("*.html"))
     modern_html = list(modern_web.rglob("*.html"))
     assert len(online_html) == len(PAGES) + len(modern_html)
-    assert len(modern_html) == 11, "Expected modern index and ten guides"
+    assert len(modern_html) == 23, "Expected modern index and twenty-two guides"
     assert (WEB / "modern/search-index.json").is_file()
     assert (WEB / "modern/search.js").is_file()
     for page in modern_html:

@@ -20,7 +20,7 @@ All linked guides are generated from the maintained Markdown tree. Release-speci
 
 ## Configuration and help links
 
-In Geeklog 2.2.2, configuration fields can point to anchors such as `docs/english/config.html#desc_site_url`. **Keep those embedded links and historical anchors available.** The online Markdown configuration reference has structural anchor coverage but does not yet reproduce all original tables, examples and defaults. Do not treat it as a complete replacement for the bundled `config.html`.
+In Geeklog 2.2.2, configuration fields can point to anchors such as `docs/english/config.html#desc_site_url`. **Keep those embedded links and historical anchors available.** The online Markdown configuration reference preserves 387 documented default values and the historical help anchors, but full review of descriptions, tables, examples and external links is not finished. Do not treat it as a complete replacement for the bundled `config.html`.
 
 Plugin configuration may use a plugin-specific help path; in particular, reCAPTCHA documentation is stored under `public_html/admin/plugins/recaptcha/docs/`, not alongside all the other Core plugin HTML pages.
 

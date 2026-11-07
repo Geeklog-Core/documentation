@@ -1,0 +1,137 @@
+# Online documentation — cross-guide audit
+
+**Audit initiated:** 2026-11-06  
+**Scope:** current `docs/online-troubleshooting-guide` branch, based on the published upstream documentation.  
+**Priority:** online documentation first (P0); version-specific embedded help for Geeklog 2.2.3 remains separate (P1).
+
+## Executive findings
+
+The online build currently indexes **13 maintained Markdown guides** and emits **15 HTML pages** (four root pages, one modern landing page, ten modern guides). The embedded modern subset emits **11 HTML pages**; the original 2.2.2 Core/plugin help remains preserved by the existing release gates.
+
+**Confirmed defect corrected:** eleven guide-to-guide links were hardcoded to `https://geeklog-core.github.io/documentation/modern/...`. In contributor previews and the embedded modern HTML, these links would open the public website and could lead to older content instead of the corresponding local guide. Eleven references in six Markdown guides now use `../../<category>/<guide>/index.html`, the path that works from the corresponding modern guide directory in **both** outputs. The first conversion used incorrect `../../../` depth, and CI correctly rejected it. The corrected links pass CI.
+
+**Successful static CI evidence:** [GitHub Actions #42224111072](https://github.com/hostellerie/documentation/actions/runs/42224111072). The new `tools/audit_online_guides.py` verifies:
+
+| Check | Result |
+| --- | ---: |
+| Unique indexed guide destinations and maintained sources | 13 |
+| Online HTML pages examined | 15 |
+| Local online references followed | 233 |
+| Local online fragments checked | 41 |
+| Embedded modern HTML pages examined | 11 |
+| Local embedded modern references followed | 154 |
+| Local embedded fragments checked | 0 |
+
+These are **automated file/link observations**, not visual browser acceptance, external link validation, security/behavior testing or full editorial approval. The audit writes its machine-readable result to `dist/online-guide-audit.json`.
+
+## Coverage matrix — maintained guides
+
+**Status terminology:** `STRUCTURE CHECKED` means the source is indexed and generated destinations/local links pass CI. `EDITORIAL PENDING` means accuracy, examples, attribution and feature parity are not yet independently signed off. Every row below remains **EDITORIAL PENDING** unless separately reviewed.
+
+| Maintained guide | Primary audience | Structural result | Next content work |
+| --- | --- | --- | --- |
+| Installation and migration | Site operators | STRUCTURE CHECKED | Verify release-specific upgrade/migration routes and PHP/database support; test migrations |
+| Configuration reference | Administrators/developers | STRUCTURE CHECKED | Finish 321 outstanding source-semantic reviews; external links and historical explanation parity |
+| Administration overview | Administrators | STRUCTURE CHECKED | Review reader journey, correct terminology and strengthen task-based links |
+| Plugin API | Plugin developers | STRUCTURE CHECKED | Complete callback signatures/returns and check working plugin examples in staging |
+| Themes and templates | Theme authors | STRUCTURE CHECKED | Validate actual theme/template path precedence and release-compatible sample edits |
+| Static Pages | Editors/admins | STRUCTURE CHECKED | Test page creation, visibility, autotags and plugin permissions in real UI |
+| Webservices | Integrators | STRUCTURE CHECKED | Confirm actual routes, supported operations, authentication and response contracts |
+| Configuration API | Plugin/Core developers | STRUCTURE CHECKED | Confirm fresh install vs upgrade lifecycle and code examples |
+| Users and groups | Administrators | STRUCTURE CHECKED | Exercise least-privileged role/denial scenarios in isolated Geeklog |
+| Security and permissions | Developers | STRUCTURE CHECKED | Validate token/rights behavior and plugin-specific rules against target release |
+| Backup and recovery | Administrators | STRUCTURE CHECKED | Perform and document a complete isolated database/files restoration |
+| Maintenance and upgrades | Administrators | STRUCTURE CHECKED | Verify selected upgrade paths and plugin impact in staging |
+| Troubleshooting | Administrators/support | STRUCTURE CHECKED | Test representative failure scenarios and redact source logs/screenshots |
+
+## Eight audit axes and findings
+
+| Axis | Verified today | Follow-up / priority |
+| --- | --- | --- |
+| 1. Navigation structure | 13 index entries match maintained Markdown source files | P1: review user journeys and legacy compatibility pages; legacy `docs/index.md`, `docs/install.md`, `docs/config.md` still contain outdated prototype wording but are not primary published sources |
+| 2. Technical consistency | All reviewed guides distinguish Geeklog 2.2.2 or historical material; built-in Core source checks remain in CI | P1: validate higher-risk API, permissions, authentication and version claims against actual code/runtime |
+| 3. Internal links and anchors | 233 online local links, 41 fragments, 154 embedded modern links checked; 11 cross-guide URLs fixed | P1: audit **external** destinations, redirects, archived Wiki and contributor references separately |
+| 4. Editorial consistency | Guides have a generated H1 and consistent online/embedded modern HTML byte output | P1: harmonize 'draft', 'source checked' and 'historical' labels; remove outdated prototype wording only where content is sufficiently reviewed |
+| 5. Coverage | Installation, configuration, admin, developers, themes, plugins represented by 13 guides | P1: missing task-level depth in callbacks, webservice operations, theme mechanics and exact installation upgrades |
+| 6. Usability and search | Search index contains 13 unique destinations; homepage and static HTTP checks already run in CI | P1: **manual** keyboard, mobile, search relevance and real-page visual checks; not claimed passed |
+| 7. Procedures and examples | Existing guides contain documented checklists and staging acceptance matrices | P1: real restore, permission, API and troubleshooting acceptance tests; do not convert checklists into claims of execution |
+| 8. Build and release | CI checks online site, embedded modern guide file identity and historical 2.2.2 preservation | P1: re-run after each content batch and compare PR against upstream `main`; 2.2.3 embedded release needs its own version-specific gate |
+
+## Automated audit contract
+
+`tools/audit_online_guides.py` runs after online generation, search-index creation, static HTTP checks and the existing historical compatibility tests. It fails when any of these occur:
+
+- Search-index guide URLs are missing, duplicated or not in the maintained 13-guide registry.
+- A maintained Markdown source or its generated online page is absent.
+- A modern guide in the embedded output is missing or differs from its corresponding online output.
+- A generated local link escapes the site, points to a missing file or uses a missing HTML fragment.
+- An HTML page lacks a single clear `h1`.
+- A modern Markdown guide hardcodes a link to another modern guide on the official site rather than using offline-safe relative navigation.
+
+This is not a live external-link checker, accessibility audit, PHP functionality test or editorial license verifier.
+
+## Second pass — public labels and external reference hygiene (2026-11-06)
+
+- **Clarified online guide status without overstating verification:** the installation page now identifies itself as an online Geeklog 2.2.2 reference with editorial review ongoing; the themes guide similarly flags release-specific technical checks; the security guide flags pending runtime verification. These pages are published guides, not unpublished prototypes. Historical compatibility pilot files `docs/index.md`, `docs/install.md`, and `docs/config.md` were **not** renamed or treated as a primary site source.
+- **Source version correction:** the installation troubleshooting section no longer sends readers to changing `Geeklog-Core/geeklog:master` for its supposedly original 2.2.2 reference. It points to tagged `v2.2.2` documentation, matching the version discussed.
+- **External-reference inventory:** `tools/audit_online_guides.py` now records external references grouped by hostname in `dist/online-guide-audit.json`, and rejects explicit `/blob/main/`, `/blob/master/`, `/tree/main/`, or `/tree/master/` references to Geeklog Core inside the release-scoped guide set. This is a static version-pinning gate, **not** an HTTP availability or redirect test.
+- **Still outstanding:** independently visit external destinations, review the historical Wiki attribution/licensing, test the keyboard/mobile/search experience in a browser, confirm PHP/API behaviors in a staged installation and review every remaining configuration description. No claims of live URL validation were added.
+
+## Public homepage usability — search field spacing (2026-11-06)
+
+A screenshot of the live public homepage showed the text **“Find a topic across all available guides”** touching its search field on the same line. This is caused by the default inline layout of the `label` and `input`.
+
+**Fixed on the contributor branch (not yet deployed):** `tools/build_dual_preview.py` generates CSS that displays the search label as a block with a 0.6rem bottom margin; the search input is block-level, responsive (100% width, capped at 32rem), has a comfortable minimum height/padding and a visible `:focus-visible` outline. `tools/check_http_preview.py` now verifies the generated search markup and associated CSS rules.
+
+The change affects the public online homepage styling only. It does not alter bundled configuration HTML, plugin help or release installation procedures. This source-level check is **not** a substitute for later visual and keyboard verification in a real browser.
+
+## Third pass — task-oriented homepage navigation (2026-11-07)
+
+The homepage previously listed all 13 guides in a single, undifferentiated list. The online site builder now groups the same **13 existing guide links** into four task-oriented sections:
+
+| Section | Included guides | Count |
+| --- | --- | ---: |
+| Getting started | Installation and upgrades; Configuration | 2 |
+| Site administration | Administration; Users and groups; Backup and recovery; Maintenance and upgrades; Troubleshooting | 5 |
+| Content and appearance | Static Pages; Themes and templates | 2 |
+| Developer reference | Plugin API; Configuration API; Webservices API; Security and permissions | 4 |
+| **Total** | **Each existing searchable guide exactly once** | **13** |
+
+Implementation: `tools/build_site_search.py` defines and asserts a complete, nonduplicating topic-to-guide mapping and renders semantic `section` / `h3` / list markup within the existing browse region. The existing search index, search behavior and no-JavaScript catalogue are retained. `tools/build_dual_preview.py` adds a responsive CSS grid with readable card descriptions and comfortable link spacing. `tools/check_http_preview.py` checks all four groups, the 13 exact-once links and the responsive CSS.
+
+**Boundary:** source and static HTTP checks cannot certify the visual browser result. Confirm mobile wrapping, keyboard navigation, contrast and the search interaction visually before claiming UX acceptance. This is an online homepage change; the historical embedded help remains untouched.
+
+## Fourth pass — contextual navigation in modern guides (2026-11-07)
+
+Each of the **ten modern guide pages** now ends with a **Continue reading** block containing two complementary, task-oriented guides. Examples: Plugin API points toward Configuration API and Security and permissions; Backup and recovery points toward Maintenance and upgrades and Troubleshooting. These contextual links are separate from the existing global header links and offer a next step after finishing an article.
+
+Implementation in `tools/build_modern_pilot.py`:
+
+- A complete explicit `RELATED` mapping covers the ten guide slugs, with two distinct destinations each and no self-links.
+- Generated links use local relative `../../` paths and work in the online and preserved modern embedded outputs without forcing users onto the live website.
+- Semantic `aside`, descriptive `aria-label`, `h2` and short lists provide understandable navigation. Light CSS adds separation from the article.
+- `tools/audit_online_guides.py` asserts exactly one block and two unique related links per modern guide, and includes the total in the audit JSON. Existing full local link checks cover their destinations.
+
+**Evidence boundary:** generation and link checks are not manual browser UX acceptance. The baseline modern guide count remains ten and the public searchable guide count remains thirteen. These additions do not modify the original release's bundled configuration help or change API contracts.
+
+## Fifth pass — six primary sections and twelve new guides (2026-11-07)
+
+**Structural reorganization completed in the contributor branch.** The previous four-group / 13-guide navigation was expanded to six primary sections with **25 indexed guides**, including **12 newly authored Markdown guides**. The single-source online renderer generates **27 HTML pages**: 4 top-level HTML documents and 23 modern HTML pages (22 modern guides plus their modern index). It also preserves the original Geeklog 2.2.2 help paths in the experimental embedded overlay.
+
+Category coverage: Getting Started (2), User Guide (5), Administration (6), Plugins (3), Development & Theming (8), Reference & Archive (1). Each guide is searchable and appears once in homepage navigation.
+
+**Evidence:** [GitHub Actions #42321389316](https://github.com/hostellerie/documentation/actions/runs/42321389316) passed the updated builders, historical compatibility, search/index, local HTTP and generated-documentation audits. It recorded **751 local links and 41 fragment references** in 27 online HTML pages, **660 local links in 23 modern embedded HTML pages**, and **44 related-guide links** across 22 modern guides. External URLs were inventoried but not live-checked.
+
+The new pages are meaningful **initial guides with explicit editorial/runtime limitations**, not evidence that all Core features are exhaustively documented. The full 351-page Wiki catalog has not been classified (only 14 were reviewed). See [ONLINE-SIX-SECTION-COVERAGE.md](ONLINE-SIX-SECTION-COVERAGE.md) for the complete 25-guide matrix, P0/P1/P2 inventory, Wiki dispositions and remaining acceptance gates.
+
+**Earlier audit figures below (13 guides, 15 online pages, 20 related links) record prior historical snapshots; the fifth pass supersedes them for current branch status.** No PR or official site deployment has occurred.
+
+## Next substantial contribution criteria (no PR yet)
+
+1. Expand cross-guide task navigation where useful, without duplicating entire articles.
+2. Confirm source references, external link health and historical Wiki reuse rules.
+3. Correct outdated prototype labels that confuse published-source pages with old pilot compatibility files.
+4. Review code-heavy examples for API and permission correctness, explicitly separating source reading from staging execution.
+5. Obtain clean CI and a reviewer-ready diff before opening one substantive online-only PR.
+
+**Publication boundary:** edits on `hostellerie/documentation:docs/online-troubleshooting-guide` are not published to `Geeklog-Core/documentation:main` until reviewed and merged, followed by the maintainer-controlled Pages deployment.

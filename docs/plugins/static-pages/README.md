@@ -47,6 +47,41 @@ Do not give authors broader plugin or PHP-execution permissions than their tasks
 
 In the bundled Geeklog 2.2.2 plugin, PHP execution has a separate `staticpages.PHP` feature right that is not assigned to a group by default. **Do not enable execution of arbitrary PHP merely to reproduce a historic tutorial.** Prefer plain content, approved plugins and safe template features. If a current deployment supports PHP in page content, restrict its use to trusted administrators and verify the exact security model with the target plugin release.
 
+## Choosing a Static Page or an article
+
+| Requirement | Usually the better starting point |
+| --- | --- |
+| A stable information page such as contact details, policies or a custom landing page | Static Page |
+| Dated editorial content that participates in article publishing and topic/news workflows | Article |
+| Custom application behavior, data processing or access-controlled actions | A reviewed plugin or Core-supported extension, not arbitrary PHP inside a page |
+
+This is an editorial decision guide, not a claim that each content type has identical permissions, URLs or rendering behavior. Test the actual presentation and configured plugin version.
+
+## Publishing checklist for editors
+
+Before saving, record the page's intended audience and navigation entry point. A page that looks correct while signed in as an administrator may be invisible to anonymous visitors.
+
+1. Choose a short, stable page identifier where the installed editor allows it; avoid changing an existing public identifier without planning link updates.
+2. Add a meaningful title, readable headings, descriptive link text and alternative text for informative images.
+3. Confirm owner, group and reader permissions separately from editing rights.
+4. Preview with representative content. Check long headings, links, images and narrow-screen rendering in the active theme.
+5. Save and follow the actual public URL in a **logged-out** browser session; also test any account roles that should have restricted access.
+6. Check inbound navigation or autotags that refer to the page, then record the change in your site maintenance notes.
+
+The permissions table above identifies **plugin-level feature rights**, not every per-page owner/group/read flag. Never infer that possession of `staticpages.edit` means the user is authorized to publish any page to any audience.
+
+## Problems after publishing
+
+| Observation | What to verify |
+| --- | --- |
+| Page not visible to anonymous visitors | Effective page visibility, ownership/group permissions and navigation placement |
+| Existing links return 404 | Stable page ID, actual URL and routing configuration; avoid blindly changing rewrite rules |
+| Page formatting differs from articles | Active theme and Static Pages template rendering, not only the editor preview |
+| Embedded features or PHP do not execute | Plugin feature rights and selected rendering mode; never enable `staticpages.PHP` as a generic workaround |
+| A cloned page behaves differently | Unique identifier, inherited settings, permissions and links before publication |
+
+When troubleshooting a site failure, follow the [administration troubleshooting guide](../../administration/troubleshooting/index.html). Where behavior depends on the original plugin implementation, compare with the tagged 2.2.2 plugin files linked below.
+
 ## Before publishing or upgrading
 
 - Verify visibility and ownership permissions.

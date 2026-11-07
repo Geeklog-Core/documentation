@@ -1,7 +1,7 @@
 name: Validate online and embedded Geeklog documentation
 on:
   push:
-    branches: [docs/published-site-labels]
+    branches: [docs/published-site-labels, docs/online-troubleshooting-guide]
   workflow_dispatch:
 permissions:
   contents: read
@@ -92,6 +92,7 @@ jobs:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
           GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
       - run: python tools/check_http_preview.py
+      - run: python tools/audit_online_guides.py
       - run: python -m py_compile tools/test_chromebook_overlay.py
       - uses: actions/upload-artifact@v4
         with:
@@ -110,6 +111,11 @@ jobs:
             dist/config-candidate-review.zip
             dist/config-candidate-report.json
             dist/config-link-audit.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geeklog-online-guide-audit
+          path: dist/online-guide-audit.json
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
