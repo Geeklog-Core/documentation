@@ -179,7 +179,7 @@ def write_site(directory, online=False):
             dest_slug = route(slug)
             root_relative = "../" * len(dest_slug.rstrip("/").split("/"))
             breadcrumb = '<nav aria-label="Breadcrumb"><a href="' + root_relative + '">Documentation</a> / ' + escape(title) + '</nav>'
-            sections = ''.join('<a href="' + root_relative + path + '">' + escape(label) + '</a>' for label, (path,) in groups)
+            sections = ''.join('<a href="' + root_relative + path + '">' + escape(label) + '</a>' for label, paths in groups for path in paths[:1])
             site_nav = '<nav aria-label="Documentation sections" class="sections">' + sections + '</nav>'
             headings = re.findall(r'<h[23] id="([^"]+)">([^<]+)</h[23]>', body)
             toc = ('<nav aria-label="On this page"><h2>On this page</h2><ul>' +
