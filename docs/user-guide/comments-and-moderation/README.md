@@ -82,3 +82,39 @@ These outcomes must be recorded from a disposable installation; reading the hand
 Plugins may integrate moderation and comments through Core dispatchers, but old callback names and signatures are not a safe implementation template. Begin with the tagged [Plugin API](../../development/plugin-api/index.html) and verify dispatch behavior in Geeklog 2.2.2 before coding.
 
 **Historical Wiki sources to evaluate:** `Adding_Moderation_Capability` and `Integrating_the_Comment_Engine`. These pages describe old version bands; their code samples and wording have not been republished. Complete UI testing and policy examples remain outstanding.
+
+## Detailed tutorial: comment on an article
+
+**Goal:** make a constructive comment and understand why it may not appear immediately.
+
+1. Sign in as a reader if the site requires an account for comments.
+2. Open an article where comments are enabled and follow the available comment or reply action.
+3. Write a short example comment such as **Thanks for sharing these resources.** Avoid sharing contact details or confidential information.
+4. Preview if the installed interface supports it, then submit once.
+5. Return to the article and inspect the result. If the comment is absent, do not post repeated copies; check whether the site moderates submissions.
+6. Where moderation is active, ask an authorized moderator to inspect the queue. Recheck the article anonymously after approval.
+
+## Detailed tutorial: moderate a submitted comment
+
+**Prerequisites:** `commentsubmission = 1`, an account with `comment.moderate`, and a disposable test comment pending review.
+
+1. Open the administrative moderation screen (`admin/moderation.php`) using the authorized moderator account.
+2. Find the **comment** submission list. A missing list may mean moderation is disabled or the user lacks the corresponding right.
+3. Read the comment and the article context. Do not open suspicious links or copy untrusted code.
+4. Select an available approval or deletion action. Use the built-in protected form; do not construct manual mutation URLs.
+5. After processing, verify the queue changed as expected and check the article while logged out.
+6. If the expected result is missing, note the article ID, moderation mode and resulting status without recording a session token.
+
+**Expected output:** the test comment appears only after the site's configured approval workflow permits it.
+
+## Detailed tutorial: process a contributed story
+
+1. Use a contributor account to create a new article submission in an accessible topic.
+2. As a separate account with `story.moderate`, open the story queue in `admin/moderation.php`.
+3. Confirm the intended topic and the text. Check topic-level access before approving.
+4. Approve or reject through the available form and record the resulting notification or redirect.
+5. Check the public article as a visitor. If the article remains invisible, review its publication date and permissions rather than approving it again.
+6. Finally, inspect the draft queue only if `listdraftstories` is enabled and you have `story.edit`.
+
+**Source:** [moderation controller](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php). Tests remain pending on a disposable site.
+
