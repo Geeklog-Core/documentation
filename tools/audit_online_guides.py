@@ -96,6 +96,27 @@ def main():
             assert embedded.read_bytes() == (ONLINE / path).read_bytes(), (
                 f"Online/embedded guide mismatch: {path}"
             )
+    # Each modern guide needs two contextual onward routes; these links must
+    # resolve in both outputs and remain independent from the public host.
+    related_count = 0
+    for path in GUIDES:
+        if not path.startswith("modern/"):
+            continue
+        info = inspect(ONLINE / path)
+        markup = (ONLINE / path).read_text(encoding="utf-8")
+        assert markup.count('class="related-guides"') == 1, (
+            f"Missing or duplicate related reading: {path}"
+        )
+        assert markup.count('aria-label="Related documentation"') == 1
+        assert markup.count('<h2>Continue reading</h2>') == 1
+        related_links = re.findall(
+            r'<a href="(\\.\\./\\.\\./[^"]+/index[.]html)">',
+            markup.split('class="related-guides"', 1)[1]
+        )
+        assert len(related_links) == len(set(related_links)) == 2, (
+            f"Expected two distinct related links: {path}"
+        )
+        related_count += len(related_links)
     # External link inventory only: remote sites are not fetched in CI.
     # Pin Core source links to the release discussed by these guides rather
     # than silently using a changing master/main revision.
@@ -122,6 +143,7 @@ def main():
         "indexed_guides": len(indexed),
         "online_html_pages": len(online_pages),
         "embedded_modern_html_pages": len(embedded_pages),
+        "contextual_related_links": related_count,
         "online_local_refs_checked": online_links,
         "online_fragments_checked": online_fragments,
         "embedded_local_refs_checked": embedded_links,
@@ -136,6 +158,7 @@ def main():
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print("PASS: 13 unique indexed guides with source Markdown and generated pages")
+    print(f"PASS: {related_count} distinct contextual guide links across 10 modern pages")
     print(f"PASS: online HTML {len(online_pages)} pages, {online_links} local links, {online_fragments} fragments")
     print(f"PASS: embedded modern {len(embedded_pages)} pages, {embedded_links} local links, {embedded_fragments} fragments")
     print(f"PASS: {sum(external.values())} external reference occurrences inventoried; no unpinned Geeklog Core source URLs")
