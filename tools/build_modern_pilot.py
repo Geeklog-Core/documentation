@@ -157,7 +157,9 @@ def wrap(title, body, depth):
 
 def write_site(directory, online=False):
     directory.mkdir(parents=True, exist_ok=True)
-    (directory / "style.css").write_text(CSS, encoding="utf-8")
+    styles = directory / "style.css"
+    previous_styles = styles.read_text(encoding="utf-8") if online and styles.is_file() else ""
+    styles.write_text(previous_styles + "\n" + CSS, encoding="utf-8")
     records = []
     visible = [(slug, title) for slug, title in SOURCES if not online or slug not in ONLINE_EXCLUDED]
     groups = (
