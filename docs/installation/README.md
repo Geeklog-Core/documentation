@@ -104,7 +104,7 @@ After the installer completes, check the site as a visitor and with an authorize
 7. Confirm the installer directory has been removed or secured as required by the release instructions, and that the installation's default credentials have been replaced.
 8. Record the exact versions, checks performed and outstanding warnings. If any critical check fails, stop and investigate rather than deploying more changes.
 
-The [troubleshooting guide](https://geeklog-core.github.io/documentation/modern/administration/troubleshooting/index.html) explains how to collect useful error evidence. The [backup and recovery guide](https://geeklog-core.github.io/documentation/modern/administration/backup-and-recovery/index.html) covers testing restoration of both files and database.
+The [troubleshooting guide](https://geeklog-core.github.io/documentation/administration/troubleshooting/) explains how to collect useful error evidence. The [backup and recovery guide](https://geeklog-core.github.io/documentation/administration/backup-and-recovery/) covers testing restoration of both files and database.
 
 <a id="upgrade" name="upgrade"></a>
 
