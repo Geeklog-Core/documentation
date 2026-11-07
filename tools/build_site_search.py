@@ -17,6 +17,18 @@ SOURCES = {
     "installation.html": "Installation and upgrades",
     "configuration.html": "Configuration",
     "administration.html": "Administration",
+    "modern/user-guide/overview/index.html": "Using Geeklog: User Guide",
+    "modern/user-guide/articles-and-topics/index.html": "Articles, Topics and Publishing",
+    "modern/user-guide/blocks-and-navigation/index.html": "Blocks, Menus and Navigation",
+    "modern/user-guide/comments-and-moderation/index.html": "Comments and Moderation",
+    "modern/plugins/plugin-installation-management/index.html": "Plugin Installation and Management",
+    "modern/development/plugin-development/index.html": "Plugin Development: Step by Step",
+    "modern/development/theme-development/index.html": "Theme Development: Step by Step",
+    "modern/user-guide/syndication-rss-autotags/index.html": "Syndication, RSS and Autotags",
+    "modern/plugins/bundled-plugins/index.html": "Bundled Plugins Reference",
+    "modern/reference/database-schema/index.html": "Database Schema and Data Model",
+    "modern/administration/troubleshooting-faq/index.html": "Troubleshooting and FAQ",
+    "modern/development/contributing/index.html": "Contributing to Geeklog",
     "modern/development/plugin-api/index.html": "Plugin API",
     "modern/development/templates/index.html": "Themes and templates",
     "modern/plugins/static-pages/index.html": "Static Pages",
@@ -32,26 +44,42 @@ SOURCES = {
 # Every searchable guide appears exactly once in one task-oriented homepage group.
 # These labels organize the catalogue only; they do not alter search targets.
 TOPIC_GROUPS = (
-    ("Getting started", "Install Geeklog and understand essential settings.", (
+    ("Getting Started", "Install Geeklog, upgrade safely and understand configuration.", (
         "installation.html",
         "configuration.html",
     )),
-    ("Site administration", "Manage accounts, operations and recovery.", (
+    ("User Guide", "Learn how to publish, organize content and use site features.", (
+        "modern/user-guide/overview/index.html",
+        "modern/user-guide/articles-and-topics/index.html",
+        "modern/user-guide/blocks-and-navigation/index.html",
+        "modern/user-guide/comments-and-moderation/index.html",
+        "modern/user-guide/syndication-rss-autotags/index.html",
+    )),
+    ("Administration", "Manage accounts, site operations, recovery and support.", (
         "administration.html",
         "modern/administration/users-and-groups/index.html",
         "modern/administration/backup-and-recovery/index.html",
         "modern/administration/maintenance/index.html",
         "modern/administration/troubleshooting/index.html",
+        "modern/administration/troubleshooting-faq/index.html",
     )),
-    ("Content and appearance", "Create standalone pages and customize themes.", (
+    ("Plugins", "Install, manage and document bundled extensions.", (
+        "modern/plugins/plugin-installation-management/index.html",
+        "modern/plugins/bundled-plugins/index.html",
         "modern/plugins/static-pages/index.html",
-        "modern/development/templates/index.html",
     )),
-    ("Developer reference", "Build extensions and review APIs and permissions.", (
+    ("Development & Theming", "Build plugins, create themes and contribute safely.", (
         "modern/development/plugin-api/index.html",
+        "modern/development/plugin-development/index.html",
         "modern/development/configuration-api/index.html",
         "modern/development/webservices/index.html",
         "modern/development/security-and-permissions/index.html",
+        "modern/development/templates/index.html",
+        "modern/development/theme-development/index.html",
+        "modern/development/contributing/index.html",
+    )),
+    ("Reference & Archive", "Consult version-scoped technical data and historical context.", (
+        "modern/reference/database-schema/index.html",
     )),
 )
 
@@ -169,7 +197,7 @@ def main():
             "title": title,
             "text": re.sub(r"\s+", " ", " ".join(parser.content)).strip()[:50000],
         })
-    assert len(entries) == len(SOURCES) == 13
+    assert len(entries) == len(SOURCES) == 25
     (SITE / "search-index.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
