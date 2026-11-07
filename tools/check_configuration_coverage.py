@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CORE = Path(os.environ["GEEKLOG_CORE_DOCS"]) / "english/config.html"
 PACKAGED = ROOT / "dist/geeklog-2.2.2/public_html/docs/english/config.html"
-WEB = ROOT / "dist/online/configuration.html"
+WEB = ROOT / "dist/online/configuration/index.html"
 REPORT = ROOT / "dist/configuration-coverage.json"
 
 
