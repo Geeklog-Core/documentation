@@ -49,12 +49,12 @@ def online():
         index = fetch(base, "index.html", "text/html")
         assert b"docs-search" in index and b"Browse all guides" in index
         docs = json.loads(fetch(base, "search-index.json", "application/json"))
-        assert len(docs) == 25
+        assert len(docs) == 24
         # Browse remains available without JS, organized by task rather than a flat list.
         assert index.count(b'class="docs-topic-group"') == 6
         assert index.count(b'<h3>') == 6
         assert b'Getting Started' in index and b'User Guide' in index and b'Administration' in index
-        assert b'Plugins' in index and b'Development &amp; Theming' in index and b'Reference &amp; Archive' in index
+        assert b'Plugins' in index and b'Development &amp; Theming' in index and b'Technical Reference' in index
         for item in docs:
             assert index.count(('href="' + item["url"] + '"').encode("utf-8")) == 1
 
@@ -75,8 +75,10 @@ def online():
         for item in docs:
             html = fetch(base, item["url"], "text/html")
             assert b"<html" in html
-        fetch(base, "modern/index.html", "text/html")
-        fetch(base, "configuration.html", "text/html")
+        fetch(base, "user-guide/", "text/html")
+        fetch(base, "configuration/", "text/html")
+        assert b'five practical steps' in index
+        assert b'modern/' not in index
         return len(docs)
 
 def embedded():
