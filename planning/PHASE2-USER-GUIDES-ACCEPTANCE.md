@@ -48,3 +48,14 @@ The guide additions are **original explanations**, not copied historical Wiki pr
 - [ ] Geeklog v2.2.3 acceptance is a distinct release-scoped task.
 
 **Explicitly deferred:** visual audit of the public docs site, complete historical Wiki classification and 2.2.3 embedded-help integration.
+
+## Second source-review pass — date controls, block variants and plugin lifecycle
+
+Further work on Geeklog v2.2.2 tagged code and its documented edit handlers expands three P0 pages without claiming completion of any UI session:
+
+- **Articles and topics:** `public_html/admin/article.php` defines publication and expiration date controls and the four audience permissions (owner/group/members/anonymous); `public_html/admin/topic.php` defines a parent topic and inheritance option. A staging exercise now records actual scheduled publication and resulting visitor visibility rather than guessing how timing is implemented.
+- **Blocks and navigation:** `public_html/admin/block.php` recognizes `normal`, `portal`, `phpblock`, `gldefault` and obtains supported additional locations through `PLG_getBlockLocations()`. Documentation describes the type distinction and limits executable PHP blocks to developer-reviewed use.
+- **Plugin installation and management:** `public_html/admin/plugins.php` distinguishes code version, installed version, dependencies, enable/disable, upgrade and uninstall; the text explains why uninstall and file replacement are not automatically a safe rollback.
+- **Repeatable documentation regression:** `tools/check_p0_user_guides.py` is run by `.github/workflows/dual-preview.yml` after the generated-site audit. It checks that all five existing P0 Markdown and HTML guides retain their version-pinned sources, key rights, procedural headings and unchecked staging items. This is **static documentation acceptance only**, not proof that PHP operations or role-based behavior passed a real installation test.
+
+**Outstanding hands-on checks:** scheduling/expiration, parent-topic inheritance and effective access, permitted block positions in different themes, PHP/portal block security controls, plugin upgrade dependencies and restore/rollback scenarios. Audit of the live public documentation website remains deferred.
