@@ -44,12 +44,41 @@ SOURCES = [
 ]
 # Web-only route mapping. Existing embedded HTML keeps its historical subtree.
 ONLINE_EXCLUDED = {"administration/troubleshooting-faq"}
+# Public guide order follows the homepage sections and controls Previous / Next.
+ONLINE_ORDER = (
+    "user-guide/overview",
+    "user-guide/articles-and-topics",
+    "user-guide/blocks-and-navigation",
+    "user-guide/comments-and-moderation",
+    "user-guide/syndication-rss-autotags",
+    "administration/users-and-groups",
+    "administration/backup-and-recovery",
+    "administration/maintenance",
+    "administration/troubleshooting",
+    "plugins/plugin-installation-management",
+    "plugins/bundled-plugins",
+    "plugins/static-pages",
+    "development/plugin-development",
+    "development/security-and-permissions",
+    "development/templates",
+    "development/theme-development",
+    "development/contributing",
+    "reference/database-schema",
+    "development/plugin-api",
+    "development/configuration-api",
+    "development/webservices",
+)
+REFERENCE_ROUTES = {
+    "development/plugin-api": "reference/plugin-api/",
+    "development/configuration-api": "reference/configuration-api/",
+    "development/webservices": "reference/webservices/",
+}
 def route(slug):
     if slug == "user-guide/overview":
         return "user-guide/"
     if slug == "administration/troubleshooting-faq":
         return "administration/troubleshooting/"
-    return slug + "/"
+    return REFERENCE_ROUTES.get(slug, slug + "/")
 
 def online_link(current_slug, href):
     parts = urlsplit(href)
@@ -162,6 +191,9 @@ def write_site(directory, online=False):
     styles.write_text(previous_styles + "\n" + CSS, encoding="utf-8")
     records = []
     visible = [(slug, title) for slug, title in SOURCES if not online or slug not in ONLINE_EXCLUDED]
+    if online:
+        assert set(ONLINE_ORDER) == {slug for slug, _ in visible}, "Online guide order drift"
+        visible.sort(key=lambda item: ONLINE_ORDER.index(item[0]))
     groups = (
         ("Getting Started", ("installation/", "configuration/")),
         ("User Guide", ("user-guide/",)),
