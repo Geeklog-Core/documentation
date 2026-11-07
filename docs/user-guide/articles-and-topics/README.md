@@ -115,7 +115,7 @@ The `submit.php` handler also checks `loginrequired` and `submitloginrequired` b
 
 The tagged `admin/topic.php` checks whether a requested parent exists, whether it is a forbidden archive parent, whether a topic identifier is reserved or already used, and whether the editor has sufficient access to the target and parent topic. Its save path requires a CSRF token.
 
-When designing the category tree, verify the parent topic and its rights **before** saving. Changing an identifier or deleting a parent can affect existing article assignments; do this first in a staging copy.
+When designing the category tree, verify the parent topic and its rights **before** saving. Changing an identifier or deleting a parent can affect existing article assignments; do this first in a staging copy. The Core represents the root with `TOPIC_ROOT`, not an ordinary user-created topic identifier.
 
 ## Staging acceptance checklist
 
