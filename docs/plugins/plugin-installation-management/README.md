@@ -61,6 +61,22 @@ The [tagged plugin administration handler](https://github.com/Geeklog-Core/geekl
 
 **Source references:** [plugin administration](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php), [plugin Core dispatcher](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php).
 
+## Upgrade states and dependencies
+
+The tagged [plugin manager](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) distinguishes upgrade, enable/disable and uninstall operations, invokes `PLG_upgrade()` for upgrade paths, and consults `PLG_resolveDependencies()` when processing plugin state. Treat an **installed plugin's recorded version**, its **available code version**, and its **dependencies** as separate facts.
+
+For a routine maintenance review, record all three before changing the plugin:
+
+| Question | Why it matters |
+| --- | --- |
+| Does the available code match the expected release? | A copied package may be newer than the installed database state |
+| Are the dependencies satisfied? | Another plugin or Core capability may need to be present or enabled |
+| Does this change upgrade data or settings? | A successful file copy does not prove database migrations succeeded |
+| Is the plugin disabled or uninstalled? | Disabling may be reversible; uninstall behavior is plugin-specific |
+| Can the previous state be restored? | Upgrade failure recovery must not depend on assumptions about uninstall |
+
+**Do not edit the plugin database version field to force an upgrade.** Follow a plugin's documented migration pathway and validate with a disposable installation first.
+
 ## Permission and lifecycle acceptance
 
 - [ ] Plugin editor without upload/install permissions cannot reach package upload.
