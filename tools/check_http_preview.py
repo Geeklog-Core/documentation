@@ -55,8 +55,9 @@ def online():
         assert index.count(b'<h3>') == 6
         assert b'Getting Started' in index and b'User Guide' in index and b'Administration' in index
         assert b'Plugins' in index and b'Development &amp; Theming' in index and b'Technical Reference' in index
+        catalogue = index.split(b'id="docs-catalogue"', 1)[1]
         for item in docs:
-            assert index.count(('href="' + item["url"] + '"').encode("utf-8")) == 1
+            assert catalogue.count(('href="' + item["url"] + '"').encode("utf-8")) == 1
 
         script = fetch(base, "search.js", "text/javascript")
         assert b"fetch('search-index.json')" in script
