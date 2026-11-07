@@ -77,6 +77,22 @@ The same handler obtains additional supported locations through `PLG_getBlockLoc
 
 **Source basis:** the type selection and validation logic in `admin/block.php`. This confirms that these fields are recognized, **not** that every type is safe or enabled under the site's configuration.
 
+## Check block visibility and display options
+
+The tagged block save handler receives separate values for **enabled state**, **permitted audience**, **device**, **location**, **sort order** and the content itself. It also supports autotag/newline settings and CSS id/classes. These inputs do not all mean the same thing.
+
+For a block that seems to have disappeared, investigate in this order:
+
+1. Is it enabled in the administrative list?
+2. Is its selected topic or audience permission compatible with the viewer?
+3. Does the active theme render its configured position?
+4. Does its device setting include the device category being tested?
+5. If it contains a feed or a PHP function, is the source or function available and suitable for this site?
+
+When editing a block, Geeklog accepts `normal`, `portal`, `phpblock` and `gldefault` as type identifiers. The presence of `phpblock` in the editor does **not** authorize entering arbitrary PHP source in a block; its implementation expects a named PHP block function. Only reviewed, trusted site code should provide one.
+
+**Source:** [block administration save handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php).
+
 ### Permission acceptance
 
 - [ ] The authorized block editor can create and update a disposable block.
