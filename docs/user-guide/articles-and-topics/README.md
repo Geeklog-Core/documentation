@@ -67,6 +67,31 @@ Geeklog distinguishes a visitor-facing submission route from privileged administ
 
 **Code references:** [article administrator](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topic administrator](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php), [article submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [moderation](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php).
 
+## Article scheduling and topic hierarchy: fields to verify
+
+The tagged [article editor](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php) exposes separate **publication** and **expiration** date components and loads story permission fields for owner, group, members and anonymous readers. The [topic editor](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php) includes a **parent topic**, an **inherit** setting and topic permission fields.
+
+This means the editor's publishing checklist should cover more than title and body:
+
+| Editorial decision | Inspect in the 2.2.2 form | Common failure to investigate |
+| --- | --- | --- |
+| Publication date | Date and time values, including the site's time settings | Article scheduled for a later time is not yet visible |
+| Expiration | Expiration fields, when applicable | Content disappears or changes presentation after expiration |
+| Topic hierarchy | Assigned topic, parent topic and inheritance | Unexpected category placement or inherited access |
+| Audience | Owner/group/member/anonymous access | Article visible to an editor but not to the intended public |
+| Draft versus submission | Draft state and separate moderation queues | Author expects immediate publication from a submission |
+
+**Do not assume that changing a date alone publishes an item.** Record actual resulting visibility with anonymous and editor accounts, and check the site's configuration before drawing conclusions.
+
+### Staging exercise: a scheduled story
+
+1. As a permitted editor, create a harmless article in a disposable topic and record the current site time.
+2. Inspect the publication and expiration controls supplied by the installed editor. Use a future publication date only in an isolated test environment.
+3. Save using the editor's normal workflow and record the resulting state.
+4. Check the item as an editor and as an anonymous visitor **before** the intended publication time.
+5. After the test time, check again and record the exact observed behavior. Do not infer scheduling behavior from the existence of form fields.
+6. Remove the test item and check its topic associations.
+
 ## Staging acceptance checklist
 
 - [ ] A normal contributor can submit but cannot reach the privileged article editor.
