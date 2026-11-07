@@ -85,6 +85,22 @@ A screenshot of the live public homepage showed the text **“Find a topic acros
 
 The change affects the public online homepage styling only. It does not alter bundled configuration HTML, plugin help or release installation procedures. This source-level check is **not** a substitute for later visual and keyboard verification in a real browser.
 
+## Third pass — task-oriented homepage navigation (2026-11-07)
+
+The homepage previously listed all 13 guides in a single, undifferentiated list. The online site builder now groups the same **13 existing guide links** into four task-oriented sections:
+
+| Section | Included guides | Count |
+| --- | --- | ---: |
+| Getting started | Installation and upgrades; Configuration | 2 |
+| Site administration | Administration; Users and groups; Backup and recovery; Maintenance and upgrades; Troubleshooting | 5 |
+| Content and appearance | Static Pages; Themes and templates | 2 |
+| Developer reference | Plugin API; Configuration API; Webservices API; Security and permissions | 4 |
+| **Total** | **Each existing searchable guide exactly once** | **13** |
+
+Implementation: `tools/build_site_search.py` defines and asserts a complete, nonduplicating topic-to-guide mapping and renders semantic `section` / `h3` / list markup within the existing browse region. The existing search index, search behavior and no-JavaScript catalogue are retained. `tools/build_dual_preview.py` adds a responsive CSS grid with readable card descriptions and comfortable link spacing. `tools/check_http_preview.py` checks all four groups, the 13 exact-once links and the responsive CSS.
+
+**Boundary:** source and static HTTP checks cannot certify the visual browser result. Confirm mobile wrapping, keyboard navigation, contrast and the search interaction visually before claiming UX acceptance. This is an online homepage change; the historical embedded help remains untouched.
+
 ## Next substantial contribution criteria (no PR yet)
 
 1. Expand cross-guide task navigation where useful, without duplicating entire articles.
