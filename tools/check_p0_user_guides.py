@@ -9,7 +9,7 @@ import csv
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-ONLINE = ROOT / "dist/online/modern"
+ONLINE = ROOT / "dist/online"
 CASES = {
     "user-guide/overview": ("user-guide/README.md", ("## Everyday tasks and source-backed administration paths", "## Practical learning path"), ("submit.php", "admin/article.php", "admin/topic.php", "admin/block.php", "admin/moderation.php", "admin/plugins.php")),
     "user-guide/articles-and-topics": ("user-guide/articles-and-topics/README.md", ("## Choose the correct workflow in Geeklog 2.2.2", "## Article scheduling and topic hierarchy: fields to verify", "## Staging acceptance checklist"), ("story.edit", "topic.edit", "story.moderate", "listdraftstories")),
@@ -30,7 +30,7 @@ WORKFLOW_GATES = {
 def main():
     for slug, (source, headings, terms) in CASES.items():
         markdown_path = ROOT / "docs" / source
-        html_path = ONLINE / slug / "index.html"
+        html_path = ONLINE / ("user-guide" if slug == "user-guide/overview" else slug) / "index.html"
         assert markdown_path.is_file(), markdown_path
         assert html_path.is_file(), html_path
         markdown = markdown_path.read_text(encoding="utf-8")
