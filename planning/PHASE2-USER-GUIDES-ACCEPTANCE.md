@@ -110,3 +110,18 @@ Seven existing Markdown guides now contain structured, **step-by-step worked exe
 **New CI test:** `tools/check_practical_tutorials.py` checks the seven Markdown/HTML pages for the added walkthroughs, source anchors, substantive numbered steps, permission hints and explicit staging caveats. It is invoked in `dual-preview.yml`. The original `tools/check_p0_user_guides.py` and 22 `NOT_RUN` staging scenarios remain intact.
 
 **Editorial status:** first complete drafts of practical tutorials, **not live UI tested**. Interface labels, plugin behavior, themes, feed paths and publishing settings still require execution against a disposable Geeklog 2.2.2 installation. The user explicitly deferred the visual audit of the public documentation website. No phase-two PR is opened yet.
+
+## Finalized seven-guide staging coverage
+
+The acceptance matrix now has **30** test cases: the original 22 scenarios across five initial P0 guides plus **8** for syndicated RSS/autotags and Static Pages. New roles include `feed_admin` and `staticpages_editor`; tagged `system/` paths can be used as source references alongside `public_html/`.
+
+New cases cover RSS feed creation and restricted administration, autotag rendering without access leakage, anonymous feed consumption, Static Page publication, denied editor access, cloning and the `staticpages.PHP` privilege boundary.
+
+Every case remains `NOT_RUN` until execution with sanitized evidence; static CI validates the matrix structure and documented tutorials but **does not imply a successful manual test**.
+
+## Proposed PR review boundaries
+
+- This is a **content-focused documentation PR**: seven enriched tutorials, references to tagged Geeklog v2.2.2 sources, two documentation validation scripts and staging checklists.
+- No changes to Geeklog Core PHP, the published 25-guide information architecture or the original embedded 2.2.2 configuration help.
+- Do not claim final compatibility with Geeklog 2.2.3, complete historical Wiki migration, or browser/administrative staging certification.
+- The public site's visual audit remains postponed by explicit project decision.
