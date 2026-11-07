@@ -44,8 +44,8 @@ SOURCES = {
 # These labels organize the catalogue only; they do not alter search targets.
 TOPIC_GROUPS = (
     ("Getting Started", "Install Geeklog, upgrade safely and understand configuration.", (
-        "installation.html",
-        "configuration.html",
+        "installation/",
+        "configuration/",
     )),
     ("User Guide", "Learn how to publish, organize content and use site features.", (
         "user-guide/",
@@ -55,7 +55,7 @@ TOPIC_GROUPS = (
         "user-guide/syndication-rss-autotags/",
     )),
     ("Administration", "Manage accounts, site operations, recovery and support.", (
-        "administration.html",
+        "administration/",
         "administration/users-and-groups/",
         "administration/backup-and-recovery/",
         "administration/maintenance/",
