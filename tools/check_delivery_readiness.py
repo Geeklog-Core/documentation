@@ -39,12 +39,14 @@ def inspect(data):
 def validate_site():
     assert (SITE / "index.html").is_file(), "Missing online home page"
     records = json.loads((SITE / "search-index.json").read_text(encoding="utf-8"))
-    assert len(records) == 25, f"Expected 25 searchable guides, got {len(records)}"
+    assert len(records) == 24, f"Expected 24 searchable guides, got {len(records)}"
     urls = [entry["url"] for entry in records]
     assert len(set(urls)) == len(urls), "Duplicate search URL"
     assert all(entry.get("title") and entry.get("text") for entry in records), "Empty search entry"
-    assert "configuration.html" in urls and "installation.html" in urls
-    assert sum(u.startswith("modern/") for u in urls) == 22
+    assert "configuration/" in urls and "installation/" in urls
+    assert not any(u.startswith("modern/") or u.endswith(".html") for u in urls)
+    assert (SITE / "user-guide/index.html").is_file()
+    assert not (SITE / "modern").exists()
     page_count = 0
     references_checked = 0
     for page in SITE.rglob("*.html"):
@@ -56,6 +58,7 @@ def validate_site():
                 continue
             destination = (page.parent / unquote(target.path)).resolve() if target.path else page.resolve()
             assert destination.is_relative_to(SITE.resolve()), f"Path escapes site: {page}: {reference}"
+            if destination.is_dir(): destination = destination / "index.html"
             assert destination.is_file(), f"Broken site reference: {page}: {reference}"
             if target.fragment and destination.suffix == ".html":
                 dest = inspect(destination.read_text(encoding="utf-8"))
@@ -71,20 +74,21 @@ def validate_site():
         markup = page.read_text(encoding="utf-8")
         assert not any(phrase in markup for phrase in forbidden), (
             f"Obsolete launch label in {page}")
-    assert page_count == 27, f"Expected 27 HTML pages, got {page_count}"
+    assert page_count == 25, f"Expected 25 HTML pages, got {page_count}"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
     assert home.count('aria-label="Browse all guides"') == 1
     assert home.count('id="docs-catalogue"') == 1
     assert home.count('id="docs-results"') == 1
     assert home.count('<h1>Geeklog documentation</h1>') == 1
+    catalogue = home.split('id="docs-catalogue"', 1)[1]
     for url in urls:
-        assert home.count('href="' + url + '"') == 1, f"Guide link missing or duplicated: {url}"
+        assert catalogue.count('href="' + url + '"') == 1, f"Guide link missing or duplicated in catalogue: {url}"
     assert (SITE / "search.js").is_file()
-    config = inspect((SITE / "configuration.html").read_text(encoding="utf-8"))
+    config = inspect((SITE / "configuration/index.html").read_text(encoding="utf-8"))
     assert "desc_site_url" in config.identifiers
     return {"online_html_pages": page_count, "searchable_guides": len(records),
-            "modern_guides": 22, "local_references_checked": references_checked}
+            "modern_guides": 21, "local_references_checked": references_checked}
 
 def validate_embedded():
     with zipfile.ZipFile(ARCHIVE) as z:
@@ -142,7 +146,7 @@ def main():
                              "real administrator/plugin context-sensitive help interactions",
                              "complete historical config content parity before replacement"]}
     REPORT.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
-    print("PASS: 25 indexed guides, 27 online pages, all local site references, legacy help paths and embedded ZIP layout")
+    print("PASS: 24 indexed guides, 25 online pages, all local site references, legacy help paths and embedded ZIP layout")
     print("NOTE: this does not certify a production release or complete Wiki/config migration")
 
 if __name__ == "__main__":

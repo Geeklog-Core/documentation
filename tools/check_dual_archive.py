@@ -29,7 +29,7 @@ def main():
         assert all(n.startswith("public_html/") and ".." not in Path(n).parts for n in names), "Unsafe path"
         zipped={n.removeprefix(EXPECTED_PREFIX) for n in names if n.startswith(EXPECTED_PREFIX)}
         recaptcha={p.relative_to(RECAPTCHA).as_posix():p for p in RECAPTCHA.rglob("*") if p.is_file()}
-        modern_root = ROOT / "dist/online/modern"
+        modern_root = ROOT / "dist/geeklog-2.2.2/public_html/docs/english/modern"
         modern = {p.relative_to(modern_root).as_posix(): p for p in modern_root.rglob("*") if p.is_file()}
         assert modern and "index.html" in modern and "search-index.json" in modern
         expected = (set(EXPECTED_PREFIX + name for name in core)

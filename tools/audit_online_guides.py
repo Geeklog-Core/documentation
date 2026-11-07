@@ -17,31 +17,30 @@ OFFLINE = ROOT / "dist/geeklog-2.2.2/public_html/docs/english/modern"
 REPORT = ROOT / "dist/online-guide-audit.json"
 
 GUIDES = {
-    "installation.html": "docs/installation/README.md",
-    "configuration.html": "docs/configuration/README.md",
-    "administration.html": "docs/administration/README.md",
-    "modern/user-guide/overview/index.html": "docs/user-guide/README.md",
-    "modern/user-guide/articles-and-topics/index.html": "docs/user-guide/articles-and-topics/README.md",
-    "modern/user-guide/blocks-and-navigation/index.html": "docs/user-guide/blocks-and-navigation/README.md",
-    "modern/user-guide/comments-and-moderation/index.html": "docs/user-guide/comments-and-moderation/README.md",
-    "modern/plugins/plugin-installation-management/index.html": "docs/plugins/plugin-installation-management/README.md",
-    "modern/development/plugin-development/index.html": "docs/development/plugin-development/README.md",
-    "modern/development/theme-development/index.html": "docs/development/theme-development/README.md",
-    "modern/user-guide/syndication-rss-autotags/index.html": "docs/user-guide/syndication-rss-autotags/README.md",
-    "modern/plugins/bundled-plugins/index.html": "docs/plugins/bundled-plugins/README.md",
-    "modern/reference/database-schema/index.html": "docs/reference/database-schema/README.md",
-    "modern/administration/troubleshooting-faq/index.html": "docs/administration/troubleshooting-faq/README.md",
-    "modern/development/contributing/index.html": "docs/development/contributing/README.md",
-    "modern/development/plugin-api/index.html": "docs/development/plugin-api/README.md",
-    "modern/development/templates/index.html": "docs/development/templates/README.md",
-    "modern/plugins/static-pages/index.html": "docs/plugins/static-pages/README.md",
-    "modern/development/webservices/index.html": "docs/development/webservices/README.md",
-    "modern/development/configuration-api/index.html": "docs/development/configuration-api/README.md",
-    "modern/administration/users-and-groups/index.html": "docs/administration/users-and-groups/README.md",
-    "modern/development/security-and-permissions/index.html": "docs/development/security-and-permissions/README.md",
-    "modern/administration/backup-and-recovery/index.html": "docs/administration/backup-and-recovery/README.md",
-    "modern/administration/maintenance/index.html": "docs/administration/maintenance/README.md",
-    "modern/administration/troubleshooting/index.html": "docs/administration/troubleshooting/README.md",
+    "installation/": "docs/installation/README.md",
+    "configuration/": "docs/configuration/README.md",
+    "administration/": "docs/administration/README.md",
+    "user-guide/": "docs/user-guide/README.md",
+    "user-guide/articles-and-topics/": "docs/user-guide/articles-and-topics/README.md",
+    "user-guide/blocks-and-navigation/": "docs/user-guide/blocks-and-navigation/README.md",
+    "user-guide/comments-and-moderation/": "docs/user-guide/comments-and-moderation/README.md",
+    "plugins/plugin-installation-management/": "docs/plugins/plugin-installation-management/README.md",
+    "development/plugin-development/": "docs/development/plugin-development/README.md",
+    "development/theme-development/": "docs/development/theme-development/README.md",
+    "user-guide/syndication-rss-autotags/": "docs/user-guide/syndication-rss-autotags/README.md",
+    "plugins/bundled-plugins/": "docs/plugins/bundled-plugins/README.md",
+    "reference/database-schema/": "docs/reference/database-schema/README.md",
+    "development/contributing/": "docs/development/contributing/README.md",
+    "reference/plugin-api/": "docs/development/plugin-api/README.md",
+    "development/templates/": "docs/development/templates/README.md",
+    "plugins/static-pages/": "docs/plugins/static-pages/README.md",
+    "reference/webservices/": "docs/development/webservices/README.md",
+    "reference/configuration-api/": "docs/development/configuration-api/README.md",
+    "administration/users-and-groups/": "docs/administration/users-and-groups/README.md",
+    "development/security-and-permissions/": "docs/development/security-and-permissions/README.md",
+    "administration/backup-and-recovery/": "docs/administration/backup-and-recovery/README.md",
+    "administration/maintenance/": "docs/administration/maintenance/README.md",
+    "administration/troubleshooting/": "docs/administration/troubleshooting/README.md",
 }
 
 class Inspect(HTMLParser):
@@ -79,6 +78,7 @@ def local_links(site, pages):
                 continue
             dest = (page.parent / unquote(url.path)).resolve() if url.path else page.resolve()
             assert dest.is_relative_to(site.resolve()), f"Link escapes site: {page}: {link}"
+            if dest.is_dir(): dest = dest / "index.html"
             assert dest.is_file(), f"Broken local link: {page}: {link}"
             checked += 1
             if url.fragment and dest.suffix == ".html":
@@ -91,40 +91,34 @@ def main():
     indexed = json.loads((ONLINE / "search-index.json").read_text(encoding="utf-8"))
     expected = set(GUIDES)
     observed = [entry["url"] for entry in indexed]
-    assert len(observed) == len(set(observed)) == 25, "Duplicate/incorrect search entries"
+    assert len(observed) == len(set(observed)) == 24, "Duplicate/incorrect search entries"
     assert set(observed) == expected, "Search index misses or invents guides"
     for path, source in GUIDES.items():
         assert (ROOT / source).is_file(), f"Source guide missing: {source}"
-        assert (ONLINE / path).is_file(), f"Published guide missing: {path}"
+        assert (ONLINE / path / "index.html").is_file(), f"Published guide missing: {path}"
         body = (ROOT / source).read_text(encoding="utf-8")
         assert re.search(r"(?m)^# ", body), f"Missing title: {source}"
-        if path.startswith("modern/"):
-            assert not re.search(
-                r"https://geeklog-core[.]github[.]io/documentation/modern/",
-                body
-            ), f"Use a relative cross-guide URL for online/offline navigation: {source}"
-            embedded = OFFLINE / path.removeprefix("modern/")
-            assert embedded.is_file(), f"Embedded modern guide missing: {path}"
-            assert embedded.read_bytes() == (ONLINE / path).read_bytes(), (
-                f"Online/embedded guide mismatch: {path}"
+        if path not in ("installation/", "configuration/", "administration/"):
+            assert not re.search(r"https://geeklog-core[.]github[.]io/documentation/modern/", body), (
+                f"Old published URL in source: {source}"
             )
+            original = "user-guide/overview/index.html" if path == "user-guide/" else path + "index.html"
+            if path in ("reference/plugin-api/", "reference/configuration-api/", "reference/webservices/"):
+                original = "development/" + path.removeprefix("reference/") + "index.html"
+            assert (OFFLINE / original).is_file(), f"Missing preserved embedded guide: {original}"
     # Each modern guide needs two contextual onward routes; these links must
     # resolve in both outputs and remain independent from the public host.
     related_count = 0
     for path in GUIDES:
-        if not path.startswith("modern/"):
+        if path in ("installation/", "configuration/", "administration/"):
             continue
-        info = inspect(ONLINE / path)
-        markup = (ONLINE / path).read_text(encoding="utf-8")
+        markup = (ONLINE / path / "index.html").read_text(encoding="utf-8")
         assert markup.count('class="related-guides"') == 1, (
             f"Missing or duplicate related reading: {path}"
         )
         assert markup.count('aria-label="Related documentation"') == 1
-        assert markup.count('<h2>Continue reading</h2>') == 1
-        related_links = re.findall(
-            r'<a href="([.][.]/[.][.]/[^"]+/index[.]html)">',
-            markup.split('class="related-guides"', 1)[1]
-        )
+        related = markup.split('class="related-guides"', 1)[1].split("</aside>", 1)[0]
+        related_links = re.findall(r'<a href="([^"]+)">', related)
         assert len(related_links) == len(set(related_links)) == 2, (
             f"Expected two distinct related links: {path}"
         )
@@ -169,7 +163,7 @@ def main():
     }
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print("PASS: 25 unique indexed guides with source Markdown and generated pages")
+    print("PASS: 24 unique indexed guides with source Markdown and generated pages")
     print(f"PASS: {related_count} distinct contextual guide links across 22 modern pages")
     print(f"PASS: online HTML {len(online_pages)} pages, {online_links} local links, {online_fragments} fragments")
     print(f"PASS: embedded modern {len(embedded_pages)} pages, {embedded_links} local links, {embedded_fragments} fragments")

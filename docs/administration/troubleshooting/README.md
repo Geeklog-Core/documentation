@@ -80,7 +80,7 @@ What was checked (read-only) and the result:
 Available backup and restoration test status:
 ```
 
-Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration.html), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
+Link to the relevant [configuration reference](https://geeklog-core.github.io/documentation/configuration/), [users and groups guide](../../administration/users-and-groups/index.html), or [backup and recovery guide](../../administration/backup-and-recovery/index.html) when the symptom falls in those areas. These are online guides and do not replace context-sensitive help shipped with the installed Geeklog release.
 
 ## Installation and upgrade checks
 
@@ -127,3 +127,37 @@ Provide maintainers with a minimal reproduction, precise software versions, the 
 - [x] Database backup restrictions checked against `admin/database.php`.
 - [ ] Exact error signatures and fixes tested on a disposable installation.
 - [ ] Linked legacy Wiki troubleshooting articles reviewed and attributed.
+
+## Frequently asked questions
+
+### Why does the site show HTTP 500 or a blank page?
+
+Record the first relevant PHP or web-server error and the exact action that triggered it. Verify the installed PHP version and extensions. Do not publish a stack trace or change multiple permissions at once. Use the diagnostic steps above.
+
+### Why do I get HTTP 403 in administration?
+
+Review the effective user/group feature rights, any CSRF token checks and hosting security logs. A web-server security rule and an application permission denial are different causes. Reproduce with a disposable test account, not by disabling security globally.
+
+### Why is the administrator URL incorrect?
+
+Confirm that `site_admin_url` is a **web URL**, not a filesystem path, and review the configured canonical site URL. Investigate safely before touching serialized configuration or rerunning the installer.
+
+### Why is my article or comment not visible?
+
+Check publication state, topic/content visibility, moderation queue and spam filtering before submitting again or changing permissions. See [Articles and topics](../../user-guide/articles-and-topics/index.html) and [Comments and moderation](../../user-guide/comments-and-moderation/index.html).
+
+### Is an SQL backup enough for recovery?
+
+No. A complete recovery normally requires database and relevant files, private configuration, uploaded media and plugin/theme customizations. Restore into an isolated environment and verify the application. See [Backup and recovery](../backup-and-recovery/index.html).
+
+### Why do plugin pages break after an update?
+
+Check the precise plugin and Core versions, the first error, and whether the change affected database schema or themes. Preserve the state before rerunning an upgrade. Use [Plugin installation and management](../../plugins/plugin-installation-management/index.html).
+
+### How can I request support?
+
+Provide release versions, sanitized route and first error, time of the incident, reproduction steps and attempted checks. Exclude passwords, tokens, private records and public debug endpoints.
+
+### Editorial backlog
+
+The historic Geeklog FAQ and Wiki may contain additional useful questions. Their answers must be rechecked against a tagged release and current hosting practices before adoption. This page intentionally contains new, scope-limited guidance rather than copied historical troubleshooting prescriptions.

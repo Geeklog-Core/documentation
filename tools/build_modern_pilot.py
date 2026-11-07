@@ -11,6 +11,7 @@ from urllib.parse import urlsplit, unquote
 import json
 import re
 import shutil
+import posixpath
 import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +42,75 @@ SOURCES = [
     ("administration/maintenance", "Maintenance and upgrades"),
     ("administration/troubleshooting", "Troubleshooting"),
 ]
+# Web-only route mapping. Existing embedded HTML keeps its historical subtree.
+ONLINE_EXCLUDED = {"administration/troubleshooting-faq"}
+# Public guide order follows the homepage sections and controls Previous / Next.
+ONLINE_ORDER = (
+    "user-guide/overview",
+    "user-guide/articles-and-topics",
+    "user-guide/blocks-and-navigation",
+    "user-guide/comments-and-moderation",
+    "user-guide/syndication-rss-autotags",
+    "administration/users-and-groups",
+    "administration/backup-and-recovery",
+    "administration/maintenance",
+    "administration/troubleshooting",
+    "plugins/plugin-installation-management",
+    "plugins/bundled-plugins",
+    "plugins/static-pages",
+    "development/plugin-development",
+    "development/security-and-permissions",
+    "development/templates",
+    "development/theme-development",
+    "development/contributing",
+    "reference/database-schema",
+    "development/plugin-api",
+    "development/configuration-api",
+    "development/webservices",
+)
+REFERENCE_ROUTES = {
+    "development/plugin-api": "reference/plugin-api/",
+    "development/configuration-api": "reference/configuration-api/",
+    "development/webservices": "reference/webservices/",
+}
+def route(slug):
+    if slug == "user-guide/overview":
+        return "user-guide/"
+    if slug == "administration/troubleshooting-faq":
+        return "administration/troubleshooting/"
+    return REFERENCE_ROUTES.get(slug, slug + "/")
+
+def online_link(current_slug, href):
+    parts = urlsplit(href)
+    if parts.scheme or parts.netloc or href.startswith("//") or not parts.path:
+        return href
+    # Markdown links were authored relative to the original embedded /modern/ pages.
+    old = posixpath.normpath(posixpath.join("modern", current_slug, parts.path))
+    if old == "modern/index.html":
+        dest = ""
+    elif old in ("installation.html", "configuration.html", "administration.html"):
+        dest = old.removesuffix(".html") + "/"
+    elif old.startswith("modern/") and old.endswith("/index.html"):
+        dest = route(old[len("modern/"):-len("/index.html")])
+    elif old.startswith("modern/") and old.endswith(".html"):
+        dest = None
+    else:
+        dest = None
+    if dest is None:
+        # Files, images and unknown links preserve their relative form for link audits.
+        return href
+    here = route(current_slug).rstrip("/")
+    relative = posixpath.relpath(dest.rstrip("/") or ".", here or ".")
+    if dest:
+        relative = ("./" if relative == "." else relative + "/")
+    else:
+        relative = posixpath.relpath(".", here or ".") + "/"
+    return relative + (("?" + parts.query) if parts.query else "") + (("#" + parts.fragment) if parts.fragment else "")
+
+def rewrite_online_links(html, slug):
+    return re.sub(r'href="([^"]+)"', lambda match:
+                  'href="' + online_link(slug, match.group(1)) + '"', html)
+
 # Each guide offers two actionable follow-up paths without leaving the current
 # generated documentation tree. These references work in both website and ZIP.
 RELATED = {
@@ -68,14 +138,14 @@ RELATED = {
     "administration/troubleshooting": ("administration/maintenance", "administration/backup-and-recovery"),
 }
 
-def related_guides(slug):
+def related_guides(slug, online=False):
     titles = dict(SOURCES)
     assert set(RELATED) == set(titles), "Related navigation must cover every modern guide"
-    targets = RELATED[slug]
+    targets = tuple("administration/troubleshooting" if x in ONLINE_EXCLUDED and online else x for x in RELATED[slug])
     assert len(targets) == len(set(targets)) == 2 and slug not in targets
     assert all(target in titles for target in targets), f"Unknown related guide: {slug}"
     links = ''.join(
-        '<li><a href="../../' + target + '/index.html">' +
+        '<li><a href="' + (online_link(slug, "../../" + target + "/index.html") if online else "../../" + target + "/index.html") + '">' +
         escape(titles[target]) + '</a></li>'
         for target in targets
     )
@@ -114,24 +184,64 @@ def wrap(title, body, depth):
               'verify version-specific APIs before production use</footer></body></html>')
 
 
-def write_site(directory):
+def write_site(directory, online=False):
     directory.mkdir(parents=True, exist_ok=True)
-    (directory / "style.css").write_text(CSS, encoding="utf-8")
+    styles = directory / "style.css"
+    previous_styles = styles.read_text(encoding="utf-8") if online and styles.is_file() else ""
+    styles.write_text(previous_styles + "\n" + CSS, encoding="utf-8")
     records = []
-    for slug, title in SOURCES:
+    visible = [(slug, title) for slug, title in SOURCES if not online or slug not in ONLINE_EXCLUDED]
+    if online:
+        assert set(ONLINE_ORDER) == {slug for slug, _ in visible}, "Online guide order drift"
+        visible.sort(key=lambda item: ONLINE_ORDER.index(item[0]))
+    groups = (
+        ("Getting Started", ("installation/", "configuration/")),
+        ("User Guide", ("user-guide/",)),
+        ("Administration", ("administration/",)),
+        ("Plugins", ("plugins/plugin-installation-management/",)),
+        ("Development & Theming", ("development/plugin-development/",)),
+        ("Technical Reference", ("reference/database-schema/",)),
+    )
+    for index, (slug, title) in enumerate(visible):
         source = DOCS / ("user-guide" if slug == "user-guide/overview" else slug) / "README.md"
         if not source.is_file():
             raise FileNotFoundError(source)
         md = source.read_text(encoding="utf-8")
         body = markdown.markdown(md, extensions=["tables", "fenced_code", "toc"])
-        target = directory / slug / "index.html"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(wrap(title, body + related_guides(slug), 2), encoding="utf-8")
+        if online:
+            body = rewrite_online_links(body, slug)
+            dest_slug = route(slug)
+            root_relative = "../" * len(dest_slug.rstrip("/").split("/"))
+            breadcrumb = '<nav aria-label="Breadcrumb"><a href="' + root_relative + '">Documentation</a> / ' + escape(title) + '</nav>'
+            sections = ''.join('<a href="' + root_relative + path + '">' + escape(label) + '</a>' for label, paths in groups for path in paths[:1])
+            site_nav = '<nav aria-label="Documentation sections" class="sections">' + sections + '</nav>'
+            headings = re.findall(r'<h[23] id="([^"]+)">([^<]+)</h[23]>', body)
+            toc = ('<nav aria-label="On this page"><h2>On this page</h2><ul>' +
+                   ''.join('<li><a href="#' + escape(anchor) + '">' + label + '</a></li>' for anchor, label in headings) +
+                   '</ul></nav>') if headings else ''
+            previous = visible[index - 1] if index else None
+            following = visible[index + 1] if index + 1 < len(visible) else None
+            def adjacent(item, label):
+                if not item: return ''
+                target = posixpath.relpath(route(item[0]).rstrip("/"), dest_slug.rstrip("/"))
+                return '<a href="' + (("./" if target == "." else target + "/")) + '">' + label + ': ' + escape(item[1]) + '</a>'
+            pager = '<nav aria-label="Previous and next guides">' + adjacent(previous, "Previous") + adjacent(following, "Next") + '</nav>'
+            page = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escape(title) + ' — Geeklog documentation</title><link rel="stylesheet" href="' + root_relative + 'style.css"></head><body><header>' + breadcrumb + site_nav + '</header><main>' + toc + body + related_guides(slug, online=True) + pager + '</main><footer>Geeklog documentation · Geeklog 2.2.2 reference</footer></body></html>'
+            dest = directory / dest_slug / "index.html"
+        else:
+            dest_slug = slug + "/"
+            page = wrap(title, body + related_guides(slug), 2)
+            dest = directory / slug / "index.html"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(page, encoding="utf-8")
         plain = re.sub(r"(?s)<[^>]+>", " ", body)
-        records.append({"title":title,"url":slug+"/index.html",
-                        "text":re.sub(r"\s+"," ",plain)[:30000]})
-    (directory/"search-index.json").write_text(
-        json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+        records.append({"title": title, "url": dest_slug if online else slug + "/index.html",
+                        "text": re.sub(r"\\s+", " ", plain)[:30000]})
+    (directory / "search-index.json").write_text(json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+    if online:
+        # The published site has one main homepage and search index, not an extra
+        # /modern/ catalogue or duplicate guide index.
+        return len(records)
     body = ('<h1>Geeklog documentation — additional guides</h1>'
             '<p>One maintained Markdown source, two outputs. These guides complement '
             'the original Geeklog 2.2.2 documentation, which retains detailed historical settings.</p>'
@@ -153,7 +263,6 @@ const ul=document.createElement('ul');for(const d of matches){const li=document.
 a.href=d.url;a.textContent=d.title;li.append(a);ul.append(li)}out.append(ul)}input.addEventListener('input',update)})();""",
         encoding="utf-8")
     return len(records)
-
 
 def check_links(directory):
     root = directory.resolve()

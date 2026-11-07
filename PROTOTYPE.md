@@ -4,10 +4,10 @@
 
 ## Deliverables
 
-- `dist/online/`: online pages generated from maintained Markdown, including installation, configuration and administration guides, 10 additional modern guides, and unified search across 13 guides.
+- `dist/online/`: **24 searchable guides** across six homepage sections (**25 HTML pages**). Public paths are clean directories such as `/installation/`, `/user-guide/` and `/reference/plugin-api/`; no `/modern/`, redirects or flat legacy `.html` compatibility pages are published.
 - `dist/geeklog-2.2.2-docs-preview.zip`: Geeklog 2.2.2 documentation overlay with paths relative to the Geeklog installation root (`public_html/...`).
 - Inside the overlay, `public_html/docs/english/install.html` is generated from Markdown and the new guides are available under `public_html/docs/english/modern/`. The historical Core `config.html` and plugin documentation are preserved unchanged as compatibility assets.
-- Both online and embedded modern guides come from the same Markdown files.
+- Both online and embedded guides derive from the maintained Markdown. Their **HTML presentation and navigation differ intentionally**: online paths and six-section navigation are optimized for the website, while the 22 embedded guides and their historical `/english/modern/` layout stay unchanged. The FAQ is consolidated into the public Troubleshooting guide, while its embedded page remains present.
 
 ## Build and deployment
 
