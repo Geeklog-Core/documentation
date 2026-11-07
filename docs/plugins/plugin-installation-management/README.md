@@ -114,3 +114,48 @@ If an upgrade fails partway through, preserve logs and database state before ret
 ## Remaining verification
 
 Document the exact bundled Geeklog 2.2.2 plugin administration screens and version-specific installation workflow against the release archive. A third-party extension requires its own source provenance, licensing and compatibility checks.
+
+## Detailed tutorial: install and maintain a trusted plugin
+
+**Goal:** understand the administrative workflow without compromising a live website. **Prerequisites:** a disposable Geeklog site, a verified compatible plugin package and full backup/restore capability. Separate plugin management rights from the rights to upload server-side code.
+
+### Part 1 — Inspect installed extensions
+
+1. Sign in with a `plugin.edit` account and open `admin/plugins.php`.
+2. Write down each test plugin's name, installed version, code version, dependencies and current enabled state where shown.
+3. Follow the plugin's own release documentation and verify compatibility with Geeklog 2.2.2 and the runtime environment.
+4. Inspect its public page and administration screen, if present. A disabled or missing feature may depend on the plugin's own permission group.
+5. Do not click **Uninstall** as a diagnostic action. Whether uninstall preserves data is plugin-specific.
+
+### Part 2 — Install a plugin on staging
+
+1. Confirm the account has the required combination of `plugin.edit`, `plugin.install` and, for package upload, `plugin.upload`.
+2. Validate the source and origin of the plugin package. Never upload unreviewed PHP archives.
+3. Record the original application files and database backup; practise restoration in isolation.
+4. If plugin code is already present and the manager supports the installation route, use that route. Otherwise use a supported package upload only if the source and its installation instructions require it.
+5. Review installation feedback. If the plugin reports an error, preserve logs and **stop**; do not blindly retry an installation that may have partly migrated the database.
+6. Confirm the recorded installed version, database changes where documented, plugin configuration, permission groups and public routes.
+7. As a low-privilege account, check that privileged functions are denied.
+
+### Part 3 — Upgrade or disable safely
+
+1. Read the specific old-version to new-version migration instructions and verify required intermediate versions.
+2. Restore a copy of the previous state into staging and run the documented upgrade process there.
+3. Use the plugin manager's upgrade workflow only when it is supported by that plugin; check the result of `PLG_upgrade()` rather than assuming a copied archive completed migration.
+4. Compare test content, settings and access permissions before and after.
+5. Disable and reenable the disposable extension through the supported manager action and check the intended behavior.
+6. Test recovery by restoring the staged snapshot. Do **not** assume that uninstall reverses database schema changes.
+7. Once the test is finished, preserve a short change log including version numbers and any unresolved limitations.
+
+### Troubleshooting decision table
+
+| Symptom | First safe action |
+| --- | --- |
+| Installation option missing | Check `plugin.install` and `plugin.upload`, plus `plugin.edit` for manager access |
+| Plugin shown but upgrade unavailable | Compare installed/code versions, dependencies and the plugin's own upgrade support |
+| Plugin page inaccessible | Check enabled state, routes and its own feature rights |
+| Missing settings after upgrade | Compare recorded configuration and logs against the staged backup |
+| Error after upload | Preserve diagnostics and test recovery rather than performing repeated uploads |
+
+**Source-backed controls:** [plugins.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) checks permissions, valid tokens and routes for install, upload, upgrade and state changes. A complete live plugin installation or upgrade is **not** claimed by this tutorial.
+
