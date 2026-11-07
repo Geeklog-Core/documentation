@@ -58,7 +58,11 @@ def online():
         for item in docs:
             assert index.count(('href="' + item["url"] + '"').encode("utf-8")) == 1
 
-        assert b"fetch('search-index.json')" in fetch(base, "search.js", "text/javascript")
+        script = fetch(base, "search.js", "text/javascript")
+        assert b"fetch('search-index.json')" in script
+        assert b"let indexReady = false" in script
+        assert b"catalogue.hidden = false" in script
+        assert b"Search is unavailable; browse the links below." in script
         css = fetch(base, "style.css", "text/css").decode("utf-8")
         # The label and input must not run together on desktop or mobile.
         assert "label[for=docs-search]{display:block;margin-bottom:.6rem}" in css
