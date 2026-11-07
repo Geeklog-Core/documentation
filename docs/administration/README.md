@@ -8,13 +8,13 @@ Geeklog administration features depend on your account permissions and enabled p
 
 | Topic | Guide | What it covers |
 | --- | --- | --- |
-| Users and groups | [Manage users and groups](modern/administration/users-and-groups/index.html) | Account access, roles, feature rights and account maintenance |
-| Backup and recovery | [Back up and recover a site](modern/administration/backup-and-recovery/index.html) | File/database backups and safe recovery preparation |
-| Maintenance and upgrades | [Maintain or upgrade Geeklog](modern/administration/maintenance/index.html) | Release review, prerequisites and upgrade checks |
-| Troubleshooting | [Diagnose common problems](modern/administration/troubleshooting/index.html) | Logging, permissions, configuration and error investigation |
-| Configuration reference | [Geeklog configuration](configuration.html) | Release-scoped setting descriptions and historical anchor links |
-| Installation and migration | [Install, upgrade or move a site](installation.html) | Installation wizard, upgrades and migration guidance |
-| Static Pages | [Static Pages plugin](modern/plugins/static-pages/index.html) | Managing standalone pages and plugin-specific permissions |
+| Users and groups | [Manage users and groups](users-and-groups/) | Account access, roles, feature rights and account maintenance |
+| Backup and recovery | [Back up and recover a site](backup-and-recovery/) | File/database backups and safe recovery preparation |
+| Maintenance and upgrades | [Maintain or upgrade Geeklog](maintenance/) | Release review, prerequisites and upgrade checks |
+| Troubleshooting | [Diagnose common problems](troubleshooting/) | Logging, permissions, configuration and error investigation |
+| Configuration reference | [Geeklog configuration](../configuration/) | Release-scoped setting descriptions and historical anchor links |
+| Installation and migration | [Install, upgrade or move a site](../installation/) | Installation wizard, upgrades and migration guidance |
+| Static Pages | [Static Pages plugin](../plugins/static-pages/) | Managing standalone pages and plugin-specific permissions |
 
 All linked guides are generated from the maintained Markdown tree. Release-specific configuration details should be checked against the installed version.
 
