@@ -46,6 +46,16 @@ The detailed guides describe the **expected actions and source-confirmed permiss
 
 **Tagged Core references:** [submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [articles](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topics](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php), [blocks](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php), [moderation](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [plugins](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php).
 
+## Why two users may see different publishing screens
+
+The public submission handler has separate behavior for users with `story.edit` and ordinary contributors: a Story Admin may be redirected into the privileged editor. Site settings can also require login before a visitor may submit. Spam filtering, topic checks and a submission speed limit can prevent a story from being accepted.
+
+For a missing article, check the contributor's result message, the publication status and the moderation queue before concluding that the article was lost. See [Articles, Topics and Publishing](../articles-and-topics/index.html) for the two workflows.
+
+The moderation dashboard likewise shows only queues justified by the user's configured rights. A missing moderation queue is not necessarily a software error; check [Comments and Moderation](../comments-and-moderation/index.html).
+
+**Source:** [submission handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php) and [moderation handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php).
+
 ## Publishing safely
 
 Before submitting text, check its title, headings, links, image rights and intended audience. Preview the result in the installed theme when available. Some contributions require moderation or review before appearing publicly; pressing Submit does not always mean immediate publication.
