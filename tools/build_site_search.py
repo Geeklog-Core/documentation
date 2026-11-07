@@ -116,6 +116,7 @@ SEARCH_JS = r"""(() => {
   const catalogue = document.getElementById('docs-catalogue');
   if (!field || !output || !catalogue) return;
   let records = [];
+  let indexReady = false;
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
   const list = document.createElement('ul');
@@ -127,15 +128,26 @@ SEARCH_JS = r"""(() => {
       return response.json();
     })
     .then(data => {
+      if (!Array.isArray(data)) throw new Error('Invalid search index');
       records = data;
+      indexReady = true;
       update();
     })
     .catch(() => {
+      indexReady = false;
+      catalogue.hidden = false;
+      output.hidden = false;
+      list.replaceChildren();
       status.textContent = 'Search is unavailable; browse the links below.';
     });
 
   function update() {
     list.replaceChildren();
+    if (!indexReady) {
+      catalogue.hidden = false;
+      output.hidden = true;
+      return;
+    }
     catalogue.hidden = field.value.trim().length > 0;
     output.hidden = !catalogue.hidden;
     const terms = field.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
