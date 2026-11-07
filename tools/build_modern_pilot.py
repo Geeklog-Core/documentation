@@ -18,6 +18,18 @@ DOCS = ROOT / "docs"
 ONLINE = ROOT / "dist/modern-online"
 EMBED = ROOT / "dist/modern-embedded/public_html/docs/english/modern"
 SOURCES = [
+    ("user-guide", "Using Geeklog: User Guide"),
+    ("user-guide/articles-and-topics", "Articles, Topics and Publishing"),
+    ("user-guide/blocks-and-navigation", "Blocks, Menus and Navigation"),
+    ("user-guide/comments-and-moderation", "Comments and Moderation"),
+    ("plugins/plugin-installation-management", "Plugin Installation and Management"),
+    ("development/plugin-development", "Plugin Development: Step by Step"),
+    ("development/theme-development", "Theme Development: Step by Step"),
+    ("user-guide/syndication-rss-autotags", "Syndication, RSS and Autotags"),
+    ("plugins/bundled-plugins", "Bundled Plugins Reference"),
+    ("reference/database-schema", "Database Schema and Data Model"),
+    ("administration/troubleshooting-faq", "Troubleshooting and FAQ"),
+    ("development/contributing", "Contributing to Geeklog"),
     ("development/plugin-api", "Plugin API"),
     ("development/templates", "Themes and templates"),
     ("plugins/static-pages", "Static Pages"),
@@ -32,6 +44,18 @@ SOURCES = [
 # Each guide offers two actionable follow-up paths without leaving the current
 # generated documentation tree. These references work in both website and ZIP.
 RELATED = {
+    "user-guide": ("user-guide/articles-and-topics", "user-guide/blocks-and-navigation"),
+    "user-guide/articles-and-topics": ("user-guide/comments-and-moderation", "plugins/static-pages"),
+    "user-guide/blocks-and-navigation": ("development/theme-development", "plugins/static-pages"),
+    "user-guide/comments-and-moderation": ("user-guide/articles-and-topics", "administration/troubleshooting-faq"),
+    "plugins/plugin-installation-management": ("plugins/bundled-plugins", "administration/backup-and-recovery"),
+    "development/plugin-development": ("development/plugin-api", "development/configuration-api"),
+    "development/theme-development": ("development/templates", "user-guide/blocks-and-navigation"),
+    "user-guide/syndication-rss-autotags": ("user-guide/articles-and-topics", "plugins/static-pages"),
+    "plugins/bundled-plugins": ("plugins/plugin-installation-management", "plugins/static-pages"),
+    "reference/database-schema": ("development/configuration-api", "administration/backup-and-recovery"),
+    "administration/troubleshooting-faq": ("administration/troubleshooting", "administration/maintenance"),
+    "development/contributing": ("development/plugin-development", "development/security-and-permissions"),
     "development/plugin-api": ("development/configuration-api", "development/security-and-permissions"),
     "development/templates": ("plugins/static-pages", "development/plugin-api"),
     "plugins/static-pages": ("development/templates", "administration/users-and-groups"),
