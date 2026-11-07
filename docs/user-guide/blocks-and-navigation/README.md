@@ -106,3 +106,44 @@ When editing a block, Geeklog accepts `normal`, `portal`, `phpblock` and `gldefa
 ## Still to verify
 
 Create source-checked examples for supported block types and exact administration screens in the target release. The historical Wiki may supply topic names, but its older template/CSS instructions must not be copied without verification.
+
+## Detailed tutorial: create an About block
+
+**Goal:** put a small piece of reusable information in the sidebar without editing PHP or CSS.
+
+1. On a staging installation, sign in with an account granted `block.edit` and navigate to Blocks administration (`admin/block.php`).
+2. Record the current block list, chosen theme and available placement options.
+3. Create a new block. Choose a unique internal name such as `training_about`, title **About this community**, and type `normal`.
+4. Enter one short paragraph: **We share news and resources for our members.**
+5. Select a location offered by Geeklog, and set the block to enabled if the form offers that option. Check its topic, audience and device controls where present.
+6. Save using the normal form. Verify the block in the administration list, then on the public page as an anonymous reader.
+7. On a narrow screen, ensure the text remains legible. If the block does not display, review its placement, theme support, enabled state and permissions.
+8. Edit the text once, save again, and finally disable or delete the disposable block using an account with the appropriate rights.
+
+**Expected output:** one visible text block in a supported position. **Do not select `phpblock`** for this exercise; `normal` requires no executable code.
+
+## Detailed tutorial: add a useful navigation link
+
+**Scenario:** readers need a link to an existing About page. A block can offer a simple link; a dedicated menu may instead be controlled by the theme or a menu plugin.
+
+1. Identify the target page and copy its actual **public URL**, not its administration edit URL.
+2. Check whether the installed theme exposes a supported menu editor. If it does, add the link there; otherwise create or update a normal text block with an ordinary hyperlink using the permitted editor.
+3. Use the link label **About this site**, not **Click here**.
+4. Save and inspect the link as an anonymous visitor. Confirm it opens the intended page without needing editor permissions.
+5. Check keyboard focus and narrow-screen layout. Restore the prior navigation if the theme does not support the intended position.
+
+**Important:** changing a block is not the same as editing a theme's primary navigation. Avoid modifying Core templates or plugin PHP simply to insert a link.
+
+## Detailed tutorial: diagnose a missing block
+
+Use a disposable block so that testing does not affect a production layout:
+
+1. Confirm the block exists in `admin/block.php` and is enabled.
+2. Check its configured location and whether your active theme renders that position.
+3. Examine audience permissions and topic restrictions; compare anonymous and authenticated users.
+4. Check device-related settings if the problem occurs only on a phone or desktop.
+5. For a `portal` block, inspect the feed URL and source availability; for `phpblock`, involve the maintainer of the trusted named function.
+6. Change **one setting at a time** and record which adjustment restores expected visibility.
+
+**Source:** [block admin handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php). This walkthrough has not yet been exercised in the Geeklog UI.
+
