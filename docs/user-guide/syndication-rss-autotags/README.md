@@ -68,5 +68,3 @@ The [Geeklog plugin dispatcher](https://github.com/Geeklog-Core/geeklog/blob/v2.
 2. Open it using a feed reader and subscribe to the URL actually provided.
 3. Compare the latest visible entries with articles that can be read without an administrator account.
 4. If an expected item is missing, check its publication state, topic and feed update interval before assuming the feed is broken.
-
-**Remaining manual validation:** exact screens, supported formats, feed location, update scheduling and the installed autotag catalogue still require a running site. Sources: [syndication admin](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/syndication.php), [syndication library](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-syndication.php), [plugin dispatcher](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php).
