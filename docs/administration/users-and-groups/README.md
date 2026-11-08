@@ -85,13 +85,3 @@ For a failed login or a 403 response, collect a sanitized timestamp and error me
 The tagged 2.2.2 user and group administration handlers use `SEC_createToken()` and `SEC_checkToken()` to protect sensitive form actions. Keep these checks when extending the interface.
 
 Never expose user passwords, password-reset tokens, two-factor authentication secrets or personal details in support requests.
-
-## Verification checklist
-
-- [x] Rights checks verified against `user.php` and `group.php` from Geeklog 2.2.2.
-- [x] Group membership, token and feature-check functions verified in `lib-security.php`.
-- [ ] Screens and interface labels confirmed on a running Geeklog 2.2.2 installation.
-- [ ] Every management scenario tested with least-privileged accounts.
-- [ ] Existing Wiki links and reuse attribution reviewed.
-
-**Sources:** Geeklog 2.2.2 source files linked above; recovered Wiki titles in the 2024 inventory remain candidates for further merging.
