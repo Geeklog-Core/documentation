@@ -1,6 +1,6 @@
 # Theme development — step by step
 
-For CTL method signatures and the historical template syntax inventory, see the [Caching Template Library developer reference](../caching-template-library/).
+For CTL method signatures and the historical template syntax inventory, see the [Caching Template Library developer reference](../caching-template-library/index.html).
 
 ## 1. Identify the rendering layer
 
