@@ -1,7 +1,5 @@
 # Webservices and the service API
 
-> **Geeklog 2.2.2 source-checked developer guide.** The recovered Wiki article `Webservices_API` documents Geeklog 1.5 and the Atom Publishing Protocol. This replacement is based on code paths present in the Geeklog 2.2.2 release, not on an assumption that all historical endpoints or older clients still work.
-
 ## Core service dispatch
 
 Geeklog 2.2.2 includes `PLG_invokeService()` in [`system/lib-plugins.php`](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php):
@@ -55,19 +53,3 @@ A sensible minimum test set is: (a) a supported read request as an authorized te
 Use a disposable site and accounts. Capture HTTP status and response content type, not live session cookies or credentials. Avoid publishing a copy-and-paste request containing guessed endpoint paths or authentication headers; verify the actual routing and accepted operations in the installed release first.
 
 **Compatibility boundary:** Geeklog 2.2.2's inclusion of Atom-related files is historical evidence of code presence, not an assurance of API stability, universal standards compliance, or modern authentication support. A later Geeklog release requires new source and runtime tests.
-
-## Historical compatibility
-
-The [Atom Publishing Protocol, RFC 5023](https://www.rfc-editor.org/rfc/rfc5023) is the standard discussed by the original Wiki page. This does **not** guarantee that every RFC feature is implemented or enabled by Geeklog 2.2.2. Check each desired operation in the source and in a staging site.
-
-The Wiki also describes older example clients and interfaces. Their support in 2.2.2 has **not** been validated and is intentionally not presented as a modern setup instruction.
-
-## Verification status
-
-- [x] Core function signature checked in the Geeklog 2.2.2 distribution.
-- [x] Core service and Atom entry-point files confirmed in the distribution.
-- [ ] Supported methods, authentication and permission outcomes tested in a live 2.2.2 installation.
-- [ ] Exact public routes and response formats documented from integration tests.
-- [ ] Reuse licensing and contributor attribution reviewed.
-
-**Provenance:** recovered Wiki `Webservices_API` (2024 backup); replaced with a version-scoped, code-referenced guide.
