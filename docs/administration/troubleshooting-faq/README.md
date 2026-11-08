@@ -29,7 +29,3 @@ Check the precise plugin and Core versions, the first error, and whether the cha
 ## How can I request support?
 
 Provide release versions, sanitized route and first error, time of the incident, reproduction steps and attempted checks. Exclude passwords, tokens, private records and public debug endpoints.
-
-## Editorial backlog
-
-The historic Geeklog FAQ and Wiki may contain additional useful questions. Their answers must be rechecked against a tagged release and current hosting practices before adoption. This page intentionally contains new, scope-limited guidance rather than copied historical troubleshooting prescriptions.
