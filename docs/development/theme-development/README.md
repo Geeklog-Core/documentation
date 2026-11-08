@@ -1,7 +1,5 @@
 # Theme development — step by step
 
-> **Geeklog 2.2.2 theming workflow — sample code and template resolution still require runtime verification.** Start with the actual theme bundled with the target Geeklog release.
-
 ## 1. Identify the rendering layer
 
 Distinguish site-wide theme layout, a specific page template, an article body and a plugin template. Changing a theme does not automatically make a new two-column article content structure or add server-side functionality.
