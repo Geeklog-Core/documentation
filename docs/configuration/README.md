@@ -1,7 +1,5 @@
 # Geeklog 2.2.2 configuration reference
 
-> **Coverage notice:** This Markdown reference preserves historical help anchors but does not yet reproduce all details of the bundled 2.2.2 configuration guide. Use the original `docs/english/config.html` for exhaustive defaults, examples and tables. The embedded distribution keeps that file unchanged until full content parity has been reviewed.
-
 ## Configuration panel
 
 Geeklog provides a Configuration administration panel for most settings. Installation and database bootstrap values can also reside in `siteconfig.php` and `db-config.php`.
@@ -252,8 +250,6 @@ Controls whether the copy-to-self checkbox is selected by default.
 Character encoding of outgoing email. If empty, the configuration reference says the site's `default_charset` is used.
 
 ---
-
-**Migration note:** These are version-scoped descriptions based on the bundled 2.2.2 reference; a working installation and original defaults should still be reviewed before calling them authoritative. The embedded `config.html` is intentionally preserved unchanged until complete migration.
 
 ## Syndication and feeds — Geeklog 2.2.2
 
@@ -3224,7 +3220,7 @@ For reliable recovery, retain separate protected copies of both the database **a
 
 ## Historical configuration cross-references
 
-The Geeklog 2.2.2 HTML reference links to the following 34 same-page destinations. All these historical anchors are preserved in this Markdown source. This index keeps those **navigation targets clickable** in the generated documentation; it does not yet reproduce every link in its original explanatory context.
+Use these links to jump to additional configuration topics.
 
 **Main sections:** [Site](#site) · [Stories](#stories) · [Themes](#theme) · [Blocks](#blocks) · [Users](#users) · [Images](#images) · [Languages](#languages) · [Miscellaneous](#misc) · [File manager](#filemanager).
 
