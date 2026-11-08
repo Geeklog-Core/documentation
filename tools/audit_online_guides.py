@@ -33,6 +33,7 @@ GUIDES = {
     "development/contributing/": "docs/development/contributing/README.md",
     "reference/plugin-api/": "docs/development/plugin-api/README.md",
     "development/templates/": "docs/development/templates/README.md",
+    "development/caching-template-library/": "docs/development/caching-template-library/README.md",
     "plugins/static-pages/": "docs/plugins/static-pages/README.md",
     "reference/webservices/": "docs/development/webservices/README.md",
     "reference/configuration-api/": "docs/development/configuration-api/README.md",
@@ -91,7 +92,7 @@ def main():
     indexed = json.loads((ONLINE / "search-index.json").read_text(encoding="utf-8"))
     expected = set(GUIDES)
     observed = [entry["url"] for entry in indexed]
-    assert len(observed) == len(set(observed)) == 24, "Duplicate/incorrect search entries"
+    assert len(observed) == len(set(observed)) == 25, "Duplicate/incorrect search entries"
     assert set(observed) == expected, "Search index misses or invents guides"
     for path, source in GUIDES.items():
         assert (ROOT / source).is_file(), f"Source guide missing: {source}"
@@ -163,8 +164,8 @@ def main():
     }
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    print("PASS: 24 unique indexed guides with source Markdown and generated pages")
-    print(f"PASS: {related_count} distinct contextual guide links across 22 modern pages")
+    print("PASS: 25 unique indexed guides with source Markdown and generated pages")
+    print(f"PASS: {related_count} distinct contextual guide links across 23 modern pages")
     print(f"PASS: online HTML {len(online_pages)} pages, {online_links} local links, {online_fragments} fragments")
     print(f"PASS: embedded modern {len(embedded_pages)} pages, {embedded_links} local links, {embedded_fragments} fragments")
     print(f"PASS: {sum(external.values())} external reference occurrences inventoried; no unpinned Geeklog Core source URLs")
