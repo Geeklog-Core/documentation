@@ -28,3 +28,7 @@ Target: https://geeklog-core.github.io/documentation/ from `Geeklog-Core/documen
 This repository's fork CI does **not** deploy to the official site. Only an upstream merge and maintainer-controlled Pages workflow update `geeklog-core.github.io/documentation`.
 
 **Next action:** review the accumulated PR diff and propose a concise online-first publication PR to Tom. Continue the remaining semantic configuration work incrementally after the public site is updated, while tracking 2.2.3 embedding as its own release gate.
+
+## Next release documentation priorities — 2026-11-08
+
+See [proposed release documentation workflow](RELEASE-DOCUMENTATION-WORKFLOW.md) for the release-by-release review, validation and publishing process (P0). P1 work: test CTL examples against Geeklog 2.2.2 and the eventual pinned 2.2.3 baseline; preserve and test historic Wiki archive/redirects including TLS; and continue version-specific embedded help validation. This section supersedes the outdated 'Next action' above where those steps have already been completed.
