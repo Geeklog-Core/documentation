@@ -65,8 +65,6 @@ Use these checks:
 4. **No plugin items:** review whether that particular plugin registers a moderation list; the Core uses `PLG_showModerationList()`.
 5. **Actions appear to do nothing:** confirm the form's valid CSRF token and rights before retrying; never bypass checks by constructing manual URLs.
 
-**Source:** [Core moderation administration](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [security handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php).
-
 ## Moderation acceptance tests
 
 - [ ] Article and comment queues follow their separate rights and configuration switches.
@@ -115,6 +113,3 @@ Plugins may integrate moderation and comments through Core dispatchers, but old 
 4. Approve or reject through the available form and record the resulting notification or redirect.
 5. Check the public article as a visitor. If the article remains invisible, review its publication date and permissions rather than approving it again.
 6. Finally, inspect the draft queue only if `listdraftstories` is enabled and you have `story.edit`.
-
-**Source:** [moderation controller](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php). Tests remain pending on a disposable site.
-
