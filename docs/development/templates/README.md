@@ -64,5 +64,3 @@ For related topics, use the [configuration reference](https://geeklog-core.githu
 - Verify that cached pages do not reveal personalized or administrative content.
 - Check plugin templates, responsive layout, and upgrade behavior.
 - Confirm theme rendering against the target release's code and shipped themes.
-
-**Source provenance:** 2024-11-02 recovered Wiki pages `Caching_Template_Library` and `Theme_Developers_Guide`. Licensing and technical validation pending.
