@@ -67,4 +67,4 @@ This guide is an independently rewritten, source-scoped reference inspired by th
 
 Pending: verify CTL parser grammar and modifiers against v2.2.2, execute safe examples in an isolated Geeklog 2.2.2 instance, compare with the exact 2.2.3 release source when available, and check plugin/theme integration flows. Track evidence in the project's staging checklist.
 
-See also [Themes and templates](../templates/), [Theme development](../theme-development/), and the [release documentation workflow](../../../planning/RELEASE-DOCUMENTATION-WORKFLOW.md).
+See also [Themes and templates](../templates/) and [Theme development](../theme-development/). The release documentation procedure is tracked separately in `planning/RELEASE-DOCUMENTATION-WORKFLOW.md`.
