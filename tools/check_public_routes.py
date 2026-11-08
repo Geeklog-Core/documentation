@@ -16,7 +16,7 @@ EMBED = ROOT / "dist/geeklog-2.2.2/public_html/docs/english"
 LEGACY_WEB = ("installation.html", "configuration.html", "administration.html")
 REQUIRED = ("installation/", "configuration/", "administration/", "user-guide/",
             "administration/troubleshooting/", "reference/database-schema/",
-            "reference/plugin-api/", "reference/configuration-api/", "reference/webservices/")
+            "reference/plugin-api/", "reference/configuration-api/", "reference/webservices/", "development/caching-template-library/")
 FORBIDDEN_PUBLIC = ("modern/", "administration/troubleshooting-faq/")
 BAD_URL = re.compile(
     r"https://geeklog-core[.]github[.]io/documentation/(?:modern/|(?:installation|configuration|administration)[.]html)"
@@ -42,13 +42,13 @@ def main():
     assert SITE.is_dir() and (SITE / "index.html").is_file()
     indexed = json.loads((SITE / "search-index.json").read_text(encoding="utf-8"))
     urls = [item["url"] for item in indexed]
-    assert len(urls) == len(set(urls)) == 24, "Expected 24 unique canonical guide URLs"
+    assert len(urls) == len(set(urls)) == 25, "Expected 24 unique canonical guide URLs"
     assert all(url.endswith("/") and not url.startswith("modern/") for url in urls)
     assert all((SITE / url / "index.html").is_file() for url in urls)
     assert all((SITE / slug / "index.html").is_file() for slug in REQUIRED)
     assert not any((SITE / slug).exists() for slug in FORBIDDEN_PUBLIC)
     assert not any((SITE / file).exists() for file in LEGACY_WEB), "No public compatibility pages"
-    assert len(list(SITE.rglob("*.html"))) == 25, "Unexpected public HTML output"
+    assert len(list(SITE.rglob("*.html"))) == 26, "Unexpected public HTML output"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert home.count('class="docs-topic-group"') == 6
     assert "Technical Reference" in home and "Reference &amp; Archive" not in home
@@ -94,7 +94,7 @@ def main():
     assert (EMBED / "install.html").is_file()
     assert (EMBED / "modern/index.html").is_file()
     assert (EMBED / "modern/administration/troubleshooting-faq/index.html").is_file()
-    print(f"PASS: 24 canonical public routes, 6 categories, beginner journey, compact guide navigation")
+    print(f"PASS: 25 canonical public routes, 6 categories, beginner journey, compact guide navigation")
     print(f"PASS: no public /modern/, root legacy .html pages, separate FAQ, or redirects; {checked} links")
     print("PASS: original embedded Geeklog 2.2.2 help layout retained")
 
