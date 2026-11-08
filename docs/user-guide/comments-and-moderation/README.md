@@ -79,8 +79,6 @@ These outcomes must be recorded from a disposable installation; reading the hand
 
 Plugins may integrate moderation and comments through Core dispatchers, but old callback names and signatures are not a safe implementation template. Begin with the tagged [Plugin API](../../development/plugin-api/index.html) and verify dispatch behavior in Geeklog 2.2.2 before coding.
 
-**Historical Wiki sources to evaluate:** `Adding_Moderation_Capability` and `Integrating_the_Comment_Engine`. These pages describe old version bands; their code samples and wording have not been republished. Complete UI testing and policy examples remain outstanding.
-
 ## Detailed tutorial: comment on an article
 
 **Goal:** make a constructive comment and understand why it may not appear immediately.
