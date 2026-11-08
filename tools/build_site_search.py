@@ -30,6 +30,7 @@ SOURCES = {
     "development/contributing/": "Contributing to Geeklog",
     "reference/plugin-api/": "Plugin API",
     "development/templates/": "Themes and templates",
+    "development/caching-template-library/": "Caching Template Library",
     "plugins/static-pages/": "Static Pages",
     "reference/webservices/": "Webservices API",
     "reference/configuration-api/": "Configuration API",
@@ -70,6 +71,7 @@ TOPIC_GROUPS = (
         "development/plugin-development/",
         "development/security-and-permissions/",
         "development/templates/",
+        "development/caching-template-library/",
         "development/theme-development/",
         "development/contributing/",
     )),
@@ -207,7 +209,7 @@ def main():
             "title": title,
             "text": re.sub(r"\s+", " ", " ".join(parser.content)).strip()[:50000],
         })
-    assert len(entries) == len(SOURCES) == 24
+    assert len(entries) == len(SOURCES) == 25
     (SITE / "search-index.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
