@@ -89,13 +89,13 @@ For a block that seems to have disappeared, investigate in this order:
 
 When editing a block, Geeklog accepts `normal`, `portal`, `phpblock` and `gldefault` as type identifiers. The presence of `phpblock` in the editor does **not** authorize entering arbitrary PHP source in a block; its implementation expects a named PHP block function. Only reviewed, trusted site code should provide one.
 
-### Permission acceptance
+### Check block permissions
 
-- [ ] The authorized block editor can create and update a disposable block.
-- [ ] An account without `block.edit` cannot directly load the block administration page.
-- [ ] An account without deletion rights cannot delete an existing block.
-- [ ] Visitors see only the expected enabled/visible content.
-- [ ] Layout and links work on desktop and mobile and with keyboard navigation.
+- The authorized block editor can create and update a disposable block.
+- An account without `block.edit` cannot directly load the block administration page.
+- An account without deletion rights cannot delete an existing block.
+- Visitors see only the expected enabled/visible content.
+- Layout and links work on desktop and mobile and with keyboard navigation.
 
 ## Detailed tutorial: create an About block
 
