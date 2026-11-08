@@ -1,7 +1,5 @@
 # Managing users and groups
 
-> **Geeklog 2.2.2 administration reference.** Permission checks below are verified in the tagged source. Use a disposable test account to confirm the behavior of your particular installation and enabled plugins.
-
 ## Security, permissions and administration
 
 This guide covers **administrator operations** such as account status and group membership. For the underlying threat model, access-control implementation and permission checks used when writing themes or plugins, see [Security and permissions](../../development/security-and-permissions/index.html). Those are developer-facing details, not a second set of administrative instructions.
