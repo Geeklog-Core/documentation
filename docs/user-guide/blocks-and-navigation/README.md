@@ -1,7 +1,5 @@
 # Blocks, menus and site navigation
 
-> **Geeklog 2.2.2 orientation.** Specific block types, placement choices and menu entries depend on the active theme, configured features and plugins. Test changes in staging before modifying production navigation.
-
 ## Understand the components
 
 A **block** presents a reusable piece of content or a feature in part of the site layout. Menus offer navigation to stories, topics, administration features or other pages. A theme decides where blocks and other layout areas appear; permission checks still belong to the server.
@@ -91,8 +89,6 @@ For a block that seems to have disappeared, investigate in this order:
 
 When editing a block, Geeklog accepts `normal`, `portal`, `phpblock` and `gldefault` as type identifiers. The presence of `phpblock` in the editor does **not** authorize entering arbitrary PHP source in a block; its implementation expects a named PHP block function. Only reviewed, trusted site code should provide one.
 
-**Source:** [block administration save handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php).
-
 ### Permission acceptance
 
 - [ ] The authorized block editor can create and update a disposable block.
@@ -100,12 +96,6 @@ When editing a block, Geeklog accepts `normal`, `portal`, `phpblock` and `gldefa
 - [ ] An account without deletion rights cannot delete an existing block.
 - [ ] Visitors see only the expected enabled/visible content.
 - [ ] Layout and links work on desktop and mobile and with keyboard navigation.
-
-**Status:** Core handler paths/rights are checked against tag v2.2.2; the above UI sequence remains a proposed staging exercise.
-
-## Still to verify
-
-Create source-checked examples for supported block types and exact administration screens in the target release. The historical Wiki may supply topic names, but its older template/CSS instructions must not be copied without verification.
 
 ## Detailed tutorial: create an About block
 
@@ -144,6 +134,3 @@ Use a disposable block so that testing does not affect a production layout:
 4. Check device-related settings if the problem occurs only on a phone or desktop.
 5. For a `portal` block, inspect the feed URL and source availability; for `phpblock`, involve the maintainer of the trusted named function.
 6. Change **one setting at a time** and record which adjustment restores expected visibility.
-
-**Source:** [block admin handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php). This walkthrough has not yet been exercised in the Geeklog UI.
-
