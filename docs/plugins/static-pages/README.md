@@ -118,4 +118,3 @@ When troubleshooting a site failure, follow the [administration troubleshooting 
 5. Inspect the cloned page anonymously, then remove the disposable copy.
 
 **Tagged source:** [Static Pages administrator](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins/staticpages/index.php) checks `staticpages.edit` to enter, `staticpages.delete` for deletion controls, and `staticpages.PHP` plus the plugin setting before offering PHP-related options. It supports preview, edit and clone branches. Exact UI labels and template presentation require staging verification.
-
