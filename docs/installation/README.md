@@ -1,7 +1,5 @@
 # Installing, upgrading and migrating Geeklog
 
-> **Geeklog 2.2.2 online installation reference — editorial review ongoing.** Adapted from the Geeklog Core `install.html` bundled with the tagged 2.2.2 release. Check your own release package, current installation wizard and release notes before following these instructions in production. A new-install walkthrough was exercised on isolated Geeklog 2.2.2 (PHP 8.1.33, MariaDB 10.11); the site and authenticated administration work, but final plugin and post-install security acceptance remain pending.
-
 <a id="glossary" name="glossary"></a>
 
 ## Sections
@@ -73,7 +71,6 @@ The **XMLSitemap** plugin can attempt to create `public_html/sitemap.xml` in its
 
 An installation can populate tables and install plugins before a subsequent warning or rendering error appears. Do **not** blindly repeat the installer, remove tables, or edit the stored `database_version`. First check the real DB schema/version, plugin statuses, the Geeklog application log and the saved `site_url` / `site_admin_url` configuration. The 2.2.2 stage test yielded 43 tables and `database_version=2.2.2`, while administrative access failed because `site_admin_url` contained a filesystem path. Correcting that specific serialized configuration value restored the admin page without reinstalling. This is a **staging observation**, not a universally safe manual recovery procedure.
 
-
 **Security note:** the source mentions a legacy fallback involving a protected subdirectory inside the web root. This draft does *not* recommend that approach without a separate security review of web-server access controls.
 
 ## Preflight checklist before installation or migration
@@ -137,9 +134,6 @@ The existing installer describes a **Migrate** option for changing servers or do
 
 Start by checking the filesystem paths in `siteconfig.php` and reading the **first** reported error; secondary errors may be consequences of an incorrect path. Also check PHP extensions, database connectivity, filesystem permissions and your web-server logs.
 
-This remains a summary. The original [installation reference](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/docs/english/install.html) contains additional database collation tables, requirements and specific troubleshooting examples which still need technical/editorial review.
-
-
 ### Historical errors and modern diagnostic approach
 
 The original installer guide includes examples from older PHP and MySQL versions. Their exact messages and recommended fixes are **historical**, and should not be copied into modern production instructions without review.
@@ -159,11 +153,3 @@ The original installer guide includes examples from older PHP and MySQL versions
 ### Support information to collect
 
 Record the exact Geeklog release, PHP/database version, web server, first error message, relevant log entries, and the stage where the failure occurred. Redact passwords, tokens, secrets and private user data before sharing diagnostic output.
-
-The legacy guide also links to mailing lists and a wiki that may no longer operate. These links must be checked and replaced during editorial review; the current [Geeklog project repository](https://github.com/Geeklog-Core/geeklog) and [Geeklog website](https://www.geeklog.net/) are suitable starting points.
-
-## Migration compatibility
-
-The nine legacy anchors `glossary`, `public_html`, `installation_requirements`, `preinstall`, `things_you_should_know`, `install`, `upgrade`, `migrate` and `installprob` are explicitly retained above as HTML anchors in the Markdown source.
-
-**Remaining gates:** review licensing/provenance, complete broader runtime links and upgrade/migration/rollback tests, and obtain maintainer approval before distributing generated `install.html` as an official release. The preview overlay has been tested on an isolated 2.2.2 installation.
