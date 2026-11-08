@@ -65,13 +65,13 @@ Use these checks:
 4. **No plugin items:** review whether that particular plugin registers a moderation list; the Core uses `PLG_showModerationList()`.
 5. **Actions appear to do nothing:** confirm the form's valid CSRF token and rights before retrying; never bypass checks by constructing manual URLs.
 
-## Moderation acceptance tests
+## Check moderation permissions
 
-- [ ] Article and comment queues follow their separate rights and configuration switches.
-- [ ] Direct form submissions without a valid CSRF token do not perform a moderation action.
-- [ ] A nonmoderator cannot approve or delete a submission.
-- [ ] Approved material is visible only to its intended audience.
-- [ ] Plugin-specific queues follow their plugin's permissions and callbacks.
+- Article and comment queues follow their separate rights and configuration switches.
+- Direct form submissions without a valid CSRF token do not perform a moderation action.
+- A nonmoderator cannot approve or delete a submission.
+- Approved material is visible only to its intended audience.
+- Plugin-specific queues follow their plugin's permissions and callbacks.
 
 These outcomes must be recorded from a disposable installation; reading the handler is not equivalent to a live permission test.
 
