@@ -1,7 +1,5 @@
 # Geeklog plugin API — developer guide
 
-> **Version scope: Geeklog 2.2.2.** This guide introduces the Core plugin dispatchers and links them to tagged source code. It is a practical reference, not a complete API contract: verify callback signatures and parameters in the installed release before implementation. Historical Wiki topics are noted for provenance but their wording and code have not been republished.
-
 ## How plugins integrate
 
 Geeklog exposes core-level `PLG_*` dispatch functions. A plugin commonly implements optional callbacks named `plugin_<event>_<pluginname>` to participate in an operation. **Do not assume a one-to-one mapping**: a core dispatcher can choose more than one callback, and some events do not propagate to every plugin.
@@ -101,17 +99,3 @@ Run these checks on an isolated Geeklog site with **disposable data** before rel
 ## Document the plugin alongside its source
 
 For a maintainable plugin, keep an English README or documentation section that describes its compatibility target, installation/upgrade procedure, configuration, permissions, user workflows, known limitations and recovery method. Refer to the [security and permissions guide](../../development/security-and-permissions/index.html) and the [configuration API guide](../../development/configuration-api/index.html) rather than duplicating unverified PHP examples.
-
-When Geeklog 2.2.3 becomes the integration target, repeat callback and plugin-version checks against the actual tagged release. The 2.2.2 mappings in this page should remain labelled historical until that verification is complete.
-
-## Compatibility checklist
-
-- [x] Dispatcher mapping for `PLG_install()`, `PLG_getParams()` and `PLG_upgrade()` rechecked against the Geeklog v2.2.2 tagged source
-- [ ] Complete callback parameter contracts checked against the target Geeklog release
-- [ ] Installation and upgrade rehearsed in staging
-- [ ] All code examples tested with the target PHP/runtime
-- [ ] Permission/CSRF checks reviewed
-- [ ] Legacy Wiki links mapped to final anchors
-- [ ] Attribution and reuse license approved
-
-**Source provenance:** new release-scoped synthesis informed by topic titles from the recovered 2024-11-02 Geeklog Wiki backup (titles above) and the tagged Geeklog v2.2.2 source. Original Wiki text, page contributors and reuse license still require verification before any verbatim republication. See `planning/EDITORIAL-PROVENANCE-REVIEW-222.md` in the source repository.
