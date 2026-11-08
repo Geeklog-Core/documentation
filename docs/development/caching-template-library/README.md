@@ -55,11 +55,11 @@ A replacement variable is written as `{heading}`. The 2.2.2 parser accepts lette
 
 ```html
 <h2>{heading:s}</h2>
-<a href="{destination:u}">Open the page</a>
+<a href="/search?q={query:u}">Search</a>
 <p>{summary:t120}</p>
 ```
 
-The tagged implementation recognizes these modifiers (which may be combined in the parser):
+The tagged implementation recognizes these modifiers (which may be combined in the parser). In the example above, URL encoding applies to a **query parameter**, not to an entire destination URL:
 
 | Modifier | Tagged-source behavior | Usage caution |
 | --- | --- | --- |
