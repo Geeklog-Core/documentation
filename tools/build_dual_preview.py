@@ -83,9 +83,9 @@ def main():
     # Online: clean public paths. Embedded: preserve the existing /english/modern/ layout.
     modern_web = WEB
     modern_embed = DIST / "english" / "modern"
-    assert write_site(modern_web, online=True) == 21
-    assert write_site(modern_embed) == 22
-    assert check_links(modern_embed) == 23
+    assert write_site(modern_web, online=True) == 22
+    assert write_site(modern_embed) == 23
+    assert check_links(modern_embed) == 24
     # Add the newly generated section to the existing site homepage.
     index_file = WEB / "index.html"
     index_html = index_file.read_text(encoding="utf-8")
