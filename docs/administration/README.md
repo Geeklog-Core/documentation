@@ -1,7 +1,5 @@
 # Geeklog 2.2.2 administration
 
-> **Geeklog 2.2.2 reference.** This page brings together the available administration guides. The bundled configuration and plugin help files remain the reference for historical settings and their context-sensitive help links until their complete migration has been reviewed.
-
 ## Start here
 
 Geeklog administration features depend on your account permissions and enabled plugins. Sign in with an authorized account and verify the installed Geeklog release before changing configuration or running upgrades.
@@ -32,7 +30,3 @@ Plugin configuration may use a plugin-specific help path; in particular, reCAPTC
 4. Perform upgrades, migrations and risky plugin experiments in an isolated environment before touching a production installation.
 5. After a change, verify the public site and administrative pages, including the context-sensitive documentation links.
 6. Do not expose installer directories, passwords, API tokens or database credentials in public help requests.
-
-## Documentation status
-
-This is a practical directory to the currently available Geeklog 2.2.2 guides, **not a claim that every historical Wiki page or Core/plugin reference has already been migrated**. Historic embedded documents remain available while their equivalents are reviewed. Where a modern guide is marked as a draft, verify code snippets and behavior against the [tagged Geeklog 2.2.2 source](https://github.com/Geeklog-Core/geeklog/tree/v2.2.2).
