@@ -24,6 +24,7 @@ jobs:
           repository: Geeklog-Core/geeklog
           ref: v2.2.2
           path: release-source
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
             public_html/docs
             system/classes/template.class.php
