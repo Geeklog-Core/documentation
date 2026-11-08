@@ -107,8 +107,6 @@ If an upgrade fails partway through, preserve logs and database state before ret
 
 ## Remaining verification
 
-Document the exact bundled Geeklog 2.2.2 plugin administration screens and version-specific installation workflow against the release archive. A third-party extension requires its own source provenance, licensing and compatibility checks.
-
 ## Detailed tutorial: install and maintain a trusted plugin
 
 **Goal:** understand the administrative workflow without compromising a live website. **Prerequisites:** a disposable Geeklog site, a verified compatible plugin package and full backup/restore capability. Separate plugin management rights from the rights to upload server-side code.
