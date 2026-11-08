@@ -43,7 +43,7 @@ For a new database, choose an appropriate character set/collation before adding 
 
 ## New installation
 
-The following summarizes the process described in the source HTML; version-specific steps must still be reviewed.
+Follow the installation procedure for your installed Geeklog release. Check the release notes for requirements specific to that version.
 
 1. Obtain the intended Geeklog release archive from the official project and verify its provenance.
 2. Extract the distribution archive with a reliable archive tool.
@@ -88,7 +88,7 @@ This checklist complements the release-specific instructions above. Complete it 
 
 **Go/no-go rule:** do not begin a production upgrade or migration if you cannot identify the matching backup, restore it safely in staging, or confirm the target release's compatibility. Passing the installer preflight is not a substitute for those checks.
 
-## Post-install acceptance checklist
+## After installation: verify your site
 
 After the installer completes, check the site as a visitor and with an authorized staging administrator:
 
