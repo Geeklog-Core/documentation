@@ -1,5 +1,7 @@
 # Theme development — step by step
 
+For CTL method signatures and the historical template syntax inventory, see the [Caching Template Library developer reference](../caching-template-library/).
+
 ## 1. Identify the rendering layer
 
 Distinguish site-wide theme layout, a specific page template, an article body and a plugin template. Changing a theme does not automatically make a new two-column article content structure or add server-side functionality.
