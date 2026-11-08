@@ -4,6 +4,8 @@
 
 Geeklog uses template files to separate the presentation of a page from its PHP application logic. Themes define the site's layout and styling, while plugins can supply their own template files. The recovered Wiki describes a caching template library, multiple template search locations, variables, blocks and rendering logic.
 
+For a source-scoped API and historical feature inventory, see the [Caching Template Library developer reference](../caching-template-library/index.html). The reference separates verified Geeklog 2.2.2 class signatures from historical constructs awaiting execution tests.
+
 ## Working with a theme
 
 1. Select a theme that ships with the Geeklog version you deploy.

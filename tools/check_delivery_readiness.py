@@ -39,7 +39,7 @@ def inspect(data):
 def validate_site():
     assert (SITE / "index.html").is_file(), "Missing online home page"
     records = json.loads((SITE / "search-index.json").read_text(encoding="utf-8"))
-    assert len(records) == 24, f"Expected 24 searchable guides, got {len(records)}"
+    assert len(records) == 25, f"Expected 25 searchable guides, got {len(records)}"
     urls = [entry["url"] for entry in records]
     assert len(set(urls)) == len(urls), "Duplicate search URL"
     assert all(entry.get("title") and entry.get("text") for entry in records), "Empty search entry"
@@ -74,7 +74,7 @@ def validate_site():
         markup = page.read_text(encoding="utf-8")
         assert not any(phrase in markup for phrase in forbidden), (
             f"Obsolete launch label in {page}")
-    assert page_count == 25, f"Expected 25 HTML pages, got {page_count}"
+    assert page_count == 26, f"Expected 26 HTML pages, got {page_count}"
     home = (SITE / "index.html").read_text(encoding="utf-8")
     assert 'id="docs-search"' in home and 'src="search.js"' in home
     assert home.count('aria-label="Browse all guides"') == 1
@@ -88,7 +88,7 @@ def validate_site():
     config = inspect((SITE / "configuration/index.html").read_text(encoding="utf-8"))
     assert "desc_site_url" in config.identifiers
     return {"online_html_pages": page_count, "searchable_guides": len(records),
-            "modern_guides": 21, "local_references_checked": references_checked}
+            "modern_guides": 22, "local_references_checked": references_checked}
 
 def validate_embedded():
     with zipfile.ZipFile(ARCHIVE) as z:
@@ -100,10 +100,10 @@ def validate_embedded():
         assert LEGACY_CONFIG in names and LEGACY_INSTALL in names
         assert MODERN + "index.html" in names
         modern_pages = [name for name in names if name.startswith(MODERN) and name.endswith(".html")]
-        assert len(modern_pages) == 23, f"Expected 23 modern HTML pages, got {len(modern_pages)}"
+        assert len(modern_pages) == 24, f"Expected 24 modern HTML pages, got {len(modern_pages)}"
         embedded_index = json.loads(z.read(MODERN + "search-index.json"))
-        assert len(embedded_index) == 22, "Expected 22 searchable offline guides"
-        assert len({item["url"] for item in embedded_index}) == 22
+        assert len(embedded_index) == 23, "Expected 23 searchable offline guides"
+        assert len({item["url"] for item in embedded_index}) == 23
         for item in embedded_index:
             assert MODERN + item["url"] in names, f"Offline search entry missing: {item['url']}"
         # Check each generated modern guide from its final ZIP path, including
@@ -146,7 +146,7 @@ def main():
                              "real administrator/plugin context-sensitive help interactions",
                              "complete historical config content parity before replacement"]}
     REPORT.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
-    print("PASS: 24 indexed guides, 25 online pages, all local site references, legacy help paths and embedded ZIP layout")
+    print("PASS: 25 indexed guides, 26 online pages, all local site references, legacy help paths and embedded ZIP layout")
     print("NOTE: this does not certify a production release or complete Wiki/config migration")
 
 if __name__ == "__main__":

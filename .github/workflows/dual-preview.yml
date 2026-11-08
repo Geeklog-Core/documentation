@@ -1,7 +1,9 @@
 name: Validate online and embedded Geeklog documentation
 on:
   push:
-    branches: [main, docs/public-editorial-cleanup]
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,8 +24,10 @@ jobs:
           repository: Geeklog-Core/geeklog
           ref: v2.2.2
           path: release-source
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
             public_html/docs
+            system/classes/template.class.php
       - uses: actions/checkout@v4
         with:
           repository: Geeklog-Core/geeklog
@@ -55,6 +59,7 @@ jobs:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
           GEEKLOG_RELEASE_RECAPTCHA_DOCS: release-plugin-source/public_html/admin/plugins/recaptcha/docs
       - run: python tools/build_site_search.py
+      - run: python tools/check_ctl_reference.py
       - run: python tools/check_dual_archive.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs

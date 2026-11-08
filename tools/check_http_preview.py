@@ -49,7 +49,7 @@ def online():
         index = fetch(base, "index.html", "text/html")
         assert b"docs-search" in index and b"Browse all guides" in index
         docs = json.loads(fetch(base, "search-index.json", "application/json"))
-        assert len(docs) == 24
+        assert len(docs) == 25
         # Browse remains available without JS, organized by task rather than a flat list.
         assert index.count(b'class="docs-topic-group"') == 6
         assert index.count(b'<h3>') == 6
@@ -102,7 +102,7 @@ def embedded():
             modern = fetch(base, "docs/english/modern/index.html", "text/html")
             assert b"Geeklog" in modern
             search = json.loads(fetch(base, "docs/english/modern/search-index.json", "application/json"))
-            assert len(search) == 22
+            assert len(search) == 23
             fetch(base, "docs/english/modern/style.css", "text/css")
             fetch(base, "docs/english/modern/search.js", "text/javascript")
             for item in search:

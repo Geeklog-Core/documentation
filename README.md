@@ -20,8 +20,10 @@ The public website is deployed only from upstream `Geeklog-Core/documentation:ma
 
 ## Two outputs from maintained Markdown
 
-1. A searchable public HTML website with **24 guide routes across six sections** (25 HTML pages including home). Canonical directory URLs include `/installation/`, `/configuration/`, `/user-guide/` and `/reference/plugin-api/` — there is **no public `/modern/` subtree**, old flat public `.html` page, redirect or compatibility page.
-2. A Geeklog **2.2.2 documentation overlay ZIP**, with **22 modern guides and their index** still under `public_html/docs/english/modern/`, and historically required Core/plugin help at its original paths. The public troubleshooting page includes the FAQ; the embedded guide layout is left intact.
+1. A searchable public HTML website with **25 guide routes across six sections** (26 HTML pages including home). Canonical directory URLs include `/installation/`, `/configuration/`, `/user-guide/` and `/reference/plugin-api/` — there is **no public `/modern/` subtree**, old flat public `.html` page, redirect or compatibility page.
+2. A Geeklog **2.2.2 documentation overlay ZIP**, with **23 modern guides and their index** still under `public_html/docs/english/modern/`, and historically required Core/plugin help at its original paths. The public troubleshooting page includes the FAQ; the embedded guide layout is left intact.
+
+The [Caching Template Library reference](docs/development/caching-template-library/README.md) documents source-checked Geeklog 2.2.2 template APIs and syntax. The [proposed release documentation workflow](planning/RELEASE-DOCUMENTATION-WORKFLOW.md) defines review and validation gates for future versioned online and embedded documentation.
 
 The online homepage provides a five-step beginner journey. Individual guides include compact six-section navigation, breadcrumbs, an on-page outline and previous/next links. Technical API references are grouped under **Technical Reference**.
 
