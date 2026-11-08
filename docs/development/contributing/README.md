@@ -32,7 +32,3 @@ Do not import text, code examples or images from the old Geeklog Wiki without ch
 | Security | Are permission checks and untrusted data handled correctly? |
 | Documentation | Do links, terms and examples match the target release? |
 | Provenance | Are third-party contributions and reuse rights clear? |
-
-## Historical context
-
-The recovered `Coding_Guidelines` Wiki page documents historical PEAR conventions and must not supersede current repository policy. The precise coding standard, CI and issue/PR procedures should be checked with project maintainers before describing them as official requirements.
