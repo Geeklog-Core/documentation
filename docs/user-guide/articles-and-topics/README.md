@@ -113,14 +113,14 @@ The tagged `admin/topic.php` checks whether a requested parent exists, whether i
 
 When designing the category tree, verify the parent topic and its rights **before** saving. Changing an identifier or deleting a parent can affect existing article assignments; do this first in a staging copy. The Core represents the root with `TOPIC_ROOT`, not an ordinary user-created topic identifier.
 
-## Staging acceptance checklist
+## Check publishing and permissions
 
-- [ ] A normal contributor can submit but cannot reach the privileged article editor.
-- [ ] A Story Admin can edit an allowed article, and cannot bypass an unrelated topic restriction.
-- [ ] A user without `topic.edit` cannot save or delete a topic directly.
-- [ ] A moderator can review submitted articles only with the corresponding rights.
-- [ ] Draft visibility follows configuration and role, including the `listdraftstories` condition.
-- [ ] The final article has the intended public visibility and presentation.
+- A normal contributor can submit but cannot reach the privileged article editor.
+- A Story Admin can edit an allowed article, and cannot bypass an unrelated topic restriction.
+- A user without `topic.edit` cannot save or delete a topic directly.
+- A moderator can review submitted articles only with the corresponding rights.
+- Draft visibility follows configuration and role, including the `listdraftstories` condition.
+- The final article has the intended public visibility and presentation.
 
 ## Detailed tutorial: write, review and publish an article
 
