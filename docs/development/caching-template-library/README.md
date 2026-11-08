@@ -157,4 +157,4 @@ When debugging a custom theme, verify in order:
 
 This reference is based on Geeklog **2.2.2** source behavior. Re-check syntax, APIs and generated output when targeting another version, including 2.2.3. The historical Wiki page *Caching Template Library* served as a topic inventory; its code examples have not been reproduced verbatim.
 
-Related guides: [Themes and templates](../templates/) and [Theme development](../theme-development/). For the implementation, consult the [tagged template class](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/classes/template.class.php).
+Related guides: [Themes and templates](../templates/index.html) and [Theme development](../theme-development/index.html). For the implementation, consult the [tagged template class](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/classes/template.class.php).
