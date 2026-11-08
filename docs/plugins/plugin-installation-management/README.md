@@ -12,7 +12,7 @@ A plugin can change database tables, permissions, templates, configuration and p
 6. Confirm the plugin's public pages, administration pages and any context-sensitive help links.
 7. Record whether uninstall removes data and how rollback works before touching production.
 
-## Upgrade acceptance matrix
+## Check an upgrade
 
 | Stage | Expected evidence |
 | --- | --- |
@@ -92,20 +92,18 @@ Always review the installed plugin's own migration logic and permissions before 
 
 **Important:** do not paste `mode` parameters or CSRF tokens into support messages. Use the normal administration interface, not constructed state-changing URLs.
 
-## Permission and lifecycle acceptance
+## Verify permissions and plugin lifecycle
 
-- [ ] Plugin editor without upload/install permissions cannot reach package upload.
-- [ ] Plugin install and upload operations are denied to roles lacking the respective rights.
-- [ ] The allowed administrator can see the installed and code versions and declared dependencies where available.
-- [ ] Fresh install and supported upgrade both preserve required site functionality.
-- [ ] Disabling a plugin is distinguished from uninstalling it and deleting data.
-- [ ] Backup restoration has been exercised before deploying the change to production.
+- Plugin editor without upload/install permissions cannot reach package upload.
+- Plugin install and upload operations are denied to roles lacking the respective rights.
+- The allowed administrator can see the installed and code versions and declared dependencies where available.
+- Fresh install and supported upgrade both preserve required site functionality.
+- Disabling a plugin is distinguished from uninstalling it and deleting data.
+- Backup restoration has been exercised before deploying the change to production.
 
 ## Troubleshooting safely
 
 If an upgrade fails partway through, preserve logs and database state before retrying. Do not rerun destructive SQL, clear plugin records or change the Core database version blindly. Follow [Backup and recovery](../../administration/backup-and-recovery/index.html) and [Troubleshooting](../../administration/troubleshooting/index.html).
-
-## Remaining verification
 
 ## Detailed tutorial: install and maintain a trusted plugin
 
@@ -149,4 +147,4 @@ If an upgrade fails partway through, preserve logs and database state before ret
 | Missing settings after upgrade | Compare recorded configuration and logs against the staged backup |
 | Error after upload | Preserve diagnostics and test recovery rather than performing repeated uploads |
 
-**Source-backed controls:** [plugins.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) checks permissions, valid tokens and routes for install, upload, upgrade and state changes. A complete live plugin installation or upgrade is **not** claimed by this tutorial.
+**Plugin manager source:** [plugins.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) checks permissions, valid tokens and routes for install, upload, upgrade and state changes.
