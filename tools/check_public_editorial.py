@@ -29,6 +29,7 @@ SOURCES = (
     "development/plugin-development/README.md",
     "development/security-and-permissions/README.md",
     "development/templates/README.md",
+    "development/caching-template-library/README.md",
     "development/theme-development/README.md",
     "development/contributing/README.md",
     "reference/database-schema/README.md",
@@ -78,8 +79,8 @@ def main():
     if failures:
         raise AssertionError("Internal project status found in public documentation:\n" +
                              "\n".join(failures[:45]))
-    assert len(SOURCES) == 24
-    print("PASS: 24 public sources and rendered HTML contain no internal editorial gates")
+    assert len(SOURCES) == 25
+    print("PASS: 25 public sources and rendered HTML contain no internal editorial gates")
     print("NOTE: structural wording check only; it does not certify technical accuracy")
 
 if __name__ == "__main__":
