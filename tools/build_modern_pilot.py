@@ -123,6 +123,7 @@ RELATED = {
     "plugins/plugin-installation-management": ("plugins/bundled-plugins", "administration/backup-and-recovery"),
     "development/plugin-development": ("development/plugin-api", "development/configuration-api"),
     "development/theme-development": ("development/templates", "user-guide/blocks-and-navigation"),
+    "development/caching-template-library": ("development/templates", "development/theme-development"),
     "user-guide/syndication-rss-autotags": ("user-guide/articles-and-topics", "plugins/static-pages"),
     "plugins/bundled-plugins": ("plugins/plugin-installation-management", "plugins/static-pages"),
     "reference/database-schema": ("development/configuration-api", "administration/backup-and-recovery"),
