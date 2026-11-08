@@ -19,7 +19,7 @@ The Geeklog 2.2.2 distribution includes these files:
 - `public_html/webservices/atom/index.php`
 - `system/lib-webservices.php`
 
-They are relevant starting points when inspecting Atom-related functionality. The historical Wiki's client examples and URLs must be checked against your actual installation, web server configuration and enabled plugins.
+Check the installed Geeklog release and enabled plugins to identify which service routes and operations your site provides.
 
 ## Implementing or troubleshooting an integration
 
