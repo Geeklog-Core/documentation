@@ -116,8 +116,8 @@ def main():
         assert len(names)==sum(p.is_file() for p in (ROOT/"dist/geeklog-2.2.2/public_html").rglob("*"))
     online_html = list(WEB.rglob("*.html"))
     modern_html = list(modern_web.rglob("*.html"))
-    assert len(online_html) == len(PAGES) + 21, "Expected 25 online pages"
-    assert len(list(modern_embed.rglob("*.html"))) == 23
+    assert len(online_html) == len(PAGES) + 22, "Expected 26 online pages"
+    assert len(list(modern_embed.rglob("*.html"))) == 24
     assert (modern_embed / "search-index.json").is_file()
     assert (modern_embed / "search.js").is_file()
     assert not (WEB / "modern").exists(), "Obsolete public modern subtree"
