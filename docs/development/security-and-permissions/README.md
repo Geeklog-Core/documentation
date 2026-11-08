@@ -1,7 +1,5 @@
 # Security and permissions for developers
 
-> **Geeklog 2.2.2 online developer reference — runtime verification pending.** Use it as a code-reading map, not a substitute for the permission, session and CSRF behavior tests required by your application.
-
 ## Core security checks
 
 The [Geeklog 2.2.2 security library](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php) defines:
