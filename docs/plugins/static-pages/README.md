@@ -90,8 +90,6 @@ When troubleshooting a site failure, follow the [administration troubleshooting 
 - Check whether content depends on a legacy plugin configuration key.
 - Back up the site before changing plugin versions.
 
-**Sources and provenance:** [tagged Static Pages auto-installer](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/plugins/staticpages/autoinstall.php) and [plugin functions](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/plugins/staticpages/functions.inc). The archived Wiki topic `Static_Pages_Plugin` was used as a topic locator, not copied. Verify interface details on the deployed release.
-
 ## Detailed tutorial: create an About page with Static Pages
 
 **Scenario:** publish a standalone **About our community** page, distinct from news articles. **Prerequisites:** the bundled Static Pages plugin is installed, a disposable site, and an account with `staticpages.edit`.
@@ -118,4 +116,3 @@ When troubleshooting a site failure, follow the [administration troubleshooting 
 5. Inspect the cloned page anonymously, then remove the disposable copy.
 
 **Tagged source:** [Static Pages administrator](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins/staticpages/index.php) checks `staticpages.edit` to enter, `staticpages.delete` for deletion controls, and `staticpages.PHP` plus the plugin setting before offering PHP-related options. It supports preview, edit and clone branches. Exact UI labels and template presentation require staging verification.
-

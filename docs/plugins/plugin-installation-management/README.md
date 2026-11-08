@@ -1,7 +1,5 @@
 # Plugin installation and management
 
-> **Geeklog 2.2.2 administration guide — release-specific procedures to verify.** This is a safe planning and acceptance checklist, not a substitute for a plugin's own installation or upgrade instructions.
-
 ## Before installing
 
 A plugin can change database tables, permissions, templates, configuration and public routes. Record the **exact plugin version**, supported Geeklog versions and required PHP/database features before installing it.
@@ -14,7 +12,7 @@ A plugin can change database tables, permissions, templates, configuration and p
 6. Confirm the plugin's public pages, administration pages and any context-sensitive help links.
 7. Record whether uninstall removes data and how rollback works before touching production.
 
-## Upgrade acceptance matrix
+## Check an upgrade
 
 | Stage | Expected evidence |
 | --- | --- |
@@ -94,26 +92,18 @@ Always review the installed plugin's own migration logic and permissions before 
 
 **Important:** do not paste `mode` parameters or CSRF tokens into support messages. Use the normal administration interface, not constructed state-changing URLs.
 
-**Source:** [plugin manager dispatch](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php).
+## Verify permissions and plugin lifecycle
 
-## Permission and lifecycle acceptance
-
-- [ ] Plugin editor without upload/install permissions cannot reach package upload.
-- [ ] Plugin install and upload operations are denied to roles lacking the respective rights.
-- [ ] The allowed administrator can see the installed and code versions and declared dependencies where available.
-- [ ] Fresh install and supported upgrade both preserve required site functionality.
-- [ ] Disabling a plugin is distinguished from uninstalling it and deleting data.
-- [ ] Backup restoration has been exercised before deploying the change to production.
-
-These are planned manual acceptance cases. The existence of an API call is not proof a particular third-party extension's upgrade is safe.
+- Plugin editor without upload/install permissions cannot reach package upload.
+- Plugin install and upload operations are denied to roles lacking the respective rights.
+- The allowed administrator can see the installed and code versions and declared dependencies where available.
+- Fresh install and supported upgrade both preserve required site functionality.
+- Disabling a plugin is distinguished from uninstalling it and deleting data.
+- Backup restoration has been exercised before deploying the change to production.
 
 ## Troubleshooting safely
 
 If an upgrade fails partway through, preserve logs and database state before retrying. Do not rerun destructive SQL, clear plugin records or change the Core database version blindly. Follow [Backup and recovery](../../administration/backup-and-recovery/index.html) and [Troubleshooting](../../administration/troubleshooting/index.html).
-
-## Remaining verification
-
-Document the exact bundled Geeklog 2.2.2 plugin administration screens and version-specific installation workflow against the release archive. A third-party extension requires its own source provenance, licensing and compatibility checks.
 
 ## Detailed tutorial: install and maintain a trusted plugin
 
@@ -157,5 +147,4 @@ Document the exact bundled Geeklog 2.2.2 plugin administration screens and versi
 | Missing settings after upgrade | Compare recorded configuration and logs against the staged backup |
 | Error after upload | Preserve diagnostics and test recovery rather than performing repeated uploads |
 
-**Source-backed controls:** [plugins.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) checks permissions, valid tokens and routes for install, upload, upgrade and state changes. A complete live plugin installation or upgrade is **not** claimed by this tutorial.
-
+**Plugin manager source:** [plugins.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php) checks permissions, valid tokens and routes for install, upload, upgrade and state changes.

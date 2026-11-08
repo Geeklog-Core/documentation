@@ -1,7 +1,5 @@
 # Geeklog themes and templates
 
-> **Geeklog 2.2.2 online theme guide — technical verification ongoing.** This guide is a new synthesis informed by topics in the recovered Wiki inventory, including `Caching_Template_Library` and `Theme_Developers_Guide`. These pages span different Geeklog releases. Check the target release and the actual bundled theme before reusing configuration keys or code snippets.
-
 ## Overview
 
 Geeklog uses template files to separate the presentation of a page from its PHP application logic. Themes define the site's layout and styling, while plugins can supply their own template files. The recovered Wiki describes a caching template library, multiple template search locations, variables, blocks and rendering logic.
@@ -66,5 +64,3 @@ For related topics, use the [configuration reference](https://geeklog-core.githu
 - Verify that cached pages do not reveal personalized or administrative content.
 - Check plugin templates, responsive layout, and upgrade behavior.
 - Confirm theme rendering against the target release's code and shipped themes.
-
-**Source provenance:** 2024-11-02 recovered Wiki pages `Caching_Template_Library` and `Theme_Developers_Guide`. Licensing and technical validation pending.

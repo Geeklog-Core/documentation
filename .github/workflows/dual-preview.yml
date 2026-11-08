@@ -1,7 +1,7 @@
 name: Validate online and embedded Geeklog documentation
 on:
   push:
-    branches: [main, docs/clean-public-urls]
+    branches: [main, docs/public-editorial-cleanup]
   workflow_dispatch:
 permissions:
   contents: read
@@ -88,6 +88,7 @@ jobs:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs
       - run: python tools/check_delivery_readiness.py
       - run: python tools/check_public_routes.py
+      - run: python tools/check_public_editorial.py
       - run: python tools/check_extracted_overlay.py
         env:
           GEEKLOG_CORE_DOCS: core-source/public_html/docs

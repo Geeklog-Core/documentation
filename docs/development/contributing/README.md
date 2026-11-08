@@ -1,7 +1,5 @@
 # Contributing to Geeklog
 
-> **Contributor orientation, not a binding Core policy.** Follow the current contribution files and maintainer instructions in the specific Geeklog repository. Historical Wiki coding conventions from 2007 are not automatically authoritative.
-
 ## Choose the repository
 
 Geeklog Core, plugin projects and the documentation repository have distinct code owners and release cycles. Before filing a change, check the target repository's README, open issues and contribution instructions. Link a reproducible bug report to the affected release or plugin version.
@@ -18,7 +16,7 @@ Geeklog Core, plugin projects and the documentation repository have distinct cod
 
 ## Documentation contributions
 
-The [official documentation repository](https://github.com/Geeklog-Core/documentation) maintains Markdown source and builds an online site. A documentation PR should specify its Geeklog release scope, affected guide, historical source basis and any remaining editorial review. Verify local links, anchors and generated output before opening the PR.
+The [official documentation repository](https://github.com/Geeklog-Core/documentation) maintains Markdown source and builds an online site. A documentation PR should specify its Geeklog release scope, affected guide, historical source basis and verification details. Verify local links, anchors and generated output before opening the PR.
 
 Do not import text, code examples or images from the old Geeklog Wiki without checking author attribution, applicable license and technical accuracy. Prefer new explanations grounded in tagged release source.
 
@@ -32,7 +30,3 @@ Do not import text, code examples or images from the old Geeklog Wiki without ch
 | Security | Are permission checks and untrusted data handled correctly? |
 | Documentation | Do links, terms and examples match the target release? |
 | Provenance | Are third-party contributions and reuse rights clear? |
-
-## Historical context
-
-The recovered `Coding_Guidelines` Wiki page documents historical PEAR conventions and must not supersede current repository policy. The precise coding standard, CI and issue/PR procedures should be checked with project maintainers before describing them as official requirements.

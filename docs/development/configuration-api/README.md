@@ -1,7 +1,5 @@
 # Configuration API for Geeklog developers
 
-> **Geeklog 2.2.2 source-checked overview.** The recovered Wiki article `AddToConfiguration` was written for Geeklog 1.7.x. This guide identifies APIs present in 2.2.2 and deliberately avoids copying the old database-upgrade instructions as current practice.
-
 ## Configuration storage and installation
 
 Geeklog provides a `Configuration` class in [`system/classes/config.class.php`](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/classes/config.class.php). The installer contains configuration definitions in [`public_html/admin/install/config-install.php`](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/install/config-install.php).
@@ -72,14 +70,3 @@ A useful review sequence is: inspect the tagged `config.class.php` method, find 
 7. Restore the staging state after the test. Record failures and any migration/rollback limits.
 
 **Example scope note:** a `$c->add(...)` registration may describe a setting, but it does not guarantee that an upgrade script automatically introduces it on all existing sites. Treat clean-install behavior and upgrade behavior as independent acceptance tests.
-
-## What remains to verify
-
-- [x] `Configuration::add()` method signature in the Geeklog 2.2.2 distribution.
-- [x] Installer uses `$c->add()` for configuration metadata.
-- [ ] Whether specific plugin helper methods are supported and how they should be invoked.
-- [ ] Detailed upgrade workflow and backward-compatibility requirements.
-- [ ] Technical review of an end-to-end code example against a disposable 2.2.2 install.
-- [ ] Licensing and Wiki contributor attribution.
-
-**Provenance:** recovered Wiki `AddToConfiguration` (2024 backup), with 1.7.x-era instructions replaced by a version-scoped development overview.

@@ -1,7 +1,5 @@
 # Articles, topics and publishing
 
-> **Geeklog 2.2.2 task guide — UI verification pending.** Exact publishing controls depend on the site's theme, configuration and your feature rights. Do not treat this page as an authorization specification.
-
 ## Concepts
 
 An **article** (historically called a *story*) is dated editorial content. A **topic** groups related articles and can help readers navigate the site. A **draft** is not necessarily published: approval, publication time, audience permissions and moderation settings can affect visibility.
@@ -109,28 +107,20 @@ The `submit.php` handler also checks `loginrequired` and `submitloginrequired` b
 4. Repeat the request with a restricted topic, invalid submission data or a blocked/too-fast repeat submission; record the actual message, not just the redirected URL.
 5. Check publication as an anonymous reader and inspect the moderation queue separately with an authorized account.
 
-**Tagged source:** [submit.php](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), especially `savesubmission()`, `savestory()` and the final mode dispatch.
-
 ### Parent-topic access and topic identifiers
 
 The tagged `admin/topic.php` checks whether a requested parent exists, whether it is a forbidden archive parent, whether a topic identifier is reserved or already used, and whether the editor has sufficient access to the target and parent topic. Its save path requires a CSRF token.
 
 When designing the category tree, verify the parent topic and its rights **before** saving. Changing an identifier or deleting a parent can affect existing article assignments; do this first in a staging copy. The Core represents the root with `TOPIC_ROOT`, not an ordinary user-created topic identifier.
 
-## Staging acceptance checklist
+## Check publishing and permissions
 
-- [ ] A normal contributor can submit but cannot reach the privileged article editor.
-- [ ] A Story Admin can edit an allowed article, and cannot bypass an unrelated topic restriction.
-- [ ] A user without `topic.edit` cannot save or delete a topic directly.
-- [ ] A moderator can review submitted articles only with the corresponding rights.
-- [ ] Draft visibility follows configuration and role, including the `listdraftstories` condition.
-- [ ] The final article has the intended public visibility and presentation.
-
-These are **test cases to execute**, not a record of a completed staging test.
-
-## Further verification
-
-The full set of Geeklog 2.2.2 article administration form fields, scheduling behavior and revision options must be checked in a running installation and against the tagged handlers. Older Wiki examples may use *story* where modern editorial language uses *article*; retain the historical term when it is a code symbol or source setting.
+- A normal contributor can submit but cannot reach the privileged article editor.
+- A Story Admin can edit an allowed article, and cannot bypass an unrelated topic restriction.
+- A user without `topic.edit` cannot save or delete a topic directly.
+- A moderator can review submitted articles only with the corresponding rights.
+- Draft visibility follows configuration and role, including the `listdraftstories` condition.
+- The final article has the intended public visibility and presentation.
 
 ## Detailed tutorial: write, review and publish an article
 
@@ -189,6 +179,3 @@ Before opening Geeklog, make sure the introduction makes sense on its own: theme
 4. Inspect publish/expire dates, topic membership and owner/group/member/anonymous permissions.
 5. Review any spam or rate-limit feedback. Do not disable security checks just to make the test succeed.
 6. Recheck the public site in a logged-out session after an authorized change.
-
-**Source:** [submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [articles](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topics](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php). These are source-based procedures awaiting UI execution.
-

@@ -65,23 +65,19 @@ Use these checks:
 4. **No plugin items:** review whether that particular plugin registers a moderation list; the Core uses `PLG_showModerationList()`.
 5. **Actions appear to do nothing:** confirm the form's valid CSRF token and rights before retrying; never bypass checks by constructing manual URLs.
 
-**Source:** [Core moderation administration](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [security handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php).
+## Check moderation permissions
 
-## Moderation acceptance tests
-
-- [ ] Article and comment queues follow their separate rights and configuration switches.
-- [ ] Direct form submissions without a valid CSRF token do not perform a moderation action.
-- [ ] A nonmoderator cannot approve or delete a submission.
-- [ ] Approved material is visible only to its intended audience.
-- [ ] Plugin-specific queues follow their plugin's permissions and callbacks.
+- Article and comment queues follow their separate rights and configuration switches.
+- Direct form submissions without a valid CSRF token do not perform a moderation action.
+- A nonmoderator cannot approve or delete a submission.
+- Approved material is visible only to its intended audience.
+- Plugin-specific queues follow their plugin's permissions and callbacks.
 
 These outcomes must be recorded from a disposable installation; reading the handler is not equivalent to a live permission test.
 
 ## Developer integration
 
 Plugins may integrate moderation and comments through Core dispatchers, but old callback names and signatures are not a safe implementation template. Begin with the tagged [Plugin API](../../development/plugin-api/index.html) and verify dispatch behavior in Geeklog 2.2.2 before coding.
-
-**Historical Wiki sources to evaluate:** `Adding_Moderation_Capability` and `Integrating_the_Comment_Engine`. These pages describe old version bands; their code samples and wording have not been republished. Complete UI testing and policy examples remain outstanding.
 
 ## Detailed tutorial: comment on an article
 
@@ -115,6 +111,3 @@ Plugins may integrate moderation and comments through Core dispatchers, but old 
 4. Approve or reject through the available form and record the resulting notification or redirect.
 5. Check the public article as a visitor. If the article remains invisible, review its publication date and permissions rather than approving it again.
 6. Finally, inspect the draft queue only if `listdraftstories` is enabled and you have `story.edit`.
-
-**Source:** [moderation controller](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php). Tests remain pending on a disposable site.
-

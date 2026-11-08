@@ -1,7 +1,5 @@
 # Geeklog plugin API — developer guide
 
-> **Version scope: Geeklog 2.2.2.** This guide introduces the Core plugin dispatchers and links them to tagged source code. It is a practical reference, not a complete API contract: verify callback signatures and parameters in the installed release before implementation. Historical Wiki topics are noted for provenance but their wording and code have not been republished.
-
 ## How plugins integrate
 
 Geeklog exposes core-level `PLG_*` dispatch functions. A plugin commonly implements optional callbacks named `plugin_<event>_<pluginname>` to participate in an operation. **Do not assume a one-to-one mapping**: a core dispatcher can choose more than one callback, and some events do not propagate to every plugin.
@@ -24,7 +22,7 @@ Historically documented callback families include:
 
 This table identifies **documented historical callbacks**, not confirmation that every one remains supported unchanged in Geeklog 2.2.2.
 
-## Verification against Geeklog 2.2.2
+## Find plugin callbacks in Geeklog 2.2.2
 
 The following **dispatcher-to-callback mappings were checked directly in the tagged Geeklog 2.2.2 source**, `system/lib-plugins.php` at [`v2.2.2`](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php):
 
@@ -83,7 +81,7 @@ A reliable extension starts with a narrow feature contract, not with copying a h
 
 A callback's name alone is not its API contract. Read the actual dispatcher implementation in [`system/lib-plugins.php` for Geeklog 2.2.2](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-plugins.php) and a maintained plugin's implementation for the same release. Record parameters, return values and error-handling expectations only after verifying them.
 
-## Practical staging acceptance matrix
+## Test your plugin before release
 
 Run these checks on an isolated Geeklog site with **disposable data** before releasing an extension.
 
@@ -96,22 +94,8 @@ Run these checks on an isolated Geeklog site with **disposable data** before rel
 | Submission or comment | Valid action follows the configured moderation workflow | Unauthorized or invalid submission is rejected |
 | Disable/uninstall | Site remains operational and documented retention policy is respected | Re-enable or restoration path is understood before deleting data |
 
-**Do not** treat the presence of a plugin's HTML help page, a visible administrator menu or a successful PHP syntax check as proof that these runtime paths have been tested.
+Confirm plugin behavior with a running installation, including both permitted and denied operations.
 
 ## Document the plugin alongside its source
 
 For a maintainable plugin, keep an English README or documentation section that describes its compatibility target, installation/upgrade procedure, configuration, permissions, user workflows, known limitations and recovery method. Refer to the [security and permissions guide](../../development/security-and-permissions/index.html) and the [configuration API guide](../../development/configuration-api/index.html) rather than duplicating unverified PHP examples.
-
-When Geeklog 2.2.3 becomes the integration target, repeat callback and plugin-version checks against the actual tagged release. The 2.2.2 mappings in this page should remain labelled historical until that verification is complete.
-
-## Compatibility checklist
-
-- [x] Dispatcher mapping for `PLG_install()`, `PLG_getParams()` and `PLG_upgrade()` rechecked against the Geeklog v2.2.2 tagged source
-- [ ] Complete callback parameter contracts checked against the target Geeklog release
-- [ ] Installation and upgrade rehearsed in staging
-- [ ] All code examples tested with the target PHP/runtime
-- [ ] Permission/CSRF checks reviewed
-- [ ] Legacy Wiki links mapped to final anchors
-- [ ] Attribution and reuse license approved
-
-**Source provenance:** new release-scoped synthesis informed by topic titles from the recovered 2024-11-02 Geeklog Wiki backup (titles above) and the tagged Geeklog v2.2.2 source. Original Wiki text, page contributors and reuse license still require verification before any verbatim republication. See `planning/EDITORIAL-PROVENANCE-REVIEW-222.md` in the source repository.

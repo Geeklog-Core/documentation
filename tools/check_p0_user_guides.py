@@ -12,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ONLINE = ROOT / "dist/online"
 CASES = {
     "user-guide/overview": ("user-guide/README.md", ("## Everyday tasks and source-backed administration paths", "## Practical learning path"), ("submit.php", "admin/article.php", "admin/topic.php", "admin/block.php", "admin/moderation.php", "admin/plugins.php")),
-    "user-guide/articles-and-topics": ("user-guide/articles-and-topics/README.md", ("## Choose the correct workflow in Geeklog 2.2.2", "## Article scheduling and topic hierarchy: fields to verify", "## Staging acceptance checklist"), ("story.edit", "topic.edit", "story.moderate", "listdraftstories")),
+    "user-guide/articles-and-topics": ("user-guide/articles-and-topics/README.md", ("## Choose the correct workflow in Geeklog 2.2.2", "## Article scheduling and topic hierarchy: fields to verify", "## Check publishing and permissions"), ("story.edit", "topic.edit", "story.moderate", "listdraftstories")),
     "user-guide/blocks-and-navigation": ("user-guide/blocks-and-navigation/README.md", ("## Configure a block using the Core administrator", "## Block types in Geeklog 2.2.2"), ("block.edit", "block.delete", "normal", "portal", "phpblock", "gldefault")),
-    "user-guide/comments-and-moderation": ("user-guide/comments-and-moderation/README.md", ("## Understand the moderation queues in Geeklog 2.2.2", "## Moderation acceptance tests"), ("comment.moderate", "story.moderate", "commentsubmission", "SEC_checkToken")),
-    "plugins/plugin-installation-management": ("plugins/plugin-installation-management/README.md", ("## Locate the Geeklog 2.2.2 plugin manager", "## Upgrade states and dependencies", "## Permission and lifecycle acceptance"), ("plugin.edit", "plugin.install", "plugin.upload", "PLG_upgrade", "PLG_resolveDependencies")),
+    "user-guide/comments-and-moderation": ("user-guide/comments-and-moderation/README.md", ("## Understand the moderation queues in Geeklog 2.2.2", "## Check moderation permissions"), ("comment.moderate", "story.moderate", "commentsubmission", "SEC_checkToken")),
+    "plugins/plugin-installation-management": ("plugins/plugin-installation-management/README.md", ("## Locate the Geeklog 2.2.2 plugin manager", "## Upgrade states and dependencies", "## Verify permissions and plugin lifecycle"), ("plugin.edit", "plugin.install", "plugin.upload", "PLG_upgrade", "PLG_resolveDependencies")),
 }
 
 # Important role/route distinctions must remain documented across revisions.
@@ -65,7 +65,7 @@ def main():
         if item["status"] != "NOT_RUN":
             assert item["evidence"].strip(), (item["case_id"], "Manual evidence required for a claimed outcome")
     print(f"PASS: {len(scenarios)} version-scoped staging cases covering every P0 guide; no results asserted without evidence")
-    print(f"PASS: {len(CASES)} P0 guides and generated pages include source-backed procedures, exact rights, and unchecked staging gates")
+    print(f"PASS: {len(CASES)} P0 guides and generated pages include source-backed procedures, exact rights, and operational checks")
     print("NOTE: this is documentation coverage, not execution of a Geeklog installation")
 
 

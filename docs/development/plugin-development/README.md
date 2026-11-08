@@ -32,5 +32,3 @@ Document which configuration defaults, rights, database objects and templates th
 ## 6. Document and release
 
 Include an English README, installation and upgrade notes, compatibility target, permissions matrix, configuration options, troubleshooting, license and provenance, and recovery steps. Review source references before submitting a PR.
-
-**Historical Wiki leads:** `Plugin_API`, `Plugin_Autoinstall`, `Functions.inc_-_Listing_of_the_Plugin_Functions`, `Adding_Moderation_Capability`. Use them as topic indexes, not as unreviewed code examples. A complete runnable sample plugin and live 2.2.2 test remain separate acceptance tasks.

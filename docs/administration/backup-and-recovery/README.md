@@ -1,7 +1,5 @@
 # Back up and recover a Geeklog site
 
-> **Geeklog 2.2.2 reference.** These procedures distinguish the built-in database export from a complete site backup. Rehearse restoration with your actual database, hosting environment and plugins before using the procedure in production.
-
 ## What must be backed up
 
 A usable Geeklog backup normally needs **both** the database and the relevant site files, not just one SQL export. Include the Geeklog application configuration, site-specific modifications, uploaded media and plugin data. The exact file locations depend on how Geeklog was installed.
@@ -98,13 +96,3 @@ Do not rely solely on a backup-success message. A backup is useful only when it 
 6. Only after the trial succeeds, plan a controlled production recovery with rollback options.
 
 This guide does **not** claim that the 2.2.2 administration screen offers a complete one-click site restore. Database export and full-site recovery are distinct tasks.
-
-## Verification status
-
-- [x] Database backup page and class confirmed in the Geeklog 2.2.2 source.
-- [x] `Root` restriction and `mysql` limitation confirmed in `admin/database.php`.
-- [x] `backup_path` configuration key located in the bundled reference.
-- [x] `SEC_inGroup('Root')`, `$_DB_dbms` and `backup_path` checks rechecked directly in tagged `public_html/admin/database.php`.
-- [ ] A complete backup-and-restore drill performed against an isolated 2.2.2 installation.
-- [ ] Database-engine-specific recovery steps tested.
-- [ ] Historical Wiki reuse and attribution checked.

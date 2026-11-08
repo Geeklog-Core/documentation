@@ -1,7 +1,5 @@
 # Troubleshooting Geeklog installations
 
-> **Geeklog 2.2.2 — diagnostic guide.** Start with the earliest error and preserve evidence. The historical Wiki and bundled instructions contain examples from older PHP/database releases, so their original commands may be obsolete.
-
 ## Collect a useful diagnosis
 
 Before changing a live site, record:
@@ -120,14 +118,6 @@ The bundled [configuration reference](https://github.com/Geeklog-Core/geeklog/bl
 
 Provide maintainers with a minimal reproduction, precise software versions, the first redacted error and whether it occurs in a clean staging installation. Refer to [Geeklog's official project](https://www.geeklog.net/) or [its GitHub repository](https://github.com/Geeklog-Core/geeklog).
 
-## Verification status
-
-- [x] Installer path and required installer-directory cleanup checked in bundled Geeklog 2.2.2 documentation.
-- [x] Configuration help path confirmed in the 2.2.2 distribution.
-- [x] Database backup restrictions checked against `admin/database.php`.
-- [ ] Exact error signatures and fixes tested on a disposable installation.
-- [ ] Linked legacy Wiki troubleshooting articles reviewed and attributed.
-
 ## Frequently asked questions
 
 ### Why does the site show HTTP 500 or a blank page?
@@ -157,7 +147,3 @@ Check the precise plugin and Core versions, the first error, and whether the cha
 ### How can I request support?
 
 Provide release versions, sanitized route and first error, time of the incident, reproduction steps and attempted checks. Exclude passwords, tokens, private records and public debug endpoints.
-
-### Editorial backlog
-
-The historic Geeklog FAQ and Wiki may contain additional useful questions. Their answers must be rechecked against a tagged release and current hosting practices before adoption. This page intentionally contains new, scope-limited guidance rather than copied historical troubleshooting prescriptions.

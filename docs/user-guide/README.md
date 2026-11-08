@@ -1,7 +1,5 @@
 # Using Geeklog — user guide
 
-> **Geeklog 2.2.2 orientation.** The general workflows below introduce the main concepts. Interface labels, available actions and editor options depend on your account rights, installed theme and enabled plugins. Detailed UI walkthroughs still require staging verification.
-
 ## Find your way around the site
 
 Geeklog is a content management system: visitors read published content, while authorized users can submit or manage material depending on permissions. Start by identifying whether you are browsing as a visitor, registered user, content editor or administrator. The visible menu is not a complete description of your permissions.
@@ -42,8 +40,6 @@ The same action may appear through different themes or navigation menus. For Gee
 
 Start with one small, reversible exercise on a staging site: publish a harmless article, assign an existing topic, view the public result, and then edit the article with an appropriate administrative role. For a second exercise, add a disposable block and test its appearance on a narrow screen. Finish by checking moderation and plugin screens as separate roles without making any production changes.
 
-The detailed guides describe the **expected actions and source-confirmed permission gates**. Their acceptance checklists remain unchecked until someone exercises them on a real Geeklog installation.
-
 **Tagged Core references:** [submission](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php), [articles](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/article.php), [topics](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/topic.php), [blocks](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/block.php), [moderation](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php), [plugins](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/plugins.php).
 
 ## Why two users may see different publishing screens
@@ -54,19 +50,11 @@ For a missing article, check the contributor's result message, the publication s
 
 The moderation dashboard likewise shows only queues justified by the user's configured rights. A missing moderation queue is not necessarily a software error; check [Comments and Moderation](../comments-and-moderation/index.html).
 
-**Source:** [submission handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/submit.php) and [moderation handler](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/public_html/admin/moderation.php).
-
 ## Publishing safely
 
 Before submitting text, check its title, headings, links, image rights and intended audience. Preview the result in the installed theme when available. Some contributions require moderation or review before appearing publicly; pressing Submit does not always mean immediate publication.
 
 Do not include passwords, private account information or another person's unpublished material in an article or support request. Ask the site administrator about the applicable publishing rules.
-
-## What this guide still needs
-
-A version-specific screenshot walkthrough of the login/profile forms, submission screens and editorial menus; tested accessibility and mobile paths; and the exact distinction between rights for site visitors, story contributors and approved editors. These items must be checked against a running Geeklog release before removing the scope notice.
-
-**Source basis:** Geeklog 2.2.2 release and the maintained administration, article and plugin documentation. This is new prose, not a verbatim import from the historic Wiki.
 
 ## Hands-on learning course: build a small information site
 
@@ -110,5 +98,4 @@ A version-specific screenshot walkthrough of the login/profile forms, submission
 4. Save a record of the test content, accounts used and any unresolved issue.
 5. Remove or archive disposable content using normal administration actions, and verify that permanent navigation still works.
 
-**Completion criteria:** you can locate each editing interface, explain the permissions required, publish and inspect content, and reverse your test changes. The exercises are **not yet marked as executed**; record their outcomes during staging.
-
+**Completion criteria:** you can locate each editing interface, explain the permissions required, publish and inspect content, and reverse your test changes.

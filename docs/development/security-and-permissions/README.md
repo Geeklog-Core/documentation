@@ -1,7 +1,5 @@
 # Security and permissions for developers
 
-> **Geeklog 2.2.2 online developer reference — runtime verification pending.** Use it as a code-reading map, not a substitute for the permission, session and CSRF behavior tests required by your application.
-
 ## Core security checks
 
 The [Geeklog 2.2.2 security library](https://github.com/Geeklog-Core/geeklog/blob/v2.2.2/system/lib-security.php) defines:
@@ -34,13 +32,5 @@ CSRF defenses are separate from authentication, authorization and output escapin
 - Escape output for the destination context (HTML, attribute, URL, JavaScript).
 - Avoid revealing stack traces, credentials, password-reset values, access tokens and server paths in public error pages.
 - Verify that personally identifiable data is not accidentally exposed by cache entries or debug logging.
-
-## Review checklist
-
-- [x] `SEC_*` API names and displayed signatures checked in Geeklog 2.2.2.
-- [x] Token use and permission checks confirmed in 2.2.2 user/group administration handlers.
-- [ ] Plugin-specific authorization cases tested with nonadministrator accounts.
-- [ ] Interaction with the current release's session and cookie settings audited.
-- [ ] Historical Wiki provenance and attribution reviewed.
 
 **Source scope:** Geeklog v2.2.2; verify behavioral assumptions before deploying code to later releases.

@@ -232,8 +232,8 @@ def main():
         '<section id="docs-catalogue" aria-label="Browse all guides">'
         '<h2>Browse the documentation</h2>'
         '<p>Guides for Geeklog 2.2.2, with additional administration and development references. '
-        'The original embedded configuration help remains authoritative for '
-        'historical defaults and detailed examples.</p>'
+        'Explore configuration, administration, development and plugin guidance, '
+        'with links to version-specific references and practical tutorials.</p>'
         + grouped_catalogue(entries) + '</section>'
     )
     # A simple, task-oriented journey for visitors new to Geeklog.
